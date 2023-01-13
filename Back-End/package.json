@@ -8,7 +8,8 @@
     "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "mongoose": "^6.8.3",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "twilio": "^3.84.1"
   },
   "name": "back-end",
   "version": "1.0.0",

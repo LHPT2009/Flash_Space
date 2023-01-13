@@ -1,6 +1,9 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const accountSid = 'AC9e109b3155139b606cb4ce6323dcacd3'; 
+const authToken = '696d99301591aac27dc9021042cac440'; 
+const client = require('twilio')(accountSid, authToken);
 
 const authController = {
 
@@ -17,7 +20,13 @@ const authController = {
                 lastname: req.body.lastname,
                 numberphone: req.body.numberphone,
             });
-
+            client.messages.create({
+               body:'Thử gửi tin',     
+               to: '+84372417574',
+               from: '+15342483381', 
+             }) 
+            .then(message => console.log(message))
+            .catch(error => console.log(error))
             await newUser.save();
             res.status(200).json(newUser);
         } catch (error) {
