@@ -57,7 +57,8 @@ const authController = {
     },
 
     requestRefreshToken: async (req, res) => {
-        res.status(200).json("Đã Refresh thành công token cho user có id là "+req.user.id);
+        const accesstoken = authController.generateAccessToken(req.user);
+        res.status(200).json(accesstoken);
     },
 
     checkToken: async (req, res) => {
