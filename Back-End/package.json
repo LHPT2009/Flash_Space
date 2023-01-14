@@ -8,6 +8,7 @@
     "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "mongoose": "^6.8.3",
+    "nodemailer": "^6.9.0",
     "nodemon": "^2.0.20",
     "twilio": "^3.84.1"
   },

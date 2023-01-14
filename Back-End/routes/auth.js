@@ -11,5 +11,14 @@ router.post("/check", middlewareController.verifyToken, authController.checkToke
 
 router.post("/refresh", middlewareController.verifyTokenRefresh, authController.requestRefreshToken);
 
+router.post("/sendsms", authController.sendPassCodeBySMS);
+
+router.post("/sendmail", authController.sendPassCodeByMail);
+
+router.post("/resetsms", authController.resetPasswordBySMS);
+
+router.post("/resetmail", authController.resetPasswordByEmail);
+
+router.post("/confirmsms", authController.confirmNumberPhone);
 
 module.exports = router;
