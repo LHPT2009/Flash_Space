@@ -155,7 +155,8 @@ const authController = {
                     err,
                   });
                 }
-                return res.status(200).json(generatePasscodeToken(Stext));
+                const codetoken = authController.generatePasscodeToken(Stext)
+                return res.status(200).json({codetoken});
               }
             );
           } else {
@@ -184,7 +185,8 @@ const authController = {
             .then(message => console.log(message))
             .catch(error => console.log(error))
 
-        res.status(200).json(generatePasscodeToken(Stext));
+            const codetoken = authController.generatePasscodeToken(Stext)
+            return res.status(200).json({codetoken});
     },
 
     resetPasswordByEmail: async (req, res) => {
