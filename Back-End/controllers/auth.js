@@ -76,6 +76,14 @@ const authController = {
         );
     },
 
+    generatePasscodeToken: (code) => {
+      return jwt.sign({
+          code: code,
+      }, process.env.JWT_ACCESS_KEY,
+          { expiresIn: "60s" }
+      );
+    },
+
     loginUser: async (req, res) => {
         try {
             const user = await User.findOne({ username: req.body.username });
@@ -147,7 +155,7 @@ const authController = {
                     err,
                   });
                 }
-                return res.status(200).json("Đã gửi code cho bạn! Hãy kiểm tra Mail");
+                return res.status(200).json(generatePasscodeToken(Stext));
               }
             );
           } else {
@@ -176,7 +184,7 @@ const authController = {
             .then(message => console.log(message))
             .catch(error => console.log(error))
 
-        res.status(200).json("Đã gửi code cho bạn! Hãy kiểm tra SMS");
+        res.status(200).json(generatePasscodeToken(Stext));
     },
 
     resetPasswordByEmail: async (req, res) => {

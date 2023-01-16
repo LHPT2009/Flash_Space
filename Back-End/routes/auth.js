@@ -7,7 +7,7 @@ router.post("/register", authController.registerUser);
 
 router.post("/login", authController.loginUser);
 
-router.post("/check", middlewareController.verifyToken, authController.checkToken);
+router.post("/check", middlewareController.checkPasscodeToken);
 
 router.post("/refresh", middlewareController.verifyTokenRefresh, authController.requestRefreshToken);
 
