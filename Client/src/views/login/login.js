@@ -14,11 +14,8 @@ const Login = ({ navigation }) => {
       <StatusBar barStyle="light-content" />
       <View>
         <Text>Đăng nhập</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text>Chuyển trang Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Reset")}>
-          <Text>Chuyển trang Reset</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("HomeDrawer")}>
+          <Text>Chuyển trang HomeDrawer</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
