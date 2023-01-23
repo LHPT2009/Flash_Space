@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const prioritizedSchema = new mongoose.Schema(
+const PrioritizedSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -18,4 +18,4 @@ const prioritizedSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Prioritized", prioritizedSchema);
+module.exports = mongoose.model("Prioritized", PrioritizedSchema);

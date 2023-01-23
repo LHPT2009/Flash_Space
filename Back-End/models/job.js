@@ -4,11 +4,11 @@ const JobSchema = new mongoose.Schema(
   {
     idcategory: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "CategoryJob",
     },
     idstaff: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "Staff",
     },
     content: {
       type: String,

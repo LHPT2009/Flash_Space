@@ -4,7 +4,7 @@ const ImageApplicationSchema = new mongoose.Schema(
   {
     idapplication: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "Application",
     },
     time: {
       type: String,

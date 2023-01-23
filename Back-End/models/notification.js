@@ -4,7 +4,7 @@ const Notificationchema = new mongoose.Schema(
   {
     idbill: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "RoomBill",
     },
     title: {
       type: String,

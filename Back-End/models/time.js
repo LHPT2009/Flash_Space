@@ -4,7 +4,7 @@ const TimeSchema = new mongoose.Schema(
   {
     idroom: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "Room",
     },
     starttime: {
       type: String,

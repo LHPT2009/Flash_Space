@@ -4,11 +4,11 @@ const DetailsRoomSchema = new mongoose.Schema(
   {
     idtypesroom: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "TypesRoom",
     },
     idroom: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "Room",
     },
     price: {
       type: Number,

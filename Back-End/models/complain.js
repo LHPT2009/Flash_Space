@@ -4,7 +4,7 @@ const ComplaineSchema = new mongoose.Schema(
   {
     idbill: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "RoomBill",
     },
     content: {
       type: String,
