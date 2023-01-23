@@ -2,17 +2,18 @@ const mongoose = require("mongoose");
 
 const TimeSchema = new mongoose.Schema(
   {
-    name: {
+    idroom: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "",
+    },
+    starttime: {
       type: String,
     },
-    name: {
+    endtime: {
       type: String,
     },
-    name: {
-      type: String,
-    },
-    name: {
-      type: String,
+    status: {
+      type: Boolean,
     },
   },
   { timestamps: true }
