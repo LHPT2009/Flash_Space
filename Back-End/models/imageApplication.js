@@ -1,13 +1,10 @@
 const mongoose = require("mongoose");
 
-const ComplainImageSchema = new mongoose.Schema(
+const ImageApplicationSchema = new mongoose.Schema(
   {
-    idcomplain: {
+    idapplication: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "",
-    },
-    gps: {
-      type: String,
     },
     time: {
       type: String,
@@ -19,4 +16,4 @@ const ComplainImageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("ComplainImage", ComplainImageSchema);
+module.exports = mongoose.model("ImageApplication", ImageApplicationSchema);

@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const JobImageSchema = new mongoose.Schema(
+const ImageRoomSchema = new mongoose.Schema(
   {
-    idjob: {
+    idroom: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Owner",
+      ref: "Room",
     },
     gps: {
       type: String,
@@ -12,11 +12,11 @@ const JobImageSchema = new mongoose.Schema(
     time: {
       type: String,
     },
-    linkimage: {
+    link: {
       type: String,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("JobImage", JobImageSchema);
+module.exports = mongoose.model("ImageRoom", ImageRoomSchema);
