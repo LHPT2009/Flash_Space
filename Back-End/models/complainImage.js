@@ -4,7 +4,7 @@ const ComplainImageSchema = new mongoose.Schema(
   {
     idcomplain: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "",
+      ref: "Complain",
     },
     gps: {
       type: String,
