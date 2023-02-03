@@ -1,23 +1,8 @@
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import { StackRouter } from "react-navigation";
-
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 import Welcome from "../screens/Welcome";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
-// import SignIn from "@screens/SignIn";
-// import SignUp from "@screens/SignUp";
-// import ConfirmEmail from "@screens/ConfirmEmail";
-// import ChatRoom from "@screens/ChatRoom";
-// import EditProfile from "@screens/EditProfile";
-// import Consultants from "@screens/Consultants";
-// import TabNavigator from "@src/navigation/TabNavigator";
-// import ConfirmBooking from "@screens/ConfirmBooking";
-// import Book from "@screens/Book";
-// import Schedule from "@screens/Schedule";
-// import AgendaCalendar from "@screens/AgendaCalendar";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AppNavigator(props) {
   return (
