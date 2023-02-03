@@ -35,6 +35,22 @@ const middlewareController = {
             return res.status(500).json("You're not authenticated");
         }
     },
+
+    checkPasscodeToken: (req, res) => {
+        const token = req.headers.passcodetoken;
+        if (token) {
+            const accessToken = token.split(" ")[1];
+            jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err) => {
+                if (err) {
+                    return res.status(403).json("Token is not valid");
+                }
+                return res.status(200).json("Token ổn!");
+            });
+        }
+        else {
+            return res.status(500).json("You're not authenticated");
+        }
+    },
 };
 
 module.exports = middlewareController;
