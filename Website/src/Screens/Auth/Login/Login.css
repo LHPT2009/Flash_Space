@@ -1,9 +1,10 @@
 .bodylogin {
-  background-color: #b6d3ff;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-size: cover;
+  background-position: center center;
 }
 
 .cardlogin {
@@ -57,15 +58,15 @@
   position: relative;
 }
 
-.right-side-content {
-  background-color: #0056fb;
+.right-side-content-login {
+  background-color: #004274;
   height: 500px;
   width: 100%;
   padding: 10px;
   position: relative;
 }
 
-.right-side-content .content {
+.right-side-content-login .content {
   position: absolute;
   top: 50%;
   left: 0%;
