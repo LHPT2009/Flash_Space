@@ -1,0 +1,26 @@
+.navbar {
+  background: #004274;
+}
+
+.brand,
+.list_item {
+  color: #fff !important;
+}
+
+.list_item:hover {
+  /* color: tomato !important; */
+}
+
+.btn {
+  /* background: tomato !important; */
+  border: none;
+  border-radius: 13px;
+}
+
+/* .btn {
+    background: rgb(250, 154, 137);
+} */
+
+button.navbar-toggler.collapsed {
+  background: white !important;
+}

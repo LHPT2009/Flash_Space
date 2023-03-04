@@ -1,0 +1,41 @@
+@import url(//fonts.googleapis.com/css?family=Montserrat:400,700);
+.static-slider10 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  padding: 10% 0;
+  background-size: cover;
+  background-position: center center;
+}
+.static-slider10 .title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 50px;
+}
+
+.static-slider10 .subtitle {
+  line-height: 24px;
+}
+
+@media (max-width: 900px) {
+  .static-slider10 .title {
+    font-size: 40px;
+    line-height: 45px;
+  }
+}
+
+.static-slider10 .btn-md {
+  padding: 15px 45px;
+  font-size: 16px;
+}
+
+.static-slider10 .badge {
+  line-height: 21px;
+}
+
+.static-slider10 .badge-inverse {
+  background: #3e4555;
+}
+
+.static-slider10 .op-8 {
+  opacity: 0.8;
+}

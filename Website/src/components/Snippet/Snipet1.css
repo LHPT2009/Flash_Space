@@ -1,0 +1,46 @@
+@import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800);
+.service-10 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+.service-10 h5 {
+  line-height: 26px;
+  font-size: 21px;
+}
+
+.service-10 .font-medium {
+  font-weight: 500;
+}
+
+.service-10 .btn-md {
+  padding: 15px 45px;
+  font-size: 16px;
+}
+
+.service-10 .op-8 {
+  opacity: 0.8;
+}
+
+.service-10 .bg-megna {
+  background-color: #1dc8cd;
+}
+
+.service-10 .bg-primary {
+  background-color: #316ce8;
+}
+
+.service-10 .bg-orange {
+  background-color: #ff6a5b;
+}
+
+.service-10 .wrap-service10-box {
+  padding: 100px 20px;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.service-10 .btn-outline-light:hover {
+  color: #263238 !important;
+}

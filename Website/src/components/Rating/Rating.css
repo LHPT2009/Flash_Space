@@ -1,0 +1,64 @@
+.main-section {
+  background-color: #fff;
+  padding: 30px 15px;
+}
+.rating-part-left h1 {
+  font-size: 75px;
+  margin: 0px;
+  color: #004274;
+}
+.rating-part-left i {
+  font-size: 22px;
+  padding: 2px;
+  color: #fdc91b;
+}
+.rating-part-left p {
+  font-size: 18px;
+  color: #504f55;
+}
+.progress {
+  background: #f1f1f1;
+  box-shadow: none;
+  border-radius: 0px;
+  margin-top: 7px;
+  margin-bottom: 12px;
+  padding: auto;
+}
+.progress .progress-bar {
+  background: #004274;
+}
+.rating-part-right i,
+.review-part-right i {
+  font-size: 20px;
+  padding: 4px 0px;
+  color: #fdc91b;
+}
+.rating-part-right span {
+  color: #004274;
+  font-size: 17px;
+  padding-left: 5px;
+}
+.review-section {
+  padding: 0px 15px;
+}
+.review-part-left img {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  border: 2px solid #004274;
+}
+.review-part-left p {
+  margin: 0px;
+  font-size: 17px;
+  color: #b3b5b4;
+}
+.review-part-left span {
+  font-size: 19px;
+}
+.review-part-left small {
+  color: #b3b5b4;
+}
+.review-part-right p {
+  font-size: 18px;
+  color: #919191;
+}
