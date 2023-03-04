@@ -1,0 +1,74 @@
+@import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500);
+.c2a10 {
+  font-family: "Montserrat", sans-serif;
+  color: #8d97ad;
+  font-weight: 300;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: left center;
+}
+
+.c2a10 h1,
+.c2a10 h2,
+.c2a10 h3,
+.c2a10 h4,
+.c2a10 h5,
+.c2a10 h6 {
+  color: #3e4555;
+}
+
+.c2a10 .subtitle {
+  color: #8d97ad;
+  line-height: 24px;
+}
+
+.c2a10 .text-box {
+  padding: 30px 20px;
+}
+
+.c2a10 .both-space {
+  margin: 80px 0;
+}
+
+.c2a10 .btn-info-gradiant {
+  background: #188ef4;
+  background: -webkit-linear-gradient(
+    legacy-direction(to right),
+    #188ef4 0%,
+    #316ce8 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#188ef4),
+    to(#316ce8)
+  );
+  background: -webkit-linear-gradient(left, #188ef4 0%, #316ce8 100%);
+  background: -o-linear-gradient(left, #188ef4 0%, #316ce8 100%);
+  background: linear-gradient(to right, #188ef4 0%, #316ce8 100%);
+}
+
+.c2a10 .btn-info-gradiant:hover {
+  background: #316ce8;
+  background: -webkit-linear-gradient(
+    legacy-direction(to right),
+    #316ce8 0%,
+    #188ef4 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#316ce8),
+    to(#188ef4)
+  );
+  background: -webkit-linear-gradient(left, #316ce8 0%, #188ef4 100%);
+  background: -o-linear-gradient(left, #316ce8 0%, #188ef4 100%);
+  background: linear-gradient(to right, #316ce8 0%, #188ef4 100%);
+}
+
+.c2a10 .btn-md {
+  padding: 15px 45px;
+  font-size: 16px;
+}
