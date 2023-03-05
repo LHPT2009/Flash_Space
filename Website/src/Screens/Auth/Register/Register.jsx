@@ -73,12 +73,12 @@ const Register = () => {
               </div>
               <div class="col-md-6">
                 <div class="right-side-content-register">
-                  <div class="content d-flex flex-column">
-                    <h6>Explore you activity</h6>
-                    <span>
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua
-                    </span>
+                  <div
+                    class="content d-flex flex-column"
+                    style={{ top: "210px", left: "60px" }}
+                  >
+                    <h3 className="text-warning">FLASH SPACE</h3>
+                    <h5>Ứng dụng thuê phòng nhanh chóng và tiện lợi</h5>
                   </div>
                   <div class="right-side">
                     <span></span>

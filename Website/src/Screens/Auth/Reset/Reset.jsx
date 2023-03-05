@@ -23,7 +23,7 @@ const Reset = () => {
                   style={{ height: "450px" }}
                 >
                   <div class="py-4 px-3 w-75">
-                    <h4>Reset</h4>
+                    <h4>Lấy lại tài khoản</h4>
                     <div class="row mt-2">
                       <div class="col-md-12">
                         <div class="input-field">
@@ -34,22 +34,28 @@ const Reset = () => {
                     </div>
                     <div class="row mt-2">
                       <div class="col-md-12">
-                        <button class="btn btn-primary w-100 signup-button">
-                          Next
-                        </button>
+                        <Link className="btn btn-primary w-100" to={"/confirm"}>
+                          Tiếp tục
+                        </Link>
                       </div>
+                    </div>
+                    <div class="member mt-1">
+                      <span>Bạn đã có tài khoản? </span>
+                      <Link class="text-decoration-none" to={"/login"}>
+                        Đăng Nhập
+                      </Link>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="right-side-content-reset">
-                  <div class="content d-flex flex-column">
-                    <h6>Explore you activity</h6>
-                    <span>
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua
-                    </span>
+                  <div
+                    class="content d-flex flex-column"
+                    style={{ top: "210px", left: "60px" }}
+                  >
+                    <h3 className="text-warning">FLASH SPACE</h3>
+                    <h5>Ứng dụng thuê phòng nhanh chóng và tiện lợi</h5>
                   </div>
                   <div class="right-side">
                     <span></span>
