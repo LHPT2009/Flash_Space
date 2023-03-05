@@ -53,17 +53,23 @@ const Login = () => {
                         Đăng ký
                       </Link>
                     </div>
+                    <div class="member mt-1">
+                      <span>Quên mật khẩu? </span>
+                      <Link class="text-decoration-none" to={"/reset"}>
+                        Lấy lại mật khẩu
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="right-side-content-login">
-                  <div class="content d-flex flex-column">
-                    <h3>FLASH SPACE</h3>
-                    <span>
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua
-                    </span>
+                  <div
+                    class="content d-flex flex-column"
+                    style={{ top: "210px", left: "60px" }}
+                  >
+                    <h3 className="text-warning">FLASH SPACE</h3>
+                    <h5>Ứng dụng thuê phòng nhanh chóng và tiện lợi</h5>
                   </div>
                   <div class="right-side">
                     <span></span>
