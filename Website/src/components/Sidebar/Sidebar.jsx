@@ -18,7 +18,8 @@ const Sidebar = () => {
               data-bs-target="#collapse_aside1"
               style={{ textDecoration: "none" }}
             >
-              <i className="icon-control fa fa-chevron-down "></i> Related items
+              <i className="icon-control fa fa-chevron-down "></i>
+              Ngành Nghề
             </a>
           </header>
           <div className="collapse show" id="collapse_aside1">
