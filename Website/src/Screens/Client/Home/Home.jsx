@@ -1,4 +1,3 @@
-import { Container } from "react-bootstrap";
 import Carousels from "../../../components/Carousels/Carousels";
 import TopNav from "../../../components/TopNav/TopNav";
 import CarouselsCard from "../../../components/Card/CarouselsCard";
@@ -12,20 +11,20 @@ const Home = () => {
     <div>
       <TopNav />
       <Carousels />
-      <Container>
+      <div className="container">
         <CarouselsCard />
         <CarouselsCard />
-      </Container>
+      </div>
       <Snipet1 />
-      <Container>
+      <div className="container">
         <CarouselsCard />
         <CarouselsCard />
-      </Container>
+      </div>
       <Snipet2 />
-      <Container>
+      <div className="container">
         <CarouselsCard />
         <CarouselsCard />
-      </Container>
+      </div>
       <Snipet3 />
       <Footer />
     </div>
