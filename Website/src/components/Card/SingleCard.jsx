@@ -2,14 +2,17 @@ import { Button, Card } from "react-bootstrap";
 
 const SingleCard = (props) => {
   return (
-    <Card style={{ width: "19rem" }} className="mt-4 ml-4 mb-4">
-      <Card.Img variant="top" src={props.url} />
-      <Card.Body>
-        <Card.Title>{props.name}</Card.Title>
-        <Card.Text>{props.price}</Card.Text>
-        <Card.Text>{props.description}</Card.Text>
-      </Card.Body>
-    </Card>
+    <div class="card m-1">
+      <img class="card-img-top" src={props.url} alt="Card image cap" />
+      <div class="card-body" style={{ padding: "15px" }}>
+        <h5 class="card-title">{props.name}</h5>
+        <p class="card-text">{props.price}</p>
+        <p class="card-text">{props.description}</p>
+      </div>
+      <div class="footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </div>
   );
 };
 

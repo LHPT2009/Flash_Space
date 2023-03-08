@@ -1,10 +1,8 @@
-import React from "react";
-
 const Footer = () => {
   return (
     <footer className="text-white pt-5 pb-4" style={{ background: "#004274" }}>
-      <div className="container text-center text-md-left">
-        <div className="row text-center text-md-left">
+      <div className="container  text-md-left">
+        <div className="row  text-md-left">
           <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
             <h5 className="text-uppercase mb-4 font-weight-bold text-warning">
               FLASH SPACE
@@ -126,7 +124,7 @@ const Footer = () => {
           </div>
 
           <div className="col-md-5 col-lg-4">
-            <div className="text-center text-md-right">
+            <div className=" text-md-right">
               <ul className="list-unstyled list-inline">
                 <li className="list-inline-item">
                   <a

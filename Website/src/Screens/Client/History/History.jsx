@@ -1,7 +1,6 @@
 import "./History.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
-import ModalComment from "../../../components/Comment/Comment";
 
 const History = () => {
   return (

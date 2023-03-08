@@ -10,7 +10,7 @@ const Carousels = () => {
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} className="mb-5">
+    <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
         <img
           className="w-100 image"

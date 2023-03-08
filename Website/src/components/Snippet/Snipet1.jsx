@@ -1,7 +1,7 @@
 import "./Snipet1.css";
 const Snipet1 = () => {
   return (
-    <div class="service-10 mb-5">
+    <div class="service-10">
       <div class="row no-gutters">
         <div class="col-lg-3 bg-megna">
           <div class="wrap-service10-box text-center text-white">

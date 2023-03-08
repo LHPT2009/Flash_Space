@@ -28,7 +28,7 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src="https://www.bootdey.com/image/700x300/FF69B4/000000"
+                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
                                       class="img-responsive"
                                       alt=""
                                     />
@@ -42,7 +42,7 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src="https://www.bootdey.com/image/500x300/20B2AA/000000"
+                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
                                       alt=""
                                     />
                                   </a>
@@ -53,7 +53,7 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src="https://www.bootdey.com/image/500x300/FFA07A/000000"
+                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
                                       alt=""
                                     />
                                   </a>
@@ -64,7 +64,7 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src="https://www.bootdey.com/image/500x300/7B68EE/000000"
+                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
                                       alt=""
                                     />
                                   </a>
@@ -75,7 +75,7 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src="https://www.bootdey.com/image/500x300/C71585/000000"
+                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
                                       alt=""
                                     />
                                   </a>
@@ -84,11 +84,13 @@ const DetailRoom = () => {
                             </div>
                             <div class="col-md-5">
                               <div class="product-info">
-                                <h3>3015 Grand Avenue, CocoWalk</h3>
+                                <h3>181/7 Liên tỉnh 5, Phường 5, Quận 8</h3>
                                 <div class="wp-block property list no-border">
                                   <div class="wp-block-content clearfix">
-                                    <small>10 days only</small>
-                                    <h4 class="content-title">Special Offer</h4>
+                                    <small>Văn phòng</small>
+                                    <h4 class="content-title">
+                                      Phòng họp cho công ty
+                                    </h4>
                                     <p class="description mb-15">
                                       Lorem ipsum dolor sit amet, consectetur
                                       adipisg elitm Ut tincidunt purus iaculis
@@ -98,14 +100,8 @@ const DetailRoom = () => {
                                       elitm Ut.
                                     </p>
                                     <span class="pull-left">
-                                      <span class="price">$230</span>
-                                      <span class="period">per month</span>
-                                    </span>
-                                    <span class="pull-right">
-                                      <span class="capacity">
-                                        <i class="fa fa-user"></i>
-                                        <i class="fa fa-user"></i>
-                                      </span>
+                                      <span class="price">250.000</span>
+                                      <span class="period">VNĐ/1h</span>
                                     </span>
                                   </div>
                                   <div class="wp-block-footer style2 mt-15">
@@ -141,7 +137,7 @@ const DetailRoom = () => {
                   </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <h3 class="box-title mt-5">General Info</h3>
+                  <h3 class="box-title mt-5">THÔNG TIN CHI TIẾT</h3>
                   <div class="table-responsive">
                     <table class="table table-striped table-product">
                       <tbody>

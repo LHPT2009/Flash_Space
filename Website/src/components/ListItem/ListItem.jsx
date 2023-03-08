@@ -1,97 +1,33 @@
-import { useState } from "react";
-import ItemCard from "./ItemCard";
 import ItemGrid from "./ItemGrid";
 
 const ListItem = () => {
-  const [change, setChange] = useState(false);
   return (
     <main className="col-lg-9">
       <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-        <strong className="d-block py-2">32 Items found </strong>
+        <strong className="d-block py-2">32 tổng số phòng tìm được </strong>
         <div className="ms-auto ">
           <select className="form-select d-inline-block w-auto me-1">
-            <option value="0">Best match</option>
-            <option value="1">Recommended</option>
-            <option value="2">High rated</option>
-            <option value="3">Randomly</option>
+            <option value="0">Mới nhất</option>
+            <option value="1">Giá thấp đến cao</option>
+            <option value="2">Giá cao đến thấp</option>
+            <option value="3">Đánh giá</option>
           </select>
-          <div className="btn-group">
-            {change == false ? (
-              <div>
-                <a
-                  href="#"
-                  className="btn btn-light"
-                  data-bs-toggle="tooltip"
-                  title="List view"
-                  onClick={() => setChange(true)}
-                >
-                  <i className="fa fa-bars"></i>
-                </a>
-                <a
-                  href="#"
-                  className="btn btn-light active"
-                  data-bs-toggle="tooltip"
-                  title="Grid view"
-                  onClick={() => setChange(false)}
-                >
-                  <i className="fa fa-th"></i>
-                </a>
-              </div>
-            ) : (
-              <div>
-                <a
-                  href="#"
-                  className="btn btn-light active"
-                  data-bs-toggle="tooltip"
-                  title="List view"
-                  onClick={() => setChange(true)}
-                >
-                  <i className="fa fa-bars"></i>
-                </a>
-                <a
-                  href="#"
-                  className="btn btn-light"
-                  data-bs-toggle="tooltip"
-                  title="Grid view"
-                  onClick={() => setChange(false)}
-                >
-                  <i className="fa fa-th"></i>
-                </a>
-              </div>
-            )}
-          </div>
         </div>
       </header>
-      {change == false ? (
-        <div className="row">
-          <div className="col-md-auto">
-            <ItemCard />
-          </div>
-          <div className="col-md-auto">
-            <ItemCard />
-          </div>
-          <div className="col-md-auto">
-            <ItemCard />
-          </div>
-          <div className="col-md-auto">
-            <ItemCard />
-          </div>
-          <div className="col-md-auto">
-            <ItemCard />
-          </div>
-        </div>
-      ) : (
-        <div>
-          <ItemGrid />
-          <ItemGrid />
-          <ItemGrid />
-          <ItemGrid />
-        </div>
-      )}
+      <div>
+        <ItemGrid />
+        <ItemGrid />
+      </div>
       <hr />
+
       <footer className="d-flex mt-4">
         <nav className="ms-3">
           <ul className="pagination">
+            <li className="page-item">
+              <a className="page-link" href="#">
+                {"<"}
+              </a>
+            </li>
             <li className="page-item">
               <a className="page-link" href="#">
                 1
@@ -107,7 +43,7 @@ const ListItem = () => {
             </li>
             <li className="page-item">
               <a className="page-link" href="#">
-                Next
+                {">"}
               </a>
             </li>
           </ul>

@@ -14,15 +14,15 @@ const room = roomData.map((item) => (
 
 const CarouselsCard = () => {
   return (
-    <div>
+    <div className="mt-3 mb-3">
       <blockquote class="text-center">
         <p class="mb-3">Lĩnh vực giải trí</p>
         <footer class="blockquote-footer">
           Nhiều loại phòng phù hợp với{" "}
           <cite title="Source Title">Giá cả hợp lý</cite>
         </footer>
-        <Carousel responsive={responsive}>{room}</Carousel>
       </blockquote>
+      <Carousel responsive={responsive}>{room}</Carousel>
     </div>
   );
 };

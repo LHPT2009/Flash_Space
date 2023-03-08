@@ -2,7 +2,7 @@ import "./Snipet2.css";
 const Snipet2 = () => {
   return (
     <div
-      class="static-slider10 mb-5"
+      class="static-slider10"
       style={{
         backgroundImage:
           "linear-gradient(to top,transparent, #000 100%),url(https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1600)",
