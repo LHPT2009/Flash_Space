@@ -1,46 +1,94 @@
 @import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800);
-.service-10 {
+.service-17 {
   font-family: "Montserrat", sans-serif;
+  color: #8d97ad;
   font-weight: 300;
 }
 
-.service-10 h5 {
+.service-17 h1,
+.service-17 h2,
+.service-17 h3,
+.service-17 h4,
+.service-17 h5,
+.service-17 h6 {
+  color: #3e4555;
+}
+
+.service-17 h5 {
   line-height: 26px;
   font-size: 21px;
 }
 
-.service-10 .font-medium {
+.service-17 .font-weight-medium {
   font-weight: 500;
 }
 
-.service-10 .btn-md {
+.service-17 .display-5 {
+  font-size: 2.5rem;
+}
+
+.service-17 .text-info-gradiant {
+  background: #188ef4;
+  background: -webkit-linear-gradient(
+    legacy-direction(to right),
+    #188ef4 0%,
+    #316ce8 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#188ef4),
+    to(#316ce8)
+  );
+  background: -webkit-linear-gradient(left, #188ef4 0%, #316ce8 100%);
+  background: -o-linear-gradient(left, #188ef4 0%, #316ce8 100%);
+  background: linear-gradient(to right, #188ef4 0%, #316ce8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
+.service-17 .btn-success-gradiant {
+  background: #2cdd9b;
+  background: -webkit-linear-gradient(
+    legacy-direction(to right),
+    #2cdd9b 0%,
+    #1dc8cc 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#2cdd9b),
+    to(#1dc8cc)
+  );
+  background: -webkit-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
+  background: -o-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
+  background: linear-gradient(to right, #2cdd9b 0%, #1dc8cc 100%);
+}
+
+.service-17 .btn-success-gradiant:hover {
+  background: #1dc8cc;
+  background: -webkit-linear-gradient(
+    legacy-direction(to right),
+    #1dc8cc 0%,
+    #2cdd9b 100%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#1dc8cc),
+    to(#2cdd9b)
+  );
+  background: -webkit-linear-gradient(left, #1dc8cc 0%, #2cdd9b 100%);
+  background: -o-linear-gradient(left, #1dc8cc 0%, #2cdd9b 100%);
+  background: linear-gradient(to right, #1dc8cc 0%, #2cdd9b 100%);
+}
+
+.service-17 .btn-md {
   padding: 15px 45px;
   font-size: 16px;
-}
-
-.service-10 .op-8 {
-  opacity: 0.8;
-}
-
-.service-10 .bg-megna {
-  background-color: #1dc8cd;
-}
-
-.service-10 .bg-primary {
-  background-color: #316ce8;
-}
-
-.service-10 .bg-orange {
-  background-color: #ff6a5b;
-}
-
-.service-10 .wrap-service10-box {
-  padding: 100px 20px;
-  width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-.service-10 .btn-outline-light:hover {
-  color: #263238 !important;
 }
