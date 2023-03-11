@@ -5,6 +5,7 @@ import DetailRoom from "./Screens/Client/DetailRoom/DetailRoom";
 import DetailHistory from "./Screens/Client/DetailHistory/DetailHistory";
 import History from "./Screens/Client/History/History";
 import InfoUser from "./Screens/Client/InfoUser/InfoUser";
+import Order from "./Screens/Client/Order/Order";
 import Dashboard from "./Screens/Admin/Dashboard/Dashboard";
 import Login from "./Screens/Auth/Login/Login";
 import Register from "./Screens/Auth/Register/Register";
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/tables" element={<Tables />} />
           <Route path="/buttons" element={<Buttons />} />
           <Route path="/typography" element={<Typography />} />
+          <Route path="/order" element={<Order />} />
         </Routes>
       </BrowserRouter>
     </div>
