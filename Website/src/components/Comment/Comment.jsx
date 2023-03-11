@@ -6,7 +6,7 @@ const Comment = () => {
         <div class="row">
           <div class="col-12">
             <div class="comment-box ml-2">
-              <h4>Add a comment</h4>
+              <h4>Đánh giá của bạn</h4>
 
               <div class="rating">
                 <input type="radio" name="rating" value="5" id="5" />
@@ -24,14 +24,14 @@ const Comment = () => {
               <div class="comment-area">
                 <textarea
                   class="form-control"
-                  placeholder="what is your view?"
+                  placeholder="Bạn cảm thấy như thế nào trong quá trình sử dụng?"
                   rows="4"
                 ></textarea>
               </div>
 
               <div class="comment-btns mt-2">
-                <button class="btn btn-success send btn-sm">
-                  Send <i class="fa fa-long-arrow-right ml-1"></i>
+                <button class="btn btn-primary send btn-sm">
+                  Gửi đánh giá <i class="fa fa-long-arrow-right ml-1"></i>
                 </button>
               </div>
             </div>

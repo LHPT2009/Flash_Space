@@ -1,9 +1,7 @@
-import "./DetailHistory.css";
+import "./Order.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
-import ModalComment from "../../../components/Comment/Comment";
-
-const DetailHistory = () => {
+const Order = () => {
   return (
     <div>
       <TopNav />
@@ -11,7 +9,7 @@ const DetailHistory = () => {
         <div class="container">
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="card">
+              <div class="card" style={{ height: "800px" }}>
                 <div class="card-body p-0">
                   <div class="invoice-container">
                     <div class="invoice-header">
@@ -113,7 +111,7 @@ const DetailHistory = () => {
                         </div>
                       </div>
                     </div>
-                    <ModalComment />
+                    {/* <ModalComment /> */}
                   </div>
                 </div>
               </div>
@@ -127,4 +125,4 @@ const DetailHistory = () => {
   );
 };
 
-export default DetailHistory;
+export default Order;
