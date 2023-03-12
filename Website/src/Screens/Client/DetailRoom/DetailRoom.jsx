@@ -127,6 +127,7 @@ const DetailRoom = () => {
                                 <input
                                   type="date"
                                   onChange={(e) => setDate(e.target.value)}
+                                  className="form-control"
                                   style={{
                                     width: "100%",
                                     height: "40px",

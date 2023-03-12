@@ -34,7 +34,7 @@
   background-color: #fff;
   border-color: #ffffff;
   outline: 0;
-  box-shadow: 0 0 0 1px rgb(255, 0, 0) !important;
+  /* box-shadow: 0 0 0 1px rgb(255, 0, 0) !important; */
 }
 
 .send {

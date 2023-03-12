@@ -1,6 +1,7 @@
 import "./Order.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
+import { Link } from "react-router-dom";
 const Order = () => {
   return (
     <div>
@@ -10,6 +11,9 @@ const Order = () => {
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div class="card" style={{ height: "800px" }}>
+                <div class="card-header text-primary">
+                  Kiểm tra thông tin của bạn trước khi xác nhận đặt phòng
+                </div>
                 <div class="card-body p-0">
                   <div class="invoice-container">
                     <div class="invoice-header">
@@ -36,16 +40,18 @@ const Order = () => {
                       <div class="row gutters">
                         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
-                            <address>
+                            <address className="text-primary">
                               Nguyễn Văn Chuẩn
                               <br />
                               181/7 Liên Tỉnh 5, phường 5, Quận 8, TP.HCM
+                              <br />
+                              0372417574
                             </address>
                           </div>
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
-                            <div class="invoice-num">
+                            <div class="invoice-num text-primary">
                               <div>Mã hóa đơn: #1232132131</div>
                               <div>Ngày 18 tháng 03 năm 2023</div>
                             </div>
@@ -111,13 +117,22 @@ const Order = () => {
                         </div>
                       </div>
                     </div>
-                    {/* <ModalComment /> */}
                   </div>
+                </div>
+                <div class="card-footer text-end">
+                  <Link
+                    to={"/infouser"}
+                    className="btn btn-primary btn-lg btn-radius m-1"
+                  >
+                    Thay đổi thay tin cá nhân
+                  </Link>
+                  <Link className="btn btn-success btn-lg btn-radius m-1">
+                    Đặt phòng
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
-          {/* <ModalComment/> */}
         </div>
       </div>
       <Footer />
