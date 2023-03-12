@@ -27,7 +27,6 @@ const Sidebar = () => {
           <header className="card-header">Giá tiền</header>
           <div className="collapse show" id="collapse_aside2">
             <div className="card-body">
-              {/* <input type="range" className="form-range" min="0" max="100" /> */}
               <div className="row mb-3">
                 <div className="col-6">
                   <label for="min" className="form-label">
@@ -38,6 +37,7 @@ const Sidebar = () => {
                     id="min"
                     placeholder="0"
                     type="number"
+                    style={{ boxShadow: "#000" }}
                   />
                 </div>
 
