@@ -1,37 +1,31 @@
 const mongoose = require("mongoose");
 
-const StaffSchema = new mongoose.Schema(
-  {
-    idrole: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
-    },
-    firstname: {
-      type: String,
-    },
-    lastname: {
-      type: String,
-    },
-    sex: {
-      type: Number,
-    },
-    date: {
-      type: Date,
-    },
-    address: {
-      type: String,
-    },
-    email: {
-      type: String,
-    },
-    phonenumber: {
-      type: String,
-    },
-    status: {
-      type: Boolean,
-    },
+const StaffSchema = new mongoose.Schema({
+  idposition: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Position",
   },
-  { timestamps: true }
-);
+  lastname: {
+    type: String,
+  },
+  firstname: {
+    type: String,
+  },
+  sex: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  birthday: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  phonenumber: {
+    type: String,
+  },
+});
 
 module.exports = mongoose.model("Staff", StaffSchema);

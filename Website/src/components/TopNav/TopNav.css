@@ -1,26 +1,57 @@
-.navbar {
-  background: #004274;
+@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap");
+
+body {
+  background-color: #eee;
 }
 
-.brand,
-.list_item {
+.navbar-nav > li > a {
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-right: 20px;
+  color: #fff;
+}
+
+.navbar-toggler {
+  padding: 0.2rem 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.nav-link {
   color: #fff !important;
 }
 
-.list_item:hover {
-  /* color: tomato !important; */
+.wrapper {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  background-color: #000;
+  clip-path: polygon(81% 0, 100% 0, 100% 50%, 100% 100%, 71% 100%);
+  transition: 1s all;
 }
 
-.btn {
-  /* background: tomato !important; */
-  border: none;
-  border-radius: 13px;
+.navbar-brand {
+  color: #fff;
+  font-family: "Allerta Stencil", sans-serif;
+  margin-bottom: 4px;
+  font-size: 27px;
 }
 
-/* .btn {
-    background: rgb(250, 154, 137);
-} */
+.navbar-red:hover .wrapper {
+  clip-path: polygon(81% 0, 100% 0, 100% 50%, 100% 100%, 65% 100%);
+}
 
-button.navbar-toggler.collapsed {
-  background: white !important;
+.navbar-brand:hover {
+  color: #fff;
+}
+
+.navbar-red {
+  background-color: red;
+  color: #fff;
+}
+
+.all-show {
+  z-index: 10;
 }
