@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 
 const accountRoute = require("./routes/Account");
 const bookingScheduleRoute = require("./routes/BookingSchedule");
+const CareerRoute = require("./routes/Career");
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.json());
 
 app.use("/account", accountRoute);
 app.use("/bookingschedule", bookingScheduleRoute);
+app.use("/career", CareerRoute);
 
 app.listen(8000, () => {
   console.log("Server is running...");
