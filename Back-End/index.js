@@ -4,23 +4,27 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-// const userRoute = require("./routes/user");
-// const authRoute = require("./routes/auth");
+const accountRoute = require("./routes/Account");
+const bookingScheduleRoute = require("./routes/BookingSchedule");
 
 dotenv.config();
 const app = express();
 
-// mongoose.connect(process.env.MONGOOSE_URL, () => {
-//   console.log("DB connected");
-// });
+mongoose.set("strictQuery", false);
+mongoose.connect(
+  "mongodb+srv://lehuynhphuongtung0601:Tung0601@cluster0.7jizcdt.mongodb.net/?retryWrites=true&w=majority",
+  () => {
+    console.log("DB connected");
+  }
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 
-// app.use("/user", userRoute);
-// app.use("/auth", authRoute);
+app.use("/account", accountRoute);
+app.use("/bookingschedule", bookingScheduleRoute);
 
 app.listen(8000, () => {
   console.log("Server is running...");
