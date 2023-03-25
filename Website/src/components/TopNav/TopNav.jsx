@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./TopNav.css";
 
 const TopNav = () => {
-  const [login, setLogin] = useState(true);
+  // const [login, setLogin] = useState(true);
   const menuData = [
     {
       path: "/",
@@ -37,14 +37,14 @@ const TopNav = () => {
             </a>
             <div class="ms-auto d-flex align-items-center">
               <small class="ms-4">
-                <i class="fa fa-map-marker-alt me-3"></i>123 Street, New York,
-                USA
+                <i class="fa fa-map-marker-alt me-3"></i>475A Đ. Điện Biên Phủ,
+                Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh
               </small>
               <small class="ms-4">
-                <i class="fa fa-envelope me-3"></i>info@example.com
+                <i class="fa fa-envelope me-3"></i>flashspace@gmail.com
               </small>
               <small class="ms-4">
-                <i class="fa fa-phone-alt me-3"></i>+012 345 67890
+                <i class="fa fa-phone-alt me-3"></i>+92 651561561
               </small>
               <div class="ms-3 d-flex">
                 <a
@@ -99,7 +99,7 @@ const TopNav = () => {
               ></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-              <div class="navbar-nav ">
+              <div class="navbar-nav mt-2 mb-2">
                 <a
                   href="index.html"
                   class="nav-item nav-link text-white active"
@@ -147,11 +147,62 @@ const TopNav = () => {
                 <a href="contact.html" class="nav-item nav-link text-white">
                   Contact
                 </a>
+                <div class="d-lg-none">
+                  <a
+                    href=""
+                    class="btn btn-primary rounded-pill py-2 px-3 text-white w-100"
+                  >
+                    Đăng nhập
+                  </a>
+                </div>
               </div>
               <div class="ms-auto d-none d-lg-block">
-                <a href="" class="btn rounded-pill py-2 px-3 text-white">
-                  Get A Quote
+                <a
+                  href=""
+                  class="btn btn-primary rounded-pill py-2 px-3 text-white"
+                >
+                  Đăng nhập
                 </a>
+              </div>
+              <div class="ms-auto align-items-center d-lg-none">
+                <ul class="list-group list-group-horizontal-lg">
+                  <li class="list-group-item">
+                    <i class="fa fa-map-marker-alt me-3"></i>475A Đ. Điện Biên
+                    Phủ, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh
+                  </li>
+                  <li class="list-group-item">
+                    <i class="fa fa-envelope me-3"></i>flashspace@gmail.com
+                  </li>
+                  <li class="list-group-item">
+                    <i class="fa fa-phone-alt me-3"></i>+92 651561561
+                  </li>
+                  <li class="list-group-item">
+                    <a
+                      class="btn btn-sm-square btn-dark text-primary rounded-circle ms-2"
+                      href=""
+                    >
+                      <i
+                        class="fab fa-facebook-f"
+                        style={{ color: "#fff" }}
+                      ></i>
+                    </a>
+                    <a
+                      class="btn btn-sm-square btn-dark text-primary rounded-circle ms-2"
+                      href=""
+                    >
+                      <i class="fab fa-twitter" style={{ color: "#fff" }}></i>
+                    </a>
+                    <a
+                      class="btn btn-sm-square btn-dark text-primary rounded-circle ms-2"
+                      href=""
+                    >
+                      <i
+                        class="fab fa-linkedin-in"
+                        style={{ color: "#fff" }}
+                      ></i>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </nav>
