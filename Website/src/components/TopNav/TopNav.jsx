@@ -3,25 +3,7 @@ import { Link } from "react-router-dom";
 import "./TopNav.css";
 
 const TopNav = () => {
-  // const [login, setLogin] = useState(true);
-  const menuData = [
-    {
-      path: "/",
-      name: "Trang chủ",
-    },
-    {
-      path: "/room",
-      name: "Phòng",
-    },
-    {
-      path: "/contact",
-      name: "Liên hệ",
-    },
-    {
-      path: "/service",
-      name: "Dịch vụ",
-    },
-  ];
+  const [check, setCheck] = useState(false);
   return (
     <div>
       <div
@@ -30,11 +12,11 @@ const TopNav = () => {
       >
         <div class="container py-3">
           <div class="d-flex align-items-center">
-            <a href="index.html" style={{ textDecoration: "none" }}>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
               <h2 class=" fw-bold m-0" style={{ color: "#FFC107" }}>
                 FLASH SPACE
               </h2>
-            </a>
+            </Link>
             <div class="ms-auto d-flex align-items-center">
               <small class="ms-4">
                 <i class="fa fa-map-marker-alt me-3"></i>475A Đ. Điện Biên Phủ,
@@ -82,11 +64,11 @@ const TopNav = () => {
       >
         <div class="container">
           <nav class="navbar navbar-expand-lg navbar-light p-lg-0">
-            <a href="index.html" class="navbar-brand d-lg-none">
+            <Link to={"/"} class="navbar-brand d-lg-none">
               <h1 class="fw-bold m-0" style={{ color: "#FFC107" }}>
                 FLASH SPACE
               </h1>
-            </a>
+            </Link>
             <button
               type="button"
               class="navbar-toggler me-0"
@@ -100,69 +82,119 @@ const TopNav = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <div class="navbar-nav mt-2 mb-2">
-                <a
-                  href="index.html"
-                  class="nav-item nav-link text-white active"
+                <Link to={"/"} className="nav-item nav-link text-white active">
+                  Trang chủ
+                </Link>
+                <Link
+                  to={"/room"}
+                  className="nav-item nav-link text-white active"
                 >
-                  Home
-                </a>
-                <a href="about.html" class="nav-item nav-link text-white">
-                  About
-                </a>
-                <a href="service.html" class="nav-item nav-link text-white">
-                  Services
-                </a>
-                <a href="project.html" class="nav-item nav-link text-white">
-                  Projects
-                </a>
-                <div class="nav-item dropdown">
-                  <a
-                    href="#"
-                    class="nav-link dropdown-toggle text-white"
-                    data-bs-toggle="dropdown"
-                  >
-                    Pages
-                  </a>
-                  <div
-                    class="dropdown-menu rounded-0 rounded-bottom m-0"
-                    style={{ backgroundColor: "rgba(0, 66, 116,0.5)" }}
-                  >
-                    <a href="feature.html" class="dropdown-item text-white">
-                      Features
-                    </a>
-                    <a href="team.html" class="dropdown-item text-white">
-                      Our Team
-                    </a>
-                    <a href="testimonial.html" class="dropdown-item text-white">
-                      Testimonial
-                    </a>
-                    <a href="quote.html" class="dropdown-item text-white">
-                      Quotation
-                    </a>
-                    <a href="404.html" class="dropdown-item text-white">
-                      404 Page
-                    </a>
-                  </div>
-                </div>
-                <a href="contact.html" class="nav-item nav-link text-white">
-                  Contact
-                </a>
+                  Phòng
+                </Link>
+                <Link
+                  to={"/contact"}
+                  className="nav-item nav-link text-white active"
+                >
+                  Liên hệ
+                </Link>
+                <Link
+                  to={"/service"}
+                  className="nav-item nav-link text-white active"
+                >
+                  Dịch vụ
+                </Link>
                 <div class="d-lg-none">
-                  <a
-                    href=""
-                    class="btn btn-primary rounded-pill py-2 px-3 text-white w-100"
-                  >
-                    Đăng nhập
-                  </a>
+                  {check ? (
+                    <Link
+                      to={"/login"}
+                      className="btn btn-primary rounded-pill py-2 px-3 text-white w-100"
+                    >
+                      Đăng nhập
+                    </Link>
+                  ) : (
+                    <div class="nav-item dropdown">
+                      <a
+                        href="#"
+                        class="nav-link dropdown-toggle text-white w-100"
+                        data-bs-toggle="dropdown"
+                      >
+                        Xin chào Lê Huỳnh Phương Tùng!
+                      </a>
+                      <div
+                        class="dropdown-menu rounded-0 rounded-bottom m-0 w-100"
+                        style={{ backgroundColor: "rgba(0, 66, 116,0.5)" }}
+                      >
+                        <Link
+                          to={"/infouser"}
+                          className="dropdown-item text-white"
+                        >
+                          Thông tin cá nhân
+                        </Link>
+                        <Link
+                          to={"/history"}
+                          className="dropdown-item text-white"
+                        >
+                          Lịch sử đặt phòng
+                        </Link>
+                        <Link
+                          to={"/favourite"}
+                          className="dropdown-item text-white"
+                        >
+                          Phòng yêu thích
+                        </Link>
+                        <Link to={"/"} className="dropdown-item text-white">
+                          Đăng xuất!
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               <div class="ms-auto d-none d-lg-block">
-                <a
-                  href=""
-                  class="btn btn-primary rounded-pill py-2 px-3 text-white"
-                >
-                  Đăng nhập
-                </a>
+                {check ? (
+                  <Link
+                    to={"/login"}
+                    className="btn btn-primary rounded-pill py-2 px-3 text-white w-100"
+                  >
+                    Đăng nhập
+                  </Link>
+                ) : (
+                  <div class="nav-item dropdown">
+                    <a
+                      href="#"
+                      class="nav-link dropdown-toggle text-white w-100"
+                      data-bs-toggle="dropdown"
+                    >
+                      Xin chào Lê Huỳnh Phương Tùng!
+                    </a>
+                    <div
+                      class="dropdown-menu rounded-0 rounded-bottom m-0 w-100"
+                      style={{ backgroundColor: "rgba(0, 66, 116,0.5)" }}
+                    >
+                      <Link
+                        to={"/infouser"}
+                        className="dropdown-item text-white"
+                      >
+                        Thông tin cá nhân
+                      </Link>
+                      <Link
+                        to={"/history"}
+                        className="dropdown-item text-white"
+                      >
+                        Lịch sử đặt phòng
+                      </Link>
+                      <Link
+                        to={"/favourite"}
+                        className="dropdown-item text-white"
+                      >
+                        Phòng yêu thích
+                      </Link>
+                      <Link to={"/"} className="dropdown-item text-white">
+                        Đăng xuất!
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
               <div class="ms-auto align-items-center d-lg-none">
                 <ul class="list-group list-group-horizontal-lg">
