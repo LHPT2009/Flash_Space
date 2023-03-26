@@ -1,94 +1,105 @@
-@import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800);
-.service-17 {
-  font-family: "Montserrat", sans-serif;
-  color: #8d97ad;
-  font-weight: 300;
+.accordion-style .card {
+  background: transparent;
+  box-shadow: none;
+  margin-bottom: 15px;
+  margin-top: 0;
+  border: none;
 }
-
-.service-17 h1,
-.service-17 h2,
-.service-17 h3,
-.service-17 h4,
-.service-17 h5,
-.service-17 h6 {
-  color: #3e4555;
+.accordion-style .card:last-child {
+  margin-bottom: 0;
 }
-
-.service-17 h5 {
-  line-height: 26px;
-  font-size: 21px;
+.accordion-style .card-header {
+  border: 0;
+  background: none;
+  padding: 0;
+  border-bottom: none;
 }
-
-.service-17 .font-weight-medium {
-  font-weight: 500;
+.accordion-style .btn-link {
+  color: #004274;
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  white-space: normal;
+  box-shadow: none;
+  padding: 15px 55px;
+  text-decoration: none;
 }
-
-.service-17 .display-5 {
-  font-size: 2.5rem;
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
 }
-
-.service-17 .text-info-gradiant {
-  background: #188ef4;
-  background: -webkit-linear-gradient(
-    legacy-direction(to right),
-    #188ef4 0%,
-    #316ce8 100%
-  );
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#188ef4),
-    to(#316ce8)
-  );
-  background: -webkit-linear-gradient(left, #188ef4 0%, #316ce8 100%);
-  background: -o-linear-gradient(left, #188ef4 0%, #316ce8 100%);
-  background: linear-gradient(to right, #188ef4 0%, #316ce8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
+.rounded {
+  border-radius: 0.25rem;
 }
-
-.service-17 .btn-success-gradiant {
-  background: #2cdd9b;
-  background: -webkit-linear-gradient(
-    legacy-direction(to right),
-    #2cdd9b 0%,
-    #1dc8cc 100%
-  );
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#2cdd9b),
-    to(#1dc8cc)
-  );
-  background: -webkit-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
-  background: -o-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
-  background: linear-gradient(to right, #2cdd9b 0%, #1dc8cc 100%);
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
 }
-
-.service-17 .btn-success-gradiant:hover {
-  background: #1dc8cc;
-  background: -webkit-linear-gradient(
-    legacy-direction(to right),
-    #1dc8cc 0%,
-    #2cdd9b 100%
-  );
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#1dc8cc),
-    to(#2cdd9b)
-  );
-  background: -webkit-linear-gradient(left, #1dc8cc 0%, #2cdd9b 100%);
-  background: -o-linear-gradient(left, #1dc8cc 0%, #2cdd9b 100%);
-  background: linear-gradient(to right, #1dc8cc 0%, #2cdd9b 100%);
+.accordion-style .btn-link:hover {
+  text-decoration: none;
 }
-
-.service-17 .btn-md {
-  padding: 15px 45px;
-  font-size: 16px;
+.accordion-style .btn-link.collapsed {
+  color: #575a7b;
+}
+.accordion-style .btn-link.collapsed:after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 1rem;
+  color: #004274;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  box-shadow: 8px 8px 30px 0 rgba(0, 0, 0, 0.12);
+}
+.accordion-style .btn-link:after {
+  content: "-";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 1rem;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #004274;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  box-shadow: 8px 8px 30px 0 rgba(0, 0, 0, 0.12);
+}
+.accordion-style .card-body {
+  padding-top: 0px;
+  padding-left: 3.5rem;
+  padding-bottom: 0;
+}
+.accordion-style .card-body:before {
+  position: absolute;
+  content: "";
+  border-style: dashed;
+  border-width: 0 0 0 1.2px;
+  border-color: #004274;
+  left: 20px;
+  top: 0;
+  z-index: 1;
+  bottom: 0;
+}
+@media screen and (max-width: 767px) {
+  .accordion-style .btn-link {
+    padding: 15px 40px 15px 55px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .accordion-style .btn-link {
+    padding: 15px 30px 15px 55px;
+  }
 }
