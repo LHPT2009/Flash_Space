@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const TopNav = () => {
   return (
     <>
@@ -26,7 +28,7 @@ const TopNav = () => {
                     aria-labelledby="notificationDropdown"
                   >
                     <p class="mb-0 font-weight-normal float-left dropdown-header">
-                      Notifications
+                      Thông báo
                     </p>
                     <a class="dropdown-item preview-item">
                       <div class="preview-thumbnail">
@@ -90,7 +92,7 @@ const TopNav = () => {
                     aria-labelledby="messageDropdown"
                   >
                     <p class="mb-0 font-weight-normal float-left dropdown-header">
-                      Messages
+                      Tin nhắn
                     </p>
                     <a class="dropdown-item preview-item">
                       <div class="preview-thumbnail">
@@ -137,7 +139,7 @@ const TopNav = () => {
                       <div class="preview-item-content flex-grow">
                         <h6 class="preview-subject ellipsis font-weight-normal">
                           {" "}
-                          Johnson
+                          Lê Huỳnh Phương Tùng
                         </h6>
                         <p class="font-weight-light small-text text-muted mb-0">
                           Upcoming board meeting
@@ -146,57 +148,20 @@ const TopNav = () => {
                     </a>
                   </div>
                 </li>
-                <li class="nav-item dropdown">
-                  <a href="#" class="nav-link count-indicator ">
-                    <i class="mdi mdi-message-reply-text"></i>
-                  </a>
-                </li>
               </ul>
               <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html">
-                  <img src="images/logo.svg" alt="logo" />
-                </a>
-                <a class="navbar-brand brand-logo-mini" href="index.html">
-                  <img src="images/logo-mini.svg" alt="logo" />
-                </a>
+                <Link to={"/admin"} class="navbar-brand brand-logo">
+                  <h1 class="fw-bold m-0" style={{ color: "#FFC107" }}>
+                    FLASH SPACE
+                  </h1>
+                </Link>
+                <Link to={"/admin"} class="navbar-brand brand-logo-mini">
+                  <h1 class="fw-bold m-0" style={{ color: "#FFC107" }}>
+                    FS
+                  </h1>
+                </Link>
               </div>
               <ul class="navbar-nav navbar-nav-right">
-                <li class="nav-item dropdown  d-lg-flex d-none">
-                  <button type="button" class="btn btn-inverse-primary btn-sm">
-                    Product{" "}
-                  </button>
-                </li>
-                <li class="nav-item dropdown d-lg-flex d-none">
-                  <a
-                    class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm"
-                    id="nreportDropdown"
-                    href="#"
-                    data-bs-toggle="dropdown"
-                  >
-                    Reports
-                  </a>
-                  <div
-                    class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                    aria-labelledby="nreportDropdown"
-                  >
-                    <p class="mb-0 font-weight-medium float-left dropdown-header">
-                      Reports
-                    </p>
-                    <a class="dropdown-item">
-                      <i class="mdi mdi-file-pdf text-primary"></i>
-                      Pdf
-                    </a>
-                    <a class="dropdown-item">
-                      <i class="mdi mdi-file-excel text-primary"></i>
-                      Exel
-                    </a>
-                  </div>
-                </li>
-                <li class="nav-item dropdown d-lg-flex d-none">
-                  <button type="button" class="btn btn-inverse-primary btn-sm">
-                    Settings
-                  </button>
-                </li>
                 <li class="nav-item nav-profile dropdown">
                   <a
                     class="nav-link dropdown-toggle"
@@ -204,7 +169,7 @@ const TopNav = () => {
                     data-bs-toggle="dropdown"
                     id="profileDropdown"
                   >
-                    <span class="nav-profile-name">Johnson</span>
+                    <span class="nav-profile-name">Lê Huỳnh Phương Tùng</span>
                     <span class="online-status"></span>
                     <img src="images/faces/face28.png" alt="profile" />
                   </a>
@@ -212,14 +177,14 @@ const TopNav = () => {
                     class="dropdown-menu dropdown-menu-right navbar-dropdown"
                     aria-labelledby="profileDropdown"
                   >
-                    <a class="dropdown-item">
-                      <i class="mdi mdi-settings text-primary"></i>
-                      Settings
-                    </a>
-                    <a class="dropdown-item">
-                      <i class="mdi mdi-logout text-primary"></i>
-                      Logout
-                    </a>
+                    <Link to={"/admin"} class="dropdown-item">
+                      <i class="mdi mdi-settings "></i>
+                      Thông tin tài khoản
+                    </Link>
+                    <Link to={"/"} class="dropdown-item">
+                      <i class="mdi mdi-logout "></i>
+                      Đăng xuất
+                    </Link>
                   </div>
                 </li>
               </ul>
@@ -237,104 +202,171 @@ const TopNav = () => {
           <div class="container">
             <ul class="nav page-navigation">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <Link to={"/admin"} class="nav-link">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
-                  <span class="menu-title">Dashboard</span>
-                </a>
+                  <span class="menu-title">Bảng điều khiển</span>
+                  <i class="menu-arrow"></i>
+                </Link>
               </li>
+
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-cube-outline menu-icon"></i>
-                  <span class="menu-title">UI Elements</span>
+                  <span class="menu-title">Tài khoản</span>
                   <i class="menu-arrow"></i>
                 </a>
                 <div class="submenu">
                   <ul>
                     <li class="nav-item">
-                      <a class="nav-link" href="pages/ui-features/buttons.html">
-                        Buttons
-                      </a>
+                      <Link to={"/admin"} class="nav-link">
+                        Tài khoản
+                      </Link>
                     </li>
                     <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        href="pages/ui-features/typography.html"
-                      >
-                        Typography
-                      </a>
+                      <Link to={"/admin"} class="nav-link">
+                        Phân quyền
+                      </Link>
                     </li>
                   </ul>
                 </div>
               </li>
-              <li class="nav-item">
-                <a href="pages/forms/basic_elements.html" class="nav-link">
-                  <i class="mdi mdi-chart-areaspline menu-icon"></i>
-                  <span class="menu-title">Form Elements</span>
-                  <i class="menu-arrow"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="mdi mdi-finance menu-icon"></i>
-                  <span class="menu-title">Charts</span>
-                  <i class="menu-arrow"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/basic-table.html" class="nav-link">
-                  <i class="mdi mdi-grid menu-icon"></i>
-                  <span class="menu-title">Tables</span>
-                  <i class="menu-arrow"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/icons/mdi.html" class="nav-link">
-                  <i class="mdi mdi-emoticon menu-icon"></i>
-                  <span class="menu-title">Icons</span>
-                  <i class="menu-arrow"></i>
-                </a>
-              </li>
+
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="mdi mdi-codepen menu-icon"></i>
-                  <span class="menu-title">Sample Pages</span>
+                  <i class="mdi mdi-chart-areaspline menu-icon"></i>
+                  <span class="menu-title">Thống kê</span>
                   <i class="menu-arrow"></i>
                 </a>
                 <div class="submenu">
-                  <ul class="submenu-item">
+                  <ul>
                     <li class="nav-item">
-                      <a class="nav-link" href="pages/samples/login.html">
-                        Login
-                      </a>
+                      <Link to={"/admin"} class="nav-link">
+                        Tài khoản
+                      </Link>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="pages/samples/login-2.html">
-                        Login 2
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages/samples/register.html">
-                        Register
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages/samples/register-2.html">
-                        Register 2
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages/samples/lock-screen.html">
-                        Lockscreen
-                      </a>
+                      <Link to={"/admin"} class="nav-link">
+                        Phân quyền
+                      </Link>
                     </li>
                   </ul>
                 </div>
               </li>
+
               <li class="nav-item">
-                <a href="docs/documentation.html" class="nav-link">
-                  <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                  <span class="menu-title">Documentation</span>
+                <a href="#" class="nav-link">
+                  <i class="mdi mdi-grid menu-icon"></i>
+                  <span class="menu-title">Nhân viên</span>
+                  <i class="menu-arrow"></i>
                 </a>
+                <div class="submenu">
+                  <ul>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Nhân viên
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Chức vụ nhân viên
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="mdi mdi-grid menu-icon"></i>
+                  <span class="menu-title">Dịch vụ</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Phòng
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Đăng tin
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Gói dịch vụ
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <Link to={"/admin"} class="nav-link">
+                  <i class="mdi mdi-emoticon menu-icon"></i>
+                  <span class="menu-title">Đánh giá</span>
+                  <i class="menu-arrow"></i>
+                </Link>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="mdi mdi-codepen menu-icon"></i>
+                  <span class="menu-title">Khu vực</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Thành phố
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Quận, huyện
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Phường, xã
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="mdi mdi-file-document-box-outline menu-icon"></i>
+                  <span class="menu-title">Khác</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Trang thiết bị
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Thời gian hoạt động
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Thể loại phòng
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/admin"} class="nav-link">
+                        Phân chia công việc
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </div>

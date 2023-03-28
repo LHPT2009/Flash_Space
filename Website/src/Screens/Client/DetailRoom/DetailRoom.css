@@ -49,7 +49,7 @@
 }
 
 .no-border {
-  border: 0 !important;
+  border: 0;
 }
 
 .wp-block.property.list .wp-block-content .content-title {
