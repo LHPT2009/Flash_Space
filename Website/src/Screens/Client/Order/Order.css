@@ -117,7 +117,7 @@
   font-size: 0.75rem;
 }
 .text-success {
-  color: #c0d64a !important;
+  color: #c0d64a;
 }
 .custom-actions-btns {
   margin: auto;

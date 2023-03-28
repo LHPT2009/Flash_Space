@@ -21,13 +21,13 @@
 
 .input-field input {
   height: 50px;
-  outline: none !important;
+  outline: none;
   border: 2px solid #eee;
 }
 
 .input-field input:focus {
   box-shadow: none;
-  outline: none !important;
+  outline: none;
 }
 
 .input-field label {
