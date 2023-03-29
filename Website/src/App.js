@@ -24,6 +24,7 @@ import Registeradmin2 from "./Screens/Admin/Samples/Register2";
 import Tables from "./Screens/Admin/Tables/Tables";
 import Buttons from "./Screens/Admin/UiFeatures/Buttons";
 import Typography from "./Screens/Admin/UiFeatures/Typography";
+import AccountAdmin from "./Screens/Admin/Account/Account";
 
 const App = () => {
   return (
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/buttons" element={<Buttons />} />
           <Route path="/typography" element={<Typography />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/accountadmin" element={<AccountAdmin />} />
         </Routes>
       </BrowserRouter>
     </div>
