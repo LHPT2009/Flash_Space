@@ -19,8 +19,8 @@ const TopNav = () => {
             </Link>
             <div class="ms-auto d-flex align-items-center">
               <small class="ms-4">
-                <i class="fa fa-map-marker-alt me-3"></i>475A Đ. Điện Biên Phủ,
-                Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh
+                <i class="fa fa-map-marker-alt me-3"></i>475A Đ.Điện Biên Phủ,
+                P25, Bình Thạnh, TP.Hồ Chí Minh
               </small>
               <small class="ms-4">
                 <i class="fa fa-envelope me-3"></i>flashspace@gmail.com
@@ -199,8 +199,8 @@ const TopNav = () => {
               <div class="ms-auto align-items-center d-lg-none">
                 <ul class="list-group list-group-horizontal-lg">
                   <li class="list-group-item">
-                    <i class="fa fa-map-marker-alt me-3"></i>475A Đ. Điện Biên
-                    Phủ, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh
+                    <i class="fa fa-map-marker-alt me-3"></i>475A Đ.Điện Biên
+                    Phủ, P25, Bình Thạnh, TP.Hồ Chí Minh
                   </li>
                   <li class="list-group-item">
                     <i class="fa fa-envelope me-3"></i>flashspace@gmail.com

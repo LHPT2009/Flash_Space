@@ -1,8 +1,9 @@
-import "./InfoUser.css";
-import TopNav from "../../../components/TopNav/TopNav";
-import Footer from "../../../components/Footer/Footer";
-import "./InfoUser.css";
-const InfoUser = () => {
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Footer from "../../../components/Admin/Footer/Footer";
+import TopNav from "../../../components/Admin/TopNav/TopNav";
+import "./DetailAccount.css";
+const DetailAccount = () => {
   return (
     <>
       <TopNav />
@@ -168,4 +169,4 @@ const InfoUser = () => {
   );
 };
 
-export default InfoUser;
+export default DetailAccount;

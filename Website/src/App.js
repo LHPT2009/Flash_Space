@@ -25,6 +25,12 @@ import Tables from "./Screens/Admin/Tables/Tables";
 import Buttons from "./Screens/Admin/UiFeatures/Buttons";
 import Typography from "./Screens/Admin/UiFeatures/Typography";
 import AccountAdmin from "./Screens/Admin/Account/Account";
+import DetailAccount from "./Screens/Admin/DetailAccount/DetailAccount";
+import Permission from "./Screens/Admin/Permission/Permission";
+import Statistical from "./Screens/Admin/Statistical/Statistical";
+import Staff from "./Screens/Admin/Staff/Staff";
+import Position from "./Screens/Admin/Position/Position";
+import RoomAdmin from "./Screens/Admin/RoomAdmin/RoomAdmin";
 
 const App = () => {
   return (
@@ -43,8 +49,17 @@ const App = () => {
           <Route path="/confirm" element={<Confirm />} />
           <Route path="/newreset" element={<NewReset />} />
           <Route path="/favourite" element={<Favourite />} />
+          <Route path="/order" element={<Order />} />
 
           <Route path="/admin" element={<Dashboard />} />
+          <Route path="/accountadmin" element={<AccountAdmin />} />
+          <Route path="/detailaccount" element={<DetailAccount />} />
+          <Route path="/permission" element={<Permission />} />
+          <Route path="/statistical" element={<Statistical />} />
+          <Route path="/staff" element={<Staff />} />
+          <Route path="/position" element={<Position />} />
+          <Route path="/roomadmin" element={<RoomAdmin />} />
+
           <Route path="/charts" element={<Charts />} />
           <Route path="/forms" element={<Forms />} />
           <Route path="/icons" element={<Icons />} />
@@ -56,8 +71,6 @@ const App = () => {
           <Route path="/tables" element={<Tables />} />
           <Route path="/buttons" element={<Buttons />} />
           <Route path="/typography" element={<Typography />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/accountadmin" element={<AccountAdmin />} />
         </Routes>
       </BrowserRouter>
     </div>

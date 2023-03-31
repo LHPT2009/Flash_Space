@@ -4,7 +4,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 
-const Tables = () => {
+const RoomAdmin = () => {
   const posts = [
     {
       id: 1,
@@ -51,36 +51,37 @@ const Tables = () => {
               <div className=" grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Bảng danh sách tài khoản</h4>
-                    <div className="form-group row">
-                      <div className="col-3">
-                        <div className="form-group">
-                          <label for="exampleInputName1">
-                            Tìm kiểm người dùng
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="exampleInputName1"
-                            placeholder="Tìm kiểm theo tên"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-2">
-                        <div className="form-group">
-                          <label for="exampleInputName1">Sắp xếp</label>
-                          <select
-                            class="form-select"
-                            aria-label="Default select example"
-                          >
-                            <option selected>Chọn cách sắp xếp</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                        </div>
-                      </div>
+                    <h4 className="card-title">
+                      Bảng danh sách quyền hiền có trong hệ thống
+                    </h4>
+                    <div className="form-group">
+                      {/* <label for="exampleInputName1">Tìm kiểm theo tên</label> */}
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="exampleInputName1"
+                        placeholder="Tìm theo tên của thể loại"
+                      />
                     </div>
+                    <div className="form-group">
+                      {/* <label for="exampleInputName1">Sắp xếp</label> */}
+                      <select
+                        class="form-select w-75"
+                        aria-label="Default select example"
+                      >
+                        <option selected>Chọn cách sắp xếp</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                    <Link
+                      to={"/detailaccount"}
+                      className="btn btn-outline-primary btn-fw mb-4"
+                    >
+                      Thêm mới
+                    </Link>
+                    <h5 className="card-title">Bảng danh sách</h5>
                     <div className="table-responsive">
                       <table className="table table-hover">
                         <thead>
@@ -150,4 +151,4 @@ const Tables = () => {
   );
 };
 
-export default Tables;
+export default RoomAdmin;

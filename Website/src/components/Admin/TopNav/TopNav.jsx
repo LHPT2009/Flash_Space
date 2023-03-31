@@ -208,7 +208,6 @@ const TopNav = () => {
                   <i class="menu-arrow"></i>
                 </Link>
               </li>
-
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-cube-outline menu-icon"></i>
@@ -218,41 +217,25 @@ const TopNav = () => {
                 <div class="submenu">
                   <ul>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/accountadmin"} class="nav-link">
                         Tài khoản
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/permission"} class="nav-link">
                         Phân quyền
                       </Link>
                     </li>
                   </ul>
                 </div>
               </li>
-
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <Link to={"/statistical"} class="nav-link">
                   <i class="mdi mdi-chart-areaspline menu-icon"></i>
                   <span class="menu-title">Thống kê</span>
                   <i class="menu-arrow"></i>
-                </a>
-                <div class="submenu">
-                  <ul>
-                    <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
-                        Tài khoản
-                      </Link>
-                    </li>
-                    <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
-                        Phân quyền
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+                </Link>
               </li>
-
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-grid menu-icon"></i>
@@ -262,19 +245,18 @@ const TopNav = () => {
                 <div class="submenu">
                   <ul>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/staff"} class="nav-link">
                         Nhân viên
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/position"} class="nav-link">
                         Chức vụ nhân viên
                       </Link>
                     </li>
                   </ul>
                 </div>
               </li>
-
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-grid menu-icon"></i>
@@ -284,7 +266,7 @@ const TopNav = () => {
                 <div class="submenu">
                   <ul>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/roomadmin"} class="nav-link">
                         Phòng
                       </Link>
                     </li>
@@ -301,15 +283,13 @@ const TopNav = () => {
                   </ul>
                 </div>
               </li>
-
               <li class="nav-item">
-                <Link to={"/admin"} class="nav-link">
+                <Link to={"/statistical"} class="nav-link">
                   <i class="mdi mdi-emoticon menu-icon"></i>
                   <span class="menu-title">Đánh giá</span>
                   <i class="menu-arrow"></i>
                 </Link>
               </li>
-
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-codepen menu-icon"></i>
@@ -336,7 +316,6 @@ const TopNav = () => {
                   </ul>
                 </div>
               </li>
-
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-file-document-box-outline menu-icon"></i>
