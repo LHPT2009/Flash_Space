@@ -10,7 +10,7 @@ const DetailRoom = () => {
     "https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
   );
   return (
-    <div>
+    <>
       <TopNav />
       <div className="bodydr">
         <div class="container">
@@ -217,7 +217,7 @@ const DetailRoom = () => {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
