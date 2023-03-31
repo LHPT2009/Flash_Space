@@ -31,6 +31,19 @@ import Statistical from "./Screens/Admin/Statistical/Statistical";
 import Staff from "./Screens/Admin/Staff/Staff";
 import Position from "./Screens/Admin/Position/Position";
 import RoomAdmin from "./Screens/Admin/RoomAdmin/RoomAdmin";
+import Evaluate from "./Screens/Admin/Evaluate/Evaluate";
+import ServicePack from "./Screens/Admin/ServicePack/ServicePack";
+import BookingSchedule from "./Screens/Admin/BookingSchedule/BookingSchedule";
+import Career from "./Screens/Admin/Career/Career";
+import District from "./Screens/Admin/District/District";
+import Equipment from "./Screens/Admin/Equipment/Equipment";
+import Province from "./Screens/Admin/Province/Province";
+import ServicePackInUse from "./Screens/Admin/ServicePackInUse/ServicePackInUse";
+import TimeSlot from "./Screens/Admin/TimeSlot/TimeSlot";
+import Ward from "./Screens/Admin/Ward/Ward";
+import WorkAssignment from "./Screens/Admin/WorkAssignment/WorkAssignment";
+import RoomCareer from "./Screens/Admin/RoomCareer/RoomCareer";
+import RoomDetailAdmin from "./Screens/Admin/RoomDetailAdmin/RoomDetailAdmin";
 
 const App = () => {
   return (
@@ -59,6 +72,19 @@ const App = () => {
           <Route path="/staff" element={<Staff />} />
           <Route path="/position" element={<Position />} />
           <Route path="/roomadmin" element={<RoomAdmin />} />
+          <Route path="/evaluate" element={<Evaluate />} />
+          <Route path="/servicepack" element={<ServicePack />} />
+          <Route path="/bookingschedule" element={<BookingSchedule />} />
+          <Route path="/career" element={<Career />} />
+          <Route path="/district" element={<District />} />
+          <Route path="/equipment" element={<Equipment />} />
+          <Route path="/province" element={<Province />} />
+          <Route path="/servicepackinuse" element={<ServicePackInUse />} />
+          <Route path="/timeslot" element={<TimeSlot />} />
+          <Route path="/ward" element={<Ward />} />
+          <Route path="/workassignment" element={<WorkAssignment />} />
+          <Route path="/roomcareer" element={<RoomCareer />} />
+          <Route path="/roomdetailadmin" element={<RoomDetailAdmin />} />
 
           <Route path="/charts" element={<Charts />} />
           <Route path="/forms" element={<Forms />} />

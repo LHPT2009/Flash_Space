@@ -8,11 +8,6 @@ const TopNav = () => {
           <div class="container-fluid">
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
               <ul class="navbar-nav navbar-nav-left">
-                <li class="nav-item ms-0 me-5 d-lg-flex d-none">
-                  <a href="#" class="nav-link horizontal-nav-left-menu">
-                    <i class="mdi mdi-format-list-bulleted"></i>
-                  </a>
-                </li>
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
@@ -169,7 +164,6 @@ const TopNav = () => {
                     data-bs-toggle="dropdown"
                     id="profileDropdown"
                   >
-                    <span class="nav-profile-name">Lê Huỳnh Phương Tùng</span>
                     <span class="online-status"></span>
                     <img src="images/faces/face28.png" alt="profile" />
                   </a>
@@ -271,12 +265,12 @@ const TopNav = () => {
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/workassignment"} class="nav-link">
                         Đăng tin
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/servicepack"} class="nav-link">
                         Gói dịch vụ
                       </Link>
                     </li>
@@ -284,7 +278,7 @@ const TopNav = () => {
                 </div>
               </li>
               <li class="nav-item">
-                <Link to={"/statistical"} class="nav-link">
+                <Link to={"/evaluate"} class="nav-link">
                   <i class="mdi mdi-emoticon menu-icon"></i>
                   <span class="menu-title">Đánh giá</span>
                   <i class="menu-arrow"></i>
@@ -299,17 +293,17 @@ const TopNav = () => {
                 <div class="submenu">
                   <ul>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/province"} class="nav-link">
                         Thành phố
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/district"} class="nav-link">
                         Quận, huyện
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/ward"} class="nav-link">
                         Phường, xã
                       </Link>
                     </li>
@@ -325,23 +319,28 @@ const TopNav = () => {
                 <div class="submenu">
                   <ul>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/equipment"} class="nav-link">
                         Trang thiết bị
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/timeslot"} class="nav-link">
                         Thời gian hoạt động
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
+                      <Link to={"/career"} class="nav-link">
                         Thể loại phòng
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/admin"} class="nav-link">
-                        Phân chia công việc
+                      <Link to={"/bookingschedule"} class="nav-link">
+                        Khung giờ Khách đặt
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/servicepackinuse"} class="nav-link">
+                        Các gói được sử dụng
                       </Link>
                     </li>
                   </ul>
