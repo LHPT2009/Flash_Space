@@ -43,7 +43,33 @@ import TimeSlot from "./Screens/Admin/TimeSlot/TimeSlot";
 import Ward from "./Screens/Admin/Ward/Ward";
 import WorkAssignment from "./Screens/Admin/WorkAssignment/WorkAssignment";
 import RoomCareer from "./Screens/Admin/RoomCareer/RoomCareer";
+
 import RoomDetailAdmin from "./Screens/Admin/RoomDetailAdmin/RoomDetailAdmin";
+import DetailPermission from "./Screens/Admin/DetailPermission/DetailPermission";
+import DetailBookingSchedule from "./Screens/Admin/DetailBookingSchedule/DetailBookingSchedule";
+import DetailCareer from "./Screens/Admin/DetailCareer/DetailCareer";
+import DetailDistrict from "./Screens/Admin/DetailDistrict/DetailDistrict";
+import DetailEquipment from "./Screens/Admin/DetailEquipment/DetailEquipment";
+import DetailEvaluate from "./Screens/Admin/DetailEvaluate/DetailEvaluate";
+import DetailPosition from "./Screens/Admin/DetailPosition/DetailPosition";
+import DetailProvince from "./Screens/Admin/DetailProvince/DetailProvince";
+import DetailServicePack from "./Screens/Admin/DetailServicePack/DetailServicePack";
+import DetailServicePackInUse from "./Screens/Admin/DetailServicePackInUse/DetailServicePackInUse";
+import DetailStaff from "./Screens/Admin/DetailStaff/DetailStaff";
+import DetailTimeslot from "./Screens/Admin/DetailTimeslot/DetailTimeslot";
+import DetailWard from "./Screens/Admin/DetailWard/DetailWard";
+import DetailWorkAssignment from "./Screens/Admin/DetailWorkAssignment/DetailWorkAssignment";
+
+import NewCareer from "./Screens/Admin/NewCareer/NewCareer";
+import NewDistrict from "./Screens/Admin/NewDistrict/NewDistrict";
+import NewEquipment from "./Screens/Admin/NewEquipment/NewEquipment";
+import NewPermission from "./Screens/Admin/NewPermission/NewPermission";
+import NewPosition from "./Screens/Admin/NewPosition/NewPosition";
+import NewProvince from "./Screens/Admin/NewProvince/NewProvince";
+import NewServicePack from "./Screens/Admin/NewServicePack/NewServicePack";
+import NewStaff from "./Screens/Admin/NewStaff/NewStaff";
+import NewTimeslot from "./Screens/Admin/NewTimeslot/NewTimeslot";
+import NewWard from "./Screens/Admin/NewWard/NewWard";
 
 const App = () => {
   return (
@@ -85,6 +111,40 @@ const App = () => {
           <Route path="/workassignment" element={<WorkAssignment />} />
           <Route path="/roomcareer" element={<RoomCareer />} />
           <Route path="/roomdetailadmin" element={<RoomDetailAdmin />} />
+          <Route path="/detailpermission" element={<DetailPermission />} />
+          <Route
+            path="/detailbookingschedule"
+            element={<DetailBookingSchedule />}
+          />
+          <Route path="/detailcareer" element={<DetailCareer />} />
+          <Route path="/detaildistrict" element={<DetailDistrict />} />
+          <Route path="/detailequipment" element={<DetailEquipment />} />
+          <Route path="/detailevaluate" element={<DetailEvaluate />} />
+          <Route path="/detailposition" element={<DetailPosition />} />
+          <Route path="/detailprovince" element={<DetailProvince />} />
+          <Route path="/detailservicepack" element={<DetailServicePack />} />
+          <Route
+            path="/detailservicepackinuse"
+            element={<DetailServicePackInUse />}
+          />
+          <Route path="/detailstaff" element={<DetailStaff />} />
+          <Route path="/detailtimeslot" element={<DetailTimeslot />} />
+          <Route path="/detailward" element={<DetailWard />} />
+          <Route
+            path="/detailWorkassignment"
+            element={<DetailWorkAssignment />}
+          />
+
+          <Route path="/newcareer" element={<NewCareer />} />
+          <Route path="/newdistrict" element={<NewDistrict />} />
+          <Route path="/newequipment" element={<NewEquipment />} />
+          <Route path="/newpermission" element={<NewPermission />} />
+          <Route path="/newposition" element={<NewPosition />} />
+          <Route path="/newprovince" element={<NewProvince />} />
+          <Route path="/newservicepack" element={<NewServicePack />} />
+          <Route path="/newstaff" element={<NewStaff />} />
+          <Route path="/newtimeslot" element={<NewTimeslot />} />
+          <Route path="/newward" element={<NewWard />} />
 
           <Route path="/charts" element={<Charts />} />
           <Route path="/forms" element={<Forms />} />

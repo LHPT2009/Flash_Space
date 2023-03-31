@@ -120,7 +120,7 @@ const RoomAdmin = () => {
                               <td>May 15, 2015</td>
                               <td>
                                 <Link
-                                  to={"/detailaccount"}
+                                  to={"/roomdetailadmin"}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
