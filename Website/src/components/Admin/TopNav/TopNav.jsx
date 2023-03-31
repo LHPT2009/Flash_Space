@@ -223,13 +223,13 @@ const TopNav = () => {
                   </ul>
                 </div>
               </li>
-              <li class="nav-item">
+              {/* <li class="nav-item">
                 <Link to={"/statistical"} class="nav-link">
                   <i class="mdi mdi-chart-areaspline menu-icon"></i>
                   <span class="menu-title">Thống kê</span>
                   <i class="menu-arrow"></i>
                 </Link>
-              </li>
+              </li> */}
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-grid menu-icon"></i>
@@ -253,7 +253,7 @@ const TopNav = () => {
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="mdi mdi-grid menu-icon"></i>
+                  <i class="mdi mdi-emoticon menu-icon"></i>
                   <span class="menu-title">Dịch vụ</span>
                   <i class="menu-arrow"></i>
                 </a>
@@ -277,13 +277,13 @@ const TopNav = () => {
                   </ul>
                 </div>
               </li>
-              <li class="nav-item">
+              {/* <li class="nav-item">
                 <Link to={"/evaluate"} class="nav-link">
                   <i class="mdi mdi-emoticon menu-icon"></i>
                   <span class="menu-title">Đánh giá</span>
                   <i class="menu-arrow"></i>
                 </Link>
-              </li>
+              </li> */}
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-codepen menu-icon"></i>
@@ -341,6 +341,16 @@ const TopNav = () => {
                     <li class="nav-item">
                       <Link to={"/servicepackinuse"} class="nav-link">
                         Các gói được sử dụng
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/evaluate"} class="nav-link">
+                        Đánh giá
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/statistical"} class="nav-link">
+                        Thống kê
                       </Link>
                     </li>
                   </ul>
