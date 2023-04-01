@@ -131,7 +131,7 @@ const App = () => {
           <Route path="/detailtimeslot" element={<DetailTimeslot />} />
           <Route path="/detailward" element={<DetailWard />} />
           <Route
-            path="/detailWorkassignment"
+            path="/detailworkassignment"
             element={<DetailWorkAssignment />}
           />
 
