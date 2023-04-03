@@ -53,6 +53,16 @@ const DetailPermission = () => {
                           placeholder="Password"
                         />
                       </div>
+                      <div className="form-group">
+                        <label for="exampleInputConfirmPassword1">
+                          Confirm Password
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="exampleTextarea1"
+                          rows="4"
+                        ></textarea>
+                      </div>
                       <button type="submit" className="btn btn-primary me-2">
                         Submit
                       </button>

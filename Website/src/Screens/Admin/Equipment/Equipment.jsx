@@ -52,35 +52,58 @@ const Equipment = () => {
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">Bảng danh sách tài khoản</h4>
-                    <div className="form-group row">
-                      <div className="col-3">
-                        <div className="form-group">
-                          <label for="exampleInputName1">
-                            Tìm kiểm người dùng
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="exampleInputName1"
-                            placeholder="Tìm kiểm theo tên"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-2">
-                        <div className="form-group">
-                          <label for="exampleInputName1">Sắp xếp</label>
-                          <select
-                            class="form-select"
-                            aria-label="Default select example"
-                          >
-                            <option selected>Chọn cách sắp xếp</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                    <div className="col-12 grid-margin">
+                      <div className="card">
+                        <div className="card-body">
+                          <h4 className="card-title">Tùy chọn tìm kiếm</h4>
+                          <form className="form-sample">
+                            <div className="row">
+                              <div className="col-md-3">
+                                <div className="form-group row">
+                                  <div className="col-sm-12">
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      placeholder="Tìm kiếm theo tên"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-md-2">
+                                <div className="form-group row">
+                                  <div className="col-sm-12">
+                                    <select
+                                      class="form-select"
+                                      aria-label="Default select example"
+                                    >
+                                      <option selected>
+                                        Chọn cách sắp xếp
+                                      </option>
+                                      <option value="1">One</option>
+                                      <option value="2">Two</option>
+                                      <option value="3">Three</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-md-3">
+                                <div className="form-group row">
+                                  <div className="col-sm-12">
+                                    <Link
+                                      to={"/detailaccount"}
+                                      className="btn btn-outline-primary btn-fw mb-4"
+                                    >
+                                      Thêm mới
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
+                    <h5 className="card-title">Bảng danh sách</h5>
                     <div className="table-responsive">
                       <table className="table table-hover">
                         <thead>
@@ -119,7 +142,7 @@ const Equipment = () => {
                               <td>May 15, 2015</td>
                               <td>
                                 <Link
-                                  to={"/detailaccount"}
+                                  to={"/detailequipment"}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
