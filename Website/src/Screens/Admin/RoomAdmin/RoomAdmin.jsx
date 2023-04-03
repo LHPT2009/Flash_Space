@@ -88,7 +88,7 @@ const RoomAdmin = () => {
                                   </div>
                                 </div>
                               </div>
-                              <div className="col-md-3">
+                              {/* <div className="col-md-3">
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <Link
@@ -99,7 +99,7 @@ const RoomAdmin = () => {
                                     </Link>
                                   </div>
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </form>
                         </div>
