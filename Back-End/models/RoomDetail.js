@@ -10,7 +10,7 @@ const RoomDetailSchema = new mongoose.Schema({
     ref: "Room",
   },
   quantity: {
-    type: String,
+    type: Number,
   },
   unit: {
     type: String,

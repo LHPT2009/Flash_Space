@@ -5,15 +5,15 @@ const WorkAssignmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Room",
   },
-  idstaff: {
+  idaccount: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Staff",
+    ref: "Account",
   },
   work: {
     type: String,
   },
   static: {
-    type: String,
+    type: Number,
   },
   implementationdate: {
     type: String,

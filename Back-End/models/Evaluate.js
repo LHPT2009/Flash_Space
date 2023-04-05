@@ -10,7 +10,7 @@ const EvaluateSchema = new mongoose.Schema({
     ref: "Room",
   },
   point: {
-    type: String,
+    type: Number,
   },
   content: {
     type: String,

@@ -5,6 +5,10 @@ const RoomSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Ward",
   },
+  idcareer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Career",
+  },
   idaccount: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Account",

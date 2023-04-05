@@ -13,7 +13,7 @@ const WorkingHoursSchema = new mongoose.Schema({
     type: String,
   },
   static: {
-    type: String,
+    type: Number,
   },
 });
 

@@ -11,6 +11,9 @@ const AccountSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  firstname: {
+    type: String,
+  },
   lastname: {
     type: String,
   },
@@ -21,7 +24,7 @@ const AccountSchema = new mongoose.Schema({
     type: String,
   },
   static: {
-    type: String,
+    type: Boolean,
   },
   email: {
     type: String,
@@ -30,13 +33,13 @@ const AccountSchema = new mongoose.Schema({
     type: String,
   },
   emailverification: {
-    type: String,
+    type: Boolean,
   },
   phonenumberverification: {
-    type: String,
+    type: Boolean,
   },
   sex: {
-    type: String,
+    type: Number,
   },
 });
 

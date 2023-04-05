@@ -10,7 +10,7 @@ const BookingScheduleSchema = new mongoose.Schema({
     ref: "WorkingHours",
   },
   static: {
-    type: String,
+    type: Number,
   },
 });
 
