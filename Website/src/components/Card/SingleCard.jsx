@@ -1,8 +1,8 @@
-import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const SingleCard = (props) => {
   return (
-    <div class="card m-1">
+    <Link to={"/detailroom"} className="card m-1" style={{textDecoration:"none"}}>
       <img class="card-img-top" src={props.url} alt="Card image cap" />
       <div class="card-body" style={{ padding: "15px" }}>
         <h5 class="card-title">{props.name}</h5>
@@ -12,7 +12,7 @@ const SingleCard = (props) => {
       <div class="footer">
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
-    </div>
+    </Link>
   );
 };
 

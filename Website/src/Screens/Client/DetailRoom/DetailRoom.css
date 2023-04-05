@@ -180,3 +180,21 @@ ul {
 .tab-body {
   padding: 15px;
 }
+
+.heart-red{
+  color: red;
+}
+
+.heart-red:hover{
+  color:  rgba(255, 0, 0, 0.7);
+}
+
+.heart-gray{
+  color: gray;
+}
+
+.heart-gray:hover{
+  color:  rgba(128, 128, 128, 0.7);
+}
+
+

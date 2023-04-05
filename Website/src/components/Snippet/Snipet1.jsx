@@ -9,7 +9,7 @@ const Snipet1 = () => {
               src="https://cdn.mos.cms.futurecdn.net/wFzEvUmaoVtNimMMnQSgMR.gif"
               class="rounded"
               alt="..."
-              style={{ maxWidth: "800px", maxHeight: "540px" }}
+              // style={{ maxWidth: "800px", maxHeight: "540px" }}
             />
           </div>
         </div>

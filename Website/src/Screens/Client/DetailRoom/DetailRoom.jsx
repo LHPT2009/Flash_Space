@@ -98,6 +98,12 @@ const DetailRoom = () => {
                                       <small>Văn phòng</small>
                                       <h4 class="content-title">
                                         Phòng họp cho công ty
+                                        <a href="#" className="text-">
+                                        <i class="fa fa-heart fa-2xl heart-red" style={{marginLeft:"10px"}}></i>
+                                        </a>
+                                        <a href="#">
+                                        <i class="fa fa-heart fa-2xl heart-gray" style={{marginLeft:"10px"}}></i>
+                                        </a>
                                       </h4>
                                       <span class="pull-left">
                                         <span class="price">250.000</span>
