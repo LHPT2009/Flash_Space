@@ -22,6 +22,8 @@ const TimeSlotRoute = require("./routes/TimeSlot");
 const WardRoute = require("./routes/Ward");
 const WorkAssignmentRoute = require("./routes/WorkAssignment");
 const WorkingHoursRoute = require("./routes/WorkingHours");
+const AuthRoute = require("./routes/Auth");
+const RoleRoute = require("./routes/Role");
 
 dotenv.config();
 const app = express();
@@ -57,6 +59,8 @@ app.use("/timeslot", TimeSlotRoute);
 app.use("/ward", WardRoute);
 app.use("/workassignment", WorkAssignmentRoute);
 app.use("/workinghours", WorkingHoursRoute);
+app.use("/auth", AuthRoute);
+app.use("/role", RoleRoute);
 
 app.listen(8000, () => {
   console.log("Server is running...");

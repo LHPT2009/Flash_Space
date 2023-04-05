@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const AccountSchema = new mongoose.Schema({
-  idpermission: {
+  idrole: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Permission",
+    ref: "Role",
   },
   username: {
     type: String,
