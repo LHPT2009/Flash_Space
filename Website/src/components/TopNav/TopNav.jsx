@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./TopNav.css";
 
 const TopNav = () => {
-  const [check, setCheck] = useState(false);
   return (
     <div>
       <div
@@ -104,7 +103,7 @@ const TopNav = () => {
                   Dịch vụ
                 </Link>
                 <div class="d-lg-none">
-                  {check ? (
+                  {!localStorage.getItem("token") ? (
                     <Link
                       to={"/login"}
                       className="btn btn-primary rounded-pill py-2 px-3 text-white w-100"
@@ -151,7 +150,7 @@ const TopNav = () => {
                 </div>
               </div>
               <div class="ms-auto d-none d-lg-block">
-                {check ? (
+                {!localStorage.getItem("token") ? (
                   <Link
                     to={"/login"}
                     className="btn btn-primary rounded-pill py-2 px-3 text-white w-100"

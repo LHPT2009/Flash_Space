@@ -1,9 +1,31 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Login.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
+import { useState } from "react";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const loginUser = async (e) => {
+    e.preventDefault();
+    try {
+      const Auth = await axios
+        .post(`http://localhost:8000/auth/login`, { username, password })
+        .catch((err) => {
+          console.log(err);
+        });
+      if (Auth) {
+        console.log(Auth.data);
+        localStorage.setItem("token", Auth.data.accessToken);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <TopNav />
@@ -24,25 +46,40 @@ const Login = () => {
                 >
                   <div class="py-4 px-3 w-75">
                     <h4>Đăng nhập</h4>
-                    <div class="row mt-2">
-                      <div class="col-md-12">
-                        <div class="input-field">
-                          <input class="form-control" id="input3" required />
-                          <label for="input3">Tài khoản</label>
+                    <form onSubmit={loginUser}>
+                      <div class="row mt-2">
+                        <div class="col-md-12">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input3"
+                              required
+                              onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <label for="input3">Tài khoản</label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row mt-2 mb-2">
-                      <div class="col-md-12">
-                        <div class="input-field">
-                          <input class="form-control" id="input4" required />
-                          <label for="input4">Mật khẩu</label>
+                      <div class="row mt-2 mb-2">
+                        <div class="col-md-12">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input4"
+                              required
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <label for="input4">Mật khẩu</label>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                     <div class="row mt-2">
                       <div class="col-md-12">
-                        <button class="btn btn-primary w-100 signup-button">
+                        <button
+                          class="btn btn-primary w-100 signup-button"
+                          onClick={loginUser}
+                        >
                           Đăng nhập
                         </button>
                       </div>
