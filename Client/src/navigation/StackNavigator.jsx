@@ -9,6 +9,14 @@ import BottomTabNavigator from "./TabNavigator";
 import DetailsScreen from "../views/DetailsScreen";
 import CommentsScreen from "../views/CommentsScreen";
 import Welcome from "../views/Welcome";
+import ProfileScreen from "../views/ProfileScreen";
+import HistoryScreen from "../views/HistoryScreen";
+import DetailBookScreen from "../views/DetailBookScreen";
+import BookScreen from "../views/BookScreen";
+import AuthScreen from "../views/AuthScreen";
+import TakephotoScreen from "../views/TakephotoScreen";
+import PostScreen from "../views/PostScreen";
+import PostEndScreen from "../views/PostEndScreen";
 // import Rooms from "../screens/Rooms";
 // import Detail from "../screens/Detail";
 // import HomeScreen from "../views/screens/HomeScreen";
@@ -31,6 +39,13 @@ const WelcomeStackNavigator = () => {
       <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
       <Stack.Screen name="CommentsSreen" component={CommentsScreen} />
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
+      <Stack.Screen name="DetailBookScreen" component={DetailBookScreen} />
+      <Stack.Screen name="BookScreen" component={BookScreen} />
+      <Stack.Screen name="TakephotoScreen" component={TakephotoScreen} />
+      <Stack.Screen name="AuthScreen" component={AuthScreen} />
+      <Stack.Screen name="PostScreen" component={PostScreen} />
+      <Stack.Screen name="PostEndScreen" component={PostEndScreen} />
 
       {/* <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Rooms" component={Rooms} /> */}
@@ -54,7 +69,7 @@ const MainStackNavigator = () => {
 const ProfileStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Contact" component={Home} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };

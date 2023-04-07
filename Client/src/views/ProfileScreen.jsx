@@ -49,7 +49,7 @@ const CardInformation = () => {
   );
 };
 
-const CardSetting = () => {
+const CardSetting = ({ navigation }) => {
   return (
     <View style={styles.cardSetting}>
       <View style={styles.cardSetting_box}>
@@ -73,11 +73,14 @@ const CardSetting = () => {
           <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />
         </TouchableOpacity>
         <View style={styles.hr} />
-        <TouchableOpacity style={styles.cardSetting_box_item}>
+        <TouchableOpacity
+          style={styles.cardSetting_box_item}
+          onPress={() => navigation.navigate("HistoryScreen")}
+        >
           <View style={styles.cardSetting_box_item_title}>
             <MaterialIconsIcon name="tablet" size={20} color={"black"} />
             <Text style={styles.cardSetting_box_item_title_text}>
-              Cài đặt hiển thị
+              Lịch sử thuê phòng
             </Text>
           </View>
           <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />
@@ -97,7 +100,7 @@ const CardSetting = () => {
   );
 };
 
-const DetailScreen = ({ navigation, route }) => {
+const ProfileScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <StatusBar
@@ -111,7 +114,7 @@ const DetailScreen = ({ navigation, route }) => {
       >
         <CardInformation />
         <View style={styles.space} />
-        <CardSetting />
+        <CardSetting navigation={navigation} />
         <View style={styles.button_box}>
           <Button
             style={styles.button}
@@ -258,4 +261,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailScreen;
+export default ProfileScreen;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   SafeAreaView,
@@ -19,7 +19,6 @@ import { LocaleConfig, Calendar } from "react-native-calendars";
 import COLORS from "../consts/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import theme from "../styles/theme";
-import Addcomment from "../components/Addcomment";
 
 const { width } = Dimensions.get("screen");
 
@@ -28,11 +27,50 @@ const DetailsScreen = ({ navigation, route }) => {
   const [imageView, setImageView] = useState(house.image);
   const [imageLast, setImageLast] = useState(house.image);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [openAddcomment, setOpenAddcomment] = useState(false);
-  const categoryList = ["Trong ngày", "Hàng tuần"];
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
 
   const { isOpen, onOpen, onClose } = useDisclose();
+  const [openBook, setOpenbook] = useState(false);
+  const listHour = [
+    { id: "1", hour: "7h - 8h", status: false },
+    { id: "2", hour: "8h - 9h", status: false },
+    { id: "3", hour: "9h - 10h", status: false },
+    { id: "4", hour: "10h - 11h", status: false },
+    { id: "5", hour: "11h - 12h", status: false },
+    { id: "6", hour: "12h - 13h", status: false },
+    { id: "11", hour: "7h - 8h", status: false },
+    { id: "21", hour: "8h - 9h", status: false },
+    { id: "31", hour: "9h - 10h", status: false },
+    { id: "41", hour: "10h - 11h", status: false },
+    { id: "51", hour: "11h - 12h", status: false },
+    { id: "61", hour: "12h - 13h", status: false },
+    { id: "111", hour: "7h - 8h", status: false },
+    { id: "211", hour: "8h - 9h", status: false },
+    { id: "311", hour: "9h - 10h", status: false },
+    { id: "411", hour: "10h - 11h", status: false },
+    { id: "511", hour: "11h - 12h", status: false },
+    { id: "611", hour: "12h - 13h", status: false },
+    // { id: "19", hour: "7h - 8h" },
+    // { id: "29", hour: "8h - 9h" },
+    // { id: "39", hour: "9h - 10h" },
+    // { id: "49", hour: "10h - 11h" },
+    // { id: "59", hour: "11h - 12h" },
+    // { id: "69", hour: "12h - 13h" },
+    // { id: "119", hour: "7h - 8h" },
+    // { id: "219", hour: "8h - 9h" },
+    // { id: "319", hour: "9h - 10h" },
+    // { id: "419", hour: "10h - 11h" },
+    // { id: "519", hour: "11h - 12h" },
+    // { id: "619", hour: "12h - 13h" },
+    // { id: "1119", hour: "7h - 8h" },
+    // { id: "2119", hour: "8h - 9h" },
+    // { id: "3119", hour: "9h - 10h" },
+    // { id: "4119", hour: "10h - 11h" },
+    // { id: "5119", hour: "11h - 12h" },
+    // { id: "6119", hour: "12h - 13h" },
+  ];
+
+  const [listSelected, setListSelected] = useState(listHour);
+  const [selected, setSelected] = useState("");
 
   LocaleConfig.locales["fr"] = {
     monthNames: [
@@ -77,53 +115,105 @@ const DetailsScreen = ({ navigation, route }) => {
   };
   LocaleConfig.defaultLocale = "fr";
 
-  const ListCategories = () => {
-    return (
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 40,
-          paddingHorizontal: 40,
-        }}
-      >
-        {categoryList.map((category, index) => (
-          <Pressable
-            key={index}
-            onPress={() => {
-              setSelectedCategoryIndex(index);
+  const checkOpenBook = (list) => {
+    const result = list.map((val) => {
+      if (val.status == true) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setOpenbook(result.includes(true));
+  };
+
+  const MultiSelecteHour = () => {
+    const handleOnpress = (item) => {
+      const newItem = listSelected.map((val) => {
+        if (val.id == item.id) {
+          return { ...val, status: !val.status };
+        } else {
+          return val;
+        }
+      });
+      checkOpenBook(newItem);
+      setListSelected(newItem);
+    };
+
+    const Item = ({ item }) => {
+      return (
+        <View
+          style={{
+            width: "25%",
+            height: 60,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "90%",
+              height: "60%",
             }}
+            onPress={() => handleOnpress(item)}
           >
-            <Text
-              style={[
-                {
-                  width: 100,
-                  fontSize: 16,
-                  paddingBottom: 5,
-                  color: COLORS.grey,
+            {item.status ? (
+              <View
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: theme.PRIMARY_BG_COLOR,
+                  borderRadius: 7,
                   justifyContent: "center",
-                  textAlign: "center",
-                },
-                index == selectedCategoryIndex && {
-                  color: COLORS.dark,
-                  borderColor: theme.PRIMARY_BG_COLOR,
-                  borderBottomWidth: 3,
-                  paddingBottom: 5,
-                },
-                { fontFamily: theme.FontMain },
-              ]}
-            >
-              {category}
-            </Text>
-          </Pressable>
-        ))}
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    fontSize: 16,
+                    color: "white",
+                  }}
+                >
+                  {item.hour}
+                </Text>
+              </View>
+            ) : (
+              <View
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: COLORS.gray,
+                  borderRadius: 7,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontFamily: theme.FontMain, fontSize: 16 }}>
+                  {item.hour}
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+      );
+    };
+    return (
+      <View style={{ width: "90%" }}>
+        <FlatList
+          key={"_"}
+          showsHorizontalScrollIndicator={false}
+          data={listSelected}
+          style={[{ width: "100%" }]}
+          renderItem={({ item }) => <Item item={item} />}
+          keyExtractor={(item) => "_" + item.id}
+          numColumns={4}
+          scrollEnabled={false}
+        />
       </View>
     );
   };
 
   const InDay = () => {
-    const [selected, setSelected] = useState("2023-03-29");
     return (
       <Calendar
         enableSwipeMonths={true}
@@ -134,7 +224,7 @@ const DetailsScreen = ({ navigation, route }) => {
           [selected]: {
             selected: true,
             disableTouchEvent: true,
-            selectedDotColor: "orange",
+            selectedDotColor: theme.PRIMARY_BG_COLOR,
           },
         }}
         style={{
@@ -162,78 +252,6 @@ const DetailsScreen = ({ navigation, route }) => {
         // }}
       />
     );
-  };
-  const InWeek = () => {
-    const [startDay, setStartDay] = useState("");
-    const [endDay, setEndDay] = useState("");
-
-    return (
-      <Calendar
-        enableSwipeMonths={true}
-        onDayPress={(day) => {
-          if (startDay == "") {
-            setStartDay(day.dateString);
-          }
-          if (startDay != "") {
-            setEndDay(day.dateString);
-          }
-          if (startDay != "" && endDay != "") {
-            setStartDay("");
-            setEndDay("");
-          }
-        }}
-        // markedDates={{
-        //   [selected]: {
-        //     selected: true,
-        //     disableTouchEvent: true,
-        //     selectedDotColor: "orange",
-        //   },
-        // }}
-        markingType={"period"}
-        markedDates={{
-          [startDay]: {
-            startingDay: true,
-            color: theme.PRIMARY_BG_COLOR,
-            textColor: "white",
-          },
-          "2012-05-22": { color: "#70d7c7", textColor: "white" },
-          "2012-05-23": { color: "#70d7c7", textColor: "white" },
-          "2012-05-24": { color: "#70d7c7", textColor: "white" },
-          [endDay]: {
-            endingDay: true,
-            color: theme.PRIMARY_BG_COLOR,
-            textColor: "white",
-          },
-        }}
-        style={{
-          borderRadius: 13,
-          width: "100%",
-          elevation: 10,
-          paddingBottom: 10,
-        }}
-        // markingType="multi-period"
-        // markedDates={{
-        //   "2023-03-28": {
-        //     periods: [
-        //       { startingDay: false, endingDay: true, color: "#5f9ea0" },
-        //       { startingDay: false, endingDay: true, color: "#ffa500" },
-        //       { startingDay: true, endingDay: false, color: "#f0e68c" },
-        //     ],
-        //   },
-        //   "2023-03-30": {
-        //     periods: [
-        //       { startingDay: true, endingDay: false, color: "#ffa500" },
-        //       { color: "transparent" },
-        //       { startingDay: false, endingDay: false, color: "#f0e68c" },
-        //     ],
-        //   },
-        // }}
-      />
-    );
-  };
-
-  const closeAddComment = (result) => {
-    setOpenAddcomment(result);
   };
 
   const onChangeFavorite = () => {
@@ -270,7 +288,6 @@ const DetailsScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light }}>
-      {openAddcomment ? <Addcomment closeAdd={closeAddComment} /> : <View />}
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -395,79 +412,6 @@ const DetailsScreen = ({ navigation, route }) => {
           >
             {house.details}
           </Text>
-
-          {/* Comment */}
-          {/* <View>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: theme.FontMain,
-                marginTop: 20,
-              }}
-            >
-              Bình luận
-            </Text>
-            <Text
-              style={{
-                marginTop: 10,
-                color: COLORS.grey,
-                fontFamily: theme.FontMain,
-                paddingBottom: 10,
-              }}
-            >
-              Hãy để lại bình luật của bạn
-            </Text>
-            <View
-              style={{
-                width: "100%",
-                backgroundColor: COLORS.white,
-                flexDirection: "row",
-                borderRadius: 13,
-                paddingVertical: 15,
-              }}
-            >
-              <View
-                style={{
-                  width: "75%",
-                  backgroundColor: COLORS.white,
-                }}
-              >
-                <View>
-                  <Input style={{ fontFamily: theme.FontMain }}></Input>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                </View>
-              </View>
-              <View
-                style={{
-                  width: "25%",
-                  backgroundColor: COLORS.white,
-                }}
-              >
-                <View
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    style={{
-                      borderRadius: 50,
-                      width: 50,
-                      height: 50,
-                      backgroundColor: "red",
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-          </View> */}
-
           {/* Interior list */}
           <View>
             <View
@@ -485,19 +429,6 @@ const DetailsScreen = ({ navigation, route }) => {
               >
                 Bình luận
               </Text>
-              <TouchableOpacity
-                style={{ justifyContent: "flex-end" }}
-                onPress={() => setOpenAddcomment(true)}
-              >
-                <Text
-                  style={{
-                    color: theme.PRIMARY_BG_COLOR,
-                    fontFamily: theme.FontMain,
-                  }}
-                >
-                  + Thêm bình luận
-                </Text>
-              </TouchableOpacity>
             </View>
 
             <Text
@@ -653,13 +584,14 @@ const DetailsScreen = ({ navigation, route }) => {
       {/* Phần đặt phòng */}
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
-          <View style={{ width: "100%", height: "100%" }}>
-            <ListCategories />
-            {selectedCategoryIndex == 0 ? (
+          <View style={{ width: "100%", height: "85%" }}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            >
               <View
                 style={{
                   width: "100%",
-                  height: "100%",
                   alignItems: "center",
                   marginTop: 20,
                 }}
@@ -672,41 +604,114 @@ const DetailsScreen = ({ navigation, route }) => {
                   <InDay />
                 </View>
               </View>
+
+              <View
+                style={{ marginTop: 20, height: 200, alignItems: "center" }}
+              >
+                <View style={{ width: "90%" }}>
+                  <Text
+                    style={{
+                      fontFamily: theme.FontMain,
+                      fontSize: 18,
+                      color: COLORS.grey,
+                    }}
+                  >
+                    Khung giờ hiện có
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <MultiSelecteHour />
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+          <View
+            style={{
+              width: "100%",
+              height: "15%",
+              backgroundColor: COLORS.white,
+              borderRadius: 13,
+              elevation: 20,
+              paddingHorizontal: 20,
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  color: COLORS.blue,
+                  fontWeight: "bold",
+                  fontSize: 18,
+                }}
+              >
+                200.000 VNĐ
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: COLORS.grey,
+                  fontFamily: theme.FontMain,
+                }}
+              >
+                Tổng tiền
+              </Text>
+            </View>
+            {openBook ? (
+              <TouchableOpacity
+                style={{
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: theme.PRIMARY_BG_COLOR,
+                  borderRadius: 10,
+                  paddingHorizontal: 40,
+                }}
+                onPress={() => {
+                  onClose();
+                  navigation.navigate("BookScreen");
+                }}
+              >
+                <Text
+                  style={{
+                    color: COLORS.white,
+                    fontFamily: theme.FontMain,
+                    fontSize: 20,
+                  }}
+                >
+                  Đặt ngay
+                </Text>
+              </TouchableOpacity>
             ) : (
               <View
                 style={{
-                  width: "100%",
-                  height: "100%",
+                  height: 50,
+                  justifyContent: "center",
                   alignItems: "center",
-                  marginTop: 20,
+                  backgroundColor: COLORS.gray,
+                  borderRadius: 10,
+                  paddingHorizontal: 40,
                 }}
               >
-                <View
+                <Text
                   style={{
-                    width: "90%",
+                    color: COLORS.dark,
+                    fontFamily: theme.FontMain,
+                    fontSize: 20,
                   }}
                 >
-                  <InWeek />
-                </View>
+                  Đặt ngay
+                </Text>
               </View>
             )}
-            {/* <View
-              style={{ width: "100%", height: "20%", backgroundColor: "blue" }}
-            >
-              <View style={{ width: "100%" }}></View>
-            </View>
-            <View
-              style={{ width: "100%", height: "20%", backgroundColor: "red" }}
-            ></View>
-            <View
-              style={{ width: "100%", height: "20%", backgroundColor: "green" }}
-            ></View>
-            <View
-              style={{ width: "100%", height: "20%", backgroundColor: "pink" }}
-            ></View>
-            <View
-              style={{ width: "100%", height: "20%", backgroundColor: "black" }}
-            ></View> */}
           </View>
         </Actionsheet.Content>
       </Actionsheet>

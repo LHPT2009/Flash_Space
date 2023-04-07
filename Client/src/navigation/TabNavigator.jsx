@@ -13,7 +13,7 @@ import { Image, View } from "react-native";
 import Home from "../views/HomeScreen";
 import RoomsScreen from "../views/RoomsScreen";
 import FavoriteScreen from "../views/FavoriteSreen";
-import DetailScreen from "../views/ProfileScreen";
+import ProfileScreen from "../views/ProfileScreen";
 // import AddButton from "../components/AddButton";
 
 const Tab = createBottomTabNavigator();
@@ -96,7 +96,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={DetailScreen}
+        component={ProfileScreen}
         options={{
           tabBarItemStyle: { height: 0 },
           tabBarIcon: ({ focused }) => (

@@ -13,7 +13,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Actionsheet, Box, useDisclose } from "native-base";
+import {
+  Actionsheet,
+  Box,
+  useDisclose,
+  Checkbox,
+  Slider,
+  Stack,
+} from "native-base";
 import COLORS from "../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
 const { width } = Dimensions.get("screen");
@@ -23,7 +30,9 @@ import theme from "../styles/theme";
 const RoomsScreen = ({ navigation }) => {
   const categoryList = ["Lưới", "Dọc", "Ngang"];
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+  const [groupValues, setGroupValues] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclose();
+  const [onChangeValue, setOnChangeValue] = React.useState(70);
   const ListCategories = () => {
     return (
       <View style={style.categoryListContainer}>
@@ -173,34 +182,6 @@ const RoomsScreen = ({ navigation }) => {
       </Pressable>
     );
   };
-
-  // const Filter = () => {
-  //   const {
-  //     isOpen,
-  //     onOpen,
-  //     onClose
-  //   } = useDisclose();
-  //   return <Center>
-  //       <Button onPress={onOpen}>Actionsheet</Button>
-  //       <Actionsheet isOpen={isOpen} onClose={onClose}>
-  //         <Actionsheet.Content>
-  //           <Box w="100%" h={60} px={4} justifyContent="center">
-  //             <Text fontSize="16" color="gray.500" _dark={{
-  //             color: "gray.300"
-  //           }}>
-  //               Albums
-  //             </Text>
-  //           </Box>
-  //           <Actionsheet.Item>Delete</Actionsheet.Item>
-  //           <Actionsheet.Item isDisabled>Share</Actionsheet.Item>
-  //           <Actionsheet.Item>Play</Actionsheet.Item>
-  //           <Actionsheet.Item>Favourite</Actionsheet.Item>
-  //           <Actionsheet.Item>Cancel</Actionsheet.Item>
-  //         </Actionsheet.Content>
-  //       </Actionsheet>
-  //     </Center>;
-  // }
-
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
       {/* Customise status bar */}
@@ -271,34 +252,385 @@ const RoomsScreen = ({ navigation }) => {
       </ScrollView>
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
-          <ScrollView
-            style={{ width: "100%" }}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
+          <View style={{ width: "100%", height: "85%" }}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            >
+              <View
+                style={{
+                  width: "100%",
+                  paddingBottom: 15,
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: "90%",
+                    height: 120,
+                    borderRadius: 13,
+                    backgroundColor: COLORS.white,
+                    elevation: 10,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "35%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        fontSize: 18,
+                        paddingLeft: 20,
+                        color: COLORS.grey,
+                      }}
+                    >
+                      Lọc theo ngày
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "65%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: "90%",
+                        height: "70%",
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                        borderRadius: 13,
+                        borderWidth: 3,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View
+                        style={{
+                          width: "90%",
+                          height: "80%",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            width: "80%",
+                            fontFamily: theme.FontMain,
+                            fontSize: 18,
+                            color: COLORS.grey,
+                          }}
+                        >
+                          Chọn ngày
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: "90%",
+                    height: 120,
+                    marginTop: 20,
+                    borderRadius: 13,
+                    backgroundColor: COLORS.white,
+                    elevation: 10,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "35%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        fontSize: 18,
+                        paddingLeft: 20,
+                        color: COLORS.grey,
+                      }}
+                    >
+                      Lọc theo giờ
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "65%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: "90%",
+                        height: "70%",
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                        borderRadius: 13,
+                        borderWidth: 3,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View
+                        style={{
+                          width: "90%",
+                          height: "80%",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            width: "80%",
+                            fontFamily: theme.FontMain,
+                            fontSize: 18,
+                            color: COLORS.grey,
+                          }}
+                        >
+                          Chọn giờ
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: "90%",
+                    height: 120,
+                    marginTop: 20,
+                    borderRadius: 13,
+                    backgroundColor: COLORS.white,
+                    elevation: 10,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "35%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        fontSize: 18,
+                        paddingLeft: 20,
+                        color: COLORS.grey,
+                      }}
+                    >
+                      Lọc theo giá
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: "100%",
+                      height: "65%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: "90%",
+                        height: "70%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Stack space={4} alignItems="center" w="100%" maxW="400">
+                        <Text
+                          textAlign="center"
+                          style={{ fontFamily: theme.FontMain, fontSize: 18 }}
+                        >
+                          Khoảng: {onChangeValue}
+                        </Text>
+                        <Slider
+                          defaultValue={70}
+                          colorScheme="info"
+                          onChange={(v) => {
+                            setOnChangeValue(v);
+                          }}
+                        >
+                          <Slider.Track>
+                            <Slider.FilledTrack />
+                          </Slider.Track>
+                          <Slider.Thumb />
+                        </Slider>
+                      </Stack>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: "90%",
+                    marginVertical: 20,
+                    borderRadius: 13,
+                    backgroundColor: COLORS.white,
+                    elevation: 10,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      height: 50,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        fontSize: 18,
+                        paddingLeft: 20,
+                        color: COLORS.grey,
+                      }}
+                    >
+                      Lọc theo lĩnh vực
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: "100%",
+                      alignItems: "center",
+                      marginBottom: 20,
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: "90%",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Checkbox.Group
+                        onChange={(v) => setGroupValues(v)}
+                        value={groupValues}
+                        accessibilityLabel="choose numbers"
+                      >
+                        <Checkbox value="one" my={2} colorScheme="info">
+                          <Text
+                            style={{
+                              fontSize: 17,
+                              fontFamily: theme.FontMain,
+                              color: COLORS.dark,
+                            }}
+                          >
+                            Phòng ngủ
+                          </Text>
+                        </Checkbox>
+                        <Checkbox value="two" colorScheme="info">
+                          <Text
+                            style={{
+                              fontSize: 17,
+                              fontFamily: theme.FontMain,
+                              color: COLORS.dark,
+                            }}
+                          >
+                            Phòng khách
+                          </Text>
+                        </Checkbox>
+                        <Checkbox value="three" my={2} colorScheme="info">
+                          <Text
+                            style={{
+                              fontSize: 17,
+                              fontFamily: theme.FontMain,
+                              color: COLORS.dark,
+                            }}
+                          >
+                            Phòng stream
+                          </Text>
+                        </Checkbox>
+                        <Checkbox value="four" colorScheme="info">
+                          <Text
+                            style={{
+                              fontSize: 17,
+                              fontFamily: theme.FontMain,
+                              color: COLORS.dark,
+                            }}
+                          >
+                            Phòng học
+                          </Text>
+                        </Checkbox>
+                        <Checkbox value="five" my={2} colorScheme="info">
+                          <Text
+                            style={{
+                              fontSize: 17,
+                              fontFamily: theme.FontMain,
+                              color: COLORS.dark,
+                            }}
+                          >
+                            Phòng sự kiện
+                          </Text>
+                        </Checkbox>
+                        <Checkbox value="sick" colorScheme="info">
+                          <Text
+                            style={{
+                              fontSize: 17,
+                              fontFamily: theme.FontMain,
+                              color: COLORS.dark,
+                            }}
+                          >
+                            Phòng họp
+                          </Text>
+                        </Checkbox>
+                      </Checkbox.Group>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+          <View
+            style={{
+              width: "100%",
+              height: "15%",
+              backgroundColor: COLORS.white,
+              borderRadius: 13,
+              elevation: 20,
+              paddingHorizontal: 20,
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
           >
-            <Box w="100%" h={600} px={4} justifyContent="center">
+            <View>
               <Text
-                fontSize="16"
-                color="gray.500"
-                _dark={{
-                  color: "gray.300",
+                style={{
+                  color: COLORS.blue,
+                  fontWeight: "bold",
+                  fontSize: 18,
+                }}
+              ></Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: COLORS.grey,
+                  fontFamily: theme.FontMain,
+                }}
+              ></Text>
+            </View>
+            <TouchableOpacity
+              style={{
+                height: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: theme.PRIMARY_BG_COLOR,
+                borderRadius: 10,
+                paddingHorizontal: 40,
+              }}
+            >
+              <Text
+                style={{
+                  color: COLORS.white,
+                  fontFamily: theme.FontMain,
+                  fontSize: 20,
                 }}
               >
-                Albums
+                Áp dụng
               </Text>
-            </Box>
-            <Box w="100%" h={600} px={4} justifyContent="center">
-              <Text
-                fontSize="16"
-                color="gray.500"
-                _dark={{
-                  color: "gray.300",
-                }}
-              >
-                Albums
-              </Text>
-            </Box>
-          </ScrollView>
+            </TouchableOpacity>
+          </View>
         </Actionsheet.Content>
       </Actionsheet>
     </SafeAreaView>
