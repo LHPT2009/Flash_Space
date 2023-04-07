@@ -20,15 +20,10 @@ const InfoUser = () => {
                           alt="Maxwell Admin"
                         />
                       </div>
-                      <h5 class="user-name">Yuki Hayashi</h5>
-                      <h6 class="user-email">yuki@Maxwell.com</h6>
-                    </div>
-                    <div class="about">
-                      <h5>About</h5>
-                      <p>
-                        I'm Yuki. Full Stack Designer I enjoy creating
-                        user-centric, delightful and human experiences.
-                      </p>
+                      <h5 class="user-name">Lê Huỳnh Phương Tùng</h5>
+                      <h6 class="user-email">
+                        lehuynhphuongtung0601@gmail.com
+                      </h6>
                     </div>
                   </div>
                 </div>
@@ -39,16 +34,18 @@ const InfoUser = () => {
                 <div class="card-body">
                   <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                      <h6 class="mb-2 text-primary">Personal Details</h6>
+                      <h6 class="mb-2 text-primary">
+                        Chi tiết thông tin người dùng
+                      </h6>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="fullName">Full Name</label>
+                        <label for="fullName">Họ và tên</label>
                         <input
                           type="text"
                           class="form-control"
                           id="fullName"
-                          placeholder="Enter full name"
+                          placeholder="Họ và tên"
                         />
                       </div>
                     </div>
@@ -59,78 +56,51 @@ const InfoUser = () => {
                           type="email"
                           class="form-control"
                           id="eMail"
-                          placeholder="Enter email ID"
+                          placeholder="Email của tài khoản"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="phone">Phone</label>
+                        <label for="phone">Số điện thoại</label>
                         <input
                           type="text"
                           class="form-control"
                           id="phone"
-                          placeholder="Enter phone number"
+                          placeholder="Số điện thoại"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="website">Website URL</label>
-                        <input
-                          type="url"
-                          class="form-control"
-                          id="website"
-                          placeholder="Website url"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row gutters">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                      <h6 class="mt-3 mb-2 text-primary">Address</h6>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                      <div class="form-group">
-                        <label for="Street">Street</label>
-                        <input
-                          type="name"
-                          class="form-control"
-                          id="Street"
-                          placeholder="Enter Street"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                      <div class="form-group">
-                        <label for="ciTy">City</label>
-                        <input
-                          type="name"
-                          class="form-control"
-                          id="ciTy"
-                          placeholder="Enter City"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                      <div class="form-group">
-                        <label for="sTate">State</label>
+                        <label for="phone">Số điện thoại</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="sTate"
-                          placeholder="Enter State"
+                          id="phone"
+                          placeholder="Số điện thoại"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="zIp">Zip Code</label>
+                        <label for="phone">Số điện thoại</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="zIp"
-                          placeholder="Zip Code"
+                          id="phone"
+                          placeholder="Số điện thoại"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="phone"
+                          placeholder="Số điện thoại"
                         />
                       </div>
                     </div>
@@ -144,7 +114,7 @@ const InfoUser = () => {
                           name="submit"
                           class="btn btn-secondary m-1"
                         >
-                          Cancel
+                          Trở lại
                         </button>
                         <button
                           type="button"
@@ -152,7 +122,7 @@ const InfoUser = () => {
                           name="submit"
                           class="btn btn-primary m-1"
                         >
-                          Update
+                          cập nhật
                         </button>
                       </div>
                     </div>

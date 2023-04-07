@@ -11,7 +11,7 @@ const Order = () => {
           <div class="row gutters">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div class="card" style={{ height: "800px" }}>
-                <div class="card-header text-primary">
+                <div class="card-header text-black">
                   Kiểm tra thông tin của bạn trước khi xác nhận đặt phòng
                 </div>
                 <div class="card-body p-0">
@@ -21,14 +21,14 @@ const Order = () => {
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-start">
                           <a
                             href="index.html"
-                            class="btn text-warning"
-                            style={{ fontSize: "30px" }}
+                            class="btn"
+                            style={{ fontSize: "30px", color: "#FFC107" }}
                           >
                             FLASH SPACE
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                          <address class="text-end">
+                          <address class="text-end text-black">
                             435 Điện biên Phủ , phường 11, Quận Bình Thạnh
                             <br />
                             Hồ chí Minh, Việt Nam
@@ -40,7 +40,7 @@ const Order = () => {
                       <div class="row gutters">
                         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
-                            <address className="text-primary">
+                            <address className="text-black">
                               Nguyễn Văn Chuẩn
                               <br />
                               181/7 Liên Tỉnh 5, phường 5, Quận 8, TP.HCM
@@ -51,7 +51,7 @@ const Order = () => {
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
-                            <div class="invoice-num text-primary">
+                            <div class="invoice-num text-black">
                               <div>Mã hóa đơn: #1232132131</div>
                               <div>Ngày 18 tháng 03 năm 2023</div>
                             </div>
@@ -69,7 +69,8 @@ const Order = () => {
                                 <tr>
                                   <th>Tên phòng</th>
                                   <th>Mã Phòng</th>
-                                  <th>thời gian</th>
+                                  <th>Bắt đầu</th>
+                                  <th>kết thúc</th>
                                   <th>giá tiền</th>
                                 </tr>
                               </thead>
@@ -77,16 +78,19 @@ const Order = () => {
                                 <tr>
                                   <td>Phòng thuê quận 8</td>
                                   <td>#50000981</td>
-                                  <td>09h00 {"->"} 10h00</td>
+                                  <td>09h00</td>
+                                  <td>10h00</td>
                                   <td>250 000 VNĐ</td>
                                 </tr>
                                 <tr>
                                   <td>Phòng thuê quận 8</td>
                                   <td>#50000981</td>
-                                  <td>10h00 {"->"} 11h00</td>
+                                  <td>09h00</td>
+                                  <td>10h00</td>
                                   <td>250 000 VNĐ</td>
                                 </tr>
                                 <tr>
+                                  <td>&nbsp;</td>
                                   <td>&nbsp;</td>
                                   <td colspan="2">
                                     <p>
@@ -95,7 +99,7 @@ const Order = () => {
                                       Chi phí phát xin
                                       <br />
                                     </p>
-                                    <h5 class="text-success">
+                                    <h5 class="text-black">
                                       <strong>Tổng tiền</strong>
                                     </h5>
                                   </td>
@@ -106,7 +110,7 @@ const Order = () => {
                                       0 VNĐ
                                       <br />
                                     </p>
-                                    <h5 class="text-success">
+                                    <h5 class="text-black">
                                       <strong>500 000 VNĐ</strong>
                                     </h5>
                                   </td>
@@ -126,7 +130,10 @@ const Order = () => {
                   >
                     Thay đổi thay tin cá nhân
                   </Link>
-                  <Link className="btn btn-success btn-lg btn-radius m-1">
+                  <Link
+                    to={"/"}
+                    className="btn btn-success btn-lg btn-radius m-1"
+                  >
                     Đặt phòng
                   </Link>
                 </div>

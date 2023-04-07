@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import "./ItemGridHistory.css";
+import "./ItemGridFavourite.css";
 
 const ItemGrid = () => {
   return (
     <Link
-      to={"/detailhistory"}
+      to={"/detailroom"}
       class="card"
       style={{ maxWidth: "100%", textDecoration: "none" }}
     >

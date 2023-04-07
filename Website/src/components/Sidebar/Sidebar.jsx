@@ -12,7 +12,19 @@ const Sidebar = () => {
       </button>
       <div id="aside_filter" className="collapse card d-lg-block mb-5">
         <article className="filter-group">
-          <header className="card-header">Chọn theo lĩnh vực</header>
+          <header className="card-header">Lĩnh vực</header>
+          <div className="collapse show" id="collapse_aside_brands">
+            <div className="card-body">
+              <label className="form-check">
+                <input className="form-check-input" type="checkbox" value="" />
+                <span className="form-check-label"> Công nghệ </span>
+              </label>
+            </div>
+          </div>
+        </article>
+
+        <article className="filter-group">
+          <header className="card-header">Khu vực</header>
           <div className="collapse show" id="collapse_aside_brands">
             <div className="card-body">
               <label className="form-check">
@@ -53,6 +65,30 @@ const Sidebar = () => {
                   />
                 </div>
               </div>
+            </div>
+          </div>
+        </article>
+
+        <article className="filter-group">
+          <header className="card-header">Khung giờ</header>
+          <div className="collapse show" id="collapse_aside_brands">
+            <div className="card-body">
+              <label className="form-check">
+                <input className="form-check-input" type="checkbox" value="" />
+                <span className="form-check-label"> Công nghệ </span>
+              </label>
+            </div>
+          </div>
+        </article>
+
+        <article className="filter-group">
+          <header className="card-header">Trang thiết bị</header>
+          <div className="collapse show" id="collapse_aside_brands">
+            <div className="card-body">
+              <label className="form-check">
+                <input className="form-check-input" type="checkbox" value="" />
+                <span className="form-check-label"> Công nghệ </span>
+              </label>
             </div>
           </div>
         </article>

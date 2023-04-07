@@ -1,4 +1,4 @@
-import ItemGridHistory from "./ItemGridHistory";
+import ItemGridFavourite from "./ItemGridFavourite";
 
 const ListItem = () => {
   return (
@@ -18,8 +18,8 @@ const ListItem = () => {
           </div>
         </header>
         <div>
-          <ItemGridHistory />
-          <ItemGridHistory />
+          <ItemGridFavourite />
+          <ItemGridFavourite />
         </div>
         <hr />
 
