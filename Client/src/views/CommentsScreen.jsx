@@ -3,21 +3,14 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
-import Addcomment from "../components/Addcomment";
-import { useState } from "react";
 
 const CommentsScreen = ({ navigation, route }) => {
   const house = route.params;
-  const [openAddcomment, setOpenAddcomment] = useState(false);
 
-  const closeAddComment = (result) => {
-    setOpenAddcomment(result);
-  };
   return (
     <View
       style={{ backgroundColor: COLORS.light, width: "100%", height: "100%" }}
     >
-      {openAddcomment ? <Addcomment closeAdd={closeAddComment} /> : <View />}
       <View
         style={{
           width: "100%",
@@ -73,14 +66,7 @@ const CommentsScreen = ({ navigation, route }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-        >
-          <Icon
-            name="add"
-            size={30}
-            color={"black"}
-            onPress={() => setOpenAddcomment(true)}
-          />
-        </View>
+        ></View>
       </View>
       <ScrollView
         showsHorizontalScrollIndicator={false}

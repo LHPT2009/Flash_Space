@@ -210,17 +210,24 @@ const BoxSearch = ({ navigate }) => {
               </Text>
             </View>
             <View style={styles.boxSearch_content_function}>
-              <LinearGradient
-                style={styles.boxSearch_content_function_icon3}
-                colors={["rgb(204, 0, 102)", "rgb(255, 0, 102)"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }}
+              <TouchableOpacity
+                onPress={() => {
+                  navigate("AuthScreen");
+                }}
               >
-                <MaterialCommunityIconsIcon
-                  name="home-plus"
-                  style={styles.icon}
-                ></MaterialCommunityIconsIcon>
-              </LinearGradient>
+                <LinearGradient
+                  style={styles.boxSearch_content_function_icon3}
+                  colors={["rgb(204, 0, 102)", "rgb(255, 0, 102)"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                >
+                  <MaterialCommunityIconsIcon
+                    name="home-plus"
+                    style={styles.icon}
+                  ></MaterialCommunityIconsIcon>
+                </LinearGradient>
+              </TouchableOpacity>
+
               <Text style={styles.boxSearch_content_function_title1}>
                 Đăng phòng
               </Text>
