@@ -5,7 +5,15 @@ const ListItem = () => {
     <main className="col-lg-9">
       <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
         <strong className="d-block py-2">32 tổng số phòng tìm được </strong>
-        <div className="ms-auto ">
+        <div className="ms-auto">
+          <div className="d-inline-block w-auto me-1">
+            <input
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="Tìm kiểm theo tên"
+            />
+          </div>
           <select className="form-select d-inline-block w-auto me-1">
             <option value="0">Mới nhất</option>
             <option value="1">Giá thấp đến cao</option>
