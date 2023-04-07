@@ -3,6 +3,7 @@ import "./DetailRoom.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import Rating from "../../../components/Rating/Rating";
+import { Link } from "react-router-dom";
 
 const DetailRoom = () => {
   const [data, setDate] = useState();
@@ -99,10 +100,16 @@ const DetailRoom = () => {
                                       <h4 class="content-title">
                                         Phòng họp cho công ty
                                         <a href="#" className="text-">
-                                        <i class="fa fa-heart fa-2xl heart-red" style={{marginLeft:"10px"}}></i>
+                                          <i
+                                            class="fa fa-heart fa-2xl heart-red"
+                                            style={{ marginLeft: "10px" }}
+                                          ></i>
                                         </a>
                                         <a href="#">
-                                        <i class="fa fa-heart fa-2xl heart-gray" style={{marginLeft:"10px"}}></i>
+                                          <i
+                                            class="fa fa-heart fa-2xl heart-gray"
+                                            style={{ marginLeft: "10px" }}
+                                          ></i>
                                         </a>
                                       </h4>
                                       <span class="pull-left">
@@ -167,7 +174,7 @@ const DetailRoom = () => {
 
                                 <button
                                   type="button"
-                                  class="btn btn-warning btn-lg btn-radius"
+                                  class="btn btn-secondary btn-lg btn-radius"
                                   style={{
                                     marginRight: "5px",
                                     marginBottom: "5px",
@@ -175,10 +182,20 @@ const DetailRoom = () => {
                                 >
                                   13:00 {"->"} 14:00
                                 </button>
-                              </div>
-                              <footer>
                                 <button
                                   type="button"
+                                  class="btn btn-success btn-lg btn-radius"
+                                  style={{
+                                    marginRight: "5px",
+                                    marginBottom: "5px",
+                                  }}
+                                >
+                                  11:00 {"->"} 12:00
+                                </button>
+                              </div>
+                              <footer>
+                                <Link
+                                  to={"/order"}
                                   class="btn btn-primary btn-lg btn-radius"
                                   style={{
                                     width: "100%",
@@ -186,7 +203,7 @@ const DetailRoom = () => {
                                   }}
                                 >
                                   Đặt lịch
-                                </button>
+                                </Link>
                               </footer>
                             </div>
                           </div>

@@ -24,7 +24,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 8",
   },
   {
@@ -32,7 +32,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 7",
   },
   {
@@ -40,7 +40,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 8",
   },
   {
@@ -48,7 +48,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 8",
   },
   {
@@ -56,7 +56,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 8",
   },
   {
@@ -64,7 +64,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 8",
   },
   {
@@ -72,7 +72,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 8",
   },
   {
@@ -80,7 +80,7 @@ export const roomData = [
     imageurl:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWMlMjByb29tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     name: "Phòng thu nhạc",
-    price: "150.000VNĐ/1h",
+    price: "150.000",
     description: "Quận 8",
   },
 ];

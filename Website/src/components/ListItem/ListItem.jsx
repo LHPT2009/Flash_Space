@@ -20,6 +20,15 @@ const ListItem = () => {
             <option value="2">Giá cao đến thấp</option>
             <option value="3">Đánh giá</option>
           </select>
+          <div className="d-inline-block w-auto me-1">
+            <button
+              type="button"
+              class="btn btn-primary"
+              style={{ marginBottom: "5px" }}
+            >
+              Tìm vị trí gần khu vực
+            </button>
+          </div>
         </div>
       </header>
       <div>
