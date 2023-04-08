@@ -12,18 +12,42 @@ const Home = () => {
       <TopNav />
       <Carousels />
       <div className="container">
-        <CarouselsCard />
-        <CarouselsCard />
+        <CarouselsCard
+          title={"Lĩnh vực nghệ thuật"}
+          content={"Đa dạng về loại phòng với"}
+          note={"Giá cả hợp lý"}
+        />
+        <CarouselsCard
+          title={"Lĩnh vực nghệ thuật"}
+          content={"Đa dạng về loại phòng với"}
+          note={"Giá cả hợp lý"}
+        />
       </div>
       <Snipet1 />
       <div className="container">
-        <CarouselsCard />
-        <CarouselsCard />
+        <CarouselsCard
+          title={"Lĩnh vực nghệ thuật"}
+          content={"Đa dạng về loại phòng với"}
+          note={"Giá cả hợp lý"}
+        />
+        <CarouselsCard
+          title={"Lĩnh vực nghệ thuật"}
+          content={"Đa dạng về loại phòng với"}
+          note={"Giá cả hợp lý"}
+        />
       </div>
       <Snipet2 />
       <div className="container">
-        <CarouselsCard />
-        <CarouselsCard />
+        <CarouselsCard
+          title={"Lĩnh vực nghệ thuật"}
+          content={"Đa dạng về loại phòng với"}
+          note={"Giá cả hợp lý"}
+        />
+        <CarouselsCard
+          title={"Lĩnh vực nghệ thuật"}
+          content={"Đa dạng về loại phòng với"}
+          note={"Giá cả hợp lý"}
+        />
       </div>
       <Snipet3 />
       <Footer />

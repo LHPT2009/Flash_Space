@@ -12,51 +12,21 @@ const NewPermission = () => {
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Default form</h4>
-                    <p className="card-description">Basic form layout</p>
+                    <h4 className="card-title">Thêm mới quyền</h4>
                     <form className="forms-sample">
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Username</label>
+                        <label for="exampleInputUsername1">Tên quyền</label>
                         <input
                           type="text"
                           className="form-control"
                           id="exampleInputUsername1"
-                          placeholder="Username"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          placeholder="Email"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputConfirmPassword1">
-                          Confirm Password
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputConfirmPassword1"
-                          placeholder="Password"
+                          placeholder="Nhập tên quyền"
                         />
                       </div>
                       <button type="submit" className="btn btn-primary me-2">
-                        Submit
+                        Thêm
                       </button>
-                      <button className="btn btn-light">Cancel</button>
+                      <button className="btn btn-light">Trở lại</button>
                     </form>
                   </div>
                 </div>

@@ -8,27 +8,19 @@ const Tables = () => {
   const posts = [
     {
       id: 1,
-      name: "meo",
+      name: "User",
     },
     {
       id: 2,
-      name: "meo",
+      name: "Admin",
     },
     {
       id: 3,
-      name: "meo",
+      name: "Super Admin",
     },
     {
       id: 4,
-      name: "meo",
-    },
-    {
-      id: 5,
-      name: "meo",
-    },
-    {
-      id: 6,
-      name: "meo",
+      name: "Staff",
     },
   ];
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,7 +44,7 @@ const Tables = () => {
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">
-                      Bảng danh sách quyền hiền có trong hệ thống
+                      Bảng danh sách quyền hiện có trong hệ thống
                     </h4>
                     <div className="col-12 grid-margin">
                       <div className="card">
@@ -92,7 +84,7 @@ const Tables = () => {
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <Link
-                                      to={"/detailaccount"}
+                                      to={"/newpermission"}
                                       className="btn btn-outline-primary btn-fw mb-4"
                                     >
                                       Thêm mới
@@ -110,38 +102,16 @@ const Tables = () => {
                       <table className="table table-hover">
                         <thead>
                           <tr>
-                            <th>User</th>
-                            <th>First name</th>
-                            <th>Progress</th>
-                            <th>Amount</th>
-                            <th>Deadline</th>
+                            <th>STT</th>
+                            <th>Tên quyền</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
                           {currentPosts.map((post) => (
                             <tr>
-                              <td className="py-1">
-                                <img
-                                  src="../../images/faces/face1.jpg"
-                                  alt="image"
-                                />
-                              </td>
                               <td>{post.id}</td>
-                              <td>
-                                <div className="progress">
-                                  <div
-                                    className="progress-bar bg-success"
-                                    role="progressbar"
-                                    style={{ width: "25%" }}
-                                    aria-valuenow="25"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                  ></div>
-                                </div>
-                              </td>
-                              <td>$ 77.99</td>
-                              <td>May 15, 2015</td>
+                              <td>{post.name}</td>
                               <td>
                                 <Link
                                   to={"/detailpermission"}

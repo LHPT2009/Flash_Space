@@ -12,14 +12,13 @@ const room = roomData.map((item) => (
   />
 ));
 
-const CarouselsCard = () => {
+const CarouselsCard = (props) => {
   return (
     <div className="mt-3 mb-3">
       <blockquote class="text-center">
-        <p class="mb-3">Lĩnh vực giải trí</p>
+        <p class="mb-3">{props.title}</p>
         <footer class="blockquote-footer">
-          Nhiều loại phòng phù hợp với{" "}
-          <cite title="Source Title">Giá cả hợp lý</cite>
+          {props.content} <cite title="Source Title">{props.note}</cite>
         </footer>
       </blockquote>
       <Carousel responsive={responsive}>{room}</Carousel>

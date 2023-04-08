@@ -120,14 +120,14 @@ const Rating = () => {
             <hr />
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row">
+            <div class="row m-3">
               <div class="col-md-4 col-md-4 col-xs-4 review-part-left">
                 <div class="row">
                   <div
                     class="col-md-5 col-sm-5 col-xs-12"
                     style={{ position: "relative", left: "15px" }}
                   >
-                    <img src="https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/322112826_1795822394125355_1992647148928032280_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=ej1OMfE8KvEAX94sxRY&_nc_ht=scontent.fsgn5-14.fna&oh=00_AfDXXihlzZgq_9MS-9uOLArYcLpJvg4T7jTy75s3vjIlxA&oe=640F1A45" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png" />
                   </div>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <p>03/10/2023</p>
@@ -146,6 +146,68 @@ const Rating = () => {
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <p>Phòng rất mát mẽ và sạch sẽ</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row m-3">
+              <div class="col-md-4 col-md-4 col-xs-4 review-part-left">
+                <div class="row">
+                  <div
+                    class="col-md-5 col-sm-5 col-xs-12"
+                    style={{ position: "relative", left: "15px" }}
+                  >
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png" />
+                  </div>
+                  <div class="col-md-7 col-sm-7 col-xs-12">
+                    <p>03/10/2023</p>
+                    <span>Lê Huỳnh Phương Tùng</span>
+                    <br />
+                    <small>Người dùng</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 col-sm-8 col-xs-8 review-part-right">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <p>Phòng rất là ok anh chủ rất thân thiện</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row m-3">
+              <div class="col-md-4 col-md-4 col-xs-4 review-part-left">
+                <div class="row">
+                  <div
+                    class="col-md-5 col-sm-5 col-xs-12"
+                    style={{ position: "relative", left: "15px" }}
+                  >
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png" />
+                  </div>
+                  <div class="col-md-7 col-sm-7 col-xs-12">
+                    <p>03/10/2023</p>
+                    <span>Đoàn Thiên Quý</span>
+                    <br />
+                    <small>Người dùng</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 col-sm-8 col-xs-8 review-part-right">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <p>Cơ sở vật chất tốt, mình khá thích!</p>
                   </div>
                 </div>
               </div>

@@ -21,15 +21,8 @@ const DetailAccount = () => {
                           alt="Maxwell Admin"
                         />
                       </div>
-                      <h5 class="user-name">Yuki Hayashi</h5>
-                      <h6 class="user-email">yuki@Maxwell.com</h6>
-                    </div>
-                    <div class="about">
-                      <h5>About</h5>
-                      <p>
-                        I'm Yuki. Full Stack Designer I enjoy creating
-                        user-centric, delightful and human experiences.
-                      </p>
+                      <h5 class="user-name">Lê Huỳnh Phương Tùng</h5>
+                      <h6 class="user-email">tung@gmail.com</h6>
                     </div>
                   </div>
                 </div>
@@ -40,16 +33,19 @@ const DetailAccount = () => {
                 <div class="card-body">
                   <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                      <h6 class="mb-2 text-primary">Personal Details</h6>
+                      <h6 class="mb-2 text-primary">
+                        Thông tin chi tiết người dùng
+                      </h6>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="fullName">Full Name</label>
+                        <label for="fullName">Họ và tên</label>
                         <input
                           type="text"
                           class="form-control"
                           id="fullName"
                           placeholder="Enter full name"
+                          value={"Lê Huỳnh Phương Tùng"}
                         />
                       </div>
                     </div>
@@ -61,77 +57,63 @@ const DetailAccount = () => {
                           class="form-control"
                           id="eMail"
                           placeholder="Enter email ID"
+                          value={"tung@gmail.com"}
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="phone">Phone</label>
+                        <label for="phone">Số điện thoại</label>
                         <input
                           type="text"
                           class="form-control"
                           id="phone"
                           placeholder="Enter phone number"
+                          value={"123456789"}
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="website">Website URL</label>
+                        <label for="website">Giới tính</label>
                         <input
                           type="url"
                           class="form-control"
                           id="website"
-                          placeholder="Website url"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row gutters">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                      <h6 class="mt-3 mb-2 text-primary">Address</h6>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                      <div class="form-group">
-                        <label for="Street">Street</label>
-                        <input
-                          type="name"
-                          class="form-control"
-                          id="Street"
-                          placeholder="Enter Street"
+                          placeholder="Nam"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="ciTy">City</label>
+                        <label for="website">Ngày sinh</label>
                         <input
-                          type="name"
+                          type="url"
                           class="form-control"
-                          id="ciTy"
-                          placeholder="Enter City"
+                          id="website"
+                          placeholder="20/09/2001"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="sTate">State</label>
+                        <label for="website">Địa chỉ</label>
                         <input
-                          type="text"
+                          type="url"
                           class="form-control"
-                          id="sTate"
-                          placeholder="Enter State"
+                          id="website"
+                          placeholder="181/7 Liên tỉnh 5 P5 Q8"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="zIp">Zip Code</label>
+                        <label for="website">Thành phố</label>
                         <input
-                          type="text"
+                          type="url"
                           class="form-control"
-                          id="zIp"
-                          placeholder="Zip Code"
+                          id="website"
+                          placeholder="TP.HCM"
                         />
                       </div>
                     </div>
@@ -145,7 +127,7 @@ const DetailAccount = () => {
                           name="submit"
                           class="btn btn-secondary m-1"
                         >
-                          Cancel
+                          Trở lại
                         </button>
                         <button
                           type="button"
@@ -153,7 +135,7 @@ const DetailAccount = () => {
                           name="submit"
                           class="btn btn-primary m-1"
                         >
-                          Update
+                          Cập nhật
                         </button>
                       </div>
                     </div>
