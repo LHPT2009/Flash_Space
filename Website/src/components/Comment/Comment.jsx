@@ -6,7 +6,7 @@ const Comment = () => {
         <div class="row">
           <div class="col-12">
             <div class="comment-box ml-2">
-              <h4>Đánh giá của bạn</h4>
+              <h4 className="text-black">Đánh giá của bạn</h4>
 
               <div class="rating">
                 <input type="radio" name="rating" value="5" id="5" />
