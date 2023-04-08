@@ -1,9 +1,29 @@
 import "./Reset.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
+import { useState } from "react";
+import axios from "axios";
 
 const Reset = () => {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const resetPassword = async (e) => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:8000/auth/sendcoderesetbymail`, {
+        email,
+      })
+      .then(function (response) {
+        console.log(response);
+        navigate("/confirm");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <TopNav />
@@ -24,19 +44,29 @@ const Reset = () => {
                 >
                   <div class="py-4 px-3 w-75">
                     <h4>Lấy lại tài khoản</h4>
-                    <div class="row mt-2">
-                      <div class="col-md-12">
-                        <div class="input-field">
-                          <input class="form-control" id="input3" required />
-                          <label for="input3">Email</label>
+                    <form onSubmit={resetPassword}>
+                      <div class="row mt-2">
+                        <div class="col-md-12">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input3"
+                              required
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <label for="input3">Email</label>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                     <div class="row mt-2">
                       <div class="col-md-12">
-                        <Link className="btn btn-primary w-100" to={"/confirm"}>
+                        <button
+                          className="btn btn-primary w-100"
+                          onClick={resetPassword}
+                        >
                           Tiếp tục
-                        </Link>
+                        </button>
                       </div>
                     </div>
                     <div class="member mt-1">

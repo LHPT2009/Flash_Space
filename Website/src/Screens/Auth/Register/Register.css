@@ -7,10 +7,10 @@
   background-position: center center;
 }
 
-.cardlogin {
+.cardrgister {
   background-color: #fff;
   border: none;
-  height: 500px;
+  height: 560px;
   overflow: hidden;
 }
 
@@ -60,7 +60,7 @@
 
 .right-side-content-register {
   background-color: #004274;
-  height: 500px;
+  height: 560px;
   width: 100%;
   padding: 10px;
   position: relative;
