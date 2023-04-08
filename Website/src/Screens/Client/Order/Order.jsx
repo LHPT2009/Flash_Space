@@ -85,8 +85,8 @@ const Order = () => {
                                 <tr>
                                   <td>Phòng thuê quận 8</td>
                                   <td>#50000981</td>
-                                  <td>09h00</td>
                                   <td>10h00</td>
+                                  <td>11h00</td>
                                   <td>250 000 VNĐ</td>
                                 </tr>
                                 <tr>
@@ -105,7 +105,7 @@ const Order = () => {
                                   </td>
                                   <td>
                                     <p>
-                                      250 000 VNĐ
+                                      500 000 VNĐ
                                       <br />
                                       0 VNĐ
                                       <br />

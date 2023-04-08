@@ -26,6 +26,11 @@ const ItemGrid = () => {
             </span>
             <p class="card-text">Đây là một căn phòng phù hợp cho việc...</p>
             <i class="fa fa-user"></i> 5
+            <div>
+              <button type="button" class="btn btn-danger mt-3">
+                Hủy yêu thích
+              </button>
+            </div>
           </div>
           <div class="footer">
             <small class="text-muted">07/04/2023</small>

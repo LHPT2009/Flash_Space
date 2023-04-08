@@ -26,7 +26,7 @@ const DetailHistory = () => {
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                          <address class="text-end">
+                          <address class="text-end text-black">
                             435 Điện biên Phủ , phường 11, Quận Bình Thạnh
                             <br />
                             Hồ chí Minh, Việt Nam
@@ -38,7 +38,7 @@ const DetailHistory = () => {
                       <div class="row gutters">
                         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
-                            <address>
+                            <address className="text-black">
                               Nguyễn Văn Chuẩn
                               <br />
                               181/7 Liên Tỉnh 5, phường 5, Quận 8, TP.HCM
@@ -47,7 +47,7 @@ const DetailHistory = () => {
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
-                            <div class="invoice-num">
+                            <div class="invoice-num text-black">
                               <div>Mã hóa đơn: #1232132131</div>
                               <div>Ngày 18 tháng 03 năm 2023</div>
                             </div>
@@ -65,7 +65,8 @@ const DetailHistory = () => {
                                 <tr>
                                   <th>Tên phòng</th>
                                   <th>Mã Phòng</th>
-                                  <th>thời gian</th>
+                                  <th>Bắt đầu</th>
+                                  <th>kết thúc</th>
                                   <th>giá tiền</th>
                                 </tr>
                               </thead>
@@ -73,16 +74,19 @@ const DetailHistory = () => {
                                 <tr>
                                   <td>Phòng thuê quận 8</td>
                                   <td>#50000981</td>
-                                  <td>09h00 {"->"} 10h00</td>
+                                  <td>09h00</td>
+                                  <td>10h00</td>
                                   <td>250 000 VNĐ</td>
                                 </tr>
                                 <tr>
                                   <td>Phòng thuê quận 8</td>
                                   <td>#50000981</td>
-                                  <td>10h00 {"->"} 11h00</td>
+                                  <td>10h00</td>
+                                  <td>11h00</td>
                                   <td>250 000 VNĐ</td>
                                 </tr>
                                 <tr>
+                                  <td>&nbsp;</td>
                                   <td>&nbsp;</td>
                                   <td colspan="2">
                                     <p>
@@ -91,18 +95,18 @@ const DetailHistory = () => {
                                       Chi phí phát xin
                                       <br />
                                     </p>
-                                    <h5 class="text-success">
+                                    <h5 class="text-black">
                                       <strong>Tổng tiền</strong>
                                     </h5>
                                   </td>
                                   <td>
                                     <p>
-                                      250 000 VNĐ
+                                      500 000 VNĐ
                                       <br />
                                       0 VNĐ
                                       <br />
                                     </p>
-                                    <h5 class="text-success">
+                                    <h5 class="text-black">
                                       <strong>500 000 VNĐ</strong>
                                     </h5>
                                   </td>

@@ -21,9 +21,7 @@ const InfoUser = () => {
                         />
                       </div>
                       <h5 class="user-name">Lê Huỳnh Phương Tùng</h5>
-                      <h6 class="user-email">
-                        lehuynhphuongtung0601@gmail.com
-                      </h6>
+                      <h6 class="user-email">tung@gmail.com</h6>
                     </div>
                   </div>
                 </div>
@@ -35,7 +33,7 @@ const InfoUser = () => {
                   <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                       <h6 class="mb-2 text-primary">
-                        Chi tiết thông tin người dùng
+                        Thông tin chi tiết người dùng
                       </h6>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -45,7 +43,8 @@ const InfoUser = () => {
                           type="text"
                           class="form-control"
                           id="fullName"
-                          placeholder="Họ và tên"
+                          placeholder="Enter full name"
+                          value={"Lê Huỳnh Phương Tùng"}
                         />
                       </div>
                     </div>
@@ -56,7 +55,8 @@ const InfoUser = () => {
                           type="email"
                           class="form-control"
                           id="eMail"
-                          placeholder="Email của tài khoản"
+                          placeholder="Enter email ID"
+                          value={"tung@gmail.com"}
                         />
                       </div>
                     </div>
@@ -67,40 +67,52 @@ const InfoUser = () => {
                           type="text"
                           class="form-control"
                           id="phone"
-                          placeholder="Số điện thoại"
+                          placeholder="Enter phone number"
+                          value={"123456789"}
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="phone">Số điện thoại</label>
+                        <label for="website">Giới tính</label>
                         <input
-                          type="text"
+                          type="url"
                           class="form-control"
-                          id="phone"
-                          placeholder="Số điện thoại"
+                          id="website"
+                          placeholder="Nam"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="phone">Số điện thoại</label>
+                        <label for="website">Ngày sinh</label>
                         <input
-                          type="text"
+                          type="url"
                           class="form-control"
-                          id="phone"
-                          placeholder="Số điện thoại"
+                          id="website"
+                          placeholder="20/09/2001"
                         />
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                       <div class="form-group">
-                        <label for="phone">Số điện thoại</label>
+                        <label for="website">Địa chỉ</label>
                         <input
-                          type="text"
+                          type="url"
                           class="form-control"
-                          id="phone"
-                          placeholder="Số điện thoại"
+                          id="website"
+                          placeholder="181/7 Liên tỉnh 5 P5 Q8"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      <div class="form-group">
+                        <label for="website">Thành phố</label>
+                        <input
+                          type="url"
+                          class="form-control"
+                          id="website"
+                          placeholder="TP.HCM"
                         />
                       </div>
                     </div>
@@ -122,7 +134,7 @@ const InfoUser = () => {
                           name="submit"
                           class="btn btn-primary m-1"
                         >
-                          cập nhật
+                          Cập nhật
                         </button>
                       </div>
                     </div>
