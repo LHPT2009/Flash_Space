@@ -3,8 +3,62 @@ import { Checkbox, Input, Radio } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
+import { useEffect, useState } from "react";
+import IpAddress from "../consts/variable";
+import axios from "axios";
 
 const PostScreen = ({ navigation }) => {
+  const [subject, setSubject] = useState("");
+  const [describe, setDescribe] = useState("");
+  const [length, setLength] = useState("");
+  const [width, setWidth] = useState("");
+  const [price, setPrice] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [housenumberstreetname, setHousenumberstreetname] = useState("");
+  const [listCareer, setListCareer] = useState([]);
+
+  useEffect(() => {
+    getAllCareer();
+  }, []);
+  const getAllCareer = async () => {
+    const req = await axios.get("http://" + IpAddress + ":8000/career/");
+    if (req.status == 200) {
+      console.log(req.data);
+      setListCareer(req.data);
+    }
+  };
+
+  const onChangeSubject = (event) => {
+    setSubject(event);
+  };
+  const onChangeDescribe = (event) => {
+    setDescribe(event);
+  };
+  const onChangeLength = (event) => {
+    setLength(event);
+  };
+
+  const onChangeWidth = (event) => {
+    setWidth(event);
+  };
+
+  const onChangePrice = (event) => {
+    setPrice(event);
+  };
+
+  const onChangeLongitude = (event) => {
+    setLongitude(event);
+  };
+
+  const onChangeLatitude = (event) => {
+    setLatitude(event);
+  };
+
+  const onHousenumberstreetname = (event) => {
+    setHousenumberstreetname(event);
+  };
+
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <View
@@ -175,7 +229,9 @@ const PostScreen = ({ navigation }) => {
                     }}
                   >
                     <Input
+                      value={subject}
                       multiline={true}
+                      onChangeText={onChangeSubject}
                       variant="filled"
                       placeholder="Vui lòng nhập tiêu đề"
                     />
@@ -232,6 +288,8 @@ const PostScreen = ({ navigation }) => {
                   >
                     <Input
                       multiline={true}
+                      value={describe}
+                      onChangeText={onChangeDescribe}
                       variant="filled"
                       placeholder="Vui lòng nhập nội dung"
                     />
@@ -291,15 +349,11 @@ const PostScreen = ({ navigation }) => {
                       name="myRadioGroup"
                       accessibilityLabel="Pick your favorite number"
                     >
-                      <Radio value="1" my={1}>
-                        <Text>CHuẩn</Text>
-                      </Radio>
-                      <Radio value="2" my={1}>
-                        <Text>Tùng</Text>
-                      </Radio>
-                      <Radio value="3" my={1}>
-                        <Text>Nga</Text>
-                      </Radio>
+                      {listCareer.map((item) => {
+                        <Radio value={item} my={1}>
+                          <Text>chuan</Text>
+                        </Radio>;
+                      })}
                     </Radio.Group>
                   </View>
                 </View>
