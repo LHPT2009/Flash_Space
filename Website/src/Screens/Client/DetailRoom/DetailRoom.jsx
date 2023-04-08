@@ -6,7 +6,7 @@ import Rating from "../../../components/Rating/Rating";
 import { Link } from "react-router-dom";
 
 const DetailRoom = () => {
-  const [data, setDate] = useState();
+  const [date, setDate] = useState();
   const [image, setImage] = useState(
     "https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
   );
@@ -93,105 +93,100 @@ const DetailRoom = () => {
                               <header></header>
                               <div class="flex-grow-1">
                                 <div class="product-info">
-                                  <h3>181/7 Liên tỉnh 5, Phường 5, Quận 8</h3>
                                   <div class="wp-block property list no-border">
                                     <div class="wp-block-content clearfix">
-                                      <small>Văn phòng</small>
-                                      <h4 class="content-title">
-                                        Phòng họp cho công ty
-                                        <a href="#" className="text-">
-                                          <i
-                                            class="fa fa-heart fa-2xl heart-red"
-                                            style={{ marginLeft: "10px" }}
-                                          ></i>
-                                        </a>
-                                        <a href="#">
+                                      <div class="col-sm-6 d-flex flex-column text-black">
+                                        <div
+                                          class="card-body"
+                                          style={{ padding: "15px" }}
+                                        >
+                                          <small>Văn phòng</small>
+                                          <h4 class="card-title">
+                                            Phòng họp cho công ty
+                                            {/* <a href="#">
                                           <i
                                             class="fa fa-heart fa-2xl heart-gray"
                                             style={{ marginLeft: "10px" }}
                                           ></i>
-                                        </a>
-                                      </h4>
-                                      <span class="pull-left">
-                                        <span class="price">250.000</span>
-                                        <span class="period">VNĐ/1h</span>
-                                      </span>
-                                    </div>
-                                    <div class="wp-block-footer style2 mt-15">
-                                      <ul class="aux-info">
-                                        <li>
-                                          <i class="fa fa-building"></i>2300 Sq
-                                          Feet
-                                        </li>
-                                        <li>
-                                          <i class="fa fa-user"></i> 5 Bedrooms
-                                        </li>
-                                        <li>
-                                          <i class="fa fa-tint"></i> 2 Bathrooms
-                                        </li>
-                                        <li>
-                                          <i class="fa fa-car"></i> 3 Garages
-                                        </li>
-                                      </ul>
+                                        </a> */}
+                                          </h4>
+                                          <span class="pull-left">
+                                            <span class="price">250.000</span>
+                                            <span class="period">VNĐ/1h</span>
+                                          </span>
+                                          <p class="card-text">
+                                            phòng ngủ sẽ phù hợp với việc đi làm
+                                            xa
+                                          </p>
+                                          <i class="fa fa-user"></i> 2
+                                        </div>
+                                        <div class="footer">
+                                          <small class="text-muted">
+                                            30/8/2022
+                                          </small>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
+
+                                  <input
+                                    type="date"
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    className="form-control"
+                                    style={{
+                                      width: "100%",
+                                      height: "40px",
+                                      padding: "10px",
+                                      marginBottom: "20px",
+                                      fontSize: "20px",
+                                      textAlign: "center",
+                                    }}
+                                  />
+
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary btn-lg btn-radius"
+                                    style={{
+                                      marginRight: "5px",
+                                      marginBottom: "5px",
+                                    }}
+                                  >
+                                    10:00 {"->"} 11:00
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-success btn-lg btn-radius"
+                                    style={{
+                                      marginRight: "5px",
+                                      marginBottom: "5px",
+                                    }}
+                                  >
+                                    11:00 {"->"} 12:00
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary btn-lg btn-radius"
+                                    style={{
+                                      marginRight: "5px",
+                                      marginBottom: "5px",
+                                    }}
+                                  >
+                                    13:00 {"->"} 14:00
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-success btn-lg btn-radius"
+                                    style={{
+                                      marginRight: "5px",
+                                      marginBottom: "5px",
+                                    }}
+                                  >
+                                    11:00 {"->"} 12:00
+                                  </button>
                                   <span class="clearfix"></span>
                                 </div>
-                                <input
-                                  type="date"
-                                  onChange={(e) => setDate(e.target.value)}
-                                  className="form-control"
-                                  style={{
-                                    width: "100%",
-                                    height: "40px",
-                                    padding: "10px",
-                                    marginBottom: "20px",
-                                    fontSize: "20px",
-                                    textAlign: "center",
-                                  }}
-                                />
-
-                                <button
-                                  type="button"
-                                  class="btn btn-secondary btn-lg btn-radius"
-                                  style={{
-                                    marginRight: "5px",
-                                    marginBottom: "5px",
-                                  }}
-                                >
-                                  10:00 {"->"} 11:00
-                                </button>
-                                <button
-                                  type="button"
-                                  class="btn btn-success btn-lg btn-radius"
-                                  style={{
-                                    marginRight: "5px",
-                                    marginBottom: "5px",
-                                  }}
-                                >
-                                  11:00 {"->"} 12:00
-                                </button>
-
-                                <button
-                                  type="button"
-                                  class="btn btn-secondary btn-lg btn-radius"
-                                  style={{
-                                    marginRight: "5px",
-                                    marginBottom: "5px",
-                                  }}
-                                >
-                                  13:00 {"->"} 14:00
-                                </button>
-                                <button
-                                  type="button"
-                                  class="btn btn-success btn-lg btn-radius"
-                                  style={{
-                                    marginRight: "5px",
-                                    marginBottom: "5px",
-                                  }}
-                                >
-                                  11:00 {"->"} 12:00
-                                </button>
                               </div>
                               <footer>
                                 <Link

@@ -32,8 +32,50 @@ const ListItem = () => {
         </div>
       </header>
       <div>
-        <ItemGrid />
-        <ItemGrid />
+        <ItemGrid
+          image={
+            "https://i.pinimg.com/736x/e6/a6/74/e6a674054e1a7e109e2bbf169c2aa9d3--vans-gardens.jpg"
+          }
+          cate={"Phòng ngủ"}
+          name={"Khách sạn Villa ngàn sao"}
+          price={"500.000"}
+          content={"phòng ngủ sẽ phù hợp với việc đi làm xa"}
+          amount={"5"}
+          date={"03/04/2023"}
+        />
+        <ItemGrid
+          image={
+            "https://cflymusic.com/wp-content/uploads/2021/11/IMG_6559-scaled-e1636982901468.jpg"
+          }
+          cate={"Phòng ngủ"}
+          name={"Lớp học nhạc cụ"}
+          price={"250.000"}
+          content={"bạn sẽ có không gian học nhạc cụ mà mình yêu thích"}
+          amount={"15"}
+          date={"03/04/2023"}
+        />
+        <ItemGrid
+          image={
+            "https://shop.kientruc.com/uploads/images/886290221504553/images/845166942283548_1471155222.jpg"
+          }
+          cate={"Phòng ngủ"}
+          name={"Penhouse Quận 1"}
+          price={"500.000"}
+          content={"Đầy đủ tiện nghi và vô cùng thoáng mát"}
+          amount={"5"}
+          date={"03/04/2023"}
+        />
+        <ItemGrid
+          image={
+            "https://png.pngtree.com/thumb_back/fh260/background/20220313/pngtree-photography-of-workplace-meeting-room-image_1056199.jpg"
+          }
+          cate={"Văn phòng"}
+          name={"Phòng họp của công ty"}
+          price={"400.000"}
+          content={"phòng họp thoáng mái sạch sẽ"}
+          amount={"5"}
+          date={"03/04/2023"}
+        />
       </div>
       <hr />
 

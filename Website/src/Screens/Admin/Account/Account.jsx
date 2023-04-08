@@ -86,18 +86,6 @@ const Tables = () => {
                                   </div>
                                 </div>
                               </div>
-                              {/* <div className="col-md-3">
-                                <div className="form-group row">
-                                  <div className="col-sm-12">
-                                    <Link
-                                      to={"/detailaccount"}
-                                      className="btn btn-outline-primary btn-fw mb-4"
-                                    >
-                                      Thêm mới
-                                    </Link>
-                                  </div>
-                                </div>
-                              </div> */}
                             </div>
                           </form>
                         </div>
@@ -108,38 +96,25 @@ const Tables = () => {
                       <table className="table table-hover">
                         <thead>
                           <tr>
-                            <th>User</th>
-                            <th>First name</th>
-                            <th>Progress</th>
-                            <th>Amount</th>
-                            <th>Deadline</th>
+                            <th>id</th>
+                            <th>Ảnh đại diện</th>
+                            <th>Họ và tên</th>
+                            <th>email</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
                           {currentPosts.map((post) => (
                             <tr>
+                              <td>{post.id}</td>
                               <td className="py-1">
                                 <img
                                   src="../../images/faces/face1.jpg"
                                   alt="image"
                                 />
                               </td>
-                              <td>{post.id}</td>
-                              <td>
-                                <div className="progress">
-                                  <div
-                                    className="progress-bar bg-success"
-                                    role="progressbar"
-                                    style={{ width: "25%" }}
-                                    aria-valuenow="25"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                  ></div>
-                                </div>
-                              </td>
-                              <td>$ 77.99</td>
-                              <td>May 15, 2015</td>
+                              <td>Lê Huỳnh Phương Tùng</td>
+                              <td>tung@gmail.com</td>
                               <td>
                                 <Link
                                   to={"/detailaccount"}
