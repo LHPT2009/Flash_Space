@@ -17,14 +17,14 @@ const AuthController = {
         password: hashed,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        avatar: req.body.avatar,
-        birthday: req.body.birthday,
+        avatar: "",
+        birthday: "",
         static: true,
         email: req.body.email,
-        phonenumber: req.body.phonenumber,
+        phonenumber: "",
         emailverification: false,
         phonenumberverification: false,
-        sex: req.body.sex,
+        sex: "",
       });
       res.status(200).json(newAccount);
       await newAccount.save();

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
 import TopNav from "../../../components/TopNav/TopNav";
@@ -8,6 +8,7 @@ import { useState } from "react";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -18,8 +19,9 @@ const Login = () => {
           console.log(err);
         });
       if (Auth) {
-        console.log(Auth.data);
+        // console.log(Auth.data);
         localStorage.setItem("token", Auth.data.accessToken);
+        navigate("/");
       }
     } catch (err) {
       console.log(err);

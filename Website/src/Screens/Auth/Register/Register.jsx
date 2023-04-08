@@ -1,9 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
+import { useState } from "react";
+import axios from "axios";
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRePassword] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const addUser = async (e) => {
+    e.preventDefault();
+    if (password == repassword) {
+      axios
+        .post(`http://localhost:8000/auth/register`, {
+          username,
+          password,
+          firstname,
+          lastname,
+          email,
+        })
+        .then(function (response) {
+          navigate("/");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <>
       <TopNav />
@@ -15,59 +45,107 @@ const Register = () => {
         }}
       >
         <div class="container">
-          <div class="cardlogin">
+          <div class="cardrgister">
             <div class="row g-0">
               <div class="col-md-6">
-                <div
-                  class="d-flex justify-content-center align-items-center"
-                  style={{ height: "450px" }}
-                >
+                <div class="d-flex justify-content-center align-items-center">
                   <div class="py-4 px-3 w-75">
-                    <h4>Đăng ký</h4>
-                    <div class="row g-2 mt-1">
-                      <div class="col-md-6">
-                        <div class="input-field">
-                          <input class="form-control" id="input1" required />
-                          <label for="input1">Họ</label>
+                    <form onSubmit={addUser}>
+                      <h4>Đăng ký</h4>
+                      <div class="row g-2 mt-1">
+                        <div class="col-md-6">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input1"
+                              required
+                              onChange={(e) => setFirstname(e.target.value)}
+                            />
+                            <label for="input1">Họ</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input2"
+                              required
+                              onChange={(e) => setLastname(e.target.value)}
+                            />
+                            <label for="input2">Tên</label>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="input-field">
-                          <input class="form-control" id="input2" required />
-                          <label for="input2">Tên</label>
+                      <div class="row mt-2">
+                        <div class="col-md-12">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input3"
+                              required
+                              onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <label for="input3">Tài khoản</label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row mt-2">
-                      <div class="col-md-12">
-                        <div class="input-field">
-                          <input class="form-control" id="input3" required />
-                          <label for="input3">Tài khoản</label>
+                      <div class="row mt-2 mb-2">
+                        <div class="col-md-12">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input4"
+                              required
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <label for="input4">Mật khẩu</label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row mt-2 mb-2">
-                      <div class="col-md-12">
-                        <div class="input-field">
-                          <input class="form-control" id="input4" required />
-                          <label for="input4">Mật khẩu</label>
+                      <div class="row mt-2 mb-2">
+                        <div class="col-md-12">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input4"
+                              required
+                              onChange={(e) => setRePassword(e.target.value)}
+                            />
+                            <label for="input4">Xác nhận mật khẩu</label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <span class="">Mật khẩu không được ý hơn 8 ký tự</span>
-                    <div class="row mt-2">
-                      <div class="col-md-12">
-                        <button class="btn btn-primary w-100 signup-button">
-                          Đăng ký
-                        </button>
+                      <div class="row mt-2 mb-2">
+                        <div class="col-md-12">
+                          <div class="input-field">
+                            <input
+                              class="form-control"
+                              id="input4"
+                              required
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <label for="input4">Email</label>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="member mt-1">
-                      <span>Bạn đã có tài khoản? </span>
-                      <Link class="text-decoration-none" to={"/login"}>
-                        Đăng Nhập
-                      </Link>
-                    </div>
+                      <span class="">Mật khẩu không được ý hơn 8 ký tự</span>
+                      <div class="row mt-2">
+                        <div class="col-md-12">
+                          <button
+                            class="btn btn-primary w-100 signup-button"
+                            onClick={addUser}
+                          >
+                            Đăng ký
+                          </button>
+                        </div>
+                      </div>
+                      <div class="member mt-1">
+                        <span>Bạn đã có tài khoản? </span>
+                        <Link class="text-decoration-none" to={"/login"}>
+                          Đăng Nhập
+                        </Link>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
