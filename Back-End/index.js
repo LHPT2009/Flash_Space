@@ -29,12 +29,14 @@ dotenv.config();
 const app = express();
 
 mongoose.set("strictQuery", false);
-mongoose.connect(
-  "mongodb+srv://lehuynhphuongtung0601:Tung0601@cluster0.7jizcdt.mongodb.net/?retryWrites=true&w=majority",
-  () => {
-    console.log("DB connected");
-  }
-);
+
+mongoose.connect(process.env.MONGOOSE_URL, () => {
+  console.log("DB connected");
+});
+
+// mongoose.connect(process.env.MONGOOSE_URL_LOCALHOST, () => {
+//   console.log("DB connected");
+// });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
