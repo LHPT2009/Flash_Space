@@ -31,6 +31,8 @@ const Province = () => {
       name: "meo",
     },
   ];
+  
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
@@ -90,7 +92,7 @@ const Province = () => {
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <Link
-                                      to={"/detailaccount"}
+                                      to={"/newprovince"}
                                       className="btn btn-outline-primary btn-fw mb-4"
                                     >
                                       Thêm mới

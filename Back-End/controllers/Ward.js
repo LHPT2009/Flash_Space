@@ -30,18 +30,8 @@ const WardController = {
   addWard: async (req, res) => {
     try {
       const newWard = await new Ward({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        iddistrict: req.body.iddistrict,
+        wardname: req.body.wardname,
       });
 
       await newWard.save();

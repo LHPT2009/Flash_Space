@@ -30,18 +30,8 @@ const DistrictController = {
   addDistrict: async (req, res) => {
     try {
       const newDistrict = await new District({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        idprovince: req.body.idprovince,
+        districtname: req.body.districtname,
       });
 
       await newDistrict.save();
