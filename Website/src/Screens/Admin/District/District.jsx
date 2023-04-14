@@ -3,41 +3,29 @@ import { Link } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
+import axios from "axios";
 
-const District = () => {
-  const posts = [
-    {
-      id: 1,
-      name: "meo",
-    },
-    {
-      id: 2,
-      name: "meo",
-    },
-    {
-      id: 3,
-      name: "meo",
-    },
-    {
-      id: 4,
-      name: "meo",
-    },
-    {
-      id: 5,
-      name: "meo",
-    },
-    {
-      id: 6,
-      name: "meo",
-    },
-  ];
+const District = () => { 
+const [district,setDistrict] = useState([]);
+  axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/district`
+    )
+    .then((res) => {
+      setDistrict(res.data);
+    });
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(4);
+  const [districtsPerPage] = useState(4);
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  // Get current districts
+  const indexOfLastdistrict = currentPage * districtsPerPage;
+  const indexOfFirstdistrict = indexOfLastdistrict - districtsPerPage;
+  const currentdistricts = district.slice(indexOfFirstdistrict, indexOfLastdistrict);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -90,7 +78,7 @@ const District = () => {
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <Link
-                                      to={"/detailaccount"}
+                                      to={"/newdistrict"}
                                       className="btn btn-outline-primary btn-fw mb-4"
                                     >
                                       Thêm mới
@@ -108,41 +96,21 @@ const District = () => {
                       <table className="table table-hover">
                         <thead>
                           <tr>
-                            <th>User</th>
-                            <th>First name</th>
-                            <th>Progress</th>
-                            <th>Amount</th>
-                            <th>Deadline</th>
+                            <th>ID</th>
+                            <th>Thành phố</th>
+                            <th>Quận/Huyện</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {currentPosts.map((post) => (
+                          {currentdistricts.map((district) => (
                             <tr>
-                              <td className="py-1">
-                                <img
-                                  src="../../images/faces/face1.jpg"
-                                  alt="image"
-                                />
-                              </td>
-                              <td>{post.id}</td>
-                              <td>
-                                <div className="progress">
-                                  <div
-                                    className="progress-bar bg-success"
-                                    role="progressbar"
-                                    style={{ width: "25%" }}
-                                    aria-valuenow="25"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                  ></div>
-                                </div>
-                              </td>
-                              <td>$ 77.99</td>
-                              <td>May 15, 2015</td>
+                              <td>{district._id}</td>
+                              <td>{district.idprovince.provincename}</td>
+                              <td>{district.districtname}</td>
                               <td>
                                 <Link
-                                  to={"/detaildistrict"}
+                                  to={`/detaildistrict/${district._id}`}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
@@ -156,8 +124,8 @@ const District = () => {
                         </tbody>
                       </table>
                       <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
+                        districtsPerPage={districtsPerPage}
+                        totaldistricts={district.length}
                         paginate={paginate}
                       />
                     </div>
