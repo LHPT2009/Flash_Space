@@ -117,11 +117,11 @@ const App = () => {
             element={<DetailBookingSchedule />}
           />
           <Route path="/detailcareer" element={<DetailCareer />} />
-          <Route path="/detaildistrict" element={<DetailDistrict />} />
+          <Route path="/detaildistrict/:id" element={<DetailDistrict />} />
           <Route path="/detailequipment" element={<DetailEquipment />} />
           <Route path="/detailevaluate" element={<DetailEvaluate />} />
           <Route path="/detailposition" element={<DetailPosition />} />
-          <Route path="/detailprovince" element={<DetailProvince />} />
+          <Route path="/detailprovince/:id" element={<DetailProvince />} />
           <Route path="/detailservicepack" element={<DetailServicePack />} />
           <Route
             path="/detailservicepackinuse"

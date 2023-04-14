@@ -1,7 +1,44 @@
+import { useState } from "react";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-const DetailPermission = () => {
+const DetailProvince = () => {
+  const { id } = useParams();
+  const [province, setprovince] = useState("");
+  const [provincename, setprovincename] = useState("");
+  const navigate = useNavigate();
+
+  axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/province/${id}`
+    )
+    .then((res) => {
+      setprovince(res.data);
+    });
+
+  const editProvince = async (e) => {
+    e.preventDefault();
+    const edit = await axios
+      .put(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/province/${id}`,
+        {
+          provincename,
+        }
+      )
+      .then(() => {
+        navigate("/province");
+      });
+  };
   return (
     <>
       <TopNav />
@@ -12,51 +49,27 @@ const DetailPermission = () => {
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Default form</h4>
-                    <p className="card-description">Basic form layout</p>
-                    <form className="forms-sample">
+                    <h4 className="card-title">Chi tiết thành phố</h4>
+                    <form className="forms-sample" onSubmit={editProvince}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Username</label>
+                        <label for="exampleInputUsername1">Tên thành phố</label>
                         <input
                           type="text"
                           className="form-control"
-                          id="exampleInputUsername1"
-                          placeholder="Username"
+                          onChange={(e) => setprovincename(e.target.value)}
+                          defaultValue={province.provincename}
                         />
                       </div>
-                      <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          placeholder="Email"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputConfirmPassword1">
-                          Confirm Password
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputConfirmPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <button type="submit" className="btn btn-primary me-2">
-                        Submit
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={editProvince}
+                      >
+                        Cập nhật
                       </button>
-                      <button className="btn btn-light">Cancel</button>
+                      <Link to={"/province"} className="btn btn-light">
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>
@@ -70,4 +83,4 @@ const DetailPermission = () => {
   );
 };
 
-export default DetailPermission;
+export default DetailProvince;

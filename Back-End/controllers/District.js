@@ -3,7 +3,9 @@ const District = require("../models/District");
 const DistrictController = {
   getAllDistrict: async (req, res) => {
     try {
-      const district = await District.find();
+      const district = await District.find().populate("idprovince", [
+        "provincename",
+      ]);
       res.status(200).json(district);
     } catch (err) {
       res.status(500).json(err);

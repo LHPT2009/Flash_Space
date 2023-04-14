@@ -1,7 +1,29 @@
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import axios from "axios";
+import { useState } from "react";
 
 const NewPermission = () => {
+  const [provincename,setProvinceName] = useState("");
+  const navigate = useNavigate();
+  const newProvince = async (e) => {
+    e.preventDefault();
+    const edit = await axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/province`,
+        {
+          provincename,
+        }
+      )
+      .then(() => {
+        navigate("/province");
+      });
+  };
   return (
     <>
       <TopNav />
@@ -12,51 +34,29 @@ const NewPermission = () => {
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Default form</h4>
-                    <p className="card-description">Basic form layout</p>
-                    <form className="forms-sample">
+                    <h4 className="card-title">Thêm thông tin thành phố mới</h4>
+                    <form
+                      className="forms-sample"
+                      onSubmit={newProvince}
+                    >
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Username</label>
+                        <label for="exampleInputUsername1">Tên thành phố</label>
                         <input
                           type="text"
                           className="form-control"
-                          id="exampleInputUsername1"
-                          placeholder="Username"
+                          onChange={(e) => setProvinceName(e.target.value)}
                         />
                       </div>
-                      <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          placeholder="Email"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputConfirmPassword1">
-                          Confirm Password
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputConfirmPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <button type="submit" className="btn btn-primary me-2">
-                        Submit
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={newProvince}
+                      >
+                        Tạo mới
                       </button>
-                      <button className="btn btn-light">Cancel</button>
+                      <Link to={"/province"} className="btn btn-light">
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>
