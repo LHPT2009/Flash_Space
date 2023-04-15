@@ -22,7 +22,10 @@ const DistrictController = {
 
   getDistrictById: async (req, res) => {
     try {
-      const district = await District.findById(req.params.id);
+      const district = await District.findById(req.params.id).populate(
+        "idprovince",
+        ["provincename"]
+      );
       res.status(200).json(district);
     } catch (error) {
       res.status(500).json(error);
