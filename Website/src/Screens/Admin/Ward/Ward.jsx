@@ -1,43 +1,46 @@
+import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 
 const Ward = () => {
-  const posts = [
-    {
-      id: 1,
-      name: "meo",
-    },
-    {
-      id: 2,
-      name: "meo",
-    },
-    {
-      id: 3,
-      name: "meo",
-    },
-    {
-      id: 4,
-      name: "meo",
-    },
-    {
-      id: 5,
-      name: "meo",
-    },
-    {
-      id: 6,
-      name: "meo",
-    },
-  ];
+  const [ward, setWard] = useState([]);
+  const navigate = useNavigate();
+  axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/ward`
+    )
+    .then((res) => {
+      setWard(res.data);
+    });
+
+  const delWard = async (id) => {
+    const edit = await axios
+      .delete(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/ward/${id}`
+      )
+      .then(() => {
+        navigate("/ward");
+      });
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = ward.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -90,7 +93,7 @@ const Ward = () => {
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <Link
-                                      to={"/detailaccount"}
+                                      to={"/newward"}
                                       className="btn btn-outline-primary btn-fw mb-4"
                                     >
                                       Thêm mới
@@ -108,46 +111,31 @@ const Ward = () => {
                       <table className="table table-hover">
                         <thead>
                           <tr>
-                            <th>User</th>
-                            <th>First name</th>
-                            <th>Progress</th>
-                            <th>Amount</th>
-                            <th>Deadline</th>
+                            <th>Mã</th>
+                            <th>Quận/huyện</th>
+                            <th>Phường/xã</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {currentPosts.map((post) => (
+                          {currentPosts.map((item) => (
                             <tr>
-                              <td className="py-1">
-                                <img
-                                  src="../../images/faces/face1.jpg"
-                                  alt="image"
-                                />
-                              </td>
-                              <td>{post.id}</td>
-                              <td>
-                                <div className="progress">
-                                  <div
-                                    className="progress-bar bg-success"
-                                    role="progressbar"
-                                    style={{ width: "25%" }}
-                                    aria-valuenow="25"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                  ></div>
-                                </div>
-                              </td>
-                              <td>$ 77.99</td>
-                              <td>May 15, 2015</td>
+                              <td>{item._id}</td>
+                              <td>{item.iddistrict.districtname}</td>
+                              <td>{item.wardname}</td>
                               <td>
                                 <Link
-                                  to={"/detailward"}
+                                  to={`/detailward/${item._id}`}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1">
+                                <Link
+                                  className="btn btn-outline-danger btn-fw m-1"
+                                  onClick={() => {
+                                    delWard(item._id);
+                                  }}
+                                >
                                   Xóa
                                 </Link>
                               </td>
@@ -157,7 +145,7 @@ const Ward = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
+                        totalPosts={ward.length}
                         paginate={paginate}
                       />
                     </div>

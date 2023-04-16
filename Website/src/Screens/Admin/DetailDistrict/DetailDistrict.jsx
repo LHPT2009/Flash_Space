@@ -1,12 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 
 const DetailPermission = () => {
-  const id = useParams();
-  const [district, setDistrict] = useState([]);
+  const { id } = useParams();
+  const [idprovince, setIdProvince] = useState("");
+  const [provincename, setProvinceName] = useState("");
+  const [districtname, setDistrictName] = useState("");
+  const [districtnamshow, setDistrictNameShow] = useState("");
+
+  const navigate = useNavigate();
+
   axios
     .get(
       `${
@@ -16,9 +22,29 @@ const DetailPermission = () => {
       }/district/${id}`
     )
     .then((res) => {
-      setDistrict(res.data);
-      console.log(res.data);
+      setProvinceName(res.data.idprovince.provincename);
+      setDistrictNameShow(res.data.districtname);
+      setIdProvince(res.data.idprovince._id);
     });
+
+  const editDistrict = async (e) => {
+    e.preventDefault();
+    const edit = await axios
+      .put(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/district/${id}`,
+        {
+          idprovince,
+          districtname,
+        }
+      )
+      .then(() => {
+        navigate("/district");
+      });
+  };
   return (
     <>
       <TopNav />
@@ -30,17 +56,15 @@ const DetailPermission = () => {
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">Chi tiết Quận/Huyện</h4>
-                    <form
-                      className="forms-sample"
-                      // onSubmit={NProvince}
-                    >
+                    <form className="forms-sample" onSubmit={editDistrict}>
                       <div className="form-group">
                         <label for="exampleSelectGender">Thành phố</label>
                         <input
                           type="text"
                           className="form-control"
                           placeholder="Thành phố"
-                          value={district.idprovince.provincename}
+                          defaultValue={provincename}
+                          disabled
                         />
                       </div>
                       <div className="form-group">
@@ -49,14 +73,14 @@ const DetailPermission = () => {
                           type="text"
                           className="form-control"
                           placeholder="Điền Quận/Huyện"
-                          value={district.districtname}
-                          // onChange={(e) => setDisTrictName(e.target.value)}
+                          defaultValue={districtnamshow}
+                          onChange={(e) => setDistrictName(e.target.value)}
                         />
                       </div>
                       <button
                         type="submit"
                         className="btn btn-primary me-2"
-                        // onClick={NProvince}
+                        onClick={editDistrict}
                       >
                         Cập nhật
                       </button>
