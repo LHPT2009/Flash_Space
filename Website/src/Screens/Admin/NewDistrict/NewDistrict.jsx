@@ -20,25 +20,26 @@ const NewPermission = () => {
     .then((res) => {
       setListProvince(res.data);
     });
-    
-    const NProvince = async (e) => {
-      e.preventDefault();
-      const edit = await axios
-        .post(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/district`,
-          {
-            idprovince,
-            districtname
-          }
-        )
-        .then(() => {
-          navigate("/district");
-        });
-    };
+
+  const NProvince = async (e) => {
+    e.preventDefault();
+    const newPro = await axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/district`,
+        {
+          idprovince,
+          districtname,
+        }
+      )
+      .then(() => {
+        navigate("/district");
+      });
+  };
+
   return (
     <>
       <TopNav />
@@ -51,15 +52,18 @@ const NewPermission = () => {
                   <div className="card-body">
                     <h4 className="card-title">thêm mới Quận/Huyện</h4>
                     <form className="forms-sample" onSubmit={NProvince}>
-                    <div className="form-group">
+                      <div className="form-group">
                         <label for="exampleSelectGender">Thành phố</label>
                         <select
                           className="form-control"
                           onChange={(e) => setIdProvince(e.target.value)}
                         >
-                          {listprovince.map((item) =>(
-                          <option value={item._id}>{item.provincename}</option>
-                        ))}
+                          <option value="none">Mời bạn chọn</option>
+                          {listprovince.map((item) => (
+                            <option value={item._id}>
+                              {item.provincename}
+                            </option>
+                          ))}
                         </select>
                       </div>
                       <div className="form-group">
@@ -71,7 +75,11 @@ const NewPermission = () => {
                           onChange={(e) => setDisTrictName(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2" onClick={NProvince}>
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={NProvince}
+                      >
                         Thêm mới
                       </button>
                       <Link to={"/district"} className="btn btn-light">

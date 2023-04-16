@@ -3,7 +3,7 @@ const Ward = require("../models/Ward");
 const WardController = {
   getAllWard: async (req, res) => {
     try {
-      const ward = await Ward.find();
+      const ward = await Ward.find().populate("iddistrict", ["districtname"]);
       res.status(200).json(ward);
     } catch (err) {
       res.status(500).json(err);
@@ -20,7 +20,9 @@ const WardController = {
 
   getWardById: async (req, res) => {
     try {
-      const ward = await Ward.findById(req.params.id);
+      const ward = await Ward.findById(req.params.id).populate("iddistrict", [
+        "districtname",
+      ]);
       res.status(200).json(ward);
     } catch (error) {
       res.status(500).json(error);

@@ -129,7 +129,7 @@ const App = () => {
           />
           <Route path="/detailstaff" element={<DetailStaff />} />
           <Route path="/detailtimeslot" element={<DetailTimeslot />} />
-          <Route path="/detailward" element={<DetailWard />} />
+          <Route path="/detailward/:id" element={<DetailWard />} />
           <Route
             path="/detailworkassignment"
             element={<DetailWorkAssignment />}

@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
 
-const District = () => { 
-const [district,setDistrict] = useState([]);
+const District = () => {
+  const [district, setDistrict] = useState([]);
+  const navigate = useNavigate();
   axios
     .get(
       `${
@@ -19,13 +20,30 @@ const [district,setDistrict] = useState([]);
       setDistrict(res.data);
     });
 
+  const delDistrict = async (id) => {
+    const edit = await axios
+      .delete(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/district/${id}`
+      )
+      .then(() => {
+        navigate("/district");
+      });
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [districtsPerPage] = useState(4);
 
   // Get current districts
   const indexOfLastdistrict = currentPage * districtsPerPage;
   const indexOfFirstdistrict = indexOfLastdistrict - districtsPerPage;
-  const currentdistricts = district.slice(indexOfFirstdistrict, indexOfLastdistrict);
+  const currentdistricts = district.slice(
+    indexOfFirstdistrict,
+    indexOfLastdistrict
+  );
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -115,7 +133,12 @@ const [district,setDistrict] = useState([]);
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1">
+                                <Link
+                                  className="btn btn-outline-danger btn-fw m-1"
+                                  onClick={() => {
+                                    delDistrict(district._id);
+                                  }}
+                                >
                                   Xóa
                                 </Link>
                               </td>
@@ -124,8 +147,8 @@ const [district,setDistrict] = useState([]);
                         </tbody>
                       </table>
                       <Pagination
-                        districtsPerPage={districtsPerPage}
-                        totaldistricts={district.length}
+                        postsPerPage={districtsPerPage}
+                        totalPosts={district.length}
                         paginate={paginate}
                       />
                     </div>
