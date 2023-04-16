@@ -1,7 +1,45 @@
+import { useState } from "react";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const NewPermission = () => {
+  const [listdistrict,setListDistrict] = useState([]);
+  const [iddistrict,setIdDistrict]= useState("");
+  const [wardname,setWardName]= useState("");
+  const navigate = useNavigate();
+  axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/district`
+    )
+    .then((res) => {
+      setListDistrict(res.data);
+    });
+
+    const NWard = async (e) => {
+      e.preventDefault();
+      const newWard = await axios
+        .post(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/ward`,
+          {
+            iddistrict,
+            wardname,
+          }
+        )
+        .then(() => {
+          navigate("/ward");
+        });
+    };
+
   return (
     <>
       <TopNav />
@@ -12,51 +50,41 @@ const NewPermission = () => {
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Default form</h4>
-                    <p className="card-description">Basic form layout</p>
-                    <form className="forms-sample">
+                    <h4 className="card-title">thêm mới Phường/Xã</h4>
+                    <form className="forms-sample" onSubmit={NWard}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Username</label>
+                        <label for="exampleSelectGender">Thành phố</label>
+                        <select
+                          className="form-control"
+                          onChange={(e) => setIdDistrict(e.target.value)}
+                        >
+                          <option value="none">Mời bạn chọn Quận/Huyện</option>
+                          {listdistrict.map((item) => (
+                            <option value={item._id}>
+                              {item.districtname}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label for="exampleInputEmail1">Phường/xã</label>
                         <input
                           type="text"
                           className="form-control"
-                          id="exampleInputUsername1"
-                          placeholder="Username"
+                          placeholder="Điền Quận/Huyện"
+                          onChange={(e) => setWardName(e.target.value)}
                         />
                       </div>
-                      <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          placeholder="Email"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputConfirmPassword1">
-                          Confirm Password
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputConfirmPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <button type="submit" className="btn btn-primary me-2">
-                        Submit
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={NWard}
+                      >
+                        Thêm mới
                       </button>
-                      <button className="btn btn-light">Cancel</button>
+                      <Link to={"/ward"} className="btn btn-light">
+                        trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>
