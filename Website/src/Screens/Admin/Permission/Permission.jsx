@@ -5,31 +5,16 @@ import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 
 const Tables = () => {
-  const posts = [
-    {
-      id: 1,
-      name: "User",
-    },
-    {
-      id: 2,
-      name: "Admin",
-    },
-    {
-      id: 3,
-      name: "Super Admin",
-    },
-    {
-      id: 4,
-      name: "Staff",
-    },
-  ];
+  const [permission,setPermission] = useState([]);
+
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = permission.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -129,7 +114,7 @@ const Tables = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
+                        totalPosts={permission.length}
                         paginate={paginate}
                       />
                     </div>
