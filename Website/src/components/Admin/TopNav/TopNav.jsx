@@ -216,7 +216,7 @@ const TopNav = () => {
                       </Link>
                     </li>
                     <li class="nav-item">
-                      <Link to={"/permission"} class="nav-link">
+                      <Link to={"/role"} class="nav-link">
                         Phân quyền
                       </Link>
                     </li>

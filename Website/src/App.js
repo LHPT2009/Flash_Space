@@ -26,7 +26,7 @@ import Buttons from "./Screens/Admin/UiFeatures/Buttons";
 import Typography from "./Screens/Admin/UiFeatures/Typography";
 import AccountAdmin from "./Screens/Admin/Account/Account";
 import DetailAccount from "./Screens/Admin/DetailAccount/DetailAccount";
-import Permission from "./Screens/Admin/Permission/Permission";
+import Role from "./Screens/Admin/Role/Role";
 import Statistical from "./Screens/Admin/Statistical/Statistical";
 import Staff from "./Screens/Admin/Staff/Staff";
 import Position from "./Screens/Admin/Position/Position";
@@ -45,7 +45,7 @@ import WorkAssignment from "./Screens/Admin/WorkAssignment/WorkAssignment";
 import RoomCareer from "./Screens/Admin/RoomCareer/RoomCareer";
 
 import RoomDetailAdmin from "./Screens/Admin/RoomDetailAdmin/RoomDetailAdmin";
-import DetailPermission from "./Screens/Admin/DetailPermission/DetailPermission";
+import DetailRole from "./Screens/Admin/DetailRole/DetailRole";
 import DetailBookingSchedule from "./Screens/Admin/DetailBookingSchedule/DetailBookingSchedule";
 import DetailCareer from "./Screens/Admin/DetailCareer/DetailCareer";
 import DetailDistrict from "./Screens/Admin/DetailDistrict/DetailDistrict";
@@ -63,7 +63,7 @@ import DetailWorkAssignment from "./Screens/Admin/DetailWorkAssignment/DetailWor
 import NewCareer from "./Screens/Admin/NewCareer/NewCareer";
 import NewDistrict from "./Screens/Admin/NewDistrict/NewDistrict";
 import NewEquipment from "./Screens/Admin/NewEquipment/NewEquipment";
-import NewPermission from "./Screens/Admin/NewPermission/NewPermission";
+import NewRole from "./Screens/Admin/NewRole/NewRole";
 import NewPosition from "./Screens/Admin/NewPosition/NewPosition";
 import NewProvince from "./Screens/Admin/NewProvince/NewProvince";
 import NewServicePack from "./Screens/Admin/NewServicePack/NewServicePack";
@@ -93,7 +93,7 @@ const App = () => {
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/accountadmin" element={<AccountAdmin />} />
           <Route path="/detailaccount" element={<DetailAccount />} />
-          <Route path="/permission" element={<Permission />} />
+          <Route path="/Role" element={<Role />} />
           <Route path="/statistical" element={<Statistical />} />
           <Route path="/staff" element={<Staff />} />
           <Route path="/position" element={<Position />} />
@@ -111,14 +111,14 @@ const App = () => {
           <Route path="/workassignment" element={<WorkAssignment />} />
           <Route path="/roomcareer" element={<RoomCareer />} />
           <Route path="/roomdetailadmin" element={<RoomDetailAdmin />} />
-          <Route path="/detailpermission" element={<DetailPermission />} />
+          <Route path="/detailrole/:id" element={<DetailRole />} />
           <Route
             path="/detailbookingschedule"
             element={<DetailBookingSchedule />}
           />
           <Route path="/detailcareer/:id" element={<DetailCareer />} />
           <Route path="/detaildistrict/:id" element={<DetailDistrict />} />
-          <Route path="/detailequipment" element={<DetailEquipment />} />
+          <Route path="/detailequipment/:id" element={<DetailEquipment />} />
           <Route path="/detailevaluate" element={<DetailEvaluate />} />
           <Route path="/detailposition" element={<DetailPosition />} />
           <Route path="/detailprovince/:id" element={<DetailProvince />} />
@@ -138,7 +138,7 @@ const App = () => {
           <Route path="/newcareer" element={<NewCareer />} />
           <Route path="/newdistrict" element={<NewDistrict />} />
           <Route path="/newequipment" element={<NewEquipment />} />
-          <Route path="/newpermission" element={<NewPermission />} />
+          <Route path="/newrole" element={<NewRole />} />
           <Route path="/newposition" element={<NewPosition />} />
           <Route path="/newprovince" element={<NewProvince />} />
           <Route path="/newservicepack" element={<NewServicePack />} />

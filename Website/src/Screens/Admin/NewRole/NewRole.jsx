@@ -1,7 +1,29 @@
+import { useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import axios from "axios";
+import { useState } from "react";
 
 const NewPermission = () => {
+  const [rolename,setRoleName] = useState("");
+  const navigate = useNavigate();
+  const newRole = async (e) => {
+    e.preventDefault();
+    const edit = await axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/role`,
+        {
+          rolename,
+        }
+      )
+      .then(() => {
+        navigate("/role");
+      });
+  };
   return (
     <>
       <TopNav />
@@ -13,7 +35,7 @@ const NewPermission = () => {
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">Thêm mới quyền</h4>
-                    <form className="forms-sample">
+                    <form className="forms-sample" onSubmit={newRole}>
                       <div className="form-group">
                         <label for="exampleInputUsername1">Tên quyền</label>
                         <input
@@ -21,9 +43,10 @@ const NewPermission = () => {
                           className="form-control"
                           id="exampleInputUsername1"
                           placeholder="Nhập tên quyền"
+                          onChange={(e) => setRoleName(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2">
+                      <button type="submit" className="btn btn-primary me-2" onClick={newRole}>
                         Thêm
                       </button>
                       <button className="btn btn-light">Trở lại</button>

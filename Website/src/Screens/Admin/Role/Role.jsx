@@ -1,20 +1,46 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
+import axios from "axios";
 
 const Tables = () => {
-  const [permission,setPermission] = useState([]);
-
+  const [role,setRole] = useState([]);
+  const navigate = useNavigate();
+  axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/role`
+    )
+    .then((res) => {
+      setRole(res.data);
+    });
   
+    const delRole = async (id) => {
+      const del = await axios
+        .delete(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/role/${id}`
+        )
+        .then(() => {
+          navigate("/role");
+        });
+    };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = permission.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = role.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -69,7 +95,7 @@ const Tables = () => {
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <Link
-                                      to={"/newpermission"}
+                                      to={"/newrole"}
                                       className="btn btn-outline-primary btn-fw mb-4"
                                     >
                                       Thêm mới
@@ -93,18 +119,18 @@ const Tables = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {currentPosts.map((post) => (
+                          {currentPosts.map((item) => (
                             <tr>
-                              <td>{post.id}</td>
-                              <td>{post.name}</td>
+                              <td>{item._id}</td>
+                              <td>{item.rolename}</td>
                               <td>
                                 <Link
-                                  to={"/detailpermission"}
+                                  to={`/detailrole/${item._id}`}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1">
+                                <Link className="btn btn-outline-danger btn-fw m-1" onClick={() => delRole(item._id)}>
                                   Xóa
                                 </Link>
                               </td>
@@ -114,7 +140,7 @@ const Tables = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={permission.length}
+                        totalPosts={role.length}
                         paginate={paginate}
                       />
                     </div>
