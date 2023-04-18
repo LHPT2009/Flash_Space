@@ -1,26 +1,28 @@
-import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 
-const DetailPermission = () => {
+const DetailRole = () => {
   const { id } = useParams();
-  const [equipment, setEquipment] = useState([]);
-  const [equipmentname, setEquipmentName] = useState("");
+  const [role, setRole] = useState("");
+  const [rolename, setRoleName] = useState("");
   const navigate = useNavigate();
+
   axios
     .get(
       `${
         process.env.REACT_APP_URL
           ? `${process.env.REACT_APP_URL}`
           : `http://localhost:8000`
-      }/equipment/${id}`
+      }/role/${id}`
     )
     .then((res) => {
-      setEquipment(res.data);
+      setRole(res.data);
     });
-    const editEquipment = async (e) => {
+
+    const editRole = async (e) => {
       e.preventDefault();
       const edit = await axios
         .put(
@@ -28,15 +30,16 @@ const DetailPermission = () => {
             process.env.REACT_APP_URL
               ? `${process.env.REACT_APP_URL}`
               : `http://localhost:8000`
-          }/equipment/${id}`,
+          }/role/${id}`,
           {
-            equipmentname,
+            rolename,
           }
         )
         .then(() => {
-          navigate("/equipment");
+          navigate("/role");
         });
     };
+
   return (
     <>
       <TopNav />
@@ -47,25 +50,23 @@ const DetailPermission = () => {
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Chi tiết trang thiết bị</h4>
-                    <form className="forms-sample" onSubmit={editEquipment}>
+                    <h4 className="card-title">Thông tin chi tiết quyền</h4>
+                    <form className="forms-sample" onSubmit={editRole}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Tên trang thiết bị</label>
+                        <label for="exampleInputUsername1">Tên quyền</label>
                         <input
                           type="text"
                           className="form-control"
                           id="exampleInputUsername1"
-                          placeholder="Tên trang thiết bị"
-                          onChange={(e) => setEquipmentName(e.target.value)}
-                          defaultValue={equipment.equipmentname}
+                          placeholder="Nhập tên quyền"
+                          defaultValue={role.rolename}
+                          onChange={(e) => setRoleName(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2"
-                       onClick={editEquipment}
-                      >
-                        Cập nhật
+                      <button type="submit" className="btn btn-primary me-2" onClick={editRole}>
+                        Câp nhật
                       </button>
-                      <Link to={"/equipment"} className="btn btn-light">Cancel</Link>
+                      <Link to={"/role"} className="btn btn-light">Trở lại</Link>
                     </form>
                   </div>
                 </div>
@@ -79,4 +80,4 @@ const DetailPermission = () => {
   );
 };
 
-export default DetailPermission;
+export default DetailRole;
