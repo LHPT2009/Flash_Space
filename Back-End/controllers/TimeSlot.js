@@ -30,18 +30,8 @@ const TimeSlotController = {
   addTimeSlot: async (req, res) => {
     try {
       const newTimeSlot = await new TimeSlot({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        starttime: req.body.starttime,
+        endtime: req.body.endtime,
       });
 
       await newTimeSlot.save();

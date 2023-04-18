@@ -30,18 +30,10 @@ const ServicePackController = {
   addServicePack: async (req, res) => {
     try {
       const newServicePack = await new ServicePack({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        name: req.body.name,
+        price: req.body.price,
+        content: req.body.content,
+        duration: req.body.duration,
       });
 
       await newServicePack.save();

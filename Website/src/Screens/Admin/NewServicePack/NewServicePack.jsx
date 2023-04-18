@@ -1,7 +1,37 @@
+import { useState } from "react";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const NewPermission = () => {
+const NewServicePack = () => {
+  const [name,setName] = useState("");
+  const [price,setPrice] = useState("");
+  const [content,setContent] = useState("");
+  const [duration,setDuration] = useState("");
+  const navigate = useNavigate();
+
+  const newServicePack = async (e) => {
+    e.preventDefault();
+    const edit = await axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/servicepack`,
+        {
+          name,
+          price,
+          content,
+          duration,
+        }
+      )
+      .then(() => {
+        navigate("/servicepack");
+      });
+  };
+
   return (
     <>
       <TopNav />
@@ -12,51 +42,54 @@ const NewPermission = () => {
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Default form</h4>
-                    <p className="card-description">Basic form layout</p>
-                    <form className="forms-sample">
+                    <h4 className="card-title">Thêm gói mới</h4>
+                    <form className="forms-sample" onSubmit={newServicePack}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Username</label>
+                        <label for="exampleInputUsername1">Tên gói</label>
                         <input
                           type="text"
                           className="form-control"
                           id="exampleInputUsername1"
-                          placeholder="Username"
+                          placeholder="điền tên gói"
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                       <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label for="exampleInputUsername1">Giá</label>
                         <input
-                          type="email"
+                          type="text"
                           className="form-control"
-                          id="exampleInputEmail1"
-                          placeholder="Email"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          placeholder="Password"
+                          id="exampleInputUsername1"
+                          placeholder="Điền giá"
+                          onChange={(e) => setPrice(e.target.value)}
                         />
                       </div>
                       <div className="form-group">
                         <label for="exampleInputConfirmPassword1">
-                          Confirm Password
+                          Nôi dung của gói
                         </label>
-                        <input
-                          type="password"
+                        <textarea
                           className="form-control"
-                          id="exampleInputConfirmPassword1"
-                          placeholder="Password"
+                          id="exampleTextarea1"
+                          rows="4"
+                          placeholder="Mời bạn điền nôi dung của gói"
+                          onChange={(e) => setContent(e.target.value)}
+                        ></textarea>
+                      </div>
+                      <div className="form-group">
+                        <label for="exampleInputUsername1">Thời hạn</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="exampleInputUsername1"
+                          placeholder="Điền thời hạn"
+                          onChange={(e) => setDuration(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2">
-                        Submit
+                      <button type="submit" className="btn btn-primary me-2" onClick={newServicePack}>
+                        Thêm mới
                       </button>
-                      <button className="btn btn-light">Cancel</button>
+                      <Link className="btn btn-light" to={"/servicepack"}>Trở lại</Link>
                     </form>
                   </div>
                 </div>
@@ -70,4 +103,4 @@ const NewPermission = () => {
   );
 };
 
-export default NewPermission;
+export default NewServicePack;
