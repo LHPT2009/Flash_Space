@@ -11,7 +11,7 @@ const EvaluateController = {
   },
   deleteEvaluate: async (req, res) => {
     try {
-      const evaluate = await Evaluate.findByIdAndDelete(req.params.id);
+      await Evaluate.findByIdAndDelete(req.params.id);
       res.status(200).json("Delete successfully");
     } catch (error) {
       res.status(500).json(error);
@@ -30,20 +30,11 @@ const EvaluateController = {
   addEvaluate: async (req, res) => {
     try {
       const newEvaluate = await new Evaluate({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        idaccount: req.body.idaccount,
+        idroom: req.body.idroom,
+        point: req.body.point,
+        content: req.body.content,
       });
-
       await newEvaluate.save();
       res.status(200).json("Add successfully");
     } catch (error) {
