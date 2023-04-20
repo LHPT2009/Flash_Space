@@ -30,18 +30,7 @@ const CareerController = {
   addCareer: async (req, res) => {
     try {
       const newCareer = await new Career({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        careername: req.body.careername,
       });
 
       await newCareer.save();

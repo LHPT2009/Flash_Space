@@ -6,7 +6,7 @@ router.get("/", RoomController.getAllRoom);
 
 router.get("/:id", RoomController.getRoomById);
 
-router.post("/", RoomController.addRoom);
+router.post("/addRoom", RoomController.addRoom);
 
 router.delete("/:id", RoomController.deleteRoom);
 

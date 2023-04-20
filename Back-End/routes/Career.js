@@ -6,7 +6,7 @@ router.get("/", CareerController.getAllCareer);
 
 router.get("/:id", CareerController.getCareerById);
 
-router.post("/", CareerController.addCareer);
+router.post("/addCareer", CareerController.addCareer);
 
 router.delete("/:id", CareerController.deleteCareer);
 
