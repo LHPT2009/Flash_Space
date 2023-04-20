@@ -29,6 +29,9 @@ const RoomSchema = new mongoose.Schema({
     type: String,
   },
   static: {
+    type: Number,
+  },
+  subject: {
     type: String,
   },
   describe: {

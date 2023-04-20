@@ -1,4 +1,4 @@
-const Account = require("./../models/Account");
+const Account = require("../models/Account");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
@@ -67,7 +67,7 @@ const AuthController = {
                   <img src="https://i.imgur.com/MiYjZYF.png" alt="logo-bug-on" />
                 </div>
                 <div style="width: fit-content">
-                  <h2 style="line-height: 135%">Chào mừng đến với Coffee Bug Ổn</h2>
+                  <h2 style="line-height: 135%">Chào mừng đến với Flash Space</h2>
                   <p style="letter-spacing: 0.04em">Xác thực tài khoản tại đây</p>
                   <button
               style="
@@ -110,7 +110,7 @@ const AuthController = {
                   >
                     <p style="letter-spacing: 0.04em">
                       Chân thành cảm ơn,<br />
-                      Bug Ổn Team
+                      Flash Space
                     </p>
                   </div>
                   <div

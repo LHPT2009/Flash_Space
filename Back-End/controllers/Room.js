@@ -1,4 +1,6 @@
 const Room = require("../models/Room");
+const WorkAssignment = require("../models/WorkAssignment");
+const Image = require("../models/Image");
 
 const RoomController = {
   getAllRoom: async (req, res) => {
@@ -30,21 +32,40 @@ const RoomController = {
   addRoom: async (req, res) => {
     try {
       const newRoom = await new Room({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        idward: req.body.idward,
+        idcareer: req.body.idcareer,
+        idaccount: req.body.idaccount,
+        length: req.body.length,
+        width: req.body.width,
+        price: req.body.price,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        static: "Chờ duyệt",
+        subject: req.body.subject,
+        describe: req.body.describe,
+        housenumberstreetname: req.body.housenumberstreetname,
       });
-
       await newRoom.save();
+      const date = new Date();
+      const minute = 1000 * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+      const implementationDate = date.getTime() + day * 2;
+      const newWorkAssignment = new WorkAssignment({
+        idroom: newRoom.id,
+        idaccount: "642dc784cf8ef2472f6b1f9a",
+        work: "Duyệt tin",
+        implementationdate: implementationDate,
+        static: 1,
+      });
+      await newWorkAssignment.save();
+      // if (req.file != undefined) {
+      //   const newImage = await new Image({
+      //     idroom: newRoom.id,
+      //     filename: req.file.filename,
+      //   });
+      // }
+
       res.status(200).json("Add successfully");
     } catch (error) {
       res.status(500).json(error);
