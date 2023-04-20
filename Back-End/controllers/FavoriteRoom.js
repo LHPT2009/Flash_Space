@@ -11,7 +11,7 @@ const FavoriteRoomController = {
   },
   deleteFavoriteRoom: async (req, res) => {
     try {
-      const favoriteRoom = await FavoriteRoom.findByIdAndDelete(req.params.id);
+      await FavoriteRoom.findByIdAndDelete(req.params.id);
       res.status(200).json("Delete successfully");
     } catch (error) {
       res.status(500).json(error);
@@ -29,21 +29,12 @@ const FavoriteRoomController = {
 
   addFavoriteRoom: async (req, res) => {
     try {
+      const date = new Date().getTime();
       const newFavoriteRoom = await new FavoriteRoom({
-        // idpermission: req.body.idpermission,
-        // username: req.body.username,
-        // password: req.body.password,
-        // lastname: req.body.lastname,
-        // avatar: req.body.avatar,
-        // birthday: req.body.birthday,
-        // static: req.body.static,
-        // email: req.body.email,
-        // phonenumber: req.body.phonenumber,
-        // emailverification: req.body.emailverification,
-        // phonenumberverification: req.body.phonenumberverification,
-        // sex: req.body.sex,
+        idaccount: req.body.idaccount,
+        idroom: req.body.idroom,
+        date: date.toString(),
       });
-
       await newFavoriteRoom.save();
       res.status(200).json("Add successfully");
     } catch (error) {
