@@ -17,7 +17,7 @@ const AuthController = {
         password: hashed,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        avatar: "",
+        avatar: "iconAccount.png",
         birthday: "",
         static: true,
         email: req.body.email,
