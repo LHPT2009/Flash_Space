@@ -5,10 +5,25 @@ import "./InfoUser.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import jwt from "jwt-decode";
+import imageicon from "../../../../../uploads/iconAccount.png";
 const InfoUser = () => {
+  const [info, setInfo] = useState([]);
   const [pathimage, setPathImage] = useState();
 
   const navigate = useNavigate();
+
+  axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/account/${jwt(localStorage.getItem("token")).id}`
+    )
+    .then((res) => {
+      setInfo(res.data);
+    });
 
   const editInfo = async (e) => {
     e.preventDefault();
@@ -48,10 +63,7 @@ const InfoUser = () => {
                             alt="Maxwell Admin"
                           />
                         ) : (
-                          <img
-                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                            alt="Maxwell Admin"
-                          />
+                          <img src={imageicon} alt="Maxwell Admin" />
                         )}
                       </div>
                       <div>
@@ -66,8 +78,10 @@ const InfoUser = () => {
                           onChange={(e) => setPathImage(e.target.files[0])}
                         />
                       </div>
-                      <h5 class="user-name">Lê Huỳnh Phương Tùng</h5>
-                      <h6 class="user-email">tung@gmail.com</h6>
+                      <h5 class="user-name">
+                        {info.firstname + " " + info.lastname}
+                      </h5>
+                      <h6 class="user-email">{info.email}</h6>
                     </div>
                   </div>
                 </div>
@@ -91,7 +105,21 @@ const InfoUser = () => {
                             class="form-control"
                             id="fullName"
                             placeholder="Enter full name"
-                            value={"Lê Huỳnh Phương Tùng"}
+                            value={info.firstname}
+                            // onChange={(e) => setPathImage(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="fullName">Họ và tên</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="fullName"
+                            placeholder="Enter full name"
+                            value={info.lastname}
+                            // onChange={(e) => setPathImage(e.target.value)}
                           />
                         </div>
                       </div>
@@ -103,7 +131,8 @@ const InfoUser = () => {
                             class="form-control"
                             id="eMail"
                             placeholder="Enter email ID"
-                            value={"tung@gmail.com"}
+                            value={info.email}
+                            // onChange={(e) => setPathImage(e.target.value)}
                           />
                         </div>
                       </div>
@@ -115,7 +144,8 @@ const InfoUser = () => {
                             class="form-control"
                             id="phone"
                             placeholder="Enter phone number"
-                            value={"123456789"}
+                            value={info.phonenumber}
+                            // onChange={(e) => setPathImage(e.target.value)}
                           />
                         </div>
                       </div>
@@ -127,39 +157,8 @@ const InfoUser = () => {
                             class="form-control"
                             id="website"
                             placeholder="Nam"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group">
-                          <label for="website">Ngày sinh</label>
-                          <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            placeholder="20/09/2001"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group">
-                          <label for="website">Địa chỉ</label>
-                          <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            placeholder="181/7 Liên tỉnh 5 P5 Q8"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group">
-                          <label for="website">Thành phố</label>
-                          <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            placeholder="TP.HCM"
+                            value={info.sex}
+                            // onChange={(e) => setPathImage(e.target.value)}
                           />
                         </div>
                       </div>
