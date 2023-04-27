@@ -17,6 +17,7 @@ const InfoUser = () => {
   const [phonenumber, setPhoneNumber] = useState();
   const [sex, setSex] = useState();
 
+
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -38,6 +39,18 @@ const InfoUser = () => {
       setSex(res.data.sex);
     });
   },[])
+
+  axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/account/${jwt(localStorage.getItem("token")).id}`
+    )
+    .then((res) => {
+      setInfo(res.data);
+    });
 
   const editInfo = async (e) => {
     e.preventDefault();
@@ -85,10 +98,7 @@ const InfoUser = () => {
                             alt="Maxwell Admin"
                           />
                         ) : (
-                          <img
-                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                            alt="Maxwell Admin"
-                          />
+                          <img src={imageicon} alt="Maxwell Admin" />
                         )}
                       </div>
                       <div>
@@ -102,8 +112,10 @@ const InfoUser = () => {
                           onChange={(e) => setAvatar(e.target.files[0])}
                         />
                       </div>
-                      <h5 class="user-name">Lê Huỳnh Phương Tùng</h5>
-                      <h6 class="user-email">tung@gmail.com</h6>
+                      <h5 class="user-name">
+                        {info.firstname + " " + info.lastname}
+                      </h5>
+                      <h6 class="user-email">{info.email}</h6>
                     </div>
                   </div>
                 </div>
