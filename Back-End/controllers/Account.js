@@ -1,4 +1,5 @@
 const Account = require("../models/Account");
+const path = require("path");
 
 const AccountController = {
   getAllAccounts: async (req, res) => {
@@ -53,7 +54,15 @@ const AccountController = {
 
   updateAccount: async (req, res) => {
     try {
-      const updateAccount = req.body;
+      const updateAccount = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        avatar: req.file.filename,
+        birthday: req.body.birthday,
+        email: req.body.email,
+        phonenumber: req.body.phonenumber,
+        sex: req.body.sex,
+      };
       const account = await Account.findByIdAndUpdate(
         req.params.id,
         updateAccount,
@@ -70,6 +79,17 @@ const AccountController = {
       res.status(500).json("Error!!!");
     }
   },
+  // imageAccountByFilename: async (req, res) => {
+  //   try {
+  //     // const link = await path.join(__dirname, "uploads", req.params.img);
+  //     // res.sendFile(link).status(200);
+  //     // console.log(link);
+  //     res.status(200).json("da check file!");
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.status(500).json("Error!!!");
+  //   }
+  // },
 };
 
 module.exports = AccountController;

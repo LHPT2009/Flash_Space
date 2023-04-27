@@ -24,6 +24,7 @@ const WorkAssignmentRoute = require("./routes/WorkAssignment");
 const WorkingHoursRoute = require("./routes/WorkingHours");
 const AuthRoute = require("./routes/Auth");
 const RoleRoute = require("./routes/Role");
+const SingleImageRoute = require("./routes/SingleImage");
 
 dotenv.config();
 const app = express();
@@ -63,6 +64,8 @@ app.use("/workassignment", WorkAssignmentRoute);
 app.use("/workinghours", WorkingHoursRoute);
 app.use("/auth", AuthRoute);
 app.use("/role", RoleRoute);
+
+app.use("/singleimage", SingleImageRoute);
 
 app.listen(8000, () => {
   console.log("Server is running...");

@@ -2,13 +2,42 @@ import "./InfoUser.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import "./InfoUser.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import jwtdecode from "jwt-decode";
+
 const InfoUser = () => {
-  const [pathimage, setPathImage] = useState();
+  const id = jwtdecode(localStorage.getItem("token")).id;
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [avatar, setAvatar] = useState();
+  const [birthday, setBirThday] = useState();
+  const [email, setEmail] = useState();
+  const [phonenumber, setPhoneNumber] = useState();
+  const [sex, setSex] = useState();
 
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    axios
+    .get(
+      `${
+        process.env.REACT_APP_URL
+          ? `${process.env.REACT_APP_URL}`
+          : `http://localhost:8000`
+      }/account/${id}`
+    )
+    .then((res) => {
+      setFirstname(res.data.firstname);
+      setLastname(res.data.lastname);
+      // setAvatar(res.data.avatar);
+      setBirThday(res.data.birthday);
+      setEmail(res.data.email);
+      setPhoneNumber(res.data.phonenumber);
+      setSex(res.data.sex);
+    });
+  },[])
 
   const editInfo = async (e) => {
     e.preventDefault();
@@ -18,8 +47,16 @@ const InfoUser = () => {
           process.env.REACT_APP_URL
             ? `${process.env.REACT_APP_URL}`
             : `http://localhost:8000`
-        }/product`,
-        { pathimage },
+        }/account/${id}`,
+        {
+          firstname,
+          lastname,
+          avatar,
+          birthday,
+          email,
+          phonenumber,
+          sex,
+        },
         { headers: { "content-type": "multipart/form-data" } }
       )
       .then((res) => {
@@ -42,9 +79,9 @@ const InfoUser = () => {
                   <div class="account-settings">
                     <div class="user-profile">
                       <div class="user-avatar">
-                        {pathimage ? (
+                        {avatar ? (
                           <img
-                            src={URL.createObjectURL(pathimage)}
+                            src={URL.createObjectURL(avatar)}
                             alt="Maxwell Admin"
                           />
                         ) : (
@@ -62,8 +99,7 @@ const InfoUser = () => {
                           id="file"
                           style={{ visibility: "hidden" }}
                           type="file"
-                          accept=".png"
-                          onChange={(e) => setPathImage(e.target.files[0])}
+                          onChange={(e) => setAvatar(e.target.files[0])}
                         />
                       </div>
                       <h5 class="user-name">Lê Huỳnh Phương Tùng</h5>
@@ -91,7 +127,21 @@ const InfoUser = () => {
                             class="form-control"
                             id="fullName"
                             placeholder="Enter full name"
-                            value={"Lê Huỳnh Phương Tùng"}
+                            value={firstname}
+                            onChange={(e) => setFirstname(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="fullName">Họ và tên</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="fullName"
+                            placeholder="Enter full name"
+                            value={lastname}
+                            onChange={(e) => setLastname(e.target.value)}
                           />
                         </div>
                       </div>
@@ -103,7 +153,8 @@ const InfoUser = () => {
                             class="form-control"
                             id="eMail"
                             placeholder="Enter email ID"
-                            value={"tung@gmail.com"}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                         </div>
                       </div>
@@ -115,7 +166,8 @@ const InfoUser = () => {
                             class="form-control"
                             id="phone"
                             placeholder="Enter phone number"
-                            value={"123456789"}
+                            value={phonenumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
                           />
                         </div>
                       </div>
@@ -126,7 +178,8 @@ const InfoUser = () => {
                             type="url"
                             class="form-control"
                             id="website"
-                            placeholder="Nam"
+                            value={sex}
+                            onChange={(e) => setSex(e.target.value)}
                           />
                         </div>
                       </div>
@@ -137,22 +190,12 @@ const InfoUser = () => {
                             type="url"
                             class="form-control"
                             id="website"
-                            placeholder="20/09/2001"
+                            value={birthday}
+                            onChange={(e) => setBirThday(e.target.value)}
                           />
                         </div>
                       </div>
-                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group">
-                          <label for="website">Địa chỉ</label>
-                          <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            placeholder="181/7 Liên tỉnh 5 P5 Q8"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                      {/* <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
                         <div class="form-group">
                           <label for="website">Thành phố</label>
                           <input
@@ -163,6 +206,28 @@ const InfoUser = () => {
                           />
                         </div>
                       </div>
+                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <label for="website">Thành phố</label>
+                          <input
+                            type="url"
+                            class="form-control"
+                            id="website"
+                            placeholder="TP.HCM"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="form-group">
+                          <label for="website">Thành phố</label>
+                          <input
+                            type="url"
+                            class="form-control"
+                            id="website"
+                            placeholder="TP.HCM"
+                          />
+                        </div>
+                      </div> */}
                     </div>
                     <div class="row gutters">
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
