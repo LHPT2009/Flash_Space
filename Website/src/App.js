@@ -71,98 +71,103 @@ import NewStaff from "./Screens/Admin/NewStaff/NewStaff";
 import NewTimeslot from "./Screens/Admin/NewTimeslot/NewTimeslot";
 import NewWard from "./Screens/Admin/NewWard/NewWard";
 
+import InformationAccountProvider from "./context/InformationAccountContext";
+import ListTimeSlotProvider from "./context/ListTimeSlotContext";
+
 const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/room" element={<Room />} />
-          <Route path="/detailroom" element={<DetailRoom />} />
-          <Route path="/detailhistory" element={<DetailHistory />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/infouser" element={<InfoUser />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/reset" element={<Reset />} />
-          <Route path="/confirm" element={<Confirm />} />
-          <Route path="/newreset" element={<NewReset />} />
-          <Route path="/favourite" element={<Favourite />} />
-          <Route path="/order" element={<Order />} />
+    <InformationAccountProvider>
+      <ListTimeSlotProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/room" element={<Room />} />
+            <Route path="/detailroom" element={<DetailRoom />} />
+            <Route path="/detailhistory" element={<DetailHistory />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/infouser" element={<InfoUser />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/reset" element={<Reset />} />
+            <Route path="/confirm" element={<Confirm />} />
+            <Route path="/newreset" element={<NewReset />} />
+            <Route path="/favourite" element={<Favourite />} />
+            <Route path="/order" element={<Order />} />
 
-          <Route path="/admin" element={<Dashboard />} />
-          <Route path="/accountadmin" element={<AccountAdmin />} />
-          <Route path="/detailaccount" element={<DetailAccount />} />
-          <Route path="/Role" element={<Role />} />
-          <Route path="/statistical" element={<Statistical />} />
-          <Route path="/staff" element={<Staff />} />
-          <Route path="/position" element={<Position />} />
-          <Route path="/roomadmin" element={<RoomAdmin />} />
-          <Route path="/evaluate" element={<Evaluate />} />
-          <Route path="/servicepack" element={<ServicePack />} />
-          <Route path="/bookingschedule" element={<BookingSchedule />} />
-          <Route path="/career" element={<Career />} />
-          <Route path="/district" element={<District />} />
-          <Route path="/equipment" element={<Equipment />} />
-          <Route path="/province" element={<Province />} />
-          <Route path="/servicepackinuse" element={<ServicePackInUse />} />
-          <Route path="/timeslot" element={<TimeSlot />} />
-          <Route path="/ward" element={<Ward />} />
-          <Route path="/workassignment" element={<WorkAssignment />} />
-          <Route path="/roomcareer" element={<RoomCareer />} />
-          <Route path="/roomdetailadmin" element={<RoomDetailAdmin />} />
-          <Route path="/detailrole/:id" element={<DetailRole />} />
-          <Route
-            path="/detailbookingschedule"
-            element={<DetailBookingSchedule />}
-          />
-          <Route path="/detailcareer/:id" element={<DetailCareer />} />
-          <Route path="/detaildistrict/:id" element={<DetailDistrict />} />
-          <Route path="/detailequipment/:id" element={<DetailEquipment />} />
-          <Route path="/detailevaluate" element={<DetailEvaluate />} />
-          <Route path="/detailposition" element={<DetailPosition />} />
-          <Route path="/detailprovince/:id" element={<DetailProvince />} />
-          <Route
-            path="/detailservicepack/:id"
-            element={<DetailServicePack />}
-          />
-          <Route
-            path="/detailservicepackinuse"
-            element={<DetailServicePackInUse />}
-          />
-          <Route path="/detailstaff" element={<DetailStaff />} />
-          <Route path="/detailtimeslot/:id" element={<DetailTimeslot />} />
-          <Route path="/detailward/:id" element={<DetailWard />} />
-          <Route
-            path="/detailworkassignment"
-            element={<DetailWorkAssignment />}
-          />
+            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/accountadmin" element={<AccountAdmin />} />
+            <Route path="/detailaccount" element={<DetailAccount />} />
+            <Route path="/Role" element={<Role />} />
+            <Route path="/statistical" element={<Statistical />} />
+            <Route path="/staff" element={<Staff />} />
+            <Route path="/position" element={<Position />} />
+            <Route path="/roomadmin" element={<RoomAdmin />} />
+            <Route path="/evaluate" element={<Evaluate />} />
+            <Route path="/servicepack" element={<ServicePack />} />
+            <Route path="/bookingschedule" element={<BookingSchedule />} />
+            <Route path="/career" element={<Career />} />
+            <Route path="/district" element={<District />} />
+            <Route path="/equipment" element={<Equipment />} />
+            <Route path="/province" element={<Province />} />
+            <Route path="/servicepackinuse" element={<ServicePackInUse />} />
+            <Route path="/timeslot" element={<TimeSlot />} />
+            <Route path="/ward" element={<Ward />} />
+            <Route path="/workassignment" element={<WorkAssignment />} />
+            <Route path="/roomcareer" element={<RoomCareer />} />
+            <Route path="/roomdetailadmin" element={<RoomDetailAdmin />} />
+            <Route path="/detailrole/:id" element={<DetailRole />} />
+            <Route
+              path="/detailbookingschedule"
+              element={<DetailBookingSchedule />}
+            />
+            <Route path="/detailcareer/:id" element={<DetailCareer />} />
+            <Route path="/detaildistrict/:id" element={<DetailDistrict />} />
+            <Route path="/detailequipment/:id" element={<DetailEquipment />} />
+            <Route path="/detailevaluate" element={<DetailEvaluate />} />
+            <Route path="/detailposition" element={<DetailPosition />} />
+            <Route path="/detailprovince/:id" element={<DetailProvince />} />
+            <Route
+              path="/detailservicepack/:id"
+              element={<DetailServicePack />}
+            />
+            <Route
+              path="/detailservicepackinuse"
+              element={<DetailServicePackInUse />}
+            />
+            <Route path="/detailstaff" element={<DetailStaff />} />
+            <Route path="/detailtimeslot/:id" element={<DetailTimeslot />} />
+            <Route path="/detailward/:id" element={<DetailWard />} />
+            <Route
+              path="/detailworkassignment"
+              element={<DetailWorkAssignment />}
+            />
 
-          <Route path="/newcareer" element={<NewCareer />} />
-          <Route path="/newdistrict" element={<NewDistrict />} />
-          <Route path="/newequipment" element={<NewEquipment />} />
-          <Route path="/newrole" element={<NewRole />} />
-          <Route path="/newposition" element={<NewPosition />} />
-          <Route path="/newprovince" element={<NewProvince />} />
-          <Route path="/newservicepack" element={<NewServicePack />} />
-          <Route path="/newstaff" element={<NewStaff />} />
-          <Route path="/newtimeslot" element={<NewTimeslot />} />
-          <Route path="/newward" element={<NewWard />} />
+            <Route path="/newcareer" element={<NewCareer />} />
+            <Route path="/newdistrict" element={<NewDistrict />} />
+            <Route path="/newequipment" element={<NewEquipment />} />
+            <Route path="/newrole" element={<NewRole />} />
+            <Route path="/newposition" element={<NewPosition />} />
+            <Route path="/newprovince" element={<NewProvince />} />
+            <Route path="/newservicepack" element={<NewServicePack />} />
+            <Route path="/newstaff" element={<NewStaff />} />
+            <Route path="/newtimeslot" element={<NewTimeslot />} />
+            <Route path="/newward" element={<NewWard />} />
 
-          <Route path="/charts" element={<Charts />} />
-          <Route path="/forms" element={<Forms />} />
-          <Route path="/icons" element={<Icons />} />
-          <Route path="/lockscreen" element={<LockScreen />} />
-          <Route path="/loginadmin" element={<LoginAdmin />} />
-          <Route path="/loginadmin2" element={<LoginAdmin2 />} />
-          <Route path="/registeradmin" element={<Registeradmin />} />
-          <Route path="/registeradmin2" element={<Registeradmin2 />} />
-          <Route path="/tables" element={<Tables />} />
-          <Route path="/buttons" element={<Buttons />} />
-          <Route path="/typography" element={<Typography />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+            <Route path="/charts" element={<Charts />} />
+            <Route path="/forms" element={<Forms />} />
+            <Route path="/icons" element={<Icons />} />
+            <Route path="/lockscreen" element={<LockScreen />} />
+            <Route path="/loginadmin" element={<LoginAdmin />} />
+            <Route path="/loginadmin2" element={<LoginAdmin2 />} />
+            <Route path="/registeradmin" element={<Registeradmin />} />
+            <Route path="/registeradmin2" element={<Registeradmin2 />} />
+            <Route path="/tables" element={<Tables />} />
+            <Route path="/buttons" element={<Buttons />} />
+            <Route path="/typography" element={<Typography />} />
+          </Routes>
+        </BrowserRouter>
+      </ListTimeSlotProvider>
+    </InformationAccountProvider>
   );
 };
 
