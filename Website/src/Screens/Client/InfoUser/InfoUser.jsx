@@ -4,7 +4,7 @@ import Footer from "../../../components/Footer/Footer";
 import "./InfoUser.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import jwtdecode from "jwt-decode";
 
 const InfoUser = () => {
@@ -16,46 +16,37 @@ const InfoUser = () => {
   const [email, setEmail] = useState();
   const [phonenumber, setPhoneNumber] = useState();
   const [sex, setSex] = useState();
-
+  const [staticimage, setStaticImage] = useState(0);
+  const [info, setInfo] = useState([]);
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/account/${id}`
-    )
-    .then((res) => {
-      setFirstname(res.data.firstname);
-      setLastname(res.data.lastname);
-      // setAvatar(res.data.avatar);
-      setBirThday(res.data.birthday);
-      setEmail(res.data.email);
-      setPhoneNumber(res.data.phonenumber);
-      setSex(res.data.sex);
-    });
-  },[])
-
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/account/${jwt(localStorage.getItem("token")).id}`
-    )
-    .then((res) => {
-      setInfo(res.data);
-    });
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/account/${id}`
+      )
+      .then((res) => {
+        setFirstname(res.data.firstname);
+        setLastname(res.data.lastname);
+        setBirThday(res.data.birthday);
+        setEmail(res.data.email);
+        setPhoneNumber(res.data.phonenumber);
+        setSex(res.data.sex);
+        // setAvatar(res.data.avatar);
+        setInfo(res.data);
+      });
+  }, []);
 
   const editInfo = async (e) => {
     e.preventDefault();
-    const add = await axios
-      .post(
+    if(staticimage == 1){
+      const add = await axios
+      .put(
         `${
           process.env.REACT_APP_URL
             ? `${process.env.REACT_APP_URL}`
@@ -73,11 +64,39 @@ const InfoUser = () => {
         { headers: { "content-type": "multipart/form-data" } }
       )
       .then((res) => {
+        alert("da cap nhat!")
         navigate("/infouser");
       })
       .catch((res) => {
         alert(res);
       });
+    }
+    if(staticimage == 0){
+      const add = await axios
+      .put(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/account/notimage/${id}`,
+        {
+          firstname,
+          lastname,
+          // avatar,
+          birthday,
+          email,
+          phonenumber,
+          sex,
+        },
+      )
+      .then((res) => {
+        alert("da cap nhat!")
+        navigate("/infouser");
+      })
+      .catch((res) => {
+        alert(res);
+      });
+    }
   };
 
   return (
@@ -85,44 +104,50 @@ const InfoUser = () => {
       <TopNav />
       <div className="bodyinfouser">
         <div class="container">
-          <div class="row gutters">
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="account-settings">
-                    <div class="user-profile">
-                      <div class="user-avatar">
-                        {avatar ? (
-                          <img
-                            src={URL.createObjectURL(avatar)}
-                            alt="Maxwell Admin"
+          <form onSubmit={editInfo}>
+            <div class="row gutters">
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <div class="account-settings">
+                      <div class="user-profile">
+                        <div class="user-avatar">
+                          {staticimage == 0 ? (
+                            <img
+                              src={`http://localhost:8000/singleimage/${info.avatar}`}
+                              alt="co roi"
+                            />
+                          ) : (
+                            <img
+                              src={URL.createObjectURL(avatar)}
+                              alt="chua co"
+                            />
+                          )}
+                        </div>
+                        <div>
+                          <label for="file" className="btn btn-primary">
+                            Chọn ảnh cập nhật
+                          </label>
+                          <input
+                            id="file"
+                            style={{ visibility: "hidden" }}
+                            type="file"
+                            onChange={(e) => {
+                              setStaticImage(1);
+                              setAvatar(e.target.files[0]);
+                            }}
                           />
-                        ) : (
-                          <img src={imageicon} alt="Maxwell Admin" />
-                        )}
+                        </div>
+                        <h5 class="user-name">
+                          {info.firstname + " " + info.lastname}
+                        </h5>
+                        <h6 class="user-email">{info.email}</h6>
                       </div>
-                      <div>
-                        <label for="file" className="btn btn-primary">
-                          Chọn ảnh cập nhật
-                        </label>
-                        <input
-                          id="file"
-                          style={{ visibility: "hidden" }}
-                          type="file"
-                          onChange={(e) => setAvatar(e.target.files[0])}
-                        />
-                      </div>
-                      <h5 class="user-name">
-                        {info.firstname + " " + info.lastname}
-                      </h5>
-                      <h6 class="user-email">{info.email}</h6>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-              <form>
+              <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                   <div class="card-body">
                     <div class="row gutters">
@@ -207,56 +232,19 @@ const InfoUser = () => {
                           />
                         </div>
                       </div>
-                      {/* <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                        <div class="form-group">
-                          <label for="website">Thành phố</label>
-                          <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            placeholder="TP.HCM"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                        <div class="form-group">
-                          <label for="website">Thành phố</label>
-                          <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            placeholder="TP.HCM"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                        <div class="form-group">
-                          <label for="website">Thành phố</label>
-                          <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            placeholder="TP.HCM"
-                          />
-                        </div>
-                      </div> */}
                     </div>
                     <div class="row gutters">
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="text-right">
-                          <button
-                            type="button"
-                            id="submit"
-                            name="submit"
-                            class="btn btn-secondary m-1"
-                          >
+                          <Link to={"/"} class="btn btn-secondary m-1">
                             Trở lại
-                          </button>
+                          </Link>
                           <button
                             type="button"
                             id="submit"
                             name="submit"
                             class="btn btn-primary m-1"
+                            onClick={editInfo}
                           >
                             Cập nhật
                           </button>
@@ -265,9 +253,9 @@ const InfoUser = () => {
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <Footer />

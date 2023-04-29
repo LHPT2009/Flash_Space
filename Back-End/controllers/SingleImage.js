@@ -3,11 +3,7 @@ const path = require("path");
 const SingleImageController = {
   SingleImage: async (req, res) => {
     try {
-      const link = await path.join(
-        __dirname,
-        "../uploads",
-        req.params.filename
-      );
+      const link = await path.join(__dirname, "../images", req.params.filename);
       console.log(link);
       res.status(200).sendFile(link);
     } catch (err) {

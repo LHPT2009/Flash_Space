@@ -4,8 +4,9 @@ const router = require("express").Router();
 
 const multer = require("multer");
 const path = require("path");
+const sharp = require("sharp");
 
-// const uploadPath = path.join(__dirname, "uploads");
+const uploadPath = path.join(__dirname, "uploads");
 
 const storage = multer.diskStorage({
   // destination: (req, file, cb) => {
@@ -27,5 +28,7 @@ router.post("/", AccountController.addAccount);
 router.delete("/:id", AccountController.deleteAccount);
 
 router.put("/:id", upload.single("avatar"), AccountController.updateAccount);
+
+router.put("/notimage/:id", AccountController.updateAccountNotImage);
 
 module.exports = router;

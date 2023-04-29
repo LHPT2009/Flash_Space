@@ -1,6 +1,6 @@
 const Account = require("../models/Account");
 const path = require("path");
-
+const sharp = require("sharp");
 const AccountController = {
   getAllAccounts: async (req, res) => {
     try {
@@ -54,10 +54,22 @@ const AccountController = {
 
   updateAccount: async (req, res) => {
     try {
+      let compressedImageFileSavePath = path.join(
+        __dirname,
+        "../images",
+        req.file.filename.split(".", 1) + ".jpeg"
+      );
+      sharp(req.file.path)
+        // .resize(640, 480)
+        .jpeg({
+          quality: 50,
+          chromaSubsampling: "4:4:4",
+        })
+        .toFile(compressedImageFileSavePath);
       const updateAccount = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        avatar: req.file.filename,
+        avatar: req.file.filename.split(".", 1) + ".jpeg",
         birthday: req.body.birthday,
         email: req.body.email,
         phonenumber: req.body.phonenumber,
@@ -79,17 +91,25 @@ const AccountController = {
       res.status(500).json("Error!!!");
     }
   },
-  // imageAccountByFilename: async (req, res) => {
-  //   try {
-  //     // const link = await path.join(__dirname, "uploads", req.params.img);
-  //     // res.sendFile(link).status(200);
-  //     // console.log(link);
-  //     res.status(200).json("da check file!");
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.status(500).json("Error!!!");
-  //   }
-  // },
+  updateAccountNotImage: async (req, res) => {
+    try {
+      const updateAccount = req.body;
+      const account = await Account.findByIdAndUpdate(
+        req.params.id,
+        updateAccount,
+        {
+          new: true,
+        }
+      );
+      if (!account) {
+        return res.status(404).json("Wrong updateAccount!");
+      }
+      res.status(200).json(account);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json("Error!!!");
+    }
+  },
 };
 
 module.exports = AccountController;
