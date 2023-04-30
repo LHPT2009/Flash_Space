@@ -5,7 +5,10 @@ const Image = require("../models/Image");
 const RoomController = {
   getAllRoom: async (req, res) => {
     try {
-      const room = await Room.find();
+      const room = await Room.find()
+        .populate("idward")
+        .populate("idcareer")
+        .populate("idaccount");
       res.status(200).json(room);
     } catch (err) {
       res.status(500).json(err);

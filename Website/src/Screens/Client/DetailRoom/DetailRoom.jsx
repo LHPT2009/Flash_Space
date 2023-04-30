@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./DetailRoom.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import Rating from "../../../components/Rating/Rating";
 import { Link } from "react-router-dom";
-
+import { InformationAccountContext } from "../../../context/InformationAccountContext";
 const DetailRoom = () => {
+  
+  const { informations } = useContext(InformationAccountContext);
+  Object.assign(informations,{roomdetail:"showdataroomdetail"})
+  console.log(JSON.stringify(informations))
+
   const [date, setDate] = useState();
   const [image, setImage] = useState(
     "https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
