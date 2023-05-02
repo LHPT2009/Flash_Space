@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import { InformationAccountContext } from "../../../context/InformationAccountContext";
 const DetailRoom = () => {
   
-  const { informations } = useContext(InformationAccountContext);
-  Object.assign(informations,{roomdetail:"showdataroomdetail"})
-  console.log(JSON.stringify(informations))
+  // const { informations } = useContext(InformationAccountContext);
+  // Object.assign(informations,{roomdetail:"showdataroomdetail"})
+  // console.log(JSON.stringify(informations))
 
   const [date, setDate] = useState();
   const [image, setImage] = useState(

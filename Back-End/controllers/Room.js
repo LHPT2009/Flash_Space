@@ -34,6 +34,24 @@ const RoomController = {
 
   addRoom: async (req, res) => {
     try {
+      req.files.forEach(async (item) => {
+        let filename = (await item.filename.split(".", 1)) + ".jpeg";
+
+        let compressedImageFileSavePath = path.join(
+          __dirname,
+          "images",
+          filename
+        );
+
+        sharp(item.path)
+          // .resize(640, 480)
+          .jpeg({
+            quality: 80,
+            chromaSubsampling: "4:4:4",
+          })
+          .toFile(compressedImageFileSavePath);
+      });
+
       const newRoom = await new Room({
         idward: req.body.idward,
         idcareer: req.body.idcareer,
@@ -49,14 +67,16 @@ const RoomController = {
         housenumberstreetname: req.body.housenumberstreetname,
       });
       await newRoom.save();
+
       const date = new Date();
       const minute = 1000 * 60;
       const hour = minute * 60;
       const day = hour * 24;
       const implementationDate = date.getTime() + day * 2;
+
       const newWorkAssignment = new WorkAssignment({
         idroom: newRoom.id,
-        idaccount: "642dc784cf8ef2472f6b1f9a",
+        idaccount: "642dc784cf8ef2472f6b1f9a", //chon sap xep
         work: "Duyệt tin",
         implementationdate: implementationDate,
         static: 1,

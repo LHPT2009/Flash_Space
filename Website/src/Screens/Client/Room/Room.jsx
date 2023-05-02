@@ -7,9 +7,9 @@ import { useContext } from "react";
 
 const Room = () => {
   
-  const { informations } = useContext(InformationAccountContext);
-  Object.assign(informations,{Room:"showdataroom"})
-  console.log(JSON.stringify(informations))
+  // const { informations } = useContext(InformationAccountContext);
+  // Object.assign(informations,{Room:"showdataroom"})
+  // console.log(JSON.stringify(informations))
 
   return (
     <div>
