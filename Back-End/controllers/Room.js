@@ -32,25 +32,51 @@ const RoomController = {
     }
   },
 
+  quickSort: async (arr) => {
+    if (arr.length <= 1) {
+      return arr;
+    }
+
+    const pivot = arr[0];
+    const left = [];
+    const right = [];
+
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i].soLuong < pivot.soLuong) {
+        left.push(arr[i]);
+      } else if (arr[i].soLuong > pivot.soLuong) {
+        right.push(arr[i]);
+      } else {
+        if (arr[i].hoTen < pivot.hoTen) {
+          left.push(arr[i]);
+        } else {
+          right.push(arr[i]);
+        }
+      }
+    }
+
+    return [...quickSort(left), pivot, ...quickSort(right)];
+  },
+
   addRoom: async (req, res) => {
     try {
-      req.files.forEach(async (item) => {
-        let filename = (await item.filename.split(".", 1)) + ".jpeg";
+      // req.files.forEach(async (item) => {
+      //   let filename = (await item.filename.split(".", 1)) + ".jpeg";
 
-        let compressedImageFileSavePath = path.join(
-          __dirname,
-          "images",
-          filename
-        );
+      //   let compressedImageFileSavePath = path.join(
+      //     __dirname,
+      //     "images",
+      //     filename
+      //   );
 
-        sharp(item.path)
-          // .resize(640, 480)
-          .jpeg({
-            quality: 80,
-            chromaSubsampling: "4:4:4",
-          })
-          .toFile(compressedImageFileSavePath);
-      });
+      //   sharp(item.path)
+      //     // .resize(640, 480)
+      //     .jpeg({
+      //       quality: 80,
+      //       chromaSubsampling: "4:4:4",
+      //     })
+      //     .toFile(compressedImageFileSavePath);
+      // });
 
       const newRoom = await new Room({
         idward: req.body.idward,
@@ -61,34 +87,27 @@ const RoomController = {
         price: req.body.price,
         longitude: req.body.longitude,
         latitude: req.body.latitude,
-        static: "Chờ duyệt",
+        static: 0,
         subject: req.body.subject,
         describe: req.body.describe,
         housenumberstreetname: req.body.housenumberstreetname,
       });
       await newRoom.save();
 
-      const date = new Date();
-      const minute = 1000 * 60;
-      const hour = minute * 60;
-      const day = hour * 24;
-      const implementationDate = date.getTime() + day * 2;
+      // const date = new Date();
+      // const minute = 1000 * 60;
+      // const hour = minute * 60;
+      // const day = hour * 24;
+      // const implementationDate = date.getTime() + day * 2;
 
-      const newWorkAssignment = new WorkAssignment({
-        idroom: newRoom.id,
-        idaccount: "642dc784cf8ef2472f6b1f9a", //chon sap xep
-        work: "Duyệt tin",
-        implementationdate: implementationDate,
-        static: 1,
-      });
-      await newWorkAssignment.save();
-      // if (req.file != undefined) {
-      //   const newImage = await new Image({
-      //     idroom: newRoom.id,
-      //     filename: req.file.filename,
-      //   });
-      // }
-
+      // const newWorkAssignment = new WorkAssignment({
+      //   idroom: newRoom.id,
+      //   idaccount: "642dc784cf8ef2472f6b1f9a",
+      //   work: "Duyệt tin",
+      //   implementationdate: implementationDate,
+      //   static: 1,
+      // });
+      // await newWorkAssignment.save();
       res.status(200).json("Add successfully");
     } catch (error) {
       res.status(500).json(error);

@@ -25,6 +25,7 @@ const WorkingHoursRoute = require("./routes/WorkingHours");
 const AuthRoute = require("./routes/Auth");
 const RoleRoute = require("./routes/Role");
 const SingleImageRoute = require("./routes/SingleImage");
+const QueryRoute = require("./routes/Query");
 
 dotenv.config();
 const app = express();
@@ -34,10 +35,6 @@ mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGOOSE_URL, () => {
   console.log("DB connected");
 });
-
-// mongoose.connect(process.env.MONGOOSE_URL_LOCALHOST, () => {
-//   console.log("DB connected");
-// });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -64,6 +61,7 @@ app.use("/workassignment", WorkAssignmentRoute);
 app.use("/workinghours", WorkingHoursRoute);
 app.use("/auth", AuthRoute);
 app.use("/role", RoleRoute);
+app.use("/query", QueryRoute);
 
 app.use("/singleimage", SingleImageRoute);
 

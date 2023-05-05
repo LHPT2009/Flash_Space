@@ -24,7 +24,7 @@ const AccountSchema = new mongoose.Schema({
     type: String,
   },
   static: {
-    type: Boolean,
+    type: Number,
   },
   email: {
     type: String,
