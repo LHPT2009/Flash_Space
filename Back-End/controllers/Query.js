@@ -18,9 +18,8 @@ const DemoController = {
           },
         },
       ]);
-      console.log("xuất vị trí đầu tiên:");
-      console.log(workAssignment[0]);
-      res.status(200).json(workAssignment);
+      const sortarr = workAssignment.sort((a, b) => a.amount - b.amount);
+      res.status(200).json(sortarr);
     } catch (err) {
       res.status(500).json(err);
     }

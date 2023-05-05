@@ -32,34 +32,25 @@ const RoomController = {
     }
   },
 
-  quickSort: async (arr) => {
-    if (arr.length <= 1) {
-      return arr;
-    }
-
-    const pivot = arr[0];
-    const left = [];
-    const right = [];
-
-    for (let i = 1; i < arr.length; i++) {
-      if (arr[i].soLuong < pivot.soLuong) {
-        left.push(arr[i]);
-      } else if (arr[i].soLuong > pivot.soLuong) {
-        right.push(arr[i]);
-      } else {
-        if (arr[i].hoTen < pivot.hoTen) {
-          left.push(arr[i]);
-        } else {
-          right.push(arr[i]);
-        }
-      }
-    }
-
-    return [...quickSort(left), pivot, ...quickSort(right)];
-  },
-
   addRoom: async (req, res) => {
     try {
+      const workAssignment = await WorkAssignment.aggregate([
+        {
+          $group: {
+            _id: "$idaccount",
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            idaccount: "$_id",
+            amount: "$count",
+          },
+        },
+      ]);
+      const sortarr = workAssignment.sort((a, b) => a.amount - b.amount);
+
       // req.files.forEach(async (item) => {
       //   let filename = (await item.filename.split(".", 1)) + ".jpeg";
 
@@ -78,21 +69,21 @@ const RoomController = {
       //     .toFile(compressedImageFileSavePath);
       // });
 
-      const newRoom = await new Room({
-        idward: req.body.idward,
-        idcareer: req.body.idcareer,
-        idaccount: req.body.idaccount,
-        length: req.body.length,
-        width: req.body.width,
-        price: req.body.price,
-        longitude: req.body.longitude,
-        latitude: req.body.latitude,
-        static: 0,
-        subject: req.body.subject,
-        describe: req.body.describe,
-        housenumberstreetname: req.body.housenumberstreetname,
-      });
-      await newRoom.save();
+      // const newRoom = await new Room({
+      //   idward: req.body.idward,
+      //   idcareer: req.body.idcareer,
+      //   idaccount: req.body.idaccount,
+      //   length: req.body.length,
+      //   width: req.body.width,
+      //   price: req.body.price,
+      //   longitude: req.body.longitude,
+      //   latitude: req.body.latitude,
+      //   static: 0,
+      //   subject: req.body.subject,
+      //   describe: req.body.describe,
+      //   housenumberstreetname: req.body.housenumberstreetname,
+      // });
+      // await newRoom.save();
 
       // const date = new Date();
       // const minute = 1000 * 60;
@@ -108,7 +99,8 @@ const RoomController = {
       //   static: 1,
       // });
       // await newWorkAssignment.save();
-      res.status(200).json("Add successfully");
+      // res.status(200).json("Add successfully");
+      res.status(200).json(sortarr[sortarr.length - 1]);
     } catch (error) {
       res.status(500).json(error);
     }
