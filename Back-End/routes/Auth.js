@@ -4,6 +4,8 @@ const router = require("express").Router();
 
 router.post("/register", AuthController.registerAccount);
 
+router.post("/registeradmin", AuthController.registerAccountByAdmin);
+
 router.post("/login", AuthController.loginAccount);
 
 router.post("/logingoogle", AuthController.loginGoogle);

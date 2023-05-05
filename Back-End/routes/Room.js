@@ -22,7 +22,11 @@ router.get("/", RoomController.getAllRoom);
 
 router.get("/:id", RoomController.getRoomById);
 
-router.post("/addRoom", upload.array("multi-files"), RoomController.addRoom);
+router.post(
+  "/",
+  // upload.array("multi-files"),
+  RoomController.addRoom
+);
 
 router.delete("/:id", RoomController.deleteRoom);
 
