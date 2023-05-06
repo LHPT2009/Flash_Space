@@ -65,6 +65,14 @@ const DistrictController = {
       res.status(500).json("Error!!!");
     }
   },
+  getDistrictByIdProvince: async (req, res) => {
+    try {
+      const district = await District.find({ idprovince: req.params.id });
+      res.status(200).json(district);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };
 
 module.exports = DistrictController;

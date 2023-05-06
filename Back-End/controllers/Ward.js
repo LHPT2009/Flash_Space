@@ -58,6 +58,14 @@ const WardController = {
       res.status(500).json("Error!!!");
     }
   },
+  getWardByDistrict: async (req, res) => {
+    try {
+      const ward = await Ward.find({ iddistrict: req.params.id });
+      res.status(200).json(ward);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };
 
 module.exports = WardController;
