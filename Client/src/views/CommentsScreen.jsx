@@ -553,7 +553,12 @@ const CommentsScreen = ({ navigation, route }) => {
                     </Text>
                   </View>
                   <View>
-                    <Text style={{ fontFamily: theme.FontMain }}>
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        textAlign: "justify",
+                      }}
+                    >
                       Phòng không đẹp lắm{" "}
                     </Text>
                   </View>
@@ -609,7 +614,12 @@ const CommentsScreen = ({ navigation, route }) => {
                     </Text>
                   </View>
                   <View>
-                    <Text style={{ fontFamily: theme.FontMain }}>
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        textAlign: "justify",
+                      }}
+                    >
                       Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
                       Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
                       Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
@@ -675,7 +685,12 @@ const CommentsScreen = ({ navigation, route }) => {
                     </Text>
                   </View>
                   <View>
-                    <Text style={{ fontFamily: theme.FontMain }}>
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        textAlign: "justify",
+                      }}
+                    >
                       Phòng cũng thường thôi{" "}
                     </Text>
                   </View>

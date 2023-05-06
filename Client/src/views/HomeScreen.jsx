@@ -82,47 +82,47 @@ const data_room_hot = [
   {
     id: "1",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house4.jpg"),
   },
   {
     id: "2",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house2.jpg"),
   },
   {
     id: "3",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house3.jpg"),
   },
   {
     id: "4",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house4.jpg"),
   },
   {
     id: "5",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house2.jpg"),
   },
   {
     id: "6",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house3.jpg"),
   },
   {
     id: "7",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house4.jpg"),
   },
   {
     id: "8",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house2.jpg"),
   },
   {
     id: "9",
     title: "a",
-    image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+    image: require("../../assets/house3.jpg"),
   },
 ];
 
@@ -346,12 +346,12 @@ const Item_room_accreditation = ({ item, numColumn }) => {
             resizeMode="cover"
             style={styles.images__room__accreditation__imageStyle}
           >
-            <MaterialCommunityIconsIcon
-              name="shield"
-              style={styles.icon2}
-            ></MaterialCommunityIconsIcon>
             <MaterialIconsIcon
-              name="security"
+              name="visibility"
+              style={styles.icon2}
+            ></MaterialIconsIcon>
+            <MaterialIconsIcon
+              name="visibility"
               style={styles.icon11}
             ></MaterialIconsIcon>
           </ImageBackground>
@@ -441,9 +441,9 @@ const Room_accreditation = () => {
   return (
     <View style={styles.room_accreditation}>
       <Text style={styles.text}>
-        Phòng đã xác thực{" "}
+        Phòng nhiều lượt xem{" "}
         <MaterialIconsIcon
-          name="security"
+          name="visibility"
           style={styles.icon_room_accreditation}
         ></MaterialIconsIcon>
       </Text>

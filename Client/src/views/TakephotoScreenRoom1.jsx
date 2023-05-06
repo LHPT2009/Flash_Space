@@ -1,24 +1,43 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Constants from "expo-constants";
 import { HStack, Spinner } from "native-base";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
 import { showMessage } from "react-native-flash-message";
 import ButtonCamera from "../components/ButtonCamera";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
+import { InformationAddRoomContext } from "../context/InformationAddRoom";
 
-export default function TakephotoScreen({ navigation }) {
+export default function TakephotoScreenRoom1({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
-  const [image, setImage] = useState(null);
+  const [image1, setImage] = useState(null);
   const [spinner, setSpinner] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const [location, setLocation] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
   const cameraRef = useRef(null);
+  const { informations } = useContext(InformationAddRoomContext);
 
   useEffect(() => {
     (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Vui long cap quyen truy cap");
+        return;
+      }
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      await Object.assign(informations, {
+        longitude: currentLocation.coords.longitude,
+        latitude: currentLocation.coords.latitude,
+      });
+      setLocation(currentLocation);
+      setLongitude(currentLocation.coords.longitude);
+      setLatitude(currentLocation.coords.latitude);
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
@@ -39,15 +58,30 @@ export default function TakephotoScreen({ navigation }) {
   };
 
   const savePicture = async () => {
-    if (image) {
+    if (image1) {
       try {
-        const asset = await MediaLibrary.createAssetAsync(image);
+        const asset = await MediaLibrary.createAssetAsync(image1);
         showMessage({
           message: "Đã lưu hình  ✔",
           type: "success",
         });
-        setImage(null);
-        navigation.navigate("AuthScreen");
+        console.log(asset);
+        Object.assign(informations, {
+          multiImage: {
+            image: informations.multiImage.image,
+            image1: image1,
+            image2: informations.multiImage.image2,
+            image3: informations.multiImage.image3,
+          },
+        });
+        navigation.navigate("PostImageScreen", {
+          multiImage: {
+            image: informations.multiImage.image,
+            image1: image1,
+            image2: informations.multiImage.image2,
+            image3: informations.multiImage.image3,
+          },
+        });
         console.log("saved successfully");
       } catch (error) {
         console.log(error);
@@ -61,7 +95,7 @@ export default function TakephotoScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {!image ? (
+      {!image1 ? (
         <View style={{ width: "100%", height: "90%" }}>
           <Camera
             style={styles.camera}
@@ -172,7 +206,7 @@ export default function TakephotoScreen({ navigation }) {
               backgroundColor: theme.PRIMARY_BG_COLOR,
             }}
           ></View>
-          <Image source={{ uri: image }} style={styles.camera} />
+          <Image source={{ uri: image1 }} style={styles.camera} />
           <View
             style={{
               height: "20%",
@@ -186,7 +220,7 @@ export default function TakephotoScreen({ navigation }) {
       )}
 
       <View style={styles.controls}>
-        {!image ? (
+        {!image1 ? (
           !spinner ? (
             <ButtonCamera title="Chụp" onPress={takePicture} icon="camera" />
           ) : (
