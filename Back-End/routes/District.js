@@ -6,6 +6,8 @@ router.get("/", DistrictController.getAllDistrict);
 
 router.get("/:id", DistrictController.getDistrictById);
 
+router.get("/province/:id", DistrictController.getDistrictByIdProvince);
+
 router.post("/", DistrictController.addDistrict);
 
 router.delete("/:id", DistrictController.deleteDistrict);
