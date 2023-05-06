@@ -1,5 +1,6 @@
 const Room = require("../models/Room");
 const WorkAssignment = require("../models/WorkAssignment");
+const WorkingHours = require("../models/WorkingHours");
 const Image = require("../models/Image");
 
 const RoomController = {
@@ -34,7 +35,7 @@ const RoomController = {
 
   addRoom: async (req, res) => {
     try {
-      const workAssignment = await WorkAssignment.aggregate([
+      const arrworkAssignment = await WorkAssignment.aggregate([
         {
           $group: {
             _id: "$idaccount",
@@ -49,58 +50,74 @@ const RoomController = {
           },
         },
       ]);
-      const sortarr = workAssignment.sort((a, b) => a.amount - b.amount);
+      const sortarr = arrworkAssignment
+        .sort((a, b) => a.amount - b.amount)
+        .sort();
 
-      // req.files.forEach(async (item) => {
-      //   let filename = (await item.filename.split(".", 1)) + ".jpeg";
+      const newRoom = await new Room({
+        idward: req.body.idward,
+        idcareer: req.body.idcareer,
+        idaccount: req.body.idaccount,
+        length: req.body.length,
+        width: req.body.width,
+        price: req.body.price,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
+        static: 0,
+        subject: req.body.subject,
+        describe: req.body.describe,
+        housenumberstreetname: req.body.housenumberstreetname,
+      });
+      await newRoom.save();
 
-      //   let compressedImageFileSavePath = path.join(
-      //     __dirname,
-      //     "images",
-      //     filename
-      //   );
+      req.files.forEach(async (item) => {
+        let compressedImageFileSavePath = await path.join(
+          __dirname,
+          "images",
+          item.filename.split(".", 1) + ".jpeg"
+        );
 
-      //   sharp(item.path)
-      //     // .resize(640, 480)
-      //     .jpeg({
-      //       quality: 80,
-      //       chromaSubsampling: "4:4:4",
-      //     })
-      //     .toFile(compressedImageFileSavePath);
-      // });
+        sharp(item.path)
+          .jpeg({
+            quality: 80,
+            chromaSubsampling: "4:4:4",
+          })
+          .toFile(compressedImageFileSavePath);
 
-      // const newRoom = await new Room({
-      //   idward: req.body.idward,
-      //   idcareer: req.body.idcareer,
-      //   idaccount: req.body.idaccount,
-      //   length: req.body.length,
-      //   width: req.body.width,
-      //   price: req.body.price,
-      //   longitude: req.body.longitude,
-      //   latitude: req.body.latitude,
-      //   static: 0,
-      //   subject: req.body.subject,
-      //   describe: req.body.describe,
-      //   housenumberstreetname: req.body.housenumberstreetname,
-      // });
-      // await newRoom.save();
+        const newImage = await new Image({
+          idroom: newRoom.id,
+          filename: item.filename.split(".", 1) + ".jpeg",
+          type: 0,
+        });
+        newImage.save();
+      });
 
-      // const date = new Date();
-      // const minute = 1000 * 60;
-      // const hour = minute * 60;
-      // const day = hour * 24;
-      // const implementationDate = date.getTime() + day * 2;
+      const date = new Date();
+      const minute = 1000 * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+      const implementationDate = date.getTime() + day * 2;
 
-      // const newWorkAssignment = new WorkAssignment({
-      //   idroom: newRoom.id,
-      //   idaccount: "642dc784cf8ef2472f6b1f9a",
-      //   work: "Duyệt tin",
-      //   implementationdate: implementationDate,
-      //   static: 1,
-      // });
-      // await newWorkAssignment.save();
-      // res.status(200).json("Add successfully");
-      res.status(200).json(sortarr[sortarr.length - 1]);
+      const newWorkAssignment = new WorkAssignment({
+        idroom: newRoom.id,
+        idaccount: sortarr[0],
+        work: "Duyệt tin",
+        implementationdate: implementationDate,
+        static: 1,
+      });
+      await newWorkAssignment.save();
+
+      req.body.workinghours.forEach((ele) => {
+        const newWorkinghours = new WorkingHours({
+          idtimeslot: ele.idtimeslot,
+          idroom: newRoom.id,
+          date: ele.date,
+          static: 0,
+        });
+        newWorkinghours.save();
+      });
+
+      res.status(200).json("Add successfully");
     } catch (error) {
       res.status(500).json(error);
     }
