@@ -1,31 +1,113 @@
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { Checkbox, Input, Radio } from "native-base";
+import { CheckIcon, Input, Select } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import IpAddress from "../consts/variable";
 import axios from "axios";
+import { InformationAddRoomContext } from "../context/InformationAddRoom";
 
 const PostScreen = ({ navigation }) => {
   const [subject, setSubject] = useState("");
   const [describe, setDescribe] = useState("");
+  const [career, setCareer] = useState("");
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
+  const [statusAgreace, setStatusAgreace] = useState(0);
   const [price, setPrice] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [latitude, setLatitude] = useState("");
+  const [statusPrice, setStatusPrice] = useState(0);
   const [housenumberstreetname, setHousenumberstreetname] = useState("");
   const [listCareer, setListCareer] = useState([]);
+  const [ward, setWard] = useState("");
+  const [district, setDistrict] = useState("");
+  const [province, setProvince] = useState("");
+  const [listWard, setListWard] = useState([]);
+  const [listDistrict, setListDistrict] = useState([]);
+  const [listProvince, setListProvince] = useState([]);
+  const { informations } = useContext(InformationAddRoomContext);
 
   useEffect(() => {
     getAllCareer();
+    getAllProvince();
   }, []);
   const getAllCareer = async () => {
-    const req = await axios.get("http://" + IpAddress + ":8000/career/");
-    if (req.status == 200) {
-      console.log(req.data);
-      setListCareer(req.data);
+    await axios
+      .get("http://" + IpAddress + ":8000/career/")
+      .then(async (response) => {
+        const result = response.data;
+        if (result != []) {
+          setListCareer(result);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getAllProvince = async () => {
+    await axios
+      .get("http://" + IpAddress + ":8000/province/")
+      .then(async (response) => {
+        const result = response.data;
+        if (result != []) {
+          setListProvince(result);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getDistrict = async (itemValue) => {
+    await axios
+      .get("http://" + IpAddress + ":8000/district/province/" + itemValue)
+      .then(async (response) => {
+        const result = response.data;
+        if (result != []) {
+          setListDistrict(result);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getWard = async (itemValue) => {
+    await axios
+      .get("http://" + IpAddress + ":8000/ward/district/" + itemValue)
+      .then(async (response) => {
+        const result = response.data;
+        if (result != []) {
+          setListWard(result);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const checkAcreage = (value) => {
+    const convert = Number(value);
+    if (convert < 0) {
+      setStatusAgreace(1);
+    } else if (isNaN(convert)) {
+      setStatusAgreace(2);
+    } else {
+      setStatusAgreace(0);
+    }
+  };
+
+  const checkPrice = (value) => {
+    const priceConvert = Number(value);
+    if (priceConvert < 1000) {
+      setStatusPrice(1);
+    } else if (priceConvert > 100000000) {
+      setStatusPrice(2);
+    } else if (isNaN(priceConvert)) {
+      setStatusPrice(3);
+    } else {
+      setStatusPrice(0);
     }
   };
 
@@ -36,23 +118,18 @@ const PostScreen = ({ navigation }) => {
     setDescribe(event);
   };
   const onChangeLength = (event) => {
+    checkAcreage(event);
     setLength(event);
   };
 
   const onChangeWidth = (event) => {
+    checkAcreage(event);
     setWidth(event);
   };
 
-  const onChangePrice = (event) => {
-    setPrice(event);
-  };
-
-  const onChangeLongitude = (event) => {
-    setLongitude(event);
-  };
-
-  const onChangeLatitude = (event) => {
-    setLatitude(event);
+  const onChangePrice = (value) => {
+    checkPrice(value);
+    setPrice(value);
   };
 
   const onHousenumberstreetname = (event) => {
@@ -64,44 +141,6 @@ const PostScreen = ({ navigation }) => {
       <View
         style={{ width: "100%", height: "90%", backgroundColor: COLORS.light }}
       >
-        {/* <ScrollView>
-          <View
-            style={{
-              width: "100%",
-              alignItems: "center",
-              backgroundColor: "green",
-            }}
-          >
-            <View
-              style={{
-                width: "90%",
-                backgroundColor: "violet",
-                marginVertical: 10,
-              }}
-            >
-              <View
-                style={{ width: "100%", height: 50, backgroundColor: "red" }}
-              ></View>
-            </View>
-          </View>
-          <View
-            style={{
-              width: "100%",
-              alignItems: "center",
-              backgroundColor: "green",
-            }}
-          >
-            <View
-              style={{
-                width: "90%",
-                backgroundColor: "violet",
-                marginVertical: 10,
-              }}
-            >
-              <Text>aaaaa</Text>
-            </View>
-          </View>
-        </ScrollView> */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
@@ -171,6 +210,25 @@ const PostScreen = ({ navigation }) => {
                 }}
               >
                 <Text style={{ color: "black" }}>2</Text>
+              </View>
+              <View
+                style={{
+                  width: 90,
+                  height: 7,
+                  backgroundColor: COLORS.grey,
+                }}
+              ></View>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor: COLORS.grey,
+                  borderRadius: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "black" }}>3</Text>
               </View>
             </View>
           </View>
@@ -321,7 +379,107 @@ const PostScreen = ({ navigation }) => {
                     color: COLORS.grey,
                   }}
                 >
-                  Thể loại
+                  Diện tích
+                </Text>
+              </View>
+              <View style={{ paddingHorizontal: 15 }}>
+                {statusAgreace == 1 ? (
+                  <View style={{ width: "100%", paddingVertical: 10 }}>
+                    <Text style={{ color: "red" }}>
+                      Vui lòng nhập số lơn hơn 0
+                    </Text>
+                  </View>
+                ) : statusAgreace == 2 ? (
+                  <View style={{ width: "100%", paddingVertical: 10 }}>
+                    <Text style={{ color: "red" }}>Sai định dạng</Text>
+                  </View>
+                ) : (
+                  <View />
+                )}
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: "35%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingBottom: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Input
+                      multiline={true}
+                      value={length}
+                      onChangeText={onChangeLength}
+                      keyboardType="numeric"
+                      variant="filled"
+                      placeholder="Chiều dài (mét)"
+                    />
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: "35%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingBottom: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Input
+                      multiline={true}
+                      value={width}
+                      onChangeText={onChangeWidth}
+                      keyboardType="numeric"
+                      variant="filled"
+                      placeholder="Chiều rộng (mét)"
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                width: "90%",
+                borderRadius: 13,
+                backgroundColor: COLORS.white,
+                marginVertical: 10,
+                elevation: 10,
+              }}
+            >
+              <View
+                style={{
+                  width: "100%",
+                  height: 40,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    fontSize: 16,
+                    paddingLeft: 20,
+                    color: COLORS.grey,
+                  }}
+                >
+                  Loại phòng
                 </Text>
               </View>
               <View
@@ -344,17 +502,29 @@ const PostScreen = ({ navigation }) => {
                       justifyContent: "center",
                     }}
                   >
-                    <Radio.Group
-                      defaultValue="1"
-                      name="myRadioGroup"
-                      accessibilityLabel="Pick your favorite number"
+                    <Select
+                      selectedValue={career}
+                      minWidth="200"
+                      accessibilityLabel="Chọn loại phòng"
+                      placeholder="Chọn loại phòng"
+                      _selectedItem={{
+                        bg: COLORS.gray,
+                        borderRadius: 13,
+                        endIcon: <CheckIcon size="5" />,
+                      }}
+                      mt={1}
+                      onValueChange={(itemValue) => setCareer(itemValue)}
                     >
                       {listCareer.map((item) => {
-                        <Radio value={item} my={1}>
-                          <Text>chuan</Text>
-                        </Radio>;
+                        return (
+                          <Select.Item
+                            key={item._id}
+                            label={item.careername}
+                            value={item._id}
+                          />
+                        );
                       })}
-                    </Radio.Group>
+                    </Select>
                   </View>
                 </View>
               </View>
@@ -400,6 +570,26 @@ const PostScreen = ({ navigation }) => {
                     paddingBottom: 15,
                   }}
                 >
+                  {statusPrice == 1 ? (
+                    <View style={{ width: "100%", paddingVertical: 10 }}>
+                      <Text style={{ color: "red" }}>
+                        Vui lòng nhập số tiền lớn hơn 1.000 đồng
+                      </Text>
+                    </View>
+                  ) : statusPrice == 2 ? (
+                    <View style={{ width: "100%", paddingVertical: 10 }}>
+                      <Text style={{ color: "red" }}>
+                        Vui lòng nhập số tiền nhỏ hơn 100.000.000 đồng
+                      </Text>
+                    </View>
+                  ) : statusPrice == 3 ? (
+                    <View style={{ width: "100%", paddingVertical: 10 }}>
+                      <Text style={{ color: "red" }}>Sai định dạng</Text>
+                    </View>
+                  ) : (
+                    <View />
+                  )}
+
                   <View
                     style={{
                       width: "100%",
@@ -410,6 +600,7 @@ const PostScreen = ({ navigation }) => {
                       variant="filled"
                       placeholder="Vui lòng nhập giá thuê"
                       keyboardType="numeric"
+                      onChangeText={(value) => onChangePrice(value)}
                     />
                   </View>
                 </View>
@@ -439,7 +630,7 @@ const PostScreen = ({ navigation }) => {
                     color: COLORS.grey,
                   }}
                 >
-                  Hình ảnh
+                  Số nhà - Tên đường
                 </Text>
               </View>
               <View
@@ -459,102 +650,153 @@ const PostScreen = ({ navigation }) => {
                   <View
                     style={{
                       width: "100%",
-                      flexDirection: "row",
-                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <View
-                      style={{
-                        width: "50%",
-                        height: 150,
-                        justifyContent: "center",
-                        alignItems: "center",
+                    <Input
+                      multiline={true}
+                      value={housenumberstreetname}
+                      onChangeText={onHousenumberstreetname}
+                      variant="filled"
+                      placeholder="Vui lòng nhập số nhà và tên đường"
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                width: "90%",
+                borderRadius: 13,
+                backgroundColor: COLORS.white,
+                marginVertical: 10,
+                elevation: 10,
+              }}
+            >
+              <View
+                style={{
+                  width: "100%",
+                  height: 40,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    fontSize: 16,
+                    paddingLeft: 20,
+                    color: COLORS.grey,
+                  }}
+                >
+                  Địa chỉ
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: "90%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingBottom: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Select
+                      selectedValue={province}
+                      accessibilityLabel="Tỉnh / Thành phố"
+                      placeholder="Tỉnh / Thành phố"
+                      _selectedItem={{
+                        bg: COLORS.gray,
+                        borderRadius: 13,
+                        endIcon: <CheckIcon size="5" />,
+                      }}
+                      mt={1}
+                      onValueChange={(itemValue) => {
+                        setProvince(itemValue);
+                        getDistrict(itemValue);
                       }}
                     >
-                      <View
-                        style={{
-                          width: "85%",
-                          height: "85%",
-                          borderRadius: 13,
-                          backgroundColor: COLORS.light,
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Icon name="add" size={30} color={COLORS.grey} />
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        width: "50%",
-                        height: 150,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <View
-                        style={{
-                          width: "85%",
-                          height: "85%",
-                          borderRadius: 13,
-                          backgroundColor: COLORS.light,
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Icon name="add" size={30} color={COLORS.grey} />
-                      </View>
-                    </View>
+                      {listProvince.map((item) => {
+                        return (
+                          <Select.Item
+                            key={item._id}
+                            label={item.provincename}
+                            value={item._id}
+                          />
+                        );
+                      })}
+                    </Select>
                   </View>
                   <View
                     style={{
                       width: "100%",
-                      flexDirection: "row",
-                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <View
-                      style={{
-                        width: "50%",
-                        height: 150,
-                        justifyContent: "center",
-                        alignItems: "center",
+                    <Select
+                      selectedValue={district}
+                      accessibilityLabel="Quận / Huyện"
+                      placeholder="Quận / Huyện"
+                      _selectedItem={{
+                        bg: COLORS.gray,
+                        borderRadius: 13,
+                        endIcon: <CheckIcon size="5" />,
+                      }}
+                      mt={1}
+                      onValueChange={(itemValue) => {
+                        setDistrict(itemValue);
+                        getWard(itemValue);
                       }}
                     >
-                      <View
-                        style={{
-                          width: "85%",
-                          height: "85%",
-                          borderRadius: 13,
-                          backgroundColor: COLORS.light,
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Icon name="add" size={30} color={COLORS.grey} />
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        width: "50%",
-                        height: 150,
-                        justifyContent: "center",
-                        alignItems: "center",
+                      {listDistrict.map((item) => {
+                        return (
+                          <Select.Item
+                            key={item._id}
+                            label={item.districtname}
+                            value={item._id}
+                          />
+                        );
+                      })}
+                    </Select>
+                  </View>
+                  <View
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Select
+                      selectedValue={ward}
+                      accessibilityLabel="Xã / Phường"
+                      placeholder="Xã / Phường"
+                      _selectedItem={{
+                        bg: COLORS.gray,
+                        borderRadius: 13,
+                        endIcon: <CheckIcon size="5" />,
                       }}
+                      mt={1}
+                      onValueChange={(itemValue) => setWard(itemValue)}
                     >
-                      <View
-                        style={{
-                          width: "85%",
-                          height: "85%",
-                          borderRadius: 13,
-                          backgroundColor: COLORS.light,
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Icon name="add" size={30} color={COLORS.grey} />
-                      </View>
-                    </View>
+                      {listWard.map((item) => {
+                        return (
+                          <Select.Item
+                            key={item._id}
+                            label={item.wardname}
+                            value={item._id}
+                          />
+                        );
+                      })}
+                    </Select>
                   </View>
                 </View>
               </View>
@@ -572,7 +814,23 @@ const PostScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
         }}
-        onPress={() => navigation.navigate("PostEndScreen")}
+        onPress={() => {
+          const content = {
+            subject: subject,
+            describe: describe,
+            length: length,
+            width: width,
+            career: career,
+            price: price,
+            housenumberstreetname: housenumberstreetname,
+            province: province,
+            district: district,
+            ward: ward,
+          };
+
+          Object.assign(informations, content);
+          navigation.navigate("PostEndScreen");
+        }}
       >
         <Text
           style={{

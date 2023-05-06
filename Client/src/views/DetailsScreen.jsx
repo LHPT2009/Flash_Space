@@ -457,7 +457,9 @@ const DetailsScreen = ({ navigation, route }) => {
                 backgroundColor: COLORS.white,
                 flexDirection: "row",
                 borderRadius: 13,
-                paddingVertical: 15,
+                paddingHorizontal: 15,
+                paddingVertical: 10,
+                marginBottom: 20,
               }}
             >
               <View
@@ -485,13 +487,23 @@ const DetailsScreen = ({ navigation, route }) => {
               >
                 <View>
                   <Text
+                    style={{ color: COLORS.dark, fontFamily: theme.FontMain }}
+                  >
+                    Nguyễn Văn Chuẩn
+                  </Text>
+                  <Text
                     style={{ color: COLORS.grey, fontFamily: theme.FontMain }}
                   >
                     26/03/2023
                   </Text>
                 </View>
                 <View>
-                  <Text style={{ fontFamily: theme.FontMain }}>
+                  <Text
+                    style={{
+                      fontFamily: theme.FontMain,
+                      textAlign: "justify",
+                    }}
+                  >
                     Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
                     Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
                     Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế

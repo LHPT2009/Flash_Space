@@ -20,6 +20,7 @@ import {
   Checkbox,
   Slider,
   Stack,
+  Input,
 } from "native-base";
 import COLORS from "../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -302,31 +303,15 @@ const RoomsScreen = ({ navigation }) => {
                       style={{
                         width: "90%",
                         height: "70%",
-                        borderColor: theme.PRIMARY_BG_COLOR,
-                        borderRadius: 13,
-                        borderWidth: 3,
                         justifyContent: "center",
                         alignItems: "center",
                       }}
                     >
-                      <View
-                        style={{
-                          width: "90%",
-                          height: "80%",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Text
-                          style={{
-                            width: "80%",
-                            fontFamily: theme.FontMain,
-                            fontSize: 18,
-                            color: COLORS.grey,
-                          }}
-                        >
-                          Chọn ngày
-                        </Text>
-                      </View>
+                      <Input
+                        multiline={true}
+                        variant="filled"
+                        placeholder="Chọn ngày"
+                      />
                     </View>
                   </View>
                 </View>
@@ -369,31 +354,15 @@ const RoomsScreen = ({ navigation }) => {
                       style={{
                         width: "90%",
                         height: "70%",
-                        borderColor: theme.PRIMARY_BG_COLOR,
-                        borderRadius: 13,
-                        borderWidth: 3,
                         justifyContent: "center",
                         alignItems: "center",
                       }}
                     >
-                      <View
-                        style={{
-                          width: "90%",
-                          height: "80%",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Text
-                          style={{
-                            width: "80%",
-                            fontFamily: theme.FontMain,
-                            fontSize: 18,
-                            color: COLORS.grey,
-                          }}
-                        >
-                          Chọn giờ
-                        </Text>
-                      </View>
+                      <Input
+                        multiline={true}
+                        variant="filled"
+                        placeholder="Chọn giờ"
+                      />
                     </View>
                   </View>
                 </View>
@@ -516,7 +485,7 @@ const RoomsScreen = ({ navigation }) => {
                               color: COLORS.dark,
                             }}
                           >
-                            Phòng ngủ
+                            Nghệ thuật
                           </Text>
                         </Checkbox>
                         <Checkbox value="two" colorScheme="info">
@@ -527,7 +496,7 @@ const RoomsScreen = ({ navigation }) => {
                               color: COLORS.dark,
                             }}
                           >
-                            Phòng khách
+                            Văn phòng
                           </Text>
                         </Checkbox>
                         <Checkbox value="three" my={2} colorScheme="info">
@@ -538,7 +507,7 @@ const RoomsScreen = ({ navigation }) => {
                               color: COLORS.dark,
                             }}
                           >
-                            Phòng stream
+                            Công nghệ
                           </Text>
                         </Checkbox>
                         <Checkbox value="four" colorScheme="info">
@@ -549,29 +518,7 @@ const RoomsScreen = ({ navigation }) => {
                               color: COLORS.dark,
                             }}
                           >
-                            Phòng học
-                          </Text>
-                        </Checkbox>
-                        <Checkbox value="five" my={2} colorScheme="info">
-                          <Text
-                            style={{
-                              fontSize: 17,
-                              fontFamily: theme.FontMain,
-                              color: COLORS.dark,
-                            }}
-                          >
-                            Phòng sự kiện
-                          </Text>
-                        </Checkbox>
-                        <Checkbox value="sick" colorScheme="info">
-                          <Text
-                            style={{
-                              fontSize: 17,
-                              fontFamily: theme.FontMain,
-                              color: COLORS.dark,
-                            }}
-                          >
-                            Phòng họp
+                            Giải trí
                           </Text>
                         </Checkbox>
                       </Checkbox.Group>

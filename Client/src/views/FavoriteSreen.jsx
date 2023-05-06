@@ -20,48 +20,120 @@ const FavoriteScreen = ({ navigation }) => {
   const data_room_hot = [
     {
       id: "1",
-      title: "aấdasdasdasdas",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng họp, tổ chức sinh nhật",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house1.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house1.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "2",
-      title: "aádasdasdasd",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng livestream, phòng hát",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house2.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house2.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "3",
-      title: "aádasdasdasd",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng làm việc, phòng nghỉ",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house3.jpg"),
+      details: `Yên tĩnh, sạch sẽ, thơm`,
+      interiors: [
+        require("../../assets/house3.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "4",
-      title: "aádasdasdasdasd",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng họp, tổ chức sinh nhật",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house1.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house1.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "5",
-      title: "aádasdasdasdasd",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng livestream, phòng hát",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house2.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house2.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "6",
-      title: "aádasdasdasdas",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng làm việc, phòng nghỉ",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house3.jpg"),
+      details: `Yên tĩnh, sạch sẽ, thơm`,
+      interiors: [
+        require("../../assets/house3.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "7",
-      title: "aádasdasdasd",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng họp, tổ chức sinh nhật",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house1.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house1.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "8",
-      title: "aádasdasdsdsd",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng livestream, phòng hát",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house2.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house2.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
     {
       id: "9",
-      title: "aádasdasds",
-      image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
+      title: "Phòng làm việc, phòng nghỉ",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house3.jpg"),
+      details: `Yên tĩnh, sạch sẽ, thơm`,
+      interiors: [
+        require("../../assets/house3.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
     },
   ];
   const [itemStart, setItemStart] = useState(
@@ -142,7 +214,8 @@ const FavoriteScreen = ({ navigation }) => {
           <View style={{ width: "65%", marginLeft: -15, paddingLeft: 25 }}>
             <View
               style={{
-                height: 25,
+                paddingTop: 8,
+                height: 30,
                 flexDirection: "row-reverse",
                 width: "100%",
               }}
@@ -180,7 +253,6 @@ const FavoriteScreen = ({ navigation }) => {
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                marginTop: 10,
               }}
             >
               <Text
@@ -211,7 +283,6 @@ const FavoriteScreen = ({ navigation }) => {
               style={{
                 color: COLORS.grey,
                 fontSize: 14,
-                marginTop: 5,
                 fontFamily: theme.FontMain,
               }}
             >
@@ -221,7 +292,7 @@ const FavoriteScreen = ({ navigation }) => {
               style={{
                 color: theme.PRIMARY_BG_COLOR,
                 fontSize: 14,
-                marginTop: 5,
+
                 fontFamily: theme.FontMain,
               }}
             >
@@ -394,6 +465,7 @@ const style = StyleSheet.create({
     borderRadius: 13,
     flexDirection: "row",
     alignItems: "center",
+    elevation: 2,
   },
   cardImage: {
     width: "35%",

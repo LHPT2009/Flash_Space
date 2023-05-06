@@ -12,7 +12,7 @@ import Login from "./Login";
 import Register from "./Register";
 import styles from "../styles/views/welcome";
 
-function Welcome(props) {
+function Welcome({ navigation, props }) {
   const [isLogin, setIsLogin] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [isClosed, setClosed] = useState(true);
@@ -20,15 +20,6 @@ function Welcome(props) {
   const clickLogin = () => {
     setIsLogin(true);
     setClosed(false);
-    // if (!isLogin) {
-    //   setIsLogin(true);
-    //   setClosed(false);
-    //   setIsRegister(false);
-    // } else {
-    //   setIsLogin(false);
-    //   setClosed(true);
-    //   setIsRegister(false);
-    // }
   };
   const clickRegister = () => {
     setIsRegister(true);
@@ -103,7 +94,7 @@ function Welcome(props) {
         </View>
       ) : isLogin ? (
         <View style={styles.buttons__60}>
-          <Login functionClosed={changeClosedParen} />
+          <Login functionClosed={changeClosedParen} navigation={navigation} />
         </View>
       ) : isRegister ? (
         <View style={styles.register}>

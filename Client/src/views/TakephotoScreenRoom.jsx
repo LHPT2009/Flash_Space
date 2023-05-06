@@ -1,25 +1,45 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Constants from "expo-constants";
 import { HStack, Spinner } from "native-base";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { showMessage } from "react-native-flash-message";
+import * as Location from "expo-location";
+
 import ButtonCamera from "../components/ButtonCamera";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
+import { InformationAddRoomContext } from "../context/InformationAddRoom";
 
-export default function TakephotoScreen({ navigation }) {
+export default function TakephotoScreenRoom({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
   const [spinner, setSpinner] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const [location, setLocation] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
   const cameraRef = useRef(null);
-
+  const { informations } = useContext(InformationAddRoomContext);
   useEffect(() => {
     (async () => {
-      MediaLibrary.requestPermissionsAsync();
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Vui long cap quyen truy cap");
+        return;
+      }
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      await Object.assign(informations, {
+        longitude: currentLocation.coords.longitude,
+        latitude: currentLocation.coords.latitude,
+      });
+      setLocation(currentLocation);
+      setLongitude(currentLocation.coords.longitude);
+      setLatitude(currentLocation.coords.latitude);
+
+      await MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
     })();
@@ -46,8 +66,24 @@ export default function TakephotoScreen({ navigation }) {
           message: "Đã lưu hình  ✔",
           type: "success",
         });
-        setImage(null);
-        navigation.navigate("AuthScreen");
+        console.log(longitude);
+        console.log(latitude);
+        Object.assign(informations, {
+          multiImage: {
+            image: image,
+            image1: informations.multiImage.image1,
+            image2: informations.multiImage.image2,
+            image3: informations.multiImage.image3,
+          },
+        });
+        navigation.navigate("PostImageScreen", {
+          multiImage: {
+            image: image,
+            image1: informations.multiImage.image1,
+            image2: informations.multiImage.image2,
+            image3: informations.multiImage.image3,
+          },
+        });
         console.log("saved successfully");
       } catch (error) {
         console.log(error);
@@ -72,7 +108,6 @@ export default function TakephotoScreen({ navigation }) {
             <View
               style={{
                 height: "20%",
-
                 paddingHorizontal: 30,
                 backgroundColor: theme.PRIMARY_BG_COLOR,
               }}
