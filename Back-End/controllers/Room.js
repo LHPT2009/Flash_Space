@@ -67,6 +67,7 @@ const RoomController = {
         subject: req.body.subject,
         describe: req.body.describe,
         housenumberstreetname: req.body.housenumberstreetname,
+        mainimage: req.files[0].filename.split(".", 1) + ".jpeg",
       });
       await newRoom.save();
 
@@ -118,6 +119,7 @@ const RoomController = {
       });
 
       res.status(200).json("Add successfully");
+      // res.status(200).json(req.files[0].filename.split(".", 1) + ".jpeg");
     } catch (error) {
       res.status(500).json(error);
     }

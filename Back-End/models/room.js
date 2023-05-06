@@ -40,6 +40,9 @@ const RoomSchema = new mongoose.Schema({
   housenumberstreetname: {
     type: String,
   },
+  mainimage: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Room", RoomSchema);
