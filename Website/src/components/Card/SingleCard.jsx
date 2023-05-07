@@ -3,18 +3,22 @@ import { Link } from "react-router-dom";
 const SingleCard = (props) => {
   return (
     <Link
-      to={"/detailroom"}
+      to={`/detailroom/${props._id}`}
       className="card m-1 text-black"
       style={{ textDecoration: "none" }}
     >
-      <img class="card-img-top" src={props.url} alt="Card image cap" />
+      <img
+        class="card-img-top"
+        src={`http://localhost:8000/singleimage/${props.mainimage}`}
+        alt="Card image cap"
+      />
       <div class="card-body" style={{ padding: "15px" }}>
-        <small>Văn phòng</small>
-        <h5 class="card-title">{props.name}</h5>
+        <small>{props.careername}</small>
+        <h5 class="card-title">{props.subject}</h5>
         <span class="pull-left">
           <span class="price">{props.price}VNĐ/1h</span>
         </span>
-        <p class="card-text">{props.description}</p>
+        <p class="card-text">{props.describe}</p>
         <i class="fa fa-user"></i> 5
       </div>
       <div class="footer">
