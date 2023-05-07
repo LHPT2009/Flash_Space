@@ -16,11 +16,13 @@ const Home = () => {
           title={"Lĩnh vực nghệ thuật"}
           content={"Đa dạng về loại phòng với"}
           note={"Giá cả hợp lý"}
+          idcareer={"643115985236d4956368fbcb"}
         />
         <CarouselsCard
           title={"Lĩnh vực nghệ thuật"}
           content={"Đa dạng về loại phòng với"}
           note={"Giá cả hợp lý"}
+          idcareer={"643115a15236d4956368fbcd"}
         />
       </div>
       <Snipet1 />
@@ -29,11 +31,13 @@ const Home = () => {
           title={"Lĩnh vực nghệ thuật"}
           content={"Đa dạng về loại phòng với"}
           note={"Giá cả hợp lý"}
+          idcareer={"643115985236d4956368fbcb"}
         />
         <CarouselsCard
           title={"Lĩnh vực nghệ thuật"}
           content={"Đa dạng về loại phòng với"}
           note={"Giá cả hợp lý"}
+          idcareer={"643115985236d4956368fbcb"}
         />
       </div>
       <Snipet2 />
@@ -42,11 +46,13 @@ const Home = () => {
           title={"Lĩnh vực nghệ thuật"}
           content={"Đa dạng về loại phòng với"}
           note={"Giá cả hợp lý"}
+          idcareer={"643115985236d4956368fbcb"}
         />
         <CarouselsCard
           title={"Lĩnh vực nghệ thuật"}
           content={"Đa dạng về loại phòng với"}
           note={"Giá cả hợp lý"}
+          idcareer={"643115985236d4956368fbcb"}
         />
       </div>
       <Snipet3 />
