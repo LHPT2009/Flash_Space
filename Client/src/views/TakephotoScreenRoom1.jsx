@@ -25,19 +25,19 @@ export default function TakephotoScreenRoom1({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Vui long cap quyen truy cap");
-        return;
-      }
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      await Object.assign(informations, {
-        longitude: currentLocation.coords.longitude,
-        latitude: currentLocation.coords.latitude,
-      });
-      setLocation(currentLocation);
-      setLongitude(currentLocation.coords.longitude);
-      setLatitude(currentLocation.coords.latitude);
+      // let { status } = await Location.requestForegroundPermissionsAsync();
+      // if (status !== "granted") {
+      //   console.log("Vui long cap quyen truy cap");
+      //   return;
+      // }
+      // let currentLocation = await Location.getCurrentPositionAsync({});
+      // await Object.assign(informations, {
+      //   longitude: currentLocation.coords.longitude,
+      //   latitude: currentLocation.coords.latitude,
+      // });
+      // setLocation(currentLocation);
+      // setLongitude(currentLocation.coords.longitude);
+      // setLatitude(currentLocation.coords.latitude);
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
@@ -50,7 +50,7 @@ export default function TakephotoScreenRoom1({ navigation }) {
         setSpinner(true);
         const data = await cameraRef.current.takePictureAsync();
         console.log(data);
-        setImage(data.uri);
+        setImage(data);
       } catch (error) {
         console.log(error);
       }
@@ -58,28 +58,32 @@ export default function TakephotoScreenRoom1({ navigation }) {
   };
 
   const savePicture = async () => {
-    if (image1) {
+    if (image1.uri) {
       try {
-        const asset = await MediaLibrary.createAssetAsync(image1);
+        const asset = await MediaLibrary.createAssetAsync(image1.uri);
         showMessage({
           message: "Đã lưu hình  ✔",
           type: "success",
         });
-        console.log(asset);
-        Object.assign(informations, {
-          multiImage: {
-            image: informations.multiImage.image,
-            image1: image1,
-            image2: informations.multiImage.image2,
-            image3: informations.multiImage.image3,
-          },
-        });
+        if (informations.multiImage == undefined) {
+          const arrimage = [image1];
+          console.log(arrimage);
+          Object.assign(informations, {
+            multiImage: arrimage,
+          });
+        } else {
+          const arrimage = [...informations.multiImage, image1];
+          console.log(arrimage);
+          Object.assign(informations, {
+            multiImage: arrimage,
+          });
+        }
         navigation.navigate("PostImageScreen", {
           multiImage: {
-            image: informations.multiImage.image,
+            image: informations.multiImage[0],
             image1: image1,
-            image2: informations.multiImage.image2,
-            image3: informations.multiImage.image3,
+            image2: informations.multiImage[2],
+            image3: informations.multiImage[3],
           },
         });
         console.log("saved successfully");
@@ -206,7 +210,7 @@ export default function TakephotoScreenRoom1({ navigation }) {
               backgroundColor: theme.PRIMARY_BG_COLOR,
             }}
           ></View>
-          <Image source={{ uri: image1 }} style={styles.camera} />
+          <Image source={{ uri: image1.uri }} style={styles.camera} />
           <View
             style={{
               height: "20%",
