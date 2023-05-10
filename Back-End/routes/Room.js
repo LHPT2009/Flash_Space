@@ -10,7 +10,6 @@ const storage = multer.diskStorage({
   // destination: (req, file, cb) => {
   //   cb(null, uploadPath);
   // },
-
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
@@ -22,7 +21,7 @@ router.get("/", RoomController.getAllRoom);
 
 router.get("/:id", RoomController.getRoomById);
 
-router.post("/", upload.array("multifiles"), RoomController.addRoom);
+router.post("/", upload.array("multifiles[]"), RoomController.addRoom);
 
 router.delete("/:id", RoomController.deleteRoom);
 

@@ -5,6 +5,14 @@ const RoomSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Ward",
   },
+  idprovince: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Province",
+  },
+  iddistrict: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "District",
+  },
   idcareer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Career",
