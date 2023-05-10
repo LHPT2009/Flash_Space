@@ -15,6 +15,7 @@ function Login({ navigation, props }) {
     props.functionClosed(true);
   };
   const handleLogin = async () => {
+    console.log("đa");
     await axios
       .post("http://" + IpAddress + ":8000/auth/login", {
         username: username,
@@ -27,6 +28,7 @@ function Login({ navigation, props }) {
           "name",
           result.firstname + " " + result.lastname
         );
+        console.log(result);
         navigation.navigate("Main");
       })
       .catch((error) => {

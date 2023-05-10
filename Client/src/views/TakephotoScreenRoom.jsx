@@ -68,13 +68,13 @@ export default function TakephotoScreenRoom({ navigation }) {
         console.log(asset);
 
         if (informations.multiImage == undefined) {
-          const arrimage = [image];
+          const arrimage = [asset];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,
           });
         } else {
-          const arrimage = [...informations.multiImage, image];
+          const arrimage = [...informations.multiImage, asset];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,

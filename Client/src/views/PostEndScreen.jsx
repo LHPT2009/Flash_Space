@@ -26,10 +26,11 @@ const PostEndScreen = ({ navigation }) => {
   const [listTimeslot, setListTimeSlot] = useState([]);
   const [listUserChoose, setListUserChoose] = useState([]);
   const [listDay, setListDay] = useState([]);
+  const [listDayPost, setListDayPost] = useState([]);
   const [listDayView, setListDayView] = useState([]);
   const [staticDelete, setStaticDelete] = useState(false);
   const [dayDeletee, setDayDelete] = useState("");
-  const { informations } = useContext(InformationAddRoomContext);
+  const { informations, listWork } = useContext(InformationAddRoomContext);
 
   useEffect(() => {
     getListTimeSlot();
@@ -92,7 +93,7 @@ const PostEndScreen = ({ navigation }) => {
   };
 
   const InDay = () => {
-    const toDay = new Date();
+    const toDay = new Date().getTime();
     return (
       <Calendar
         enableSwipeMonths={true}
@@ -285,7 +286,7 @@ const PostEndScreen = ({ navigation }) => {
                 }}
               >
                 <FlatList
-                  key={"_"}
+                  key={"__"}
                   showsHorizontalScrollIndicator={false}
                   data={listTimeslot}
                   style={{
@@ -296,7 +297,6 @@ const PostEndScreen = ({ navigation }) => {
                   renderItem={({ item }) => <CardGrid timeslot={item} />}
                   keyExtractor={(item) => "_" + item.id}
                   numColumns={3}
-                  scrollEnabled={false}
                 />
               </View>
               <View
@@ -321,6 +321,13 @@ const PostEndScreen = ({ navigation }) => {
                       a.push({
                         date: selected,
                         timeslot: listUserChoose[i]._id,
+                      });
+                    }
+                    const aa = [...listDayPost];
+                    for (let i = 0; i < listUserChoose.length; i++) {
+                      aa.push({
+                        date: selected,
+                        timeslot: listUserChoose[i],
                       });
                     }
                     const b = JSON.stringify(listSelected);
@@ -348,6 +355,7 @@ const PostEndScreen = ({ navigation }) => {
                     }
                     setListDayView([...listDayView, { day: selected }]);
                     setListDay(a);
+                    setListDayPost(aa);
                     setTimeSlot(false);
                     setAdd(false);
                     setListUserChoose([]);
@@ -423,9 +431,8 @@ const PostEndScreen = ({ navigation }) => {
                     width: width,
                   }}
                   renderItem={({ item }) => <CardGrid timeslot={item} />}
-                  keyExtractor={(item) => "_" + item.id}
+                  keyExtractor={(item) => "__" + item.id}
                   numColumns={3}
-                  scrollEnabled={false}
                 />
               </View>
               <View
@@ -479,6 +486,7 @@ const PostEndScreen = ({ navigation }) => {
                       setListSelected(e);
                     }
                     setListDay(a);
+                    setListDayPost(a);
                     setTimeSlot(false);
                     setAdd(false);
                     setListUserChoose([]);
@@ -675,7 +683,7 @@ const PostEndScreen = ({ navigation }) => {
                             <Icon name="add" size={30} color={COLORS.grey} />
                           </View>
                         </TouchableOpacity>
-                        <FlatList />
+
                         {listDayView.map((element) => {
                           return (
                             <TouchableOpacity
@@ -686,11 +694,12 @@ const PostEndScreen = ({ navigation }) => {
                                 alignItems: "center",
                               }}
                               onPress={() => {
-                                const listChooseDay = listDay.filter(
+                                const listChooseDay = listDayPost.filter(
                                   (item) => item.date == element.day
                                 );
 
                                 const listChooseDayUsed = [];
+
                                 listChooseDay.map((item) => {
                                   listChooseDayUsed.push(item.timeslot);
                                 });
@@ -736,8 +745,7 @@ const PostEndScreen = ({ navigation }) => {
               alignItems: "center",
             }}
             onPress={() => {
-              console.log(listDay);
-              Object.assign(informations, { listwork: listDay });
+              Object.assign(listWork, listDay);
               navigation.navigate("PostImageScreen");
             }}
           >

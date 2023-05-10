@@ -17,6 +17,8 @@ const PostScreen = ({ navigation }) => {
   const [statusAgreace, setStatusAgreace] = useState(0);
   const [price, setPrice] = useState("");
   const [statusPrice, setStatusPrice] = useState(0);
+  const [quantity, setQuantity] = useState("");
+  const [statusQuantity, setStatusQuantity] = useState(0);
   const [housenumberstreetname, setHousenumberstreetname] = useState("");
   const [listCareer, setListCareer] = useState([]);
   const [ward, setWard] = useState("");
@@ -111,6 +113,19 @@ const PostScreen = ({ navigation }) => {
     }
   };
 
+  const checkQuantity = (value) => {
+    const priceConvert = Number(value);
+    if (priceConvert < 1) {
+      setStatusQuantity(1);
+    } else if (priceConvert > 1000) {
+      setStatusQuantity(2);
+    } else if (isNaN(priceConvert)) {
+      setStatusQuantity(3);
+    } else {
+      setStatusQuantity(0);
+    }
+  };
+
   const onChangeSubject = (event) => {
     setSubject(event);
   };
@@ -130,6 +145,11 @@ const PostScreen = ({ navigation }) => {
   const onChangePrice = (value) => {
     checkPrice(value);
     setPrice(value);
+  };
+
+  const onChangeQuantity = (value) => {
+    checkQuantity(value);
+    setQuantity(value);
   };
 
   const onHousenumberstreetname = (event) => {
@@ -630,6 +650,83 @@ const PostScreen = ({ navigation }) => {
                     color: COLORS.grey,
                   }}
                 >
+                  Sức chứa
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: "90%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingBottom: 15,
+                  }}
+                >
+                  {statusQuantity == 1 ? (
+                    <View style={{ width: "100%", paddingVertical: 10 }}>
+                      <Text style={{ color: "red" }}>
+                        Sức chứa phải lớn hơn 1
+                      </Text>
+                    </View>
+                  ) : statusQuantity == 2 ? (
+                    <View style={{ width: "100%", paddingVertical: 10 }}>
+                      <Text style={{ color: "red" }}>
+                        Sức chứa không quá 1000
+                      </Text>
+                    </View>
+                  ) : statusQuantity == 3 ? (
+                    <View style={{ width: "100%", paddingVertical: 10 }}>
+                      <Text style={{ color: "red" }}>Sai định dạng</Text>
+                    </View>
+                  ) : (
+                    <View />
+                  )}
+
+                  <View
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Input
+                      variant="filled"
+                      placeholder="Vui lòng nhập sức chứa"
+                      keyboardType="numeric"
+                      onChangeText={(value) => onChangeQuantity(value)}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                width: "90%",
+                borderRadius: 13,
+                backgroundColor: COLORS.white,
+                marginVertical: 10,
+                elevation: 10,
+              }}
+            >
+              <View
+                style={{
+                  width: "100%",
+                  height: 40,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    fontSize: 16,
+                    paddingLeft: 20,
+                    color: COLORS.grey,
+                  }}
+                >
                   Số nhà - Tên đường
                 </Text>
               </View>
@@ -804,44 +901,79 @@ const PostScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </View>
-      <TouchableOpacity
-        style={{
-          width: "100%",
-          height: "10%",
-          backgroundColor: theme.PRIMARY_BG_COLOR,
-          borderTopLeftRadius: 13,
-          borderTopRightRadius: 13,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        onPress={() => {
-          const content = {
-            subject: subject,
-            describe: describe,
-            length: length,
-            width: width,
-            career: career,
-            price: price,
-            housenumberstreetname: housenumberstreetname,
-            province: province,
-            district: district,
-            ward: ward,
-          };
-
-          Object.assign(informations, content);
-          navigation.navigate("PostEndScreen");
-        }}
-      >
-        <Text
+      {subject != "" &&
+      describe != "" &&
+      length != "" &&
+      width != "" &&
+      career != "" &&
+      price != "" &&
+      quantity != "" &&
+      housenumberstreetname != "" &&
+      province != "" &&
+      district != "" &&
+      ward != "" ? (
+        <TouchableOpacity
           style={{
-            fontFamily: theme.FontMain,
-            fontSize: 19,
-            color: COLORS.white,
+            width: "100%",
+            height: "10%",
+            backgroundColor: theme.PRIMARY_BG_COLOR,
+            borderTopLeftRadius: 13,
+            borderTopRightRadius: 13,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={() => {
+            const content = {
+              subject: subject,
+              describe: describe,
+              length: length,
+              width: width,
+              career: career,
+              price: price,
+              quantity: quantity,
+              housenumberstreetname: housenumberstreetname,
+              province: province,
+              district: district,
+              ward: ward,
+            };
+
+            Object.assign(informations, content);
+            navigation.navigate("PostEndScreen");
           }}
         >
-          Tiếp
-        </Text>
-      </TouchableOpacity>
+          <Text
+            style={{
+              fontFamily: theme.FontMain,
+              fontSize: 19,
+              color: COLORS.white,
+            }}
+          >
+            Tiếp
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: "10%",
+            backgroundColor: COLORS.gray,
+            borderTopLeftRadius: 13,
+            borderTopRightRadius: 13,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: theme.FontMain,
+              fontSize: 19,
+              color: COLORS.white,
+            }}
+          >
+            Tiếp
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
