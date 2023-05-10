@@ -56,6 +56,8 @@ const RoomController = {
 
       const newRoom = await new Room({
         idward: req.body.idward,
+        idprovince: req.body.idprovince,
+        iddistrict: req.body.iddistrict,
         idcareer: req.body.idcareer,
         idaccount: req.body.idaccount,
         length: req.body.length,
@@ -106,18 +108,20 @@ const RoomController = {
         implementationdate: implementationDate,
         static: 1,
       });
-      newWorkAssignment.save();
 
-      req.body.workinghours.forEach((ele) => {
+      newWorkAssignment.save();
+      const arrwork = JSON.parse(req.body.workinghours);
+      arrwork.forEach((ele) => {
         const newWorkinghours = new WorkingHours({
           idtimeslot: ele.idtimeslot,
           idroom: newRoom.id,
           date: ele.date,
           static: 0,
         });
+
         newWorkinghours.save();
       });
-
+      console.log("đã xong");
       res.status(200).json("Add successfully");
     } catch (error) {
       res.status(500).json(error);
