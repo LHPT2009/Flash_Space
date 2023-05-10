@@ -76,13 +76,13 @@ export default function TakephotoScreenRoom2({ navigation }) {
         //   },
         // });
         if (informations.multiImage == undefined) {
-          const arrimage = [image2];
+          const arrimage = [asset];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,
           });
         } else {
-          const arrimage = [...informations.multiImage, image2];
+          const arrimage = [...informations.multiImage, asset];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,

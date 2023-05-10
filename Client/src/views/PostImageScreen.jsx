@@ -1,14 +1,16 @@
 import { useContext, useEffect } from "react";
 import { ScrollView, View, Text, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import * as MediaLibrary from "expo-media-library";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 import { InformationAddRoomContext } from "../context/InformationAddRoom";
 import IpAddress from "../consts/variable";
 
 const PostImageScreen = ({ navigation, route }) => {
-  const { informations } = useContext(InformationAddRoomContext);
+  const { informations, listWork } = useContext(InformationAddRoomContext);
   const result = route.params;
   if (result != undefined) {
     image = result.multiImage.image;
@@ -22,8 +24,10 @@ const PostImageScreen = ({ navigation, route }) => {
   }
 
   console.log(JSON.stringify(informations));
-  console.log(typeof informations.multiImage);
-  console.log(informations.multiImage.length);
+  // console.log(typeof informations.multiImage);
+  // console.log(informations.multiImage.length);
+  console.log("aaaa");
+  console.log(listWork);
   let image = "";
   let image1 = "";
   let image2 = "";
@@ -42,65 +46,51 @@ const PostImageScreen = ({ navigation, route }) => {
   }
 
   const postInformation = async (req) => {
-    const dt = new FormData();
-    dt.append("subject", informations.subject);
-    dt.append("describe", informations.describe);
-    dt.append("length", informations.length);
-    dt.append("width", informations.width);
-    dt.append("idcareer", informations.career);
-    dt.append("price", informations.price);
-    dt.append("housenumberstreetname", informations.housenumberstreetname);
-    dt.append("province", informations.province);
-    dt.append("district", informations.district);
-    dt.append("idward", informations.ward);
-    dt.append("workinghours", informations.listwork);
-    // for (let i = 0; i < informations.multiImage.length; i++) {
-    //   dt.append("multifiles[]", informations.multiImage[i]);
-    // }
-    dt.append("multifiles", informations.multiImage);
-    dt.append("longitude", 106.65655055501219);
-    dt.append("latitude", 10.736721538185561);
-    dt.append("idaccount", "6442af166a9a07710faa9651");
-    console.log(dt);
-    // try {
-    //   // make axios post request
-    //   const response = await axios({
-    //     method: "post",
-    //     url: "http://" + IpAddress + ":8000/room/",
-    //     data: dt,
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   });
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    const result = await axios.post(
-      "http://" + IpAddress + ":8000/room/",
-      dt,
-      // {
-      //   idaccount: "6442af166a9a07710faa9651",
-      //   subject: informations.subject,
-      //   describe: informations.describe,
-      //   length: informations.length,
-      //   width: informations.width,
-      //   idcareer: informations.career,
-      //   price: informations.price,
-      //   housenumberstreetname: informations.housenumberstreetname,
-      //   province: informations.province,
-      //   district: informations.district,
-      //   idward: informations.ward,
-      //   workinghours: informations.listwork,
-      //   multifiles: informations.multiImage,
-      //   longitude: 106.65655055501219,
-      //   latitude: 10.736721538185561,
-      // },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    try {
+      const idAccount = await AsyncStorage.getItem("idAccount");
+      const dt = new FormData();
+      dt.append("subject", informations.subject);
+      dt.append("describe", informations.describe);
+      dt.append("length", informations.length);
+      dt.append("width", informations.width);
+      dt.append("idcareer", informations.career);
+      dt.append("price", informations.price);
+      dt.append("housenumberstreetname", informations.housenumberstreetname);
+      dt.append("idprovince", informations.province);
+      dt.append("iddistrict", informations.district);
+      dt.append("idward", informations.ward);
+      dt.append("workinghours", JSON.stringify(listWork));
+      for (let i = 0; i < informations.multiImage.length; i++) {
+        const asset = await MediaLibrary.createAssetAsync(
+          informations.multiImage[i].uri
+        );
+        dt.append("multifiles[]", {
+          uri: asset.uri,
+          name: asset.filename,
+          type: "image/jpeg",
+        });
       }
-    );
-    console.log(result);
+      dt.append("longitude", 111111);
+      dt.append("latitude", 11111111);
+      dt.append("idaccount", idAccount);
+
+      const result = await axios.post(
+        "http://" + IpAddress + ":8000/room/",
+        dt,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (result.status == 200) {
+        navigation.navigate("Main");
+      } else {
+        alert("Đã có lỗi");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -423,28 +413,52 @@ const PostImageScreen = ({ navigation, route }) => {
           </View>
         </ScrollView>
       </View>
-      <TouchableOpacity
-        style={{
-          width: "100%",
-          height: "10%",
-          backgroundColor: theme.PRIMARY_BG_COLOR,
-          borderTopLeftRadius: 13,
-          borderTopRightRadius: 13,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        onPress={() => postInformation()}
-      >
-        <Text
+      {image != "" && image1 != "" && image2 != "" && image3 != "" ? (
+        <TouchableOpacity
           style={{
-            fontFamily: theme.FontMain,
-            fontSize: 19,
-            color: COLORS.white,
+            width: "100%",
+            height: "10%",
+            backgroundColor: theme.PRIMARY_BG_COLOR,
+            borderTopLeftRadius: 13,
+            borderTopRightRadius: 13,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={() => postInformation()}
+        >
+          <Text
+            style={{
+              fontFamily: theme.FontMain,
+              fontSize: 19,
+              color: COLORS.white,
+            }}
+          >
+            Đăng tin
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: "10%",
+            backgroundColor: COLORS.gray,
+            borderTopLeftRadius: 13,
+            borderTopRightRadius: 13,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          Đăng tin
-        </Text>
-      </TouchableOpacity>
+          <Text
+            style={{
+              fontFamily: theme.FontMain,
+              fontSize: 19,
+              color: COLORS.white,
+            }}
+          >
+            Đăng tin
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

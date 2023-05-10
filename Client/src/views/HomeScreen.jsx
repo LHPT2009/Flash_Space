@@ -41,6 +41,7 @@ import {
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LinearGradient } from "expo-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../styles/views/home";
 
 const { width, height } = Dimensions.get("window");
@@ -211,8 +212,13 @@ const BoxSearch = ({ navigate }) => {
             </View>
             <View style={styles.boxSearch_content_function}>
               <TouchableOpacity
-                onPress={() => {
-                  navigate("AuthScreen");
+                onPress={async () => {
+                  const idAccount = await AsyncStorage.getItem("idAccount");
+                  if (idAccount) {
+                    navigate("AuthScreen");
+                  } else {
+                    navigate("Welcome");
+                  }
                 }}
               >
                 <LinearGradient
