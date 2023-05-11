@@ -1,6 +1,9 @@
+import { useState } from "react";
 import "./Sidebar.css";
 
 const Sidebar = () => {
+  const [listCarrer, setListCarrer] = useState([])
+  //suc chua, gia, noi that, vi tri
   return (
     <aside className="col-lg-3">
       <button
@@ -19,19 +22,6 @@ const Sidebar = () => {
                 <input className="form-check-input" type="checkbox" value="" />
                 <span className="form-check-label"> Nghệ thuật </span>
               </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Văn phòng </span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Công nghệ</span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Giáo dục </span>
-              </label>
-              ...
             </div>
           </div>
         </article>
@@ -44,39 +34,6 @@ const Sidebar = () => {
                 <input className="form-check-input" type="checkbox" value="" />
                 <span className="form-check-label"> Quận 1 </span>
               </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 2 </span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 3</span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 4</span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 5</span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 6</span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 7</span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 8</span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> Quận 9</span>
-              </label>
-              ...
             </div>
           </div>
         </article>
@@ -116,26 +73,19 @@ const Sidebar = () => {
         </article>
 
         <article className="filter-group">
-          <header className="card-header">Khung giờ</header>
-          <div className="collapse show" id="collapse_aside_brands">
+          <header className="card-header">Sức chứa</header>
+          <div className="collapse show" id="collapse_aside2">
             <div className="card-body">
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> 9h {"->"} 10h </span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> 10h {"->"} 11h </span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> 11h {"->"} 12h </span>
-              </label>
-              <label className="form-check">
-                <input className="form-check-input" type="checkbox" value="" />
-                <span className="form-check-label"> 12h {"->"} 13h </span>
-              </label>
-              ...
+              <div className="row mb-3">
+                <div className="col-12">
+                  <input
+                    className="form-control"
+                    id="max"
+                    placeholder="Nhập sức chứa"
+                    type="number"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </article>
