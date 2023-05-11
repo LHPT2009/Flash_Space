@@ -9,6 +9,7 @@ import ItemGrid from "../../../components/ListItem/ItemGrid";
 
 const Room = () => {
   const [roomData, setRoomData] = useState([]);
+  const [roomFilterData, setRoomFilterData] = useState([]);
 
   //ListCate
   const [listCarrer, setListCarrer] = useState([]);
@@ -17,7 +18,7 @@ const Room = () => {
   const [listWard, setListWard] = useState([]);
   // Filter
   const [searchName, setSearchName] = useState();
-  const [sort, setSort] = useState();
+  const [sort, setSort] = useState("0");
   const [searchCarrer, setSearchCarrer] = useState();
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
@@ -38,21 +39,22 @@ const Room = () => {
       )
       .then((res) => {
         setRoomData(res.data);
+        setRoomFilterData(res.data);
       });
   }, []);
 
   const applyFilters = () => {
     let updatedList = roomData;
     if (searchCarrer) {
-      updatedList = updatedList.filter((item) => item.idcareer._id == searchCarrer);
+      updatedList = updatedList.filter((item) => item.idcareer._id === searchCarrer);
     }
 
-    if (searchProvince) {
-      updatedList = updatedList.filter((item) => item.idprovince._id == searchProvince);
-    }
-    if (searchDistrict) {
-      updatedList = updatedList.filter((item) => item.iddistrict._id == searchDistrict);
-    }
+    // if (searchProvince) {
+    //   updatedList = updatedList.filter((item) => item.idprovince._id == searchProvince);
+    // }
+    // if (searchDistrict) {
+    //   updatedList = updatedList.filter((item) => item.iddistrict._id == searchDistrict);
+    // }
     if (searchWard) {
       updatedList = updatedList.filter((item) => item.idward._id == searchWard);
     }
@@ -74,26 +76,30 @@ const Room = () => {
     //     cuisinesChecked.includes(item.cuisine)
     //   );
     // }
-
+    if(sort){
+      if(sort === "1"){
+        console.log("dang thuc hien 1")
+        updatedList = updatedList.sort((a,b) => a.price - b.price)
+      }
+      if(sort === "2"){
+        console.log("dang thuc hien 2")
+        updatedList = updatedList.sort((a,b) => b.price - a.price)
+      }
+    }
     // Search Filter
-    // if (searchInput) {
-    //   updatedList = updatedList.filter(
-    //     (item) =>
-    //       item.title.toLowerCase().search(searchInput.toLowerCase().trim()) !==
-    //       -1
-    //   );
-    // }
+    if (searchName) {
+      updatedList = updatedList.filter(
+        (item) => item.subject.toLowerCase().search(searchName.toLowerCase().trim()) !== -1
+      );
+    }
 
-    // Price Filter
-    // const minPrice = selectedPrice[0];
-    // const maxPrice = selectedPrice[1];
-
-    updatedList = updatedList.filter(
+    if(minPrice && maxPrice){
+      updatedList = updatedList.filter(
       (item) => item.price >= minPrice && item.price <= maxPrice
     );
+    }
 
-    console.log(updatedList)
-    setRoomData(updatedList);
+    setRoomFilterData(updatedList);
 
     // !updatedList.length ? setResultsFound(false) : setResultsFound(true);
   };
@@ -106,8 +112,8 @@ const Room = () => {
     minPrice,
     maxPrice,
     searchAmount,
-    searchProvince,
-    searchDistrict,
+    // searchProvince,
+    // searchDistrict,
     searchWard,
   ]);
 
@@ -167,7 +173,7 @@ const Room = () => {
       });
   }, [listWard]);
 
-  const room = roomData.filter((n) => n._id !== "6452a565c33ced564a4ab3b4");
+  const room = roomFilterData.filter((n) => n._id !== "6452a565c33ced564a4ab3b4");
   const district = listDistrict.filter((n) => n.idprovince._id == searchProvince);
   const ward = listWard.filter((n) => n.iddistrict._id == searchDistrict);
 
@@ -375,7 +381,6 @@ const Room = () => {
                       date={"03/04/2023"}
                     />
                   ))}
-                  ;
                 </div>
                 <hr />
 
