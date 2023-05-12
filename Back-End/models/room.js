@@ -51,6 +51,9 @@ const RoomSchema = new mongoose.Schema({
   mainimage: {
     type: String,
   },
+  quantity: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("Room", RoomSchema);
