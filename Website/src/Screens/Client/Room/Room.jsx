@@ -27,7 +27,6 @@ const Room = () => {
   const [searchDistrict, setSearchDistrict] = useState();
   const [searchProvince, setSearchProvince] = useState();
 
-
   useEffect(() => {
     axios
       .get(
@@ -46,15 +45,23 @@ const Room = () => {
   const applyFilters = () => {
     let updatedList = roomData;
     if (searchCarrer) {
-      updatedList = updatedList.filter((item) => item.idcareer._id === searchCarrer);
+      updatedList = updatedList.filter(
+        (item) => item.idcareer._id === searchCarrer
+      );
     }
 
-    // if (searchProvince) {
-    //   updatedList = updatedList.filter((item) => item.idprovince._id == searchProvince);
-    // }
-    // if (searchDistrict) {
-    //   updatedList = updatedList.filter((item) => item.iddistrict._id == searchDistrict);
-    // }
+    if (searchProvince) {
+      updatedList = updatedList.filter(
+        (item) => item.idprovince._id == searchProvince
+      );
+    }
+
+    if (searchDistrict) {
+      updatedList = updatedList.filter(
+        (item) => item.iddistrict._id == searchDistrict
+      );
+    }
+
     if (searchWard) {
       updatedList = updatedList.filter((item) => item.idward._id == searchWard);
     }
@@ -76,32 +83,30 @@ const Room = () => {
     //     cuisinesChecked.includes(item.cuisine)
     //   );
     // }
-    if(sort){
-      if(sort === "1"){
-        console.log("dang thuc hien 1")
-        updatedList = updatedList.sort((a,b) => a.price - b.price)
+    if (sort) {
+      if (sort === "1") {
+        console.log("dang thuc hien 1");
+        updatedList = updatedList.sort((a, b) => a.price - b.price);
       }
-      if(sort === "2"){
-        console.log("dang thuc hien 2")
-        updatedList = updatedList.sort((a,b) => b.price - a.price)
+      if (sort === "2") {
+        console.log("dang thuc hien 2");
+        updatedList = updatedList.sort((a, b) => b.price - a.price);
       }
     }
     // Search Filter
     if (searchName) {
       updatedList = updatedList.filter(
-        (item) => item.subject.toLowerCase().search(searchName.toLowerCase().trim()) !== -1
+        (item) =>
+          item.subject.toLowerCase().search(searchName.toLowerCase().trim()) !==
+          -1
       );
     }
 
-    if(minPrice && maxPrice){
-      updatedList = updatedList.filter(
-      (item) => item.price >= minPrice && item.price <= maxPrice
-    );
+    if (maxPrice) {
+      updatedList = updatedList.filter((item) => item.price <= maxPrice);
     }
 
     setRoomFilterData(updatedList);
-
-    // !updatedList.length ? setResultsFound(false) : setResultsFound(true);
   };
   useEffect(() => {
     applyFilters();
@@ -112,8 +117,8 @@ const Room = () => {
     minPrice,
     maxPrice,
     searchAmount,
-    // searchProvince,
-    // searchDistrict,
+    searchProvince,
+    searchDistrict,
     searchWard,
   ]);
 
@@ -132,7 +137,7 @@ const Room = () => {
   }, [listCarrer]);
 
   useEffect(() => {
-      axios
+    axios
       .get(
         `${
           process.env.REACT_APP_URL
@@ -146,7 +151,7 @@ const Room = () => {
   }, [listProvince]);
 
   useEffect(() => {
-      axios
+    axios
       .get(
         `${
           process.env.REACT_APP_URL
@@ -160,7 +165,7 @@ const Room = () => {
   }, [listDistrict]);
 
   useEffect(() => {
-      axios
+    axios
       .get(
         `${
           process.env.REACT_APP_URL
@@ -173,8 +178,12 @@ const Room = () => {
       });
   }, [listWard]);
 
-  const room = roomFilterData.filter((n) => n._id !== "6452a565c33ced564a4ab3b4");
-  const district = listDistrict.filter((n) => n.idprovince._id == searchProvince);
+  const room = roomFilterData.filter(
+    (n) => n._id !== "6452a565c33ced564a4ab3b4"
+  );
+  const district = listDistrict.filter(
+    (n) => n.idprovince._id == searchProvince
+  );
   const ward = listWard.filter((n) => n.iddistrict._id == searchDistrict);
 
   return (
@@ -227,41 +236,49 @@ const Room = () => {
                       <div className="card-body">
                         <div className="form-group row">
                           <div className="col-sm-12">
-                          <label for="min" className="form-label">
+                            <label for="min" className="form-label">
                               Thành Phố
                             </label>
                             <select
                               class="form-select"
                               aria-label="Default select example"
-                              onChange={(e) => setSearchProvince(e.target.value)}
+                              onChange={(e) =>
+                                setSearchProvince(e.target.value)
+                              }
                             >
                               <option selected>Chọn Thành Phố</option>
                               {listProvince.map((item) => (
-                                <option value={item._id}>{item.provincename}</option>
+                                <option value={item._id}>
+                                  {item.provincename}
+                                </option>
                               ))}
                             </select>
                           </div>
                         </div>
                         <div className="form-group row">
                           <div className="col-sm-12">
-                          <label for="min" className="form-label">
+                            <label for="min" className="form-label">
                               Quận/Huyện
                             </label>
                             <select
                               class="form-select"
                               aria-label="Default select example"
-                              onChange={(e) => setSearchDistrict(e.target.value)}
+                              onChange={(e) =>
+                                setSearchDistrict(e.target.value)
+                              }
                             >
                               <option selected>Chọn Quận/Huyện</option>
                               {district.map((item) => (
-                                <option value={item._id}>{item.districtname}</option>
+                                <option value={item._id}>
+                                  {item.districtname}
+                                </option>
                               ))}
                             </select>
                           </div>
                         </div>
                         <div className="form-group row">
                           <div className="col-sm-12">
-                          <label for="min" className="form-label">
+                            <label for="min" className="form-label">
                               Phường/xã
                             </label>
                             <select
@@ -271,7 +288,9 @@ const Room = () => {
                             >
                               <option selected>Chọn Phường/xã</option>
                               {ward.map((item) => (
-                                <option value={item._id}>{item.wardname}</option>
+                                <option value={item._id}>
+                                  {item.wardname}
+                                </option>
                               ))}
                             </select>
                           </div>
@@ -285,7 +304,17 @@ const Room = () => {
                     <div className="collapse show" id="collapse_aside2">
                       <div className="card-body">
                         <div className="row mb-3">
-                          <div className="col-6">
+                          <label for="customRange2" class="form-label">
+                            Chọn giá mà bạn muốn
+                          </label>
+                          <input
+                            type="range"
+                            class="form-range"
+                            min="0"
+                            max="100"
+                            onChange={(e) => setMaxPrice(e.target.value)}
+                          />
+                          {/* <div className="col-6">
                             <label for="min" className="form-label">
                               Nhỏ nhất
                             </label>
@@ -310,7 +339,7 @@ const Room = () => {
                               type="number"
                               onChange={(e) => setMaxPrice(e.target.value)}
                             />
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -352,7 +381,10 @@ const Room = () => {
                         onChange={(e) => setSearchName(e.target.value)}
                       />
                     </div>
-                    <select className="form-select d-inline-block w-auto me-1"  onChange={(e) => setSort(e.target.value)}>
+                    <select
+                      className="form-select d-inline-block w-auto me-1"
+                      onChange={(e) => setSort(e.target.value)}
+                    >
                       <option value="0">Tùy chọn</option>
                       <option value="1">Giá thấp đến cao</option>
                       <option value="2">Giá cao đến thấp</option>

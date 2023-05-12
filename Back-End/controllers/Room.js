@@ -9,6 +9,8 @@ const RoomController = {
   getAllRoom: async (req, res) => {
     try {
       const room = await Room.find()
+        .populate("idprovince")
+        .populate("iddistrict")
         .populate("idward")
         .populate("idcareer")
         .populate("idaccount");
@@ -70,6 +72,7 @@ const RoomController = {
         describe: req.body.describe,
         housenumberstreetname: req.body.housenumberstreetname,
         mainimage: req.files[0].filename.split(".", 1) + ".jpeg",
+        quantity: req.body.quantity,
       });
       await newRoom.save();
 
