@@ -28,7 +28,7 @@ const RoomSchema = new mongoose.Schema({
     type: String,
   },
   price: {
-    type: String,
+    type: Number,
   },
   longitude: {
     type: String,
