@@ -19,10 +19,9 @@ const Room = () => {
   // Filter
   const [searchName, setSearchName] = useState();
   const [sort, setSort] = useState("0");
-  const [searchCarrer, setSearchCarrer] = useState();
-  const [minPrice, setMinPrice] = useState();
+  const [arrFilterCarrer, setArrFilterCarrer] = useState([]);
   const [maxPrice, setMaxPrice] = useState();
-  const [searchAmount, setSearchAmount] = useState();
+  const [searchQuantity, setsearchQuantity] = useState();
   const [searchWard, setSearchWard] = useState();
   const [searchDistrict, setSearchDistrict] = useState();
   const [searchProvince, setSearchProvince] = useState();
@@ -44,10 +43,20 @@ const Room = () => {
 
   const applyFilters = () => {
     let updatedList = roomData;
-    if (searchCarrer) {
-      updatedList = updatedList.filter(
-        (item) => item.idcareer._id === searchCarrer
-      );
+
+    if (arrFilterCarrer) {
+      let arr = [];
+      arrFilterCarrer.map((item) => {
+        let List = updatedList.filter(
+          (itemlist) => itemlist.idcareer._id === item.id
+        );
+        arr.push(...List);
+      });
+      if (arr.length == 0) {
+        updatedList = roomData;
+      } else {
+        updatedList = arr;
+      }
     }
 
     if (searchProvince) {
@@ -66,34 +75,21 @@ const Room = () => {
       updatedList = updatedList.filter((item) => item.idward._id == searchWard);
     }
 
-    // Category Filter
-    // if (selectedCategory) {
-    //   updatedList = updatedList.filter(
-    //     (item) => item.category === selectedCategory
-    //   );
-    // }
+    if (searchQuantity) {
+      updatedList = updatedList.filter(
+        (item) => item.quantity <= searchQuantity
+      );
+    }
 
-    // Cuisine Filter
-    // const cuisinesChecked = cuisines
-    //   .filter((item) => item.checked)
-    //   .map((item) => item.label.toLowerCase());
-
-    // if (cuisinesChecked.length) {
-    //   updatedList = updatedList.filter((item) =>
-    //     cuisinesChecked.includes(item.cuisine)
-    //   );
-    // }
     if (sort) {
-      if (sort === "1") {
-        console.log("dang thuc hien 1");
-        updatedList = updatedList.sort((a, b) => a.price - b.price);
+      if (sort == "1") {
+        updatedList = updatedList.sort((a, b) => (a.price > b.price ? 1 : -1));
       }
-      if (sort === "2") {
-        console.log("dang thuc hien 2");
-        updatedList = updatedList.sort((a, b) => b.price - a.price);
+      if (sort == "2") {
+        updatedList = updatedList.sort((a, b) => (a.price < b.price ? 1 : -1));
       }
     }
-    // Search Filter
+
     if (searchName) {
       updatedList = updatedList.filter(
         (item) =>
@@ -108,15 +104,29 @@ const Room = () => {
 
     setRoomFilterData(updatedList);
   };
+
+  const handleChangeChecked = (id) => {
+    const list = arrFilterCarrer;
+    const check = list.find((item) => {
+      return item.id === id;
+    });
+    if (check) {
+      console.log(list.filter((n) => n.id !== id));
+      setArrFilterCarrer(list.filter((n) => n.id !== id));
+    } else {
+      console.log([...list, { id: id }]);
+      setArrFilterCarrer([...list, { id: id }]);
+    }
+  };
+
   useEffect(() => {
     applyFilters();
   }, [
     searchName,
     sort,
-    searchCarrer,
-    minPrice,
+    arrFilterCarrer,
     maxPrice,
-    searchAmount,
+    searchQuantity,
     searchProvince,
     searchDistrict,
     searchWard,
@@ -178,9 +188,7 @@ const Room = () => {
       });
   }, [listWard]);
 
-  const room = roomFilterData.filter(
-    (n) => n._id !== "6452a565c33ced564a4ab3b4"
-  );
+  const room = roomFilterData;
   const district = listDistrict.filter(
     (n) => n.idprovince._id == searchProvince
   );
@@ -218,7 +226,7 @@ const Room = () => {
                             <input
                               className="form-check-input"
                               type="checkbox"
-                              onChange={(e) => setSearchCarrer(item._id)}
+                              onChange={(e) => handleChangeChecked(item._id)}
                             />
                             <span className="form-check-label">
                               {" "}
@@ -305,41 +313,15 @@ const Room = () => {
                       <div className="card-body">
                         <div className="row mb-3">
                           <label for="customRange2" class="form-label">
-                            Chọn giá mà bạn muốn
+                            Giá hiện tại: {maxPrice}
                           </label>
                           <input
                             type="range"
                             class="form-range"
                             min="0"
-                            max="100"
+                            max="1000000"
                             onChange={(e) => setMaxPrice(e.target.value)}
                           />
-                          {/* <div className="col-6">
-                            <label for="min" className="form-label">
-                              Nhỏ nhất
-                            </label>
-                            <input
-                              className="form-control"
-                              id="min"
-                              placeholder="0"
-                              type="number"
-                              style={{ boxShadow: "#000" }}
-                              onChange={(e) => setMinPrice(e.target.value)}
-                            />
-                          </div>
-
-                          <div className="col-6">
-                            <label for="max" className="form-label">
-                              Lớn nhất
-                            </label>
-                            <input
-                              className="form-control"
-                              id="max"
-                              placeholder="500.000"
-                              type="number"
-                              onChange={(e) => setMaxPrice(e.target.value)}
-                            />
-                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -356,7 +338,9 @@ const Room = () => {
                               id="max"
                               placeholder="Nhập sức chứa"
                               type="number"
-                              onChange={(e) => setSearchAmount(e.target.value)}
+                              onChange={(e) =>
+                                setsearchQuantity(e.target.value)
+                              }
                             />
                           </div>
                         </div>
@@ -408,8 +392,8 @@ const Room = () => {
                       careername={item.idcareer.careername}
                       subject={item.subject}
                       price={item.price}
-                      content={"phòng ngủ sẽ phù hợp với việc đi làm xa"}
-                      amount={"5"}
+                      describe={item.describe}
+                      quantity={item.quantity}
                       date={"03/04/2023"}
                     />
                   ))}

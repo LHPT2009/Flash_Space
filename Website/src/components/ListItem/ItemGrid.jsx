@@ -25,8 +25,8 @@ const ItemGrid = (props) => {
               <span class="price">{props.price}</span>
               <span class="period">VNĐ/1h</span>
             </span>
-            <p class="card-text">{props.content}</p>
-            <i class="fa fa-user"></i> {props.amount}
+            <p class="card-text">{props.describe}</p>
+            <i class="fa fa-user"></i> {props.quantity}
           </div>
           <div class="footer">
             <small class="text-muted">{props.date}</small>
