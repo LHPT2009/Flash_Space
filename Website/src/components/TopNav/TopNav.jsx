@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import "./TopNav.css";
 
 const TopNav = () => {
+  const logout = () => {
+    localStorage.removeItem("token");
+  };
   return (
     <div>
       <div
@@ -141,7 +144,11 @@ const TopNav = () => {
                         >
                           Phòng yêu thích
                         </Link>
-                        <Link to={"/"} className="dropdown-item text-white">
+                        <Link
+                          to={"/login"}
+                          className="dropdown-item text-white"
+                          onClick={() => logout()}
+                        >
                           Đăng xuất!
                         </Link>
                       </div>
@@ -188,7 +195,11 @@ const TopNav = () => {
                       >
                         Phòng yêu thích
                       </Link>
-                      <Link to={"/"} className="dropdown-item text-white">
+                      <Link
+                        to={"/login"}
+                        className="dropdown-item text-white"
+                        onClick={() => logout()}
+                      >
                         Đăng xuất!
                       </Link>
                     </div>

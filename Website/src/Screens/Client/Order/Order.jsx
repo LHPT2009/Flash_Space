@@ -3,10 +3,47 @@ import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import { Link } from "react-router-dom";
 import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
-import { useContext } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 const Order = () => {
-  const { timeslots, editListTimeSlot } = useContext(ListTimeSlotContext);
+  const id = jwtDecode(localStorage.getItem("token")).id;
+  const { timeslots, editListTimeSlot ,deleteitem} = useContext(ListTimeSlotContext);
+  const [account, setAccount] = useState([]);
+  const [sum, setSum] = useState(0);
+  useEffect(() => {
+    const id = jwtDecode(localStorage.getItem("token")).id;
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/account/${id}`
+      )
+      .then((res) => {
+        setAccount(res.data);
+        console.log(res.data);
+      });
+  }, []);
+
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  useEffect(() => {
+    let sum = 0;
+    timeslots.forEach((item) => {
+      sum = sum + item.pricetime;
+      setSum(item.pricetime);
+    });
+    setSum(sum);
+  }, [timeslots]);
+  
+  // const  = (event) => {
+    
+  // }
   return (
     <div>
       <TopNav />
@@ -45,19 +82,20 @@ const Order = () => {
                         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
                             <address className="text-black">
-                              Nguyễn Văn Chuẩn
+                              {account.firstname + " " + account.lastname}
                               <br />
-                              181/7 Liên Tỉnh 5, phường 5, Quận 8, TP.HCM
+                              {account.email}
                               <br />
-                              0372417574
+                              {account.phonenumber}
                             </address>
                           </div>
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
                             <div class="invoice-num text-black">
-                              <div>Mã hóa đơn: #1232132131</div>
-                              <div>Ngày 18 tháng 03 năm 2023</div>
+                              <div>
+                                Ngày {day} tháng {month} năm {year}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -72,45 +110,40 @@ const Order = () => {
                               <thead>
                                 <tr>
                                   <th>Tên phòng</th>
-                                  <th>Mã Phòng</th>
+                                  <th>Ngày đặt</th>
                                   <th>Bắt đầu</th>
                                   <th>kết thúc</th>
                                   <th>giá tiền</th>
+                                  <th></th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {timeslots.map((item) => (
                                   <tr>
-                                  <td>{item.roomname}</td>
-                                  <td>{item.idroom}</td>
-                                  <td>{item.starttime}</td>
-                                  <td>{item.endtime}</td>
-                                  <td>{item.pricetime} VNĐ</td>
-                                </tr>
+                                    <td>{item.roomname}</td>
+                                    <td>{item.date}</td>
+                                    <td>{item.starttime}</td>
+                                    <td>{item.endtime}</td>
+                                    <td>{item.pricetime} VNĐ</td>
+                                    <td>
+                                      <button className="btn btn-warning btn-lg btn-radius" onClick={() => deleteitem(item.idworkinghours)}>
+                                        Hủy
+                                      </button>
+                                    </td>
+                                  </tr>
                                 ))}
                                 <tr>
                                   <td>&nbsp;</td>
                                   <td>&nbsp;</td>
+
                                   <td colspan="2">
-                                    <p>
-                                      Tổng tiền
-                                      <br />
-                                      Chi phí phát xin
-                                      <br />
-                                    </p>
                                     <h5 class="text-black">
                                       <strong>Tổng tiền</strong>
                                     </h5>
                                   </td>
                                   <td>
-                                    <p>
-                                      500 000 VNĐ
-                                      <br />
-                                      0 VNĐ
-                                      <br />
-                                    </p>
                                     <h5 class="text-black">
-                                      <strong>500 000 VNĐ</strong>
+                                      <strong>{sum} VNĐ</strong>
                                     </h5>
                                   </td>
                                 </tr>

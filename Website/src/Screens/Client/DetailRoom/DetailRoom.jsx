@@ -6,8 +6,9 @@ import Footer from "../../../components/Footer/Footer";
 import Rating from "../../../components/Rating/Rating";
 import Button from "./Button";
 import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const DetailRoom = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [careername, setCareername] = useState();
   const [subject, setSubject] = useState();
@@ -18,8 +19,9 @@ const DetailRoom = () => {
   const [districtname, setDistrictname] = useState();
   const [provincename, setProvincename] = useState();
   const [quantity, setQuantity] = useState();
+  const [DateOrder, setDateOrder] = useState();
   const [listWorkingHours, setListWorkingHours] = useState([]);
-  const { timeslots, editListTimeSlot,deleteListTimeSlot } = useContext(ListTimeSlotContext);
+  const { timeslots ,deleteListTimeSlot } = useContext(ListTimeSlotContext);
   useEffect(() => {
     deleteListTimeSlot();
   },[id])
@@ -201,8 +203,17 @@ const DetailRoom = () => {
 
                                   <input
                                     type="date"
-                                    onChange={(e) =>
-                                      searchWorkingHours(e.target.value)
+                                    onChange={(e) =>{
+                                      if(localStorage.getItem("token")){
+                                        searchWorkingHours(e.target.value)
+                                      setDateOrder(e.target.value)
+                                      }
+                                      else{
+                                        alert("mời bạn đăng nhập");
+                                        navigate("/login")
+                                      }
+
+                                    }
                                     }
                                     className="form-control"
                                     forma
@@ -224,6 +235,7 @@ const DetailRoom = () => {
                                     starttime={item.idtimeslot.starttime} 
                                     endtime={item.idtimeslot.endtime}
                                     pricetime = {price}
+                                    date={DateOrder}
                                     />
                                     )
                                   })}
@@ -231,7 +243,7 @@ const DetailRoom = () => {
                                 </div>
                               </div>
                               <footer>
-                                {timeslots.length > 0?(
+                                {timeslots.length > 0 ?
                                   <Link
                                     to={"/order"}
                                     class="btn btn-primary btn-lg btn-radius"
@@ -242,7 +254,7 @@ const DetailRoom = () => {
                                   >
                                     Đặt lịch
                                   </Link>
-                                ) : 
+                                 : 
                                 ""
                                 }
                               </footer>
