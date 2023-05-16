@@ -90,7 +90,7 @@ const App = () => {
           <Route path="/confirm" element={<Confirm />} />
           <Route path="/newreset" element={<NewReset />} />
           <Route path="/favourite" element={<Favourite />} />
-          <Route path="/order" element={<Order />} />
+          <Route path="/order" edetailroomlement={<Order />} />
 
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/accountadmin" element={<AccountAdmin />} />

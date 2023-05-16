@@ -12,15 +12,17 @@ const ListTimeSlotProvider = (props) => {
       setTimeSlots(
         timeslots.filter((n) => n.idworkinghours !== timeslot.idworkinghours)
       );
-      alert("Đã xóa..");
     } else {
       setTimeSlots([...timeslots, timeslot]);
-      alert("Đã thêm..");
     }
   };
 
   const deleteListTimeSlot = async () => {
     setTimeSlots([]);
+  };
+
+  const deleteitem = (idworkinghours) => {
+    setTimeSlots(timeslots.filter((n) => n.idworkinghours !== idworkinghours));
   };
   return (
     <ListTimeSlotContext.Provider
@@ -28,6 +30,7 @@ const ListTimeSlotProvider = (props) => {
         timeslots,
         editListTimeSlot,
         deleteListTimeSlot,
+        deleteitem,
       }}
     >
       {props.children}

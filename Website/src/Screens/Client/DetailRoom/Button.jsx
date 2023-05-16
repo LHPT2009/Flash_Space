@@ -5,6 +5,11 @@ const Button = (props) => {
   const { editListTimeSlot } = useContext(ListTimeSlotContext);
   const handleClick = () => {
     setActive(!active);
+    const date = new Date(props.date);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; 
+    const year = date.getFullYear();
+
     const idroom = props.idroom;
     const idworkinghours = props.idworkinghours;
     const roomname = props.roomname;
@@ -18,6 +23,7 @@ const Button = (props) => {
       starttime,
       endtime,
       pricetime,
+      date: `${day}-${month}-${year}`
     };
     editListTimeSlot(timeslot)
   };
