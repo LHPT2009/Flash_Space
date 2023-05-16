@@ -1,20 +1,79 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import "./DetailRoom.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import Rating from "../../../components/Rating/Rating";
-import { Link } from "react-router-dom";
-import { InformationAccountContext } from "../../../context/InformationAccountContext";
+import Button from "./Button";
+import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
+import { Link, useParams } from "react-router-dom";
 const DetailRoom = () => {
-  
-  // const { informations } = useContext(InformationAccountContext);
-  // Object.assign(informations,{roomdetail:"showdataroomdetail"})
-  // console.log(JSON.stringify(informations))
+  const { id } = useParams();
+  const [careername, setCareername] = useState();
+  const [subject, setSubject] = useState();
+  const [price, setPrice] = useState();
+  const [describe, setDescribe] = useState();
+  const [housenumberstreetname, setHousenumberstreetname] = useState();
+  const [wardname, setWardname] = useState();
+  const [districtname, setDistrictname] = useState();
+  const [provincename, setProvincename] = useState();
+  const [quantity, setQuantity] = useState();
+  const [listWorkingHours, setListWorkingHours] = useState([]);
+  const { timeslots, editListTimeSlot,deleteListTimeSlot } = useContext(ListTimeSlotContext);
+  useEffect(() => {
+    deleteListTimeSlot();
+  },[id])
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/room/${id}`
+      )
+      .then((res) => {
+        setCareername(res.data.idcareer.careername);
+        setSubject(res.data.subject);
+        setPrice(res.data.price);
+        setDescribe(res.data.describe);
+        setHousenumberstreetname(res.data.housenumberstreetname);
+        setWardname(res.data.idward.wardname);
+        setDistrictname(res.data.iddistrict.districtname);
+        setProvincename(res.data.idprovince.provincename);
+        setQuantity(res.data.quantity);
+      });
+  }, [id]);
 
-  const [date, setDate] = useState();
-  const [image, setImage] = useState(
-    "https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-  );
+  const searchWorkingHours = (date) => {
+    const datestring = new Date(date);
+    const day =
+      datestring.getDate() <= 10
+        ? `0${datestring.getDate()}`
+        : `${datestring.getDate()}`;
+    const month =
+      datestring.getMonth() + 1 <= 10
+        ? `0${datestring.getMonth() + 1}`
+        : `${datestring.getMonth() + 1}`;
+    const year = datestring.getFullYear();
+    const convertdate = year + "-" + month + "-" + day;
+
+    const listTimeSlot = axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/workinghours/${id}`,
+        {
+          date: convertdate,
+        }
+      )
+      .then((res) => {
+        setListWorkingHours(res.data);
+      });
+  };
+
   return (
     <>
       <TopNav />
@@ -39,7 +98,7 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src={image}
+                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
                                       class="img-responsive"
                                       alt=""
                                     />
@@ -100,34 +159,40 @@ const DetailRoom = () => {
                                 <div class="product-info">
                                   <div class="wp-block property list no-border">
                                     <div class="wp-block-content clearfix">
-                                      <div class="col-sm-6 d-flex flex-column text-black">
+                                      <div class="col-sm-12 d-flex flex-column text-black">
                                         <div
                                           class="card-body"
                                           style={{ padding: "15px" }}
                                         >
-                                          <small>Văn phòng</small>
+                                          <small>{careername}</small>
                                           <h4 class="card-title">
-                                            Phòng họp cho công ty
-                                            {/* <a href="#">
-                                          <i
-                                            class="fa fa-heart fa-2xl heart-gray"
-                                            style={{ marginLeft: "10px" }}
-                                          ></i>
-                                        </a> */}
+                                            {subject}
+                                            <a href="#">
+                                              <i
+                                                class="fa fa-heart fa-2xl heart-gray"
+                                                style={{ marginLeft: "10px" }}
+                                              ></i>
+                                            </a>
                                           </h4>
                                           <span class="pull-left">
-                                            <span class="price">250.000</span>
+                                            <span class="price">{price}</span>
                                             <span class="period">VNĐ/1h</span>
                                           </span>
-                                          <p class="card-text">
-                                            phòng ngủ sẽ phù hợp với việc đi làm
-                                            xa
-                                          </p>
-                                          <i class="fa fa-user"></i> 2
+                                          <p class="card-text">{describe}</p>
+                                          <i class="fa fa-user"></i> {quantity}
                                         </div>
-                                        <div class="footer">
+                                        <div
+                                          class="footer"
+                                          style={{ padding: "15px" }}
+                                        >
                                           <small class="text-muted">
-                                            30/8/2022
+                                            {housenumberstreetname +
+                                              ", " +
+                                              wardname +
+                                              ", " +
+                                              districtname +
+                                              ", " +
+                                              provincename}
                                           </small>
                                         </div>
                                       </div>
@@ -136,9 +201,11 @@ const DetailRoom = () => {
 
                                   <input
                                     type="date"
-                                    value={date}
-                                    onChange={(e) => setDate(e.target.value)}
+                                    onChange={(e) =>
+                                      searchWorkingHours(e.target.value)
+                                    }
                                     className="form-control"
+                                    forma
                                     style={{
                                       width: "100%",
                                       height: "40px",
@@ -148,62 +215,36 @@ const DetailRoom = () => {
                                       textAlign: "center",
                                     }}
                                   />
-
-                                  <button
-                                    type="button"
-                                    class="btn btn-secondary btn-lg btn-radius"
-                                    style={{
-                                      marginRight: "5px",
-                                      marginBottom: "5px",
-                                    }}
-                                  >
-                                    10:00 {"->"} 11:00
-                                  </button>
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-lg btn-radius"
-                                    style={{
-                                      marginRight: "5px",
-                                      marginBottom: "5px",
-                                    }}
-                                  >
-                                    11:00 {"->"} 12:00
-                                  </button>
-
-                                  <button
-                                    type="button"
-                                    class="btn btn-secondary btn-lg btn-radius"
-                                    style={{
-                                      marginRight: "5px",
-                                      marginBottom: "5px",
-                                    }}
-                                  >
-                                    13:00 {"->"} 14:00
-                                  </button>
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-lg btn-radius"
-                                    style={{
-                                      marginRight: "5px",
-                                      marginBottom: "5px",
-                                    }}
-                                  >
-                                    11:00 {"->"} 12:00
-                                  </button>
+                                  {listWorkingHours.map((item) => {
+                                    return(
+                                    <Button 
+                                    idroom ={id}
+                                    idworkinghours ={item._id}
+                                    roomname = {subject}
+                                    starttime={item.idtimeslot.starttime} 
+                                    endtime={item.idtimeslot.endtime}
+                                    pricetime = {price}
+                                    />
+                                    )
+                                  })}
                                   <span class="clearfix"></span>
                                 </div>
                               </div>
                               <footer>
-                                <Link
-                                  to={"/order"}
-                                  class="btn btn-primary btn-lg btn-radius"
-                                  style={{
-                                    width: "100%",
-                                    fontSize: "20px",
-                                  }}
-                                >
-                                  Đặt lịch
-                                </Link>
+                                {timeslots.length > 0?(
+                                  <Link
+                                    to={"/order"}
+                                    class="btn btn-primary btn-lg btn-radius"
+                                    style={{
+                                      width: "100%",
+                                      fontSize: "20px",
+                                    }}
+                                  >
+                                    Đặt lịch
+                                  </Link>
+                                ) : 
+                                ""
+                                }
                               </footer>
                             </div>
                           </div>

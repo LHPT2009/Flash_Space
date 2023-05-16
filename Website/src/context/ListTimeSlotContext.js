@@ -4,22 +4,30 @@ export const ListTimeSlotContext = createContext();
 const ListTimeSlotProvider = (props) => {
   const [timeslots, setTimeSlots] = useState([]);
 
-  const editTimeSlot = async (timeslot) => {
+  const editListTimeSlot = async (timeslot) => {
     const existedTimeslot = timeslots.find((item) => {
-      return item.id === timeslot.id;
+      return item.idworkinghours === timeslot.idworkinghours;
     });
     if (existedTimeslot) {
-      setTimeSlots(timeslots.filter((n) => n.id !== timeslot.id));
+      setTimeSlots(
+        timeslots.filter((n) => n.idworkinghours !== timeslot.idworkinghours)
+      );
+      alert("Đã xóa..");
     } else {
       setTimeSlots([...timeslots, timeslot]);
+      alert("Đã thêm..");
     }
   };
 
+  const deleteListTimeSlot = async () => {
+    setTimeSlots([]);
+  };
   return (
     <ListTimeSlotContext.Provider
       value={{
         timeslots,
-        editTimeSlot,
+        editListTimeSlot,
+        deleteListTimeSlot,
       }}
     >
       {props.children}

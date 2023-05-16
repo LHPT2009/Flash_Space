@@ -30,7 +30,12 @@ const RoomController = {
 
   getRoomById: async (req, res) => {
     try {
-      const room = await Room.findById(req.params.id);
+      const room = await Room.findById(req.params.id)
+        .populate("idprovince")
+        .populate("iddistrict")
+        .populate("idward")
+        .populate("idcareer")
+        .populate("idaccount");
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);

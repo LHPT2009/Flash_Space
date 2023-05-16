@@ -2,7 +2,11 @@ import "./Order.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import { Link } from "react-router-dom";
+import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
+import { useContext } from "react";
+
 const Order = () => {
+  const { timeslots, editListTimeSlot } = useContext(ListTimeSlotContext);
   return (
     <div>
       <TopNav />
@@ -75,20 +79,15 @@ const Order = () => {
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>Phòng thuê quận 8</td>
-                                  <td>#50000981</td>
-                                  <td>09h00</td>
-                                  <td>10h00</td>
-                                  <td>250 000 VNĐ</td>
+                                {timeslots.map((item) => (
+                                  <tr>
+                                  <td>{item.roomname}</td>
+                                  <td>{item.idroom}</td>
+                                  <td>{item.starttime}</td>
+                                  <td>{item.endtime}</td>
+                                  <td>{item.pricetime} VNĐ</td>
                                 </tr>
-                                <tr>
-                                  <td>Phòng thuê quận 8</td>
-                                  <td>#50000981</td>
-                                  <td>10h00</td>
-                                  <td>11h00</td>
-                                  <td>250 000 VNĐ</td>
-                                </tr>
+                                ))}
                                 <tr>
                                   <td>&nbsp;</td>
                                   <td>&nbsp;</td>

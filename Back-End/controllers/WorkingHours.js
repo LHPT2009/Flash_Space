@@ -20,7 +20,10 @@ const WorkingHoursController = {
 
   getWorkingHoursById: async (req, res) => {
     try {
-      const workingHours = await WorkingHours.findById(req.params.id);
+      const workingHours = await WorkingHours.find({
+        idroom: req.params.id,
+        date: req.body.date,
+      }).populate("idtimeslot");
       res.status(200).json(workingHours);
     } catch (error) {
       res.status(500).json(error);
