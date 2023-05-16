@@ -21,10 +21,27 @@ const DetailRoom = () => {
   const [quantity, setQuantity] = useState();
   const [DateOrder, setDateOrder] = useState();
   const [listWorkingHours, setListWorkingHours] = useState([]);
+  const [showImageRoom, setShowImageRoom] = useState();
+  const [listImageRoom, setListImageRoom] = useState([]);
   const { timeslots ,deleteListTimeSlot } = useContext(ListTimeSlotContext);
   useEffect(() => {
     deleteListTimeSlot();
   },[id])
+
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/image/byroom/${id}`
+      )
+      .then((res) => {
+        setListImageRoom(res.data);
+      });
+  }, [id]);
+
   useEffect(() => {
     axios
       .get(
@@ -44,6 +61,7 @@ const DetailRoom = () => {
         setDistrictname(res.data.iddistrict.districtname);
         setProvincename(res.data.idprovince.provincename);
         setQuantity(res.data.quantity);
+        setShowImageRoom(res.data.mainimage)
       });
   }, [id]);
 
@@ -100,57 +118,27 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
+                                      src={`http://localhost:8000/singleimage/${showImageRoom}`}
                                       class="img-responsive"
                                       alt=""
                                     />
                                   </a>
                                 </div>
                                 <div class="thumbnail-images">
+                                {listImageRoom.map((item) => (
                                   <a
-                                    href="#"
-                                    class="theater"
-                                    rel="group"
-                                    hidefocus="true"
-                                  >
-                                    <img
-                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                      alt=""
-                                    />
-                                  </a>
-                                  <a
-                                    href="#"
-                                    class="theater"
-                                    rel="group"
-                                    hidefocus="true"
-                                  >
-                                    <img
-                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                      alt=""
-                                    />
-                                  </a>
-                                  <a
-                                    href="#"
-                                    class="theater"
-                                    rel="group"
-                                    hidefocus="true"
-                                  >
-                                    <img
-                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                      alt=""
-                                    />
-                                  </a>
-                                  <a
-                                    href="#"
-                                    class="theater"
-                                    rel="group"
-                                    hidefocus="true"
-                                  >
-                                    <img
-                                      src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                      alt=""
-                                    />
-                                  </a>
+                                  href="#"
+                                  class="theater"
+                                  rel="group"
+                                  hidefocus="true"
+                                  onClick={(e) => setShowImageRoom(item.filename)}
+                                >
+                                  <img
+                                    src={`http://localhost:8000/singleimage/${item.filename}`}
+                                    alt=""
+                                  />
+                                </a>
+                                  ))}
                                 </div>
                               </div>
                             </div>
