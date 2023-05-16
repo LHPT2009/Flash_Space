@@ -62,7 +62,6 @@ const ImageController = {
       }
       res.status(200).json(image);
     } catch (error) {
-      console.log(error);
       res.status(500).json("Error!!!");
     }
   },
@@ -76,7 +75,6 @@ const ImageController = {
         res.status(404).json("No Image!");
       }
     } catch (error) {
-      console.log(error);
       res.status(500).json("Error!!!");
     }
   },
