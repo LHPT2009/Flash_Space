@@ -54,6 +54,9 @@ const RoomSchema = new mongoose.Schema({
   quantity: {
     type: Number,
   },
+  datetimenow: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Room", RoomSchema);

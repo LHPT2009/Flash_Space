@@ -66,6 +66,20 @@ const ImageController = {
       res.status(500).json("Error!!!");
     }
   },
+
+  getImageByIdRoom: async (req, res) => {
+    try {
+      const images = await Image.find({ idroom: req.params.idroom });
+      if (images) {
+        res.status(200).json(images);
+      } else {
+        res.status(404).json("No Image!");
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json("Error!!!");
+    }
+  },
 };
 
 module.exports = ImageController;
