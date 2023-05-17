@@ -71,8 +71,9 @@ const RoomController = {
         subject: req.body.subject,
         describe: req.body.describe,
         housenumberstreetname: req.body.housenumberstreetname,
-        mainimage: req.files[0].filename.split(".", 1) + ".jpeg",
+        mainimage: req.files[0].filename,
         quantity: req.body.quantity,
+        datetimenow: new Date.now(),
       });
       await newRoom.save();
 
@@ -92,7 +93,7 @@ const RoomController = {
 
         const newImage = new Image({
           idroom: newRoom.id,
-          filename: item.filename.split(".", 1) + ".jpeg",
+          filename: item.filename,
           type: 0,
         });
         newImage.save();

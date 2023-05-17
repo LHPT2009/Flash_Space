@@ -12,4 +12,6 @@ router.delete("/:id", ImageController.deleteImage);
 
 router.put("/:id", ImageController.updateImage);
 
+router.get("/byroom/:idroom", ImageController.getImageByIdRoom);
+
 module.exports = router;
