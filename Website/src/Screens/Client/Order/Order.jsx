@@ -1,18 +1,18 @@
 import "./Order.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
 import { useContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 const Order = () => {
+  const navigator = useNavigate();
   const id = jwtDecode(localStorage.getItem("token")).id;
   const { timeslots, editListTimeSlot ,deleteitem} = useContext(ListTimeSlotContext);
   const [account, setAccount] = useState([]);
   const [sum, setSum] = useState(0);
   useEffect(() => {
-    const id = jwtDecode(localStorage.getItem("token")).id;
     axios
       .get(
         `${
@@ -23,7 +23,6 @@ const Order = () => {
       )
       .then((res) => {
         setAccount(res.data);
-        console.log(res.data);
       });
   }, []);
 
@@ -41,9 +40,17 @@ const Order = () => {
     setSum(sum);
   }, [timeslots]);
   
-  // const  = (event) => {
-    
-  // }
+  const addorder = async (e) => {
+    e.preventDefault();
+    const idaccount = id;
+    const add = await axios.post(
+      `${process.env.REACT_APP_URL ? `${process.env.REACT_APP_URL}` : `http://localhost:8000`}/bookingschedule`,
+      {idaccount,timeslots}
+     ).then((item) => {
+      alert("da xong!!!")
+      navigator("/")
+     })
+  }
   return (
     <div>
       <TopNav />
@@ -165,6 +172,7 @@ const Order = () => {
                   <Link
                     to={"/"}
                     className="btn btn-success btn-lg btn-radius m-1"
+                    onClick={addorder}
                   >
                     Đặt phòng
                   </Link>

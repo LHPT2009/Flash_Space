@@ -1,4 +1,5 @@
 const BookingSchedule = require("../models/BookingSchedule");
+const WorkingHours = require("../models/WorkingHours");
 
 const BookingScheduleController = {
   getAllBookingSchedules: async (req, res) => {
@@ -29,13 +30,28 @@ const BookingScheduleController = {
 
   addBookingSchedule: async (req, res) => {
     try {
-      const newBookingSchedule = await new BookingSchedule({
-        idaccount: req.body.idaccount,
-        idworkinghours: req.body.idworkinghours,
-        static: 1,
-      });
+      // console.log(req.body.idaccount);
+      // console.log(req.body.timeslots);
+      const arr = req.body.timeslots;
+      arr.forEach(async (item) => {
+        const newBookingSchedule = await new BookingSchedule({
+          idaccount: req.body.idaccount,
+          idworkinghours: item.idworkinghours,
+          static: 0,
+        });
+        await newBookingSchedule.save();
 
-      await newBookingSchedule.save();
+        const updateWorkingHours = {
+          static: 1,
+        };
+        const workingHours = await WorkingHours.findByIdAndUpdate(
+          item.idworkinghours,
+          updateWorkingHours,
+          {
+            new: true,
+          }
+        );
+      });
       res.status(200).json("Add successfully");
     } catch (error) {
       res.status(500).json(error);
