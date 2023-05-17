@@ -57,7 +57,7 @@ const AccountController = {
       let compressedImageFileSavePath = path.join(
         __dirname,
         "../images",
-        req.file.filename.split(".", 1) + ".jpeg"
+        req.file.filename
       );
       sharp(req.file.path)
         // .resize(640, 480)
@@ -69,7 +69,7 @@ const AccountController = {
       const updateAccount = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        avatar: req.file.filename.split(".", 1) + ".jpeg",
+        avatar: req.file.filename,
         birthday: req.body.birthday,
         email: req.body.email,
         phonenumber: req.body.phonenumber,
