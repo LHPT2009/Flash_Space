@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const accountRoute = require("./routes/Account");
+const bookingRoomRoute = require("./routes/BookingRoom");
 const bookingScheduleRoute = require("./routes/BookingSchedule");
 const CareerRoute = require("./routes/Career");
 const DistrictRoute = require("./routes/District");
@@ -42,6 +43,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/account", accountRoute);
+app.use("/bookingroom", bookingRoomRoute);
 app.use("/bookingschedule", bookingScheduleRoute);
 app.use("/career", CareerRoute);
 app.use("/district", DistrictRoute);

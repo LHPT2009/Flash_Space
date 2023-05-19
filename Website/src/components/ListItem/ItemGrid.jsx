@@ -6,15 +6,18 @@ const ItemGrid = (props) => {
     <Link
       to={`/detailroom/${props._id}`}
       class="card"
-      style={{ maxWidth: "100%", textDecoration: "none" }}
+      style={{
+        textDecoration: "none",
+        height: "300px",
+      }}
     >
       <div class="row">
         <div class="col-sm-6">
           <img
             src={`http://localhost:8000/singleimage/${props.mainimage}`}
-            class="card-img h-100"
+            class="card-img"
             alt="..."
-            height={50}
+            style={{ height: "300px" }}
           />
         </div>
         <div class="col-sm-6 d-flex flex-column text-black">

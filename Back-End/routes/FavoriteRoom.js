@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 router.get("/", FavoriteRoomController.getAllFavoriteRoom);
 
-router.get("/:id", FavoriteRoomController.getFavoriteRoomById);
+router.get("/:idaccount", FavoriteRoomController.getFavoriteRoomByIdAccount);
 
 router.post("/", FavoriteRoomController.addFavoriteRoom);
 

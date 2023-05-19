@@ -9,11 +9,18 @@ const EvaluateSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Room",
   },
+  idbookingroom: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BookingRoom",
+  },
   point: {
     type: Number,
   },
   content: {
     type: String,
+  },
+  static: {
+    type: Number,
   },
 });
 

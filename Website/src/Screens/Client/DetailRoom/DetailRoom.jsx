@@ -7,6 +7,7 @@ import Rating from "../../../components/Rating/Rating";
 import Button from "./Button";
 import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import jwtDecode from "jwt-decode"
 const DetailRoom = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -94,6 +95,26 @@ const DetailRoom = () => {
       });
   };
 
+  const addFavoriteRoom = async () => {
+    if(localStorage.getItem("token")){
+      const add = await axios.post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/favoriteroom`,
+        {
+          idaccount: jwtDecode(localStorage.getItem("token")).id,
+          idroom: id,
+        }
+      ).then((ele) => {
+        alert("đã thêm vào yêu thích!")
+      }).catch((ele) => alert("Đã thêm yêu thích vào từ trước đó!"))
+    } else{
+      alert("Bạn chưa đăng nhập!")
+      navigate("/login")
+    }
+  }
   return (
     <>
       <TopNav />
@@ -157,7 +178,7 @@ const DetailRoom = () => {
                                           <small>{careername}</small>
                                           <h4 class="card-title">
                                             {subject}
-                                            <a href="#">
+                                            <a href="#" onClick={addFavoriteRoom}>
                                               <i
                                                 class="fa fa-heart fa-2xl heart-gray"
                                                 style={{ marginLeft: "10px" }}

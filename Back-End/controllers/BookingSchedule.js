@@ -19,9 +19,79 @@ const BookingScheduleController = {
     }
   },
 
+  // getBookingScheduleById: async (req, res) => {
+  //   try {
+  //     const bookingSchedule = await BookingSchedule.find({
+  //       idbookingroom: req.params.id,
+  //     })
+  //       .populate({
+  //         path: "idworkinghours",
+  //         populate: {
+  //           path: "idtimeslot",
+  //         },
+  //       })
+  //       .populate({
+  //         path: "idworkinghours",
+  //         populate: {
+  //           path: "idroom",
+  //           populate: {
+  //             path: "idward",
+  //           },
+  //         },
+  //       })
+  //       .populate({
+  //         path: "idworkinghours",
+  //         populate: {
+  //           path: "idroom",
+  //           populate: {
+  //             path: "idprovince",
+  //           },
+  //         },
+  //       })
+  //       .populate({
+  //         path: "idworkinghours",
+  //         populate: {
+  //           path: "idroom",
+  //           populate: {
+  //             path: "iddistrict",
+  //           },
+  //         },
+  //       })
+  //       .populate({
+  //         path: "idworkinghours",
+  //         populate: {
+  //           path: "idroom",
+  //           populate: {
+  //             path: "idcareer",
+  //           },
+  //         },
+  //       })
+  //       .populate({
+  //         path: "idbookingroom",
+  //       });
+  //     res.status(200).json(bookingSchedule);
+  //   } catch (error) {
+  //     res.status(500).json(error);
+  //   }
+  // },
+
   getBookingScheduleById: async (req, res) => {
     try {
-      const bookingSchedule = await BookingSchedule.findById(req.params.id);
+      const bookingSchedule = await BookingSchedule.find({
+        idbookingroom: req.params.id,
+      })
+        .populate({
+          path: "idworkinghours",
+          populate: {
+            path: "idtimeslot",
+          },
+        })
+        .populate({
+          path: "idworkinghours",
+          populate: {
+            path: "idroom",
+          },
+        });
       res.status(200).json(bookingSchedule);
     } catch (error) {
       res.status(500).json(error);
@@ -30,8 +100,6 @@ const BookingScheduleController = {
 
   addBookingSchedule: async (req, res) => {
     try {
-      // console.log(req.body.idaccount);
-      // console.log(req.body.timeslots);
       const arr = req.body.timeslots;
       arr.forEach(async (item) => {
         const newBookingSchedule = await new BookingSchedule({

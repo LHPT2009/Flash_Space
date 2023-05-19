@@ -43,9 +43,10 @@ const Order = () => {
   const addorder = async (e) => {
     e.preventDefault();
     const idaccount = id;
+    const total = sum;
     const add = await axios.post(
-      `${process.env.REACT_APP_URL ? `${process.env.REACT_APP_URL}` : `http://localhost:8000`}/bookingschedule`,
-      {idaccount,timeslots}
+      `${process.env.REACT_APP_URL ? `${process.env.REACT_APP_URL}` : `http://localhost:8000`}/bookingroom`,
+      {idaccount,timeslots,total}
      ).then((item) => {
       alert("da xong!!!")
       navigator("/")
