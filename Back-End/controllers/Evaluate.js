@@ -20,7 +20,18 @@ const EvaluateController = {
 
   getEvaluateById: async (req, res) => {
     try {
-      const evaluate = await Evaluate.findById(req.params.id);
+      const evaluate = await Evaluate.findOne({ idbookingroom: req.params.id });
+      res.status(200).json(evaluate);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
+  getListEvaluateByIdRoom: async (req, res) => {
+    try {
+      const evaluate = await Evaluate.find({ idroom: req.params.id }).populate(
+        "idaccount"
+      );
       res.status(200).json(evaluate);
     } catch (error) {
       res.status(500).json(error);
@@ -46,9 +57,16 @@ const EvaluateController = {
 
   updateEvaluate: async (req, res) => {
     try {
-      const updateEvaluate = req.body;
-      const evaluate = await Evaluate.findByIdAndUpdate(
-        req.params.id,
+      const updateEvaluate = {
+        idaccount: req.body.idaccount,
+        idroom: req.body.idaccount,
+        idbookingroom: req.body.idbookingroom,
+        point: req.body.point,
+        content: req.body.content,
+        static: 1,
+      };
+      const evaluate = await Evaluate.findOneAndUpdate(
+        { idbookingroom: req.params.id },
         updateEvaluate,
         {
           new: true,

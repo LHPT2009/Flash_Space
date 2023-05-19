@@ -1,17 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Comment.css";
 import axios from "axios";
 const Comment = (props) => {
   const [point, setPoint] = useState(0);
   const [content, setContent] = useState("");
-  const addrate = async () => {
-    const add = await axios
-      .post(
+  const [staticrate, setStaticRate] = useState("");
+
+  const loadrate = async () => {
+    const load = await axios
+      .get(
         `${
           process.env.REACT_APP_URL
             ? `${process.env.REACT_APP_URL}`
             : `http://localhost:8000`
-        }/evaluate`,
+        }/evaluate/${props.idbookingroom}`
+      )
+      .then((res) => {
+        setPoint(res.data.point);
+        setContent(res.data.content);
+        setStaticRate(res.data.static);
+      });
+  };
+  useEffect((item) => {
+    loadrate();
+  }, []);
+  const updaterate = async () => {
+    const update = await axios
+      .put(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/evaluate/${props.idbookingroom}`,
         {
           idaccount: props.idaccount,
           idroom: props.idroom,
@@ -81,12 +101,16 @@ const Comment = (props) => {
                   class="form-control"
                   placeholder="Bạn cảm thấy như thế nào trong quá trình sử dụng?"
                   rows="4"
+                  value={content}
                   onChange={(e) => setContent(e.target.value)}
                 ></textarea>
               </div>
 
               <div class="comment-btns mt-2">
-                <button class="btn btn-primary send btn-sm" onClick={addrate}>
+                <button
+                  class="btn btn-primary send btn-sm"
+                  onClick={updaterate}
+                >
                   Gửi đánh giá <i class="fa fa-long-arrow-right ml-1"></i>
                 </button>
               </div>

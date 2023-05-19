@@ -7,7 +7,7 @@ import Rating from "../../../components/Rating/Rating";
 import Button from "./Button";
 import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import jwtDecode from "jwt-decode"
+import jwtDecode from "jwt-decode";
 const DetailRoom = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -24,10 +24,10 @@ const DetailRoom = () => {
   const [listWorkingHours, setListWorkingHours] = useState([]);
   const [showImageRoom, setShowImageRoom] = useState();
   const [listImageRoom, setListImageRoom] = useState([]);
-  const { timeslots ,deleteListTimeSlot } = useContext(ListTimeSlotContext);
+  const { timeslots, deleteListTimeSlot } = useContext(ListTimeSlotContext);
   useEffect(() => {
     deleteListTimeSlot();
-  },[id])
+  }, [id]);
 
   useEffect(() => {
     axios
@@ -62,7 +62,7 @@ const DetailRoom = () => {
         setDistrictname(res.data.iddistrict.districtname);
         setProvincename(res.data.idprovince.provincename);
         setQuantity(res.data.quantity);
-        setShowImageRoom(res.data.mainimage)
+        setShowImageRoom(res.data.mainimage);
       });
   }, [id]);
 
@@ -96,25 +96,28 @@ const DetailRoom = () => {
   };
 
   const addFavoriteRoom = async () => {
-    if(localStorage.getItem("token")){
-      const add = await axios.post(
-        `${
-          process.env.REACT_APP_URL
-            ? `${process.env.REACT_APP_URL}`
-            : `http://localhost:8000`
-        }/favoriteroom`,
-        {
-          idaccount: jwtDecode(localStorage.getItem("token")).id,
-          idroom: id,
-        }
-      ).then((ele) => {
-        alert("đã thêm vào yêu thích!")
-      }).catch((ele) => alert("Đã thêm yêu thích vào từ trước đó!"))
-    } else{
-      alert("Bạn chưa đăng nhập!")
-      navigate("/login")
+    if (localStorage.getItem("token")) {
+      const add = await axios
+        .post(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/favoriteroom`,
+          {
+            idaccount: jwtDecode(localStorage.getItem("token")).id,
+            idroom: id,
+          }
+        )
+        .then((ele) => {
+          alert("đã thêm vào yêu thích!");
+        })
+        .catch((ele) => alert("Đã thêm yêu thích vào từ trước đó!"));
+    } else {
+      alert("Bạn chưa đăng nhập!");
+      navigate("/login");
     }
-  }
+  };
   return (
     <>
       <TopNav />
@@ -146,19 +149,21 @@ const DetailRoom = () => {
                                   </a>
                                 </div>
                                 <div class="thumbnail-images">
-                                {listImageRoom.map((item) => (
-                                  <a
-                                  href="#"
-                                  class="theater"
-                                  rel="group"
-                                  hidefocus="true"
-                                  onClick={(e) => setShowImageRoom(item.filename)}
-                                >
-                                  <img
-                                    src={`http://localhost:8000/singleimage/${item.filename}`}
-                                    alt=""
-                                  />
-                                </a>
+                                  {listImageRoom.map((item) => (
+                                    <a
+                                      href="#"
+                                      class="theater"
+                                      rel="group"
+                                      hidefocus="true"
+                                      onClick={(e) =>
+                                        setShowImageRoom(item.filename)
+                                      }
+                                    >
+                                      <img
+                                        src={`http://localhost:8000/singleimage/${item.filename}`}
+                                        alt=""
+                                      />
+                                    </a>
                                   ))}
                                 </div>
                               </div>
@@ -178,7 +183,10 @@ const DetailRoom = () => {
                                           <small>{careername}</small>
                                           <h4 class="card-title">
                                             {subject}
-                                            <a href="#" onClick={addFavoriteRoom}>
+                                            <a
+                                              href="#"
+                                              onClick={addFavoriteRoom}
+                                            >
                                               <i
                                                 class="fa fa-heart fa-2xl heart-gray"
                                                 style={{ marginLeft: "10px" }}
@@ -212,18 +220,15 @@ const DetailRoom = () => {
 
                                   <input
                                     type="date"
-                                    onChange={(e) =>{
-                                      if(localStorage.getItem("token")){
-                                        searchWorkingHours(e.target.value)
-                                      setDateOrder(e.target.value)
-                                      }
-                                      else{
+                                    onChange={(e) => {
+                                      if (localStorage.getItem("token")) {
+                                        searchWorkingHours(e.target.value);
+                                        setDateOrder(e.target.value);
+                                      } else {
                                         alert("mời bạn đăng nhập");
-                                        navigate("/login")
+                                        navigate("/login");
                                       }
-
-                                    }
-                                    }
+                                    }}
                                     className="form-control"
                                     forma
                                     style={{
@@ -236,23 +241,23 @@ const DetailRoom = () => {
                                     }}
                                   />
                                   {listWorkingHours.map((item) => {
-                                    return(
-                                    <Button 
-                                    idroom ={id}
-                                    idworkinghours ={item._id}
-                                    roomname = {subject}
-                                    starttime={item.idtimeslot.starttime} 
-                                    endtime={item.idtimeslot.endtime}
-                                    pricetime = {price}
-                                    date={DateOrder}
-                                    />
-                                    )
+                                    return (
+                                      <Button
+                                        idroom={id}
+                                        idworkinghours={item._id}
+                                        roomname={subject}
+                                        starttime={item.idtimeslot.starttime}
+                                        endtime={item.idtimeslot.endtime}
+                                        pricetime={price}
+                                        date={DateOrder}
+                                      />
+                                    );
                                   })}
                                   <span class="clearfix"></span>
                                 </div>
                               </div>
                               <footer>
-                                {timeslots.length > 0 ?
+                                {timeslots.length > 0 ? (
                                   <Link
                                     to={"/order"}
                                     class="btn btn-primary btn-lg btn-radius"
@@ -263,9 +268,9 @@ const DetailRoom = () => {
                                   >
                                     Đặt lịch
                                   </Link>
-                                 : 
-                                ""
-                                }
+                                ) : (
+                                  ""
+                                )}
                               </footer>
                             </div>
                           </div>
@@ -298,7 +303,7 @@ const DetailRoom = () => {
               </div>
             </div>
           </div>
-          <Rating />
+          <Rating idroom={id} />
         </div>
       </div>
       <Footer />

@@ -1,6 +1,7 @@
 const BookingRoom = require("../models/BookingRoom");
 const BookingSchedule = require("../models/BookingSchedule");
 const WorkingHours = require("../models/WorkingHours");
+const Evaluate = require("../models/Evaluate");
 
 const BookingRoomController = {
   getAllBookingRoom: async (req, res) => {
@@ -69,6 +70,16 @@ const BookingRoomController = {
           }
         );
       });
+
+      const newEvaluate = await new Evaluate({
+        idaccount: req.body.idaccount,
+        idbookingroom: newBookingRoom.id,
+        idroom: arr[0].idroom,
+        point: 0,
+        content: "",
+        static: 0,
+      });
+      await newEvaluate.save();
 
       res.status(200).json("Add successfully");
     } catch (error) {
