@@ -6,6 +6,8 @@ router.get("/", EvaluateController.getAllEvaluate);
 
 router.get("/:id", EvaluateController.getEvaluateById);
 
+router.get("/list/:id", EvaluateController.getListEvaluateByIdRoom);
+
 router.post("/", EvaluateController.addEvaluate);
 
 router.delete("/:id", EvaluateController.deleteEvaluate);

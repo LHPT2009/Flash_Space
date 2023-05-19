@@ -14,6 +14,7 @@ const ListTimeSlotProvider = (props) => {
       );
     } else {
       setTimeSlots([...timeslots, timeslot]);
+      console.log([...timeslots, timeslot]);
     }
   };
 
