@@ -2,8 +2,66 @@ import "./DetailHistory.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import ModalComment from "../../../components/Comment/Comment";
-
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
 const DetailHistory = () => {
+  const { id } = useParams();
+  const [arr, setArr] = useState([]);
+  const [inforacc, setInforAcc] = useState([]);
+  const [sum, setSum] = useState(0);
+  const [idroom, setIdRoom] = useState("");
+  const loaddata = async () => {
+    const data = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/bookingschedule/${id}`
+      )
+      .then((res) => {
+        setArr(res.data);
+        setIdRoom(res.data[0].idworkinghours.idroom._id);
+      });
+  };
+
+  useEffect(() => {
+    loaddata();
+  }, []);
+
+  useEffect(() => {
+    let sum = 0;
+    arr.forEach((item) => {
+      sum = sum + item.idworkinghours.idroom.price;
+    });
+    setSum(sum);
+  }, [arr]);
+
+  const infoAccount = async () => {
+    const idaccount = jwtDecode(localStorage.getItem("token")).id;
+    const data = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/account/${idaccount}`
+      )
+      .then((res) => {
+        setInforAcc(res.data);
+      });
+  };
+
+  useEffect(() => {
+    infoAccount();
+  }, []);
+  const datenow = new Date();
+  const daynow = datenow.getDate();
+  const monthnow = datenow.getMonth() + 1;
+  const yearnow = datenow.getFullYear();
+
   return (
     <div>
       <TopNav />
@@ -39,17 +97,22 @@ const DetailHistory = () => {
                         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
                             <address className="text-black">
-                              Nguyễn Văn Chuẩn
+                              {inforacc.firstname} {inforacc.lastname}
                               <br />
-                              181/7 Liên Tỉnh 5, phường 5, Quận 8, TP.HCM
+                              {inforacc.email}
+                              <br />
+                              {inforacc.phonenumber}
                             </address>
                           </div>
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
                             <div class="invoice-num text-black">
-                              <div>Mã hóa đơn: #1232132131</div>
-                              <div>Ngày 18 tháng 03 năm 2023</div>
+                              <div>Ngày hiện tại bạn xem:</div>
+                              <div>
+                                Ngày {daynow} tháng {monthnow} năm {yearnow}
+                              </div>
+                              <br />
                             </div>
                           </div>
                         </div>
@@ -71,43 +134,55 @@ const DetailHistory = () => {
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>Phòng thuê quận 8</td>
-                                  <td>#50000981</td>
-                                  <td>09h00</td>
-                                  <td>10h00</td>
-                                  <td>250 000 VNĐ</td>
-                                </tr>
-                                <tr>
-                                  <td>Phòng thuê quận 8</td>
-                                  <td>#50000981</td>
-                                  <td>10h00</td>
-                                  <td>11h00</td>
-                                  <td>250 000 VNĐ</td>
-                                </tr>
+                                {arr.map((item) => {
+                                  const getdate = new Date(
+                                    item.idworkinghours.date
+                                  );
+                                  const day =
+                                    getdate.getDate() < 10
+                                      ? `0${getdate.getDate()}`
+                                      : getdate.getDate();
+                                  const month =
+                                    getdate.getMonth() + 1 < 10
+                                      ? `0${getdate.getMonth() + 1}`
+                                      : getdate.getMonth();
+                                  const year = getdate.getFullYear();
+                                  return (
+                                    <tr>
+                                      <td>
+                                        {item.idworkinghours.idroom.subject}
+                                      </td>
+                                      <td>
+                                        {day}-{month}-{year}
+                                      </td>
+                                      <td>
+                                        {
+                                          item.idworkinghours.idtimeslot
+                                            .starttime
+                                        }
+                                      </td>
+
+                                      <td>
+                                        {item.idworkinghours.idtimeslot.endtime}
+                                      </td>
+
+                                      <td>
+                                        {item.idworkinghours.idroom.price}
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
                                 <tr>
                                   <td>&nbsp;</td>
                                   <td>&nbsp;</td>
                                   <td colspan="2">
-                                    <p>
-                                      Tổng tiền
-                                      <br />
-                                      Chi phí phát xin
-                                      <br />
-                                    </p>
                                     <h5 class="text-black">
                                       <strong>Tổng tiền</strong>
                                     </h5>
                                   </td>
                                   <td>
-                                    <p>
-                                      500 000 VNĐ
-                                      <br />
-                                      0 VNĐ
-                                      <br />
-                                    </p>
                                     <h5 class="text-black">
-                                      <strong>500 000 VNĐ</strong>
+                                      <strong>{sum} VNĐ</strong>
                                     </h5>
                                   </td>
                                 </tr>
@@ -117,13 +192,16 @@ const DetailHistory = () => {
                         </div>
                       </div>
                     </div>
-                    <ModalComment />
+                    <ModalComment
+                      idaccount={jwtDecode(localStorage.getItem("token")).id}
+                      idbookingroom={id}
+                      idroom={idroom}
+                    />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* <ModalComment/> */}
         </div>
       </div>
       <Footer />

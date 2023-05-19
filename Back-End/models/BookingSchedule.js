@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const BookingScheduleSchema = new mongoose.Schema({
-  idaccount: {
+  idbookingroom: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Account",
+    ref: "BookingRoom",
   },
   idworkinghours: {
     type: mongoose.Schema.Types.ObjectId,

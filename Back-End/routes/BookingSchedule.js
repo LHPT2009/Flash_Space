@@ -6,6 +6,8 @@ router.get("/", BookingScheduleController.getAllBookingSchedules);
 
 router.get("/:id", BookingScheduleController.getBookingScheduleById);
 
+// router.get("/one/:id", BookingScheduleController.getOneBookingScheduleById);
+
 router.post("/", BookingScheduleController.addBookingSchedule);
 
 router.delete("/:id", BookingScheduleController.deleteBookingSchedule);

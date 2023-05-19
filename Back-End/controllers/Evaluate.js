@@ -31,9 +31,11 @@ const EvaluateController = {
     try {
       const newEvaluate = await new Evaluate({
         idaccount: req.body.idaccount,
+        idbookingroom: req.body.idbookingroom,
         idroom: req.body.idroom,
         point: req.body.point,
         content: req.body.content,
+        static: 0,
       });
       await newEvaluate.save();
       res.status(200).json("Add successfully");

@@ -204,7 +204,6 @@ const Room = () => {
         <section className="padding-y">
           <div className="container">
             <div className="row">
-              {/* <Sidebar /> */}
               <aside className="col-lg-3">
                 <button
                   className="btn btn-outline-secondary mb-3 w-100  d-lg-none"
@@ -349,7 +348,6 @@ const Room = () => {
                   </article>
                 </div>
               </aside>
-              {/* <ListItem /> */}
               <main className="col-lg-9">
                 <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                   <strong className="d-block py-2">

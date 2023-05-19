@@ -23,7 +23,9 @@ const WorkingHoursController = {
       const workingHours = await WorkingHours.find({
         idroom: req.params.id,
         date: req.body.date,
-      }).populate("idtimeslot");
+      })
+        .populate("idtimeslot")
+        .populate("idroom");
       res.status(200).json(workingHours);
     } catch (error) {
       res.status(500).json(error);
