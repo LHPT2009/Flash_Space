@@ -44,58 +44,58 @@ const InfoUser = () => {
 
   const editInfo = async (e) => {
     e.preventDefault();
-    if(staticimage == 1){
+    if (staticimage == 1) {
       const add = await axios
-      .put(
-        `${
-          process.env.REACT_APP_URL
-            ? `${process.env.REACT_APP_URL}`
-            : `http://localhost:8000`
-        }/account/${id}`,
-        {
-          firstname,
-          lastname,
-          avatar,
-          birthday,
-          email,
-          phonenumber,
-          sex,
-        },
-        { headers: { "content-type": "multipart/form-data" } }
-      )
-      .then((res) => {
-        alert("da cap nhat!")
-        navigate("/infouser");
-      })
-      .catch((res) => {
-        alert(res);
-      });
+        .put(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/account/${id}`,
+          {
+            firstname,
+            lastname,
+            avatar,
+            birthday,
+            email,
+            phonenumber,
+            sex,
+          },
+          { headers: { "content-type": "multipart/form-data" } }
+        )
+        .then((res) => {
+          alert("da cap nhat!");
+          navigate("/infouser");
+        })
+        .catch((res) => {
+          alert(res);
+        });
     }
-    if(staticimage == 0){
+    if (staticimage == 0) {
       const add = await axios
-      .put(
-        `${
-          process.env.REACT_APP_URL
-            ? `${process.env.REACT_APP_URL}`
-            : `http://localhost:8000`
-        }/account/notimage/${id}`,
-        {
-          firstname,
-          lastname,
-          // avatar,
-          birthday,
-          email,
-          phonenumber,
-          sex,
-        },
-      )
-      .then((res) => {
-        alert("da cap nhat!")
-        navigate("/infouser");
-      })
-      .catch((res) => {
-        alert(res);
-      });
+        .put(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/account/notimage/${id}`,
+          {
+            firstname,
+            lastname,
+            // avatar,
+            birthday,
+            email,
+            phonenumber,
+            sex,
+          }
+        )
+        .then((res) => {
+          alert("da cap nhat!");
+          navigate("/infouser");
+        })
+        .catch((res) => {
+          alert(res);
+        });
     }
   };
 
@@ -211,13 +211,23 @@ const InfoUser = () => {
                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group">
                           <label for="website">Giới tính</label>
-                          <input
+                          <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            value={sex}
+                            onChange={(e) => setSex(e.target.value)}
+                          >
+                            <option selected>Chọn cách sắp xếp</option>
+                            <option value="0">Nam</option>
+                            <option value="1">Nữ</option>
+                          </select>
+                          {/* <input
                             type="url"
                             class="form-control"
                             id="website"
                             value={sex}
                             onChange={(e) => setSex(e.target.value)}
-                          />
+                          /> */}
                         </div>
                       </div>
                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
