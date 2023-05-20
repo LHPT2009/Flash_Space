@@ -78,6 +78,7 @@ const BookingRoomController = {
         point: 0,
         content: "",
         static: 0,
+        date: datestring,
       });
       await newEvaluate.save();
 

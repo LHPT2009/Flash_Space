@@ -1,9 +1,38 @@
+import axios from "axios";
 import "./Rating.css";
+import { useEffect, useState } from "react";
+import ReactStars from "react-rating-stars-component";
+
 const Rating = (props) => {
-  console.log(props.idroom);
+  const change = 0;
+  const [listrate, setListRate] = useState([]);
   const loadlistrate = async () => {
-    // const load = await
+    const load = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/evaluate/list/${props.idroom}`
+      )
+      .then((res) => {
+        setListRate(res.data);
+      });
   };
+  useEffect((item) => {
+    loadlistrate();
+  }, []);
+
+  const dateformat = (date) => {
+    const getdate = new Date(date);
+    const day =
+      getdate.getDate() < 10 ? `0${getdate.getDate()}` : getdate.getDate();
+    const month =
+      getdate.getMonth() < 10 ? `0${getdate.getMonth()}` : getdate.getMonth();
+    const year = getdate.getFullYear();
+    return day + "/" + month + "/" + year;
+  };
+
   return (
     <div class="row">
       <div class="col-md-offset-1 col-md-12 col-sm-12 main-section">
@@ -124,36 +153,44 @@ const Rating = (props) => {
             <hr />
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row m-3">
-              <div class="col-md-4 col-md-4 col-xs-4 review-part-left">
-                <div class="row">
-                  <div
-                    class="col-md-5 col-sm-5 col-xs-12"
-                    style={{ position: "relative", left: "15px" }}
-                  >
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png" />
+            {listrate.map((item) => (
+              <div class="row m-3">
+                <div class="col-md-4 col-md-4 col-xs-4 review-part-left">
+                  <div class="row">
+                    <div
+                      class="col-md-5 col-sm-5 col-xs-12"
+                      style={{ position: "relative", left: "15px" }}
+                    >
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png" />
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                      <p>{dateformat(item.date)}</p>
+                      <span>
+                        {item.idaccount.firstname} {item.idaccount.lastname}
+                      </span>
+                      <br />
+                    </div>
                   </div>
-                  <div class="col-md-7 col-sm-7 col-xs-12">
-                    <p>03/10/2023</p>
-                    <span>Nguyễn Văn Chuẩn</span>
-                    <br />
-                    <small>Người dùng</small>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-8 review-part-right">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <ReactStars
+                        count={5}
+                        // onChange={ratingChanged}
+                        value={item.point}
+                        size={24}
+                        isHalf={false}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                      />
+                      <p>{item.content}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-8 col-sm-8 col-xs-8 review-part-right">
-                <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <p>Phòng rất mát mẽ và sạch sẽ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
