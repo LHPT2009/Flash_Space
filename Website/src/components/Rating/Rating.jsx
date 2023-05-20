@@ -32,7 +32,12 @@ const Rating = (props) => {
     const year = getdate.getFullYear();
     return day + "/" + month + "/" + year;
   };
-
+  const arrfilter = listrate.filter((item) => item.static == 1);
+  const sumrate = arrfilter.length;
+  const calrate = (number) => {
+    let numbercal = (number / sumrate) * 100;
+    return numbercal;
+  };
   return (
     <div class="row">
       <div class="col-md-offset-1 col-md-12 col-sm-12 main-section">
@@ -42,7 +47,8 @@ const Rating = (props) => {
         </div>
         <div class="row">
           <div class="col-md-3 col-sm-3 col-xs-12 rating-part-left text-center">
-            <h1>1.3</h1>
+            <h6>Tổng đánh giá:</h6>
+            <h1>{arrfilter.length}</h1>
             <i class="fa fa-star" aria-hidden="true"></i>
             <i class="fa fa-star" aria-hidden="true"></i>
             <i class="fa fa-star" aria-hidden="true"></i>
@@ -54,10 +60,11 @@ const Rating = (props) => {
               <div
                 class="progress-bar"
                 role="progressbar"
-                aria-valuenow="70"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style={{ width: "70%" }}
+                style={{
+                  width: `${calrate(
+                    arrfilter.filter((item) => item.point == 5).length
+                  )}%`,
+                }}
               ></div>
             </div>
             <div class="progress">
@@ -67,7 +74,11 @@ const Rating = (props) => {
                 aria-valuenow="30"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style={{ width: "20%" }}
+                style={{
+                  width: `${calrate(
+                    arrfilter.filter((item) => item.point == 4).length
+                  )}%`,
+                }}
               ></div>
             </div>
             <div class="progress">
@@ -77,7 +88,11 @@ const Rating = (props) => {
                 aria-valuenow="70"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style={{ width: "8%" }}
+                style={{
+                  width: `${calrate(
+                    arrfilter.filter((item) => item.point == 3).length
+                  )}%`,
+                }}
               ></div>
             </div>
             <div class="progress">
@@ -87,7 +102,11 @@ const Rating = (props) => {
                 aria-valuenow="70"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style={{ width: "4%" }}
+                style={{
+                  width: `${calrate(
+                    arrfilter.filter((item) => item.point == 2).length
+                  )}%`,
+                }}
               ></div>
             </div>
             <div class="progress">
@@ -97,7 +116,11 @@ const Rating = (props) => {
                 aria-valuenow="70"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style={{ width: "0%" }}
+                style={{
+                  width: `${calrate(
+                    arrfilter.filter((item) => item.point == 1).length
+                  )}%`,
+                }}
               ></div>
             </div>
           </div>
@@ -109,7 +132,9 @@ const Rating = (props) => {
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
-                <span>70%</span>
+                <span>
+                  {arrfilter.filter((item) => item.point == 5).length}
+                </span>
               </div>
               <div class="col-md-12">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -117,7 +142,9 @@ const Rating = (props) => {
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                <span>20%</span>
+                <span>
+                  {arrfilter.filter((item) => item.point == 4).length}
+                </span>
               </div>
               <div class="col-md-12">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -125,7 +152,9 @@ const Rating = (props) => {
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                <span>8%</span>
+                <span>
+                  {arrfilter.filter((item) => item.point == 3).length}
+                </span>
               </div>
               <div class="col-md-12">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -133,7 +162,9 @@ const Rating = (props) => {
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                <span>4%</span>
+                <span>
+                  {arrfilter.filter((item) => item.point == 2).length}
+                </span>
               </div>
               <div class="col-md-12">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -141,7 +172,9 @@ const Rating = (props) => {
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                <span>0%</span>
+                <span>
+                  {arrfilter.filter((item) => item.point == 1).length}
+                </span>
               </div>
             </div>
           </div>
@@ -153,7 +186,7 @@ const Rating = (props) => {
             <hr />
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12">
-            {listrate.map((item) => (
+            {arrfilter.map((item) => (
               <div class="row m-3">
                 <div class="col-md-4 col-md-4 col-xs-4 review-part-left">
                   <div class="row">
@@ -177,13 +210,13 @@ const Rating = (props) => {
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <ReactStars
                         count={5}
-                        // onChange={ratingChanged}
                         value={item.point}
                         size={24}
                         isHalf={false}
                         emptyIcon={<i className="far fa-star"></i>}
                         fullIcon={<i className="fa fa-star"></i>}
                         activeColor="#ffd700"
+                        edit={false}
                       />
                       <p>{item.content}</p>
                     </div>
