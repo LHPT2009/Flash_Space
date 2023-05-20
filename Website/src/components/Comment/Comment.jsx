@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import "./Comment.css";
 import axios from "axios";
+import ReactStars from "react-rating-stars-component";
 const Comment = (props) => {
   const [point, setPoint] = useState(0);
   const [content, setContent] = useState("");
-  const [staticrate, setStaticRate] = useState("");
-
+  const [id, setId] = useState("");
   const loadrate = async () => {
-    const load = await axios
+    await axios
       .get(
         `${
           process.env.REACT_APP_URL
@@ -18,12 +18,17 @@ const Comment = (props) => {
       .then((res) => {
         setPoint(res.data.point);
         setContent(res.data.content);
-        setStaticRate(res.data.static);
+        setId(res.data._id);
       });
   };
-  useEffect((item) => {
+
+  useEffect(() => {
     loadrate();
   }, []);
+
+  const changepoint = (number) => {
+    setPoint(number);
+  };
   const updaterate = async () => {
     const update = await axios
       .put(
@@ -31,7 +36,7 @@ const Comment = (props) => {
           process.env.REACT_APP_URL
             ? `${process.env.REACT_APP_URL}`
             : `http://localhost:8000`
-        }/evaluate/${props.idbookingroom}`,
+        }/evaluate/${id}`,
         {
           idaccount: props.idaccount,
           idroom: props.idroom,
@@ -52,50 +57,17 @@ const Comment = (props) => {
           <div class="col-12">
             <div class="comment-box ml-2">
               <h4 className="text-black">Đánh giá của bạn</h4>
-
-              <div class="rating">
-                <input
-                  type="radio"
-                  name="rating"
-                  value="5"
-                  id="5"
-                  onChange={(e) => setPoint(e.target.value)}
-                />
-                <label for="5">☆</label>
-                <input
-                  type="radio"
-                  name="rating"
-                  value="4"
-                  id="4"
-                  onChange={(e) => setPoint(e.target.value)}
-                />
-                <label for="4">☆</label>
-                <input
-                  type="radio"
-                  name="rating"
-                  value="3"
-                  id="3"
-                  onChange={(e) => setPoint(e.target.value)}
-                />
-                <label for="3">☆</label>
-                <input
-                  type="radio"
-                  name="rating"
-                  value="2"
-                  id="2"
-                  onChange={(e) => setPoint(e.target.value)}
-                />
-                <label for="2">☆</label>
-                <input
-                  type="radio"
-                  name="rating"
-                  value="1"
-                  id="1"
-                  onChange={(e) => setPoint(e.target.value)}
-                />
-                <label for="1">☆</label>
-              </div>
-
+              <ReactStars
+                key={`stars_${point}`}
+                value={Math.max(0, point)}
+                count={5}
+                size={24}
+                isHalf={false}
+                emptyIcon={<i className="far fa-star"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                activeColor="#ffd700"
+                onChange={changepoint}
+              />
               <div class="comment-area">
                 <textarea
                   class="form-control"

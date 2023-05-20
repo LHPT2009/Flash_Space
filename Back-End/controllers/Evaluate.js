@@ -64,9 +64,10 @@ const EvaluateController = {
         point: req.body.point,
         content: req.body.content,
         static: 1,
+        date: req.body.date,
       };
-      const evaluate = await Evaluate.findOneAndUpdate(
-        { idbookingroom: req.params.id },
+      const evaluate = await Evaluate.findByIdAndUpdate(
+        req.params.id,
         updateEvaluate,
         {
           new: true,
@@ -77,7 +78,6 @@ const EvaluateController = {
       }
       res.status(200).json(evaluate);
     } catch (error) {
-      console.log(error);
       res.status(500).json("Error!!!");
     }
   },
