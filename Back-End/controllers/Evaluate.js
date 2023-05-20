@@ -59,7 +59,7 @@ const EvaluateController = {
     try {
       const updateEvaluate = {
         idaccount: req.body.idaccount,
-        idroom: req.body.idaccount,
+        idroom: req.body.idroom,
         idbookingroom: req.body.idbookingroom,
         point: req.body.point,
         content: req.body.content,

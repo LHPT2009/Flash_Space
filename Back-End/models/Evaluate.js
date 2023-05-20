@@ -22,6 +22,9 @@ const EvaluateSchema = new mongoose.Schema({
   static: {
     type: Number,
   },
+  date: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Evaluate", EvaluateSchema);
