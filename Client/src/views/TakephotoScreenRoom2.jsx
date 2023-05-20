@@ -66,23 +66,25 @@ export default function TakephotoScreenRoom2({ navigation }) {
           type: "success",
         });
 
-        // console.log(asset);
-        // Object.assign(informations, {
-        //   multiImage: {
-        //     image: informations.multiImage.image,
-        //     image1: informations.multiImage.image1,
-        //     image2: image2,
-        //     image3: informations.multiImage.image3,
-        //   },
-        // });
+        const imageUpload = {
+          mediaType: asset.mediaType,
+          modificationTime: asset.modificationTime,
+          uri: image2.uri,
+          filename: asset.filename,
+          width: asset.width,
+          height: asset.height,
+          id: asset.id,
+          creationTime: asset.creationTime,
+          duration: asset.duration,
+        };
         if (informations.multiImage == undefined) {
-          const arrimage = [asset];
+          const arrimage = [imageUpload];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,
           });
         } else {
-          const arrimage = [...informations.multiImage, asset];
+          const arrimage = [...informations.multiImage, imageUpload];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,

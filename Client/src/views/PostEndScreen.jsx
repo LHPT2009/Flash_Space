@@ -320,14 +320,14 @@ const PostEndScreen = ({ navigation }) => {
                     for (let i = 0; i < listUserChoose.length; i++) {
                       a.push({
                         date: selected,
-                        timeslot: listUserChoose[i]._id,
+                        idtimeslot: listUserChoose[i]._id,
                       });
                     }
                     const aa = [...listDayPost];
                     for (let i = 0; i < listUserChoose.length; i++) {
                       aa.push({
                         date: selected,
-                        timeslot: listUserChoose[i],
+                        idtimeslot: listUserChoose[i],
                       });
                     }
                     const b = JSON.stringify(listSelected);
@@ -459,7 +459,7 @@ const PostEndScreen = ({ navigation }) => {
                     for (let i = 0; i < listUserChoose.length; i++) {
                       a.push({
                         date: selected,
-                        timeslot: listUserChoose[i],
+                        idtimeslot: listUserChoose[i],
                       });
                     }
                     const b = JSON.stringify(listSelected);
@@ -701,7 +701,7 @@ const PostEndScreen = ({ navigation }) => {
                                 const listChooseDayUsed = [];
 
                                 listChooseDay.map((item) => {
-                                  listChooseDayUsed.push(item.timeslot);
+                                  listChooseDayUsed.push(item.idtimeslot);
                                 });
                                 setListUserChoose(listChooseDayUsed);
                                 setSelected(element.day);
