@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import InformationAddRoom from "../context/InformationAddRoom";
+import ListTimeSlotProvider from "../context/ListTimeSlotContext";
 
 import Home from "../views/HomeScreen";
 import BottomTabNavigator from "./TabNavigator";
@@ -38,39 +39,41 @@ const screenOptionStyle = {
 const WelcomeStackNavigator = () => {
   return (
     <InformationAddRoom>
-      <Stack.Navigator screenOptions={screenOptionStyle}>
-        <Stack.Screen name="Main" component={BottomTabNavigator} />
-        <Stack.Screen name="HomeScreen" component={Home} />
-        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
-        <Stack.Screen name="CommentsSreen" component={CommentsScreen} />
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
-        <Stack.Screen name="DetailBookScreen" component={DetailBookScreen} />
-        <Stack.Screen name="BookScreen" component={BookScreen} />
-        <Stack.Screen name="TakephotoScreen" component={TakephotoScreen} />
-        <Stack.Screen
-          name="TakephotoScreenRoom"
-          component={TakephotoScreenRoom}
-        />
-        <Stack.Screen
-          name="TakephotoScreenRoom1"
-          component={TakephotoScreenRoom1}
-        />
-        <Stack.Screen
-          name="TakephotoScreenRoom2"
-          component={TakephotoScreenRoom2}
-        />
-        <Stack.Screen
-          name="TakephotoScreenRoom3"
-          component={TakephotoScreenRoom3}
-        />
-        <Stack.Screen name="AuthScreen" component={AuthScreen} />
-        <Stack.Screen name="PostScreen" component={PostScreen} />
-        <Stack.Screen name="PostEndScreen" component={PostEndScreen} />
-        <Stack.Screen name="PostImageScreen" component={PostImageScreen} />
-        {/* <Stack.Screen name="Welcome" component={Welcome} />
+      <ListTimeSlotProvider>
+        <Stack.Navigator screenOptions={screenOptionStyle}>
+          <Stack.Screen name="Main" component={BottomTabNavigator} />
+          <Stack.Screen name="HomeScreen" component={Home} />
+          <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+          <Stack.Screen name="CommentsSreen" component={CommentsScreen} />
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
+          <Stack.Screen name="DetailBookScreen" component={DetailBookScreen} />
+          <Stack.Screen name="BookScreen" component={BookScreen} />
+          <Stack.Screen name="TakephotoScreen" component={TakephotoScreen} />
+          <Stack.Screen
+            name="TakephotoScreenRoom"
+            component={TakephotoScreenRoom}
+          />
+          <Stack.Screen
+            name="TakephotoScreenRoom1"
+            component={TakephotoScreenRoom1}
+          />
+          <Stack.Screen
+            name="TakephotoScreenRoom2"
+            component={TakephotoScreenRoom2}
+          />
+          <Stack.Screen
+            name="TakephotoScreenRoom3"
+            component={TakephotoScreenRoom3}
+          />
+          <Stack.Screen name="AuthScreen" component={AuthScreen} />
+          <Stack.Screen name="PostScreen" component={PostScreen} />
+          <Stack.Screen name="PostEndScreen" component={PostEndScreen} />
+          <Stack.Screen name="PostImageScreen" component={PostImageScreen} />
+          {/* <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Rooms" component={Rooms} /> */}
-      </Stack.Navigator>
+        </Stack.Navigator>
+      </ListTimeSlotProvider>
     </InformationAddRoom>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   ImageBackground,
   SafeAreaView,
@@ -13,64 +13,51 @@ import {
   TouchableHighlight,
   Pressable,
 } from "react-native";
+import axios from "axios";
 import { Actionsheet, Box, useDisclose } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { LocaleConfig, Calendar } from "react-native-calendars";
 import COLORS from "../consts/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import theme from "../styles/theme";
+import IpAddress from "../consts/variable";
+import ButtonTimeslot from "../components/ButtonTimeslot";
+import { ListTimeSlotContext } from "../context/ListTimeSlotContext";
 
 const { width } = Dimensions.get("screen");
 
 const DetailsScreen = ({ navigation, route }) => {
-  const house = route.params;
-  const [imageView, setImageView] = useState(house.image);
-  const [imageLast, setImageLast] = useState(house.image);
+  const [house, setHouse] = useState(route.params);
+  const [imageView, setImageView] = useState(house.mainimage);
+  const [imageLast, setImageLast] = useState(house.mainimage);
+  const [address, setAddress] = useState(
+    house.housenumberstreetname +
+      "," +
+      house.idward.wardname +
+      "," +
+      house.iddistrict.districtname +
+      "," +
+      house.idprovince.provincename
+  );
+  const [listImage, setListImage] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [listWorkingHours, setListWorkingHours] = useState([]);
+  const { timeslots } = useContext(ListTimeSlotContext);
+  const { deleteListTimeSlot } = useContext(ListTimeSlotContext);
+  const total = house.price * timeslots.length;
 
   const { isOpen, onOpen, onClose } = useDisclose();
-  const [openBook, setOpenbook] = useState(false);
-  const listHour = [
-    { id: "1", hour: "7h - 8h", status: false },
-    { id: "2", hour: "8h - 9h", status: false },
-    { id: "3", hour: "9h - 10h", status: false },
-    { id: "4", hour: "10h - 11h", status: false },
-    { id: "5", hour: "11h - 12h", status: false },
-    { id: "6", hour: "12h - 13h", status: false },
-    { id: "11", hour: "7h - 8h", status: false },
-    { id: "21", hour: "8h - 9h", status: false },
-    { id: "31", hour: "9h - 10h", status: false },
-    { id: "41", hour: "10h - 11h", status: false },
-    { id: "51", hour: "11h - 12h", status: false },
-    { id: "61", hour: "12h - 13h", status: false },
-    { id: "111", hour: "7h - 8h", status: false },
-    { id: "211", hour: "8h - 9h", status: false },
-    { id: "311", hour: "9h - 10h", status: false },
-    { id: "411", hour: "10h - 11h", status: false },
-    { id: "511", hour: "11h - 12h", status: false },
-    { id: "611", hour: "12h - 13h", status: false },
-    // { id: "19", hour: "7h - 8h" },
-    // { id: "29", hour: "8h - 9h" },
-    // { id: "39", hour: "9h - 10h" },
-    // { id: "49", hour: "10h - 11h" },
-    // { id: "59", hour: "11h - 12h" },
-    // { id: "69", hour: "12h - 13h" },
-    // { id: "119", hour: "7h - 8h" },
-    // { id: "219", hour: "8h - 9h" },
-    // { id: "319", hour: "9h - 10h" },
-    // { id: "419", hour: "10h - 11h" },
-    // { id: "519", hour: "11h - 12h" },
-    // { id: "619", hour: "12h - 13h" },
-    // { id: "1119", hour: "7h - 8h" },
-    // { id: "2119", hour: "8h - 9h" },
-    // { id: "3119", hour: "9h - 10h" },
-    // { id: "4119", hour: "10h - 11h" },
-    // { id: "5119", hour: "11h - 12h" },
-    // { id: "6119", hour: "12h - 13h" },
-  ];
 
-  const [listSelected, setListSelected] = useState(listHour);
-  const [selected, setSelected] = useState("");
+  useEffect(() => {
+    axios
+      .get("http://" + IpAddress + ":8000/image/byroom/" + house._id)
+      .then((res) => {
+        setListImage(res.data);
+      });
+  }, []);
+
+  const [selected, setSelected] = useState({});
+  const [selectedDay, setSelectedDay] = useState("");
 
   LocaleConfig.locales["fr"] = {
     monthNames: [
@@ -127,86 +114,27 @@ const DetailsScreen = ({ navigation, route }) => {
   };
 
   const MultiSelecteHour = () => {
-    const handleOnpress = (item) => {
-      const newItem = listSelected.map((val) => {
-        if (val.id == item.id) {
-          return { ...val, status: !val.status };
-        } else {
-          return val;
-        }
-      });
-      checkOpenBook(newItem);
-      setListSelected(newItem);
-    };
-
-    const Item = ({ item }) => {
-      return (
-        <View
-          style={{
-            width: "25%",
-            height: 60,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              width: "90%",
-              height: "60%",
-            }}
-            onPress={() => handleOnpress(item)}
-          >
-            {item.status ? (
-              <View
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 7,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: theme.FontMain,
-                    fontSize: 16,
-                    color: "white",
-                  }}
-                >
-                  {item.hour}
-                </Text>
-              </View>
-            ) : (
-              <View
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: COLORS.gray,
-                  borderRadius: 7,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ fontFamily: theme.FontMain, fontSize: 16 }}>
-                  {item.hour}
-                </Text>
-              </View>
-            )}
-          </TouchableOpacity>
-        </View>
-      );
-    };
     return (
       <View style={{ width: "90%" }}>
         <FlatList
           key={"_"}
           showsHorizontalScrollIndicator={false}
-          data={listSelected}
+          data={listWorkingHours}
           style={[{ width: "100%" }]}
-          renderItem={({ item }) => <Item item={item} />}
+          renderItem={({ item }) => (
+            <ButtonTimeslot
+              item={item}
+              idroom={house._id}
+              idworkinghours={item._id}
+              roomname={house.subject}
+              starttime={item.idtimeslot.starttime}
+              endtime={item.idtimeslot.endtime}
+              pricetime={house.price}
+              date={selectedDay}
+            />
+          )}
           keyExtractor={(item) => "_" + item.id}
-          numColumns={4}
+          numColumns={3}
           scrollEnabled={false}
         />
       </View>
@@ -214,19 +142,45 @@ const DetailsScreen = ({ navigation, route }) => {
   };
 
   const InDay = () => {
+    if (timeslots.length == 0) {
+      const listSelected =
+        '{"' +
+        selectedDay +
+        '": { "selected": true, "disableTouchEvent": false, "selectedDotColor": "theme.PRIMARY_BG_COLOR"}}';
+      const convertSelect = JSON.parse(listSelected);
+      if (JSON.stringify(selected) !== JSON.stringify(convertSelect)) {
+        setSelected(convertSelect);
+      }
+    } else {
+      const listSelected =
+        '{"' +
+        selectedDay +
+        '": { "selected": true, "disableTouchEvent": false, "selectedDotColor": "theme.PRIMARY_BG_COLOR"},' +
+        timeslots.map((item) => {
+          const convertDate = item.date;
+          const arr = convertDate.split("-");
+          const date = arr[2] + "-0" + arr[1] + "-" + arr[0];
+          return (
+            '"' +
+            date +
+            '":{ "selected": true, "disableTouchEvent": false, "selectedDotColor": "theme.PRIMARY_BG_COLOR"}'
+          );
+        }) +
+        "}";
+      const convertSelect = JSON.parse(listSelected);
+      if (JSON.stringify(selected) !== JSON.stringify(convertSelect)) {
+        setSelected(convertSelect);
+      }
+    }
+
     return (
       <Calendar
         enableSwipeMonths={true}
         onDayPress={(day) => {
-          setSelected(day.dateString);
+          searchWorkingHours(day.dateString);
+          setSelectedDay(day.dateString);
         }}
-        markedDates={{
-          [selected]: {
-            selected: true,
-            disableTouchEvent: true,
-            selectedDotColor: theme.PRIMARY_BG_COLOR,
-          },
-        }}
+        markedDates={selected}
         style={{
           borderRadius: 13,
           width: "100%",
@@ -262,12 +216,14 @@ const DetailsScreen = ({ navigation, route }) => {
       <TouchableHighlight
         style={style.interiorImage}
         onPress={() => {
-          setImageView(interior);
+          setImageView(interior.filename);
         }}
       >
-        {imageView == interior ? (
+        {imageView == interior.filename ? (
           <Image
-            source={imageView}
+            source={{
+              uri: "http://" + IpAddress + ":8000/singleimage/" + imageView,
+            }}
             style={{
               width: "100%",
               height: "100%",
@@ -278,12 +234,40 @@ const DetailsScreen = ({ navigation, route }) => {
           />
         ) : (
           <Image
-            source={interior}
+            source={{
+              uri:
+                "http://" +
+                IpAddress +
+                ":8000/singleimage/" +
+                interior.filename,
+            }}
             style={{ width: "100%", height: "100%", borderRadius: 10 }}
           />
         )}
       </TouchableHighlight>
     );
+  };
+
+  const searchWorkingHours = async (date) => {
+    const datestring = new Date(date);
+    const day =
+      datestring.getDate() <= 10
+        ? `0${datestring.getDate()}`
+        : `${datestring.getDate()}`;
+    const month =
+      datestring.getMonth() + 1 <= 10
+        ? `0${datestring.getMonth() + 1}`
+        : `${datestring.getMonth() + 1}`;
+    const year = datestring.getFullYear();
+    const convertdate = year + "-" + month + "-" + day;
+
+    await axios
+      .post("http://" + IpAddress + ":8000/workinghours/" + house._id, {
+        date: convertdate,
+      })
+      .then((res) => {
+        setListWorkingHours(res.data);
+      });
   };
 
   return (
@@ -295,7 +279,12 @@ const DetailsScreen = ({ navigation, route }) => {
         {/* House image */}
 
         <View style={style.backgroundImageContainer}>
-          <ImageBackground style={style.backgroundImage} source={imageView}>
+          <ImageBackground
+            style={style.backgroundImage}
+            source={{
+              uri: "http://" + IpAddress + ":8000/singleimage/" + imageView,
+            }}
+          >
             <LinearGradient
               style={style.backgroundImage_linear}
               colors={["rgba(255, 255, 255, 0)", "rgba(38, 38, 38,0.8)"]}
@@ -303,14 +292,17 @@ const DetailsScreen = ({ navigation, route }) => {
               end={{ x: 0, y: 0 }}
             >
               <View style={style.header}>
-                <View style={style.headerBtn}>
+                <TouchableOpacity
+                  style={style.headerBtn}
+                  // onPress={() => }
+                >
                   <Icon
                     name="arrow-back"
                     size={30}
                     color={"white"}
                     onPress={navigation.goBack}
                   />
-                </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                   style={style.headerBtnFavorite}
                   onPress={() => onChangeFavorite()}
@@ -336,7 +328,7 @@ const DetailsScreen = ({ navigation, route }) => {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={{ fontSize: 24, fontWeight: "bold", width: "70%" }}>
-              {house.title}
+              {house.subject}
             </Text>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text
@@ -368,7 +360,7 @@ const DetailsScreen = ({ navigation, route }) => {
               fontFamily: theme.FontMain,
             }}
           >
-            {house.location}
+            {address}
           </Text>
           <Text
             style={{ fontSize: 20, fontFamily: theme.FontMain, marginTop: 20 }}
@@ -382,7 +374,15 @@ const DetailsScreen = ({ navigation, route }) => {
               <Text
                 style={[style.facilityText, { fontFamily: theme.FontMain }]}
               >
-                100m area
+                {house.length + "m x " + house.width + "m"}
+              </Text>
+            </View>
+            <View style={style.facility}>
+              <Icon name="people" size={18} />
+              <Text
+                style={[style.facilityText, { fontFamily: theme.FontMain }]}
+              >
+                {house.quantity}
               </Text>
             </View>
           </View>
@@ -392,7 +392,7 @@ const DetailsScreen = ({ navigation, route }) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(_, key) => key.toString()}
-            data={house.interiors}
+            data={listImage}
             renderItem={({ item, index }) => (
               <InteriorCard interior={item} index={index} />
             )}
@@ -410,7 +410,7 @@ const DetailsScreen = ({ navigation, route }) => {
               fontFamily: theme.FontMain,
             }}
           >
-            {house.details}
+            {house.describe}
           </Text>
           {/* Interior list */}
           <View>
@@ -569,7 +569,7 @@ const DetailsScreen = ({ navigation, route }) => {
           <Text
             style={{ color: COLORS.blue, fontWeight: "bold", fontSize: 18 }}
           >
-            200.000 VNĐ
+            {house.price} VNĐ
           </Text>
           <Text
             style={{
@@ -594,9 +594,15 @@ const DetailsScreen = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
       {/* Phần đặt phòng */}
-      <Actionsheet isOpen={isOpen} onClose={onClose}>
+      <Actionsheet
+        isOpen={isOpen}
+        onClose={async () => {
+          await deleteListTimeSlot();
+          onClose();
+        }}
+      >
         <Actionsheet.Content>
-          <View style={{ width: "100%", height: "85%" }}>
+          <View style={{ width: "100%", height: "80%" }}>
             <ScrollView
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
@@ -665,7 +671,7 @@ const DetailsScreen = ({ navigation, route }) => {
                   fontSize: 18,
                 }}
               >
-                200.000 VNĐ
+                {total} VNĐ
               </Text>
               <Text
                 style={{
@@ -677,7 +683,7 @@ const DetailsScreen = ({ navigation, route }) => {
                 Tổng tiền
               </Text>
             </View>
-            {openBook ? (
+            {timeslots.length != 0 ? (
               <TouchableOpacity
                 style={{
                   height: 50,
@@ -689,7 +695,11 @@ const DetailsScreen = ({ navigation, route }) => {
                 }}
                 onPress={() => {
                   onClose();
-                  navigation.navigate("BookScreen");
+                  navigation.navigate("BookScreen", {
+                    address: address,
+                    subject: house.subject,
+                    total: total,
+                  });
                 }}
               >
                 <Text

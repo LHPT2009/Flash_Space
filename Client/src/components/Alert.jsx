@@ -1,10 +1,34 @@
 import { View, Text, Image } from "react-native";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
+import IpAddress from "../consts/variable";
+import axios from "axios";
 import { TouchableOpacity } from "react-native";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
 const Alert = (prors) => {
+  console.log(prors);
+  const addorder = async () => {
+    const idaccount = prors.idaccount;
+    const total = prors.total;
+    const timeslots = prors.timeslots;
+    const add = await axios
+      .post("http://" + IpAddress + ":8000/bookingroom", {
+        idaccount,
+        timeslots,
+        total,
+      })
+      .then((item) => {
+        console.log(item);
+        prors.navigation.navigate("Main");
+        prors.closeAdd(false);
+        showMessage({
+          message: "Gửi yêu cầu thành công  ✔",
+          description: "Yêu cầu của bạn đã được gửi cho chủ sở hữu",
+          type: "success",
+        });
+      });
+  };
   return (
     <View
       style={{
@@ -91,14 +115,7 @@ const Alert = (prors) => {
             alignItems: "center",
             borderRadius: 13,
           }}
-          onPress={() => {
-            prors.closeAdd(false);
-            showMessage({
-              message: "Gửi yêu cầu thành công  ✔",
-              description: "Yêu cầu của bạn đã được gửi cho chủ sở hữu",
-              type: "success",
-            });
-          }}
+          onPress={() => addorder()}
         >
           <Text
             style={{ fontFamily: theme.FontMain, fontSize: 18, color: "white" }}

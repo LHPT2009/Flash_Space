@@ -21,6 +21,7 @@ export default function TakephotoScreenRoom({ navigation }) {
   const [location, setLocation] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
+  console.log(image);
   const cameraRef = useRef(null);
   const { informations } = useContext(InformationAddRoomContext);
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function TakephotoScreenRoom({ navigation }) {
       try {
         setSpinner(true);
         const data = await cameraRef.current.takePictureAsync();
+        console.log(data);
         setImage(data);
       } catch (error) {
         console.log(error);
@@ -65,16 +67,27 @@ export default function TakephotoScreenRoom({ navigation }) {
           message: "Đã lưu hình  ✔",
           type: "success",
         });
+        const imageUpload = {
+          mediaType: asset.mediaType,
+          modificationTime: asset.modificationTime,
+          uri: image.uri,
+          filename: asset.filename,
+          width: asset.width,
+          height: asset.height,
+          id: asset.id,
+          creationTime: asset.creationTime,
+          duration: asset.duration,
+        };
         console.log(asset);
 
         if (informations.multiImage == undefined) {
-          const arrimage = [asset];
+          const arrimage = [imageUpload];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,
           });
         } else {
-          const arrimage = [...informations.multiImage, asset];
+          const arrimage = [...informations.multiImage, imageUpload];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,

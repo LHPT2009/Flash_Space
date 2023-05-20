@@ -65,14 +65,25 @@ export default function TakephotoScreenRoom1({ navigation }) {
           message: "Đã lưu hình  ✔",
           type: "success",
         });
+        const imageUpload = {
+          mediaType: asset.mediaType,
+          modificationTime: asset.modificationTime,
+          uri: image1.uri,
+          filename: asset.filename,
+          width: asset.width,
+          height: asset.height,
+          id: asset.id,
+          creationTime: asset.creationTime,
+          duration: asset.duration,
+        };
         if (informations.multiImage == undefined) {
-          const arrimage = [asset];
+          const arrimage = [imageUpload];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,
           });
         } else {
-          const arrimage = [...informations.multiImage, asset];
+          const arrimage = [...informations.multiImage, imageUpload];
           console.log(arrimage);
           Object.assign(informations, {
             multiImage: arrimage,

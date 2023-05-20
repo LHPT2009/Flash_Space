@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -22,6 +22,8 @@ import {
   Stack,
   Input,
 } from "native-base";
+import axios from "axios";
+import IpAddress from "../consts/variable";
 import COLORS from "../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
 const { width } = Dimensions.get("screen");
@@ -30,10 +32,20 @@ import theme from "../styles/theme";
 
 const RoomsScreen = ({ navigation }) => {
   const categoryList = ["Lưới", "Dọc", "Ngang"];
+  const [roomData, setRoomData] = useState([]);
+  const [roomFilterData, setRoomFilterData] = useState([]);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
   const [groupValues, setGroupValues] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclose();
   const [onChangeValue, setOnChangeValue] = React.useState(70);
+
+  useEffect(() => {
+    axios.get("http://" + IpAddress + ":8000/room/").then((res) => {
+      setRoomData(res.data);
+      setRoomFilterData(res.data);
+    });
+  }, []);
+
   const ListCategories = () => {
     return (
       <View style={style.categoryListContainer}>
@@ -67,7 +79,16 @@ const RoomsScreen = ({ navigation }) => {
       >
         <View style={style.optionsCard}>
           <View style={style.optionsCardItem}>
-            <Image source={house.image} style={style.optionsCardImage} />
+            <Image
+              source={{
+                uri:
+                  "http://" +
+                  IpAddress +
+                  ":8000/singleimage/" +
+                  house.mainimage,
+              }}
+              style={style.optionsCardImage}
+            />
             {/* Option title */}
             <Text
               style={{
@@ -77,7 +98,7 @@ const RoomsScreen = ({ navigation }) => {
                 height: 50,
               }}
             >
-              {house.title}
+              {house.subject}
             </Text>
             <View
               style={{
@@ -102,7 +123,7 @@ const RoomsScreen = ({ navigation }) => {
                   fontFamily: theme.FontMain,
                 }}
               >
-                200.000 VND/Giờ
+                {house.price} VND/Giờ
               </Text>
             </View>
           </View>
@@ -118,7 +139,13 @@ const RoomsScreen = ({ navigation }) => {
       >
         <View style={style.card}>
           {/* House image */}
-          <Image source={house.image} style={style.cardImage} />
+          <Image
+            source={{
+              uri:
+                "http://" + IpAddress + ":8000/singleimage/" + house.mainimage,
+            }}
+            style={style.cardImage}
+          />
           <View style={{ marginTop: 10 }}>
             {/* Title and price container */}
             <View
@@ -135,7 +162,7 @@ const RoomsScreen = ({ navigation }) => {
                   fontFamily: theme.FontMain,
                 }}
               >
-                {house.title}
+                {house.subject}
               </Text>
               <Text
                 style={{
@@ -159,7 +186,13 @@ const RoomsScreen = ({ navigation }) => {
                 fontFamily: theme.FontMain,
               }}
             >
-              {house.location}
+              {house.housenumberstreetname +
+                "," +
+                house.idward.wardname +
+                "," +
+                house.iddistrict.districtname +
+                "," +
+                house.idprovince.provincename}
             </Text>
             <Text
               style={{
@@ -169,13 +202,15 @@ const RoomsScreen = ({ navigation }) => {
                 fontFamily: theme.FontMain,
               }}
             >
-              200.000 VND/Giờ
+              {house.price} VND/Giờ
             </Text>
             {/* Facilities container */}
             <View style={{ marginTop: 10, flexDirection: "row" }}>
               <View style={style.facility}>
                 <Icon name="aspect-ratio" size={18} />
-                <Text style={style.facilityText}>100m</Text>
+                <Text style={style.facilityText}>
+                  {house.length + "m x " + house.width + "m"}
+                </Text>
               </View>
             </View>
           </View>
@@ -221,31 +256,34 @@ const RoomsScreen = ({ navigation }) => {
         {/* Render list options */}
         {selectedCategoryIndex == 0 ? (
           <FlatList
-            key={"_"}
+            key={"_*"}
             showsHorizontalScrollIndicator={false}
-            data={houses}
+            data={roomData}
             style={[style.optionListsContainer, { width: width }]}
             renderItem={({ item }) => <CardGrid house={item} />}
-            keyExtractor={(item) => "_" + item.id}
+            keyExtractor={(item) => "_*" + item._id}
             numColumns={2}
             scrollEnabled={false}
           />
         ) : selectedCategoryIndex == 1 ? (
           <FlatList
+            key={"_"}
             scrollEnabled={false}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingLeft: 20, paddingVertical: 20 }}
-            data={houses}
-            keyExtractor={(item) => item.id}
+            data={roomData}
+            keyExtractor={(item) => item._id}
             renderItem={({ item }) => <Card house={item} />}
           />
         ) : (
           <FlatList
+            key={"__"}
             snapToInterval={width - 20}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingLeft: 20, paddingVertical: 20 }}
             horizontal
-            data={houses}
+            data={roomData}
+            keyExtractor={(item) => "__" + item._id}
             renderItem={({ item }) => <Card house={item} />}
           />
         )}

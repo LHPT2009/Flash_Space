@@ -46,51 +46,49 @@ const PostImageScreen = ({ navigation, route }) => {
   }
 
   const postInformation = async (req) => {
-    try {
-      const idAccount = await AsyncStorage.getItem("idAccount");
-      const dt = new FormData();
-      dt.append("subject", informations.subject);
-      dt.append("describe", informations.describe);
-      dt.append("length", informations.length);
-      dt.append("width", informations.width);
-      dt.append("idcareer", informations.career);
-      dt.append("price", informations.price);
-      dt.append("housenumberstreetname", informations.housenumberstreetname);
-      dt.append("idprovince", informations.province);
-      dt.append("iddistrict", informations.district);
-      dt.append("idward", informations.ward);
-      dt.append("workinghours", JSON.stringify(listWork));
-      for (let i = 0; i < informations.multiImage.length; i++) {
-        const asset = await MediaLibrary.createAssetAsync(
-          informations.multiImage[i].uri
-        );
-        dt.append("multifiles[]", {
-          uri: asset.uri,
-          name: asset.filename,
-          type: "image/jpeg",
-        });
-      }
-      dt.append("longitude", 111111);
-      dt.append("latitude", 11111111);
-      dt.append("idaccount", idAccount);
-
-      const result = await axios.post(
-        "http://" + IpAddress + ":8000/room/",
-        dt,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+    // try {
+    const idAccount = await AsyncStorage.getItem("idAccount");
+    console.log(idAccount);
+    const dt = new FormData();
+    dt.append("subject", informations.subject);
+    dt.append("describe", informations.describe);
+    dt.append("length", informations.length);
+    dt.append("width", informations.width);
+    dt.append("idcareer", informations.career);
+    dt.append("price", informations.price);
+    dt.append("housenumberstreetname", informations.housenumberstreetname);
+    dt.append("idprovince", informations.province);
+    dt.append("iddistrict", informations.district);
+    dt.append("idward", informations.ward);
+    dt.append("quantity", informations.quantity);
+    dt.append("workinghours", JSON.stringify(listWork));
+    for (let i = 0; i < informations.multiImage.length; i++) {
+      const asset = await MediaLibrary.createAssetAsync(
+        informations.multiImage[i].uri
       );
-      if (result.status == 200) {
-        navigation.navigate("Main");
-      } else {
-        alert("Đã có lỗi");
-      }
-    } catch (error) {
-      console.log(error);
+      dt.append("multifiles[]", {
+        uri: informations.multiImage[i].uri,
+        name: asset.filename,
+        type: "image/jpeg",
+      });
     }
+    dt.append("longitude", 111111);
+    dt.append("latitude", 11111111);
+    dt.append("idaccount", idAccount);
+
+    const result = await axios.post("http://" + IpAddress + ":8000/room/", dt, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (result.status == 200) {
+      navigation.navigate("Main");
+    } else {
+      alert("Đã có lỗi");
+    }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
