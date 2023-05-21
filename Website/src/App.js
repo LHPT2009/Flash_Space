@@ -26,6 +26,7 @@ import Buttons from "./Screens/Admin/UiFeatures/Buttons";
 import Typography from "./Screens/Admin/UiFeatures/Typography";
 import AccountAdmin from "./Screens/Admin/Account/Account";
 import DetailAccount from "./Screens/Admin/DetailAccount/DetailAccount";
+import DetailAccountStaff from "./Screens/Admin/DetailAccountStaff/DetailAccountStaff";
 import Role from "./Screens/Admin/Role/Role";
 import Statistical from "./Screens/Admin/Statistical/Statistical";
 import Staff from "./Screens/Admin/Staff/Staff";
@@ -94,7 +95,11 @@ const App = () => {
 
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/accountadmin" element={<AccountAdmin />} />
-          <Route path="/detailaccount" element={<DetailAccount />} />
+          <Route path="/detailaccount/:id" element={<DetailAccount />} />
+          <Route
+            path="/detailaccountstaff/:id"
+            element={<DetailAccountStaff />}
+          />
           <Route path="/Role" element={<Role />} />
           <Route path="/statistical" element={<Statistical />} />
           <Route path="/staff" element={<Staff />} />
@@ -136,7 +141,7 @@ const App = () => {
           <Route path="/detailtimeslot/:id" element={<DetailTimeslot />} />
           <Route path="/detailward/:id" element={<DetailWard />} />
           <Route
-            path="/detailworkassignment"
+            path="/detailworkassignment/:id"
             element={<DetailWorkAssignment />}
           />
 

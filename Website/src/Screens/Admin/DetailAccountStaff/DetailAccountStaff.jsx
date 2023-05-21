@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
-import "./DetailAccount.css";
+import "./DetailAccountStaff.css";
 import axios from "axios";
-const DetailAccount = () => {
+const DetailAccountStaff = () => {
   const { id } = useParams();
   const [info, setInfo] = useState({});
   const [staticaccount, setStaticAccount] = useState(0);
@@ -42,7 +42,7 @@ const DetailAccount = () => {
       )
       .then((res) => {
         alert("Đã cập nhật!");
-        navigator("/accountadmin");
+        navigator("/staff");
       });
   };
   return (
@@ -168,7 +168,7 @@ const DetailAccount = () => {
                           id="submit"
                           name="submit"
                           class="btn btn-secondary m-1"
-                          to={"/accountadmin"}
+                          to={"/staff"}
                         >
                           Trở lại
                         </Link>
@@ -195,4 +195,4 @@ const DetailAccount = () => {
   );
 };
 
-export default DetailAccount;
+export default DetailAccountStaff;

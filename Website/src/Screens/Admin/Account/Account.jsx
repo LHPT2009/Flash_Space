@@ -1,43 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
+import axios from "axios";
 
 const Tables = () => {
-  const posts = [
-    {
-      id: 1,
-      name: "meo",
-    },
-    {
-      id: 2,
-      name: "meo",
-    },
-    {
-      id: 3,
-      name: "meo",
-    },
-    {
-      id: 4,
-      name: "meo",
-    },
-    {
-      id: 5,
-      name: "meo",
-    },
-    {
-      id: 6,
-      name: "meo",
-    },
-  ];
+  const [listaccount, setListAccount] = useState([]);
+
+  const loadlistaccount = async () => {
+    const load = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/account`
+      )
+      .then((res) => {
+        setListAccount(res.data);
+      });
+  };
+
+  useEffect(() => {
+    loadlistaccount();
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
+  const accountuser = listaccount.filter(
+    (item) => item.idrole._id == "642dc5fe3db1f869d982a638"
+  );
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = accountuser.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -99,32 +97,36 @@ const Tables = () => {
                             <th>id</th>
                             <th>Ảnh đại diện</th>
                             <th>Họ và tên</th>
+                            <th>Phân quyền</th>
                             <th>email</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {currentPosts.map((post) => (
+                          {currentPosts.map((item) => (
                             <tr>
-                              <td>{post.id}</td>
+                              <td>{item._id}</td>
                               <td className="py-1">
                                 <img
-                                  src="../../images/faces/face1.jpg"
+                                  src={`http://localhost:8000/singleimage/${item.avatar}`}
                                   alt="image"
                                 />
                               </td>
-                              <td>Lê Huỳnh Phương Tùng</td>
-                              <td>tung@gmail.com</td>
+                              <td>
+                                {item.firstname} {item.lastname}
+                              </td>
+                              <td>{item.idrole.rolename}</td>
+                              <td>{item.email}</td>
                               <td>
                                 <Link
-                                  to={"/detailaccount"}
+                                  to={`/detailaccount/${item._id}`}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1">
+                                {/* <Link className="btn btn-outline-danger btn-fw m-1">
                                   Xóa
-                                </Link>
+                                </Link> */}
                               </td>
                             </tr>
                           ))}
@@ -132,7 +134,7 @@ const Tables = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
+                        totalPosts={accountuser.length}
                         paginate={paginate}
                       />
                     </div>
