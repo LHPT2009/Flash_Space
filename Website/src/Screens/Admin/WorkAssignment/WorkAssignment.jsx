@@ -19,7 +19,6 @@ const WorkAssignment = () => {
       )
       .then((res) => {
         setWorkAssignment(res.data);
-        console.log(res.data);
       });
   };
 
