@@ -1,7 +1,89 @@
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const RoomDetail = () => {
+  const { id } = useParams();
+  const [staticworkass, setStatic] = useState(0);
+  const [showImageRoom, setShowImageRoom] = useState();
+  const [careername, setCareername] = useState();
+  const [subject, setSubject] = useState();
+  const [price, setPrice] = useState();
+  const [describe, setDescribe] = useState();
+  const [housenumberstreetname, setHousenumberstreetname] = useState();
+  const [wardname, setWardname] = useState();
+  const [districtname, setDistrictname] = useState();
+  const [provincename, setProvincename] = useState();
+  const [quantity, setQuantity] = useState();
+
+  const navigator = useNavigate();
+
+  const [listImageRoom, setListImageRoom] = useState([]);
+  const loadroom = async () => {
+    const load = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/room/${id}`
+      )
+      .then((res) => {
+        setCareername(res.data.idcareer.careername);
+        setSubject(res.data.subject);
+        setPrice(res.data.price);
+        setDescribe(res.data.describe);
+        setHousenumberstreetname(res.data.housenumberstreetname);
+        setWardname(res.data.idward.wardname);
+        setDistrictname(res.data.iddistrict.districtname);
+        setProvincename(res.data.idprovince.provincename);
+        setQuantity(res.data.quantity);
+        setShowImageRoom(res.data.mainimage);
+        setStatic(res.data.static);
+      });
+  };
+
+  useEffect(() => {
+    loadroom();
+  }, []);
+
+  const loadimage = async () => {
+    const load = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/image/byroom/${id}`
+      )
+      .then((res) => {
+        setListImageRoom(res.data);
+      });
+  };
+  useEffect(() => {
+    loadimage();
+  }, [id]);
+
+  const updatestatic = async () => {
+    const load = await axios
+      .put(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/room/${id}`,
+        {
+          static: staticworkass,
+        }
+      )
+      .then((res) => {
+        alert("đã cập nhật!");
+        navigator("/roomadmin");
+      });
+  };
+
   return (
     <>
       <TopNav />
@@ -30,57 +112,31 @@ const RoomDetail = () => {
                                             hidefocus="true"
                                           >
                                             <img
-                                              src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
+                                              src={`http://localhost:8000/singleimage/${showImageRoom}`}
                                               class="img-responsive"
                                               alt=""
+                                              style={{ height: "400px" }}
                                             />
                                           </a>
                                         </div>
                                         <div class="thumbnail-images">
-                                          <a
-                                            href="#"
-                                            class="theater"
-                                            rel="group"
-                                            hidefocus="true"
-                                          >
-                                            <img
-                                              src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                              alt=""
-                                            />
-                                          </a>
-                                          <a
-                                            href="#"
-                                            class="theater"
-                                            rel="group"
-                                            hidefocus="true"
-                                          >
-                                            <img
-                                              src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                              alt=""
-                                            />
-                                          </a>
-                                          <a
-                                            href="#"
-                                            class="theater"
-                                            rel="group"
-                                            hidefocus="true"
-                                          >
-                                            <img
-                                              src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                              alt=""
-                                            />
-                                          </a>
-                                          <a
-                                            href="#"
-                                            class="theater"
-                                            rel="group"
-                                            hidefocus="true"
-                                          >
-                                            <img
-                                              src="https://img.freepik.com/free-photo/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering_43614-802.jpg?w=1380&t=st=1678295624~exp=1678296224~hmac=cbb45e284685629edd695cb6091788db3ccb5f4743aa42779b112506e3313e13"
-                                              alt=""
-                                            />
-                                          </a>
+                                          {listImageRoom.map((item) => (
+                                            <a
+                                              href="#"
+                                              class="theater"
+                                              rel="group"
+                                              hidefocus="true"
+                                              onClick={(e) =>
+                                                setShowImageRoom(item.filename)
+                                              }
+                                            >
+                                              <img
+                                                src={`http://localhost:8000/singleimage/${item.filename}`}
+                                                alt=""
+                                                style={{ height: "150px" }}
+                                              />
+                                            </a>
+                                          ))}
                                         </div>
                                       </div>
                                     </div>
@@ -89,104 +145,82 @@ const RoomDetail = () => {
                                       <header></header>
                                       <div class="flex-grow-1">
                                         <div class="product-info">
-                                          <h3>
-                                            181/7 Liên tỉnh 5, Phường 5, Quận 8
-                                          </h3>
                                           <div class="wp-block property list no-border">
                                             <div class="wp-block-content clearfix">
-                                              <small>Văn phòng</small>
-                                              <h4 class="content-title">
-                                                Phòng họp cho công ty
-                                              </h4>
-                                              <span class="pull-left">
-                                                <span class="price">
-                                                  250.000
-                                                </span>
-                                                <span class="period">
-                                                  VNĐ/1h
-                                                </span>
-                                              </span>
-                                            </div>
-                                            <div class="wp-block-footer style2 mt-15">
-                                              <ul class="aux-info">
-                                                <li>
-                                                  <i class="fa fa-building"></i>
-                                                  2300 Sq Feet
-                                                </li>
-                                                <li>
-                                                  <i class="fa fa-user"></i> 5
-                                                  Bedrooms
-                                                </li>
-                                                <li>
-                                                  <i class="fa fa-tint"></i> 2
-                                                  Bathrooms
-                                                </li>
-                                                <li>
-                                                  <i class="fa fa-car"></i> 3
-                                                  Garages
-                                                </li>
-                                              </ul>
+                                              <div class="col-sm-12 d-flex flex-column text-black">
+                                                <div
+                                                  class="card-body"
+                                                  style={{ padding: "15px" }}
+                                                >
+                                                  <small>{careername}</small>
+                                                  <h4 class="card-title">
+                                                    {subject}
+                                                  </h4>
+                                                  <span class="pull-left">
+                                                    <span class="price">
+                                                      {price}
+                                                    </span>
+                                                    <span class="period">
+                                                      VNĐ/1h
+                                                    </span>
+                                                  </span>
+                                                  <p class="card-text">
+                                                    {describe}
+                                                  </p>
+                                                  <i class="fa fa-user"></i>{" "}
+                                                  {quantity}
+                                                </div>
+                                                <div
+                                                  class="footer"
+                                                  style={{ padding: "15px" }}
+                                                >
+                                                  <small class="text-muted">
+                                                    {housenumberstreetname +
+                                                      ", " +
+                                                      wardname +
+                                                      ", " +
+                                                      districtname +
+                                                      ", " +
+                                                      provincename}
+                                                  </small>
+                                                </div>
+                                              </div>
                                             </div>
                                           </div>
-                                          <span class="clearfix"></span>
                                         </div>
-                                        <input
-                                          type="date"
-                                          // onChange={(e) => setDate(e.target.value)}
-                                          className="form-control"
-                                          style={{
-                                            width: "100%",
-                                            height: "40px",
-                                            padding: "10px",
-                                            marginBottom: "20px",
-                                            fontSize: "20px",
-                                            textAlign: "center",
-                                          }}
-                                        />
-
-                                        <button
-                                          type="button"
-                                          class="btn btn-secondary btn-lg btn-radius"
-                                          style={{
-                                            marginRight: "5px",
-                                            marginBottom: "5px",
-                                          }}
+                                        <label for="exampleInputEmail1">
+                                          Trạng thái
+                                        </label>
+                                        <select
+                                          class="form-select"
+                                          aria-label="Default select example"
+                                          value={staticworkass}
+                                          onChange={(e) =>
+                                            setStatic(e.target.value)
+                                          }
                                         >
-                                          10:00 {"->"} 11:00
-                                        </button>
-                                        <button
-                                          type="button"
-                                          class="btn btn-success btn-lg btn-radius"
-                                          style={{
-                                            marginRight: "5px",
-                                            marginBottom: "5px",
-                                          }}
-                                        >
-                                          11:00 {"->"} 12:00
-                                        </button>
-
-                                        <button
-                                          type="button"
-                                          class="btn btn-warning btn-lg btn-radius"
-                                          style={{
-                                            marginRight: "5px",
-                                            marginBottom: "5px",
-                                          }}
-                                        >
-                                          13:00 {"->"} 14:00
-                                        </button>
+                                          <option value="0">
+                                            Tạm dừng hoạt động
+                                          </option>
+                                          <option value="1">
+                                            Đang hoạt động
+                                          </option>
+                                        </select>
                                       </div>
                                       <footer>
-                                        <button
-                                          type="button"
-                                          class="btn btn-primary btn-lg btn-radius"
-                                          style={{
-                                            width: "100%",
-                                            fontSize: "20px",
-                                          }}
+                                        <Link
+                                          type="submit"
+                                          className="btn btn-primary me-2"
+                                          onClick={updatestatic}
                                         >
-                                          Đặt lịch
-                                        </button>
+                                          Cập nhật
+                                        </Link>
+                                        <Link
+                                          className="btn btn-light"
+                                          to={"/roomadmin"}
+                                        >
+                                          Trở lại
+                                        </Link>
                                       </footer>
                                     </div>
                                   </div>
