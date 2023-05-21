@@ -115,7 +115,7 @@ const RoomController = {
         idaccount: sortarr[0].idaccount,
         work: "Duyệt tin",
         implementationdate: implementationDate,
-        static: 1,
+        static: 0,
       });
 
       newWorkAssignment.save();

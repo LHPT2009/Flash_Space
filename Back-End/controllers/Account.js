@@ -4,7 +4,7 @@ const sharp = require("sharp");
 const AccountController = {
   getAllAccounts: async (req, res) => {
     try {
-      const account = await Account.find();
+      const account = await Account.find().populate("idrole");
       res.status(200).json(account);
     } catch (err) {
       res.status(500).json(err);
@@ -21,7 +21,7 @@ const AccountController = {
 
   getAccountById: async (req, res) => {
     try {
-      const account = await Account.findById(req.params.id);
+      const account = await Account.findById(req.params.id).populate("idrole");
       res.status(200).json(account);
     } catch (error) {
       res.status(500).json(error);

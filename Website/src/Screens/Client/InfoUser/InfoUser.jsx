@@ -221,13 +221,6 @@ const InfoUser = () => {
                             <option value="0">Nam</option>
                             <option value="1">Nữ</option>
                           </select>
-                          {/* <input
-                            type="url"
-                            class="form-control"
-                            id="website"
-                            value={sex}
-                            onChange={(e) => setSex(e.target.value)}
-                          /> */}
                         </div>
                       </div>
                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

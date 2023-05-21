@@ -1,43 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
+import axios from "axios";
 
 const RoomAdmin = () => {
-  const posts = [
-    {
-      id: 1,
-      name: "meo",
-    },
-    {
-      id: 2,
-      name: "meo",
-    },
-    {
-      id: 3,
-      name: "meo",
-    },
-    {
-      id: 4,
-      name: "meo",
-    },
-    {
-      id: 5,
-      name: "meo",
-    },
-    {
-      id: 6,
-      name: "meo",
-    },
-  ];
+  const [room, setRoom] = useState([]);
+
+  const loadroom = async () => {
+    const load = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/room`
+      )
+      .then((res) => {
+        setRoom(res.data);
+      });
+  };
+
+  useEffect(() => {
+    loadroom();
+  }, []);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
+  const roomactive = room.filter((item) => item.static == 1);
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = roomactive.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -159,7 +156,7 @@ const RoomAdmin = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={posts.length}
+                        totalPosts={roomactive.length}
                         paginate={paginate}
                       />
                     </div>
