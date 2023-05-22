@@ -1,5 +1,6 @@
 const Account = require("../models/Account");
 const WorkAssignment = require("../models/WorkAssignment");
+const ImagesCMND = require("../models/ImagesCMND");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
@@ -27,7 +28,14 @@ const AuthController = {
         phonenumberverification: false,
         sex: "",
       });
+      const newImagesCMND = new ImagesCMND({
+        idaccount: newAccount.id,
+        frontimage: "",
+        backimage: "",
+        static: 0,
+      });
       res.status(200).json(newAccount);
+      await newImagesCMND.save();
       await newAccount.save();
       let transporter = nodemailer.createTransport({
         service: "gmail",

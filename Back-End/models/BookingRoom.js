@@ -11,6 +11,9 @@ const BookingRoomSchema = new mongoose.Schema({
   total: {
     type: Number,
   },
+  static: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("BookingRoom", BookingRoomSchema);

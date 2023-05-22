@@ -46,6 +46,7 @@ const BookingRoomController = {
         idaccount: req.body.idaccount,
         date: datestring,
         total: req.body.total,
+        static: 0,
       });
 
       await newBookingRoom.save();

@@ -18,7 +18,6 @@ const ListItem = () => {
       )
       .then((res) => {
         setArr(res.data);
-        console.log(res.data);
       });
   };
 

@@ -1,41 +1,43 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
-import axios from "axios";
 
-const Evaluate = () => {
-  const [evaluate, setEvaluate] = useState([]);
-
-  const loadevaluate = async () => {
-    const load = await axios
-      .get(
-        `${
-          process.env.REACT_APP_URL
-            ? `${process.env.REACT_APP_URL}`
-            : `http://localhost:8000`
-        }/evaluate`
-      )
-      .then((res) => {
-        setEvaluate(res.data);
-        console.log(res.data);
-      });
-  };
-
-  useEffect(() => {
-    loadevaluate();
-  }, []);
+const BookingSchedule = () => {
+  const posts = [
+    {
+      id: 1,
+      name: "meo",
+    },
+    {
+      id: 2,
+      name: "meo",
+    },
+    {
+      id: 3,
+      name: "meo",
+    },
+    {
+      id: 4,
+      name: "meo",
+    },
+    {
+      id: 5,
+      name: "meo",
+    },
+    {
+      id: 6,
+      name: "meo",
+    },
+  ];
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
-  const evaluatefilter = evaluate
-    .filter((item) => item.content !== "")
-    .filter((item) => item.point !== 0);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = evaluatefilter.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -84,6 +86,18 @@ const Evaluate = () => {
                                   </div>
                                 </div>
                               </div>
+                              {/* <div className="col-md-3">
+                                <div className="form-group row">
+                                  <div className="col-sm-12">
+                                    <Link
+                                      to={"/detailaccount"}
+                                      className="btn btn-outline-primary btn-fw mb-4"
+                                    >
+                                      Thêm mới
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div> */}
                             </div>
                           </form>
                         </div>
@@ -94,52 +108,47 @@ const Evaluate = () => {
                       <table className="table table-hover">
                         <thead>
                           <tr>
-                            <th>Mã phòng</th>
-                            <th>tên người dùng</th>
-                            <th>Điểm đánh giá</th>
-                            <th>Trạng thái</th>
+                            <th>User</th>
+                            <th>First name</th>
+                            <th>Progress</th>
+                            <th>Amount</th>
+                            <th>Deadline</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
                           {currentPosts.map((item) => (
                             <tr>
-                              <td>{item.idroom._id}</td>
-                              <td>
-                                {item.idaccount.firstname}{" "}
-                                {item.idaccount.lastname}
+                              <td className="py-1">
+                                <img
+                                  src="../../images/faces/face1.jpg"
+                                  alt="image"
+                                />
                               </td>
-                              <td>{item.point}</td>
-                              {item.static == 1 ? (
-                                <td>
-                                  <button
-                                    className="btn btn-success btn-fw m-1"
-                                    disabled
-                                  >
-                                    Hiển thị
-                                  </button>
-                                </td>
-                              ) : (
-                                ""
-                              )}
-                              {item.static == 0 ? (
-                                <td>
-                                  <button
-                                    className="btn btn-danger btn-fw m-1"
-                                    disabled
-                                  >
-                                    Không Hiển thị
-                                  </button>
-                                </td>
-                              ) : (
-                                ""
-                              )}
+                              <td>{item.id}</td>
+                              <td>
+                                <div className="progress">
+                                  <div
+                                    className="progress-bar bg-success"
+                                    role="progressbar"
+                                    style={{ width: "25%" }}
+                                    aria-valuenow="25"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                  ></div>
+                                </div>
+                              </td>
+                              <td>$ 77.99</td>
+                              <td>May 15, 2015</td>
                               <td>
                                 <Link
-                                  to={`/detailevaluate/${item._id}`}
+                                  to={`/detailbookingroom/${item._id}`}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
+                                </Link>
+                                <Link className="btn btn-outline-danger btn-fw m-1">
+                                  Xóa
                                 </Link>
                               </td>
                             </tr>
@@ -148,7 +157,7 @@ const Evaluate = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={evaluatefilter.length}
+                        totalPosts={posts.length}
                         paginate={paginate}
                       />
                     </div>
@@ -164,4 +173,4 @@ const Evaluate = () => {
   );
 };
 
-export default Evaluate;
+export default BookingSchedule;

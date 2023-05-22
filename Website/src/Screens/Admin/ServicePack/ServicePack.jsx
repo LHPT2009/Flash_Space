@@ -6,7 +6,7 @@ import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
 
 const ServicePack = () => {
-  const [servicepack,setServicePack] = useState([]);
+  const [servicepack, setServicePack] = useState([]);
   const navigate = useNavigate();
   axios
     .get(
@@ -20,19 +20,19 @@ const ServicePack = () => {
       setServicePack(res.data);
     });
 
-    const delServicePack = async (id) => {
-      const del = await axios
-        .delete(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/servicepack/${id}`
-        )
-        .then(() => {
-          navigate("/servicepack");
-        });
-    };
+  const delServicePack = async (id) => {
+    const del = await axios
+      .delete(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/servicepack/${id}`
+      )
+      .then(() => {
+        navigate("/servicepack");
+      });
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
@@ -115,6 +115,7 @@ const ServicePack = () => {
                             <th>Tên gói</th>
                             <th>Giá</th>
                             <th>Thời gian</th>
+                            <th>Trạng thái</th>
                             <th></th>
                           </tr>
                         </thead>
@@ -125,6 +126,30 @@ const ServicePack = () => {
                               <td>{item.name}</td>
                               <td>{item.price}</td>
                               <td>{item.duration}</td>
+                              {item.static == 1 ? (
+                                <td>
+                                  <button
+                                    className="btn btn-success btn-fw m-1"
+                                    disabled
+                                  >
+                                    Hoạt động
+                                  </button>
+                                </td>
+                              ) : (
+                                ""
+                              )}
+                              {item.static == 0 ? (
+                                <td>
+                                  <button
+                                    className="btn btn-danger btn-fw m-1"
+                                    disabled
+                                  >
+                                    Dừng hoạt động
+                                  </button>
+                                </td>
+                              ) : (
+                                ""
+                              )}
                               <td>
                                 <Link
                                   to={`/detailservicepack/${item._id}`}
@@ -132,10 +157,11 @@ const ServicePack = () => {
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1"
-                                 onClick={() =>{
-                                  delServicePack(item._id)
-                                }}
+                                <Link
+                                  className="btn btn-outline-danger btn-fw m-1"
+                                  onClick={() => {
+                                    delServicePack(item._id);
+                                  }}
                                 >
                                   Xóa
                                 </Link>

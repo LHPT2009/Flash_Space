@@ -11,7 +11,13 @@ const ServicePackSchema = new mongoose.Schema({
     type: String,
   },
   duration: {
-    type: String,
+    type: Number,
+  },
+  amount: {
+    type: Number,
+  },
+  static: {
+    type: Number,
   },
 });
 
