@@ -34,6 +34,8 @@ const ServicePackController = {
         price: req.body.price,
         content: req.body.content,
         duration: req.body.duration,
+        amount: req.body.amount,
+        static: 1,
       });
 
       await newServicePack.save();

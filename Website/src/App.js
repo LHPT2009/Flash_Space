@@ -44,6 +44,8 @@ import TimeSlot from "./Screens/Admin/TimeSlot/TimeSlot";
 import Ward from "./Screens/Admin/Ward/Ward";
 import WorkAssignment from "./Screens/Admin/WorkAssignment/WorkAssignment";
 import RoomCareer from "./Screens/Admin/RoomCareer/RoomCareer";
+import BookingRoom from "./Screens/Admin/BookingRoom/BookingRoom";
+import ImageCMND from "./Screens/Admin/ImageCMND/ImageCMND";
 
 import RoomDetailAdmin from "./Screens/Admin/RoomDetailAdmin/RoomDetailAdmin";
 import DetailRole from "./Screens/Admin/DetailRole/DetailRole";
@@ -60,6 +62,8 @@ import DetailStaff from "./Screens/Admin/DetailStaff/DetailStaff";
 import DetailTimeslot from "./Screens/Admin/DetailTimeslot/DetailTimeslot";
 import DetailWard from "./Screens/Admin/DetailWard/DetailWard";
 import DetailWorkAssignment from "./Screens/Admin/DetailWorkAssignment/DetailWorkAssignment";
+import DetailBookingRoom from "./Screens/Admin/DetailBookingRoom/DetailBookingRoom";
+import DetailImageCMND from "./Screens/Admin/DetailImageCMND/DetailImageCMND";
 
 import NewCareer from "./Screens/Admin/NewCareer/NewCareer";
 import NewDistrict from "./Screens/Admin/NewDistrict/NewDistrict";
@@ -120,13 +124,20 @@ const App = () => {
           <Route path="/roomdetailadmin/:id" element={<RoomDetailAdmin />} />
           <Route path="/detailrole/:id" element={<DetailRole />} />
           <Route
+            path="/detailbookingroom/:id"
+            element={<DetailBookingRoom />}
+          />
+          <Route path="/detailimagecmnd/:id" element={<DetailImageCMND />} />
+          <Route path="/bookingroom" element={<BookingRoom />} />
+          <Route path="/imagecmnd" element={<ImageCMND />} />
+          <Route
             path="/detailbookingschedule"
             element={<DetailBookingSchedule />}
           />
           <Route path="/detailcareer/:id" element={<DetailCareer />} />
           <Route path="/detaildistrict/:id" element={<DetailDistrict />} />
           <Route path="/detailequipment/:id" element={<DetailEquipment />} />
-          <Route path="/detailevaluate" element={<DetailEvaluate />} />
+          <Route path="/detailevaluate/:id" element={<DetailEvaluate />} />
           <Route path="/detailposition" element={<DetailPosition />} />
           <Route path="/detailprovince/:id" element={<DetailProvince />} />
           <Route
@@ -134,7 +145,7 @@ const App = () => {
             element={<DetailServicePack />}
           />
           <Route
-            path="/detailservicepackinuse"
+            path="/detailservicepackinuse/:id"
             element={<DetailServicePackInUse />}
           />
           <Route path="/detailstaff" element={<DetailStaff />} />

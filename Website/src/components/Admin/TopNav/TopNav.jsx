@@ -220,16 +220,14 @@ const TopNav = () => {
                         Phân quyền
                       </Link>
                     </li>
+                    <li class="nav-item">
+                      <Link to={"/imagecmnd"} class="nav-link">
+                        Xác thực người dùng
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </li>
-              {/* <li class="nav-item">
-                <Link to={"/statistical"} class="nav-link">
-                  <i class="mdi mdi-chart-areaspline menu-icon"></i>
-                  <span class="menu-title">Thống kê</span>
-                  <i class="menu-arrow"></i>
-                </Link>
-              </li> */}
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-grid menu-icon"></i>
@@ -272,6 +270,11 @@ const TopNav = () => {
                     <li class="nav-item">
                       <Link to={"/servicepack"} class="nav-link">
                         Gói dịch vụ
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to={"/bookingroom"} class="nav-link">
+                        Đơn đặt phòng
                       </Link>
                     </li>
                   </ul>

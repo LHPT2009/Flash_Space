@@ -15,6 +15,9 @@ const ServicePackInUseSchema = new mongoose.Schema({
   endtime: {
     type: String,
   },
+  static: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("ServicePackInUse", ServicePackInUseSchema);

@@ -5,10 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const NewServicePack = () => {
-  const [name,setName] = useState("");
-  const [price,setPrice] = useState("");
-  const [content,setContent] = useState("");
-  const [duration,setDuration] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [content, setContent] = useState("");
+  const [duration, setDuration] = useState("");
+  const [amount, setAmount] = useState(0);
   const navigate = useNavigate();
 
   const newServicePack = async (e) => {
@@ -25,6 +26,7 @@ const NewServicePack = () => {
           price,
           content,
           duration,
+          amount,
         }
       )
       .then(() => {
@@ -86,10 +88,28 @@ const NewServicePack = () => {
                           onChange={(e) => setDuration(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2" onClick={newServicePack}>
+                      <div className="form-group">
+                        <label for="exampleInputUsername1">
+                          Số lượng phòng đăng
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="exampleInputUsername1"
+                          placeholder="Điền Số lượng phòng đăng"
+                          onChange={(e) => setAmount(e.target.value)}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={newServicePack}
+                      >
                         Thêm mới
                       </button>
-                      <Link className="btn btn-light" to={"/servicepack"}>Trở lại</Link>
+                      <Link className="btn btn-light" to={"/servicepack"}>
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>

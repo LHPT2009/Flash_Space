@@ -11,6 +11,9 @@ const ImagesCMNDSchema = new mongoose.Schema({
   backimage: {
     type: String,
   },
+  static: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("ImagesCMND", ImagesCMNDSchema);

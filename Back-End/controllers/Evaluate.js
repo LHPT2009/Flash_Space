@@ -3,7 +3,10 @@ const Evaluate = require("../models/Evaluate");
 const EvaluateController = {
   getAllEvaluate: async (req, res) => {
     try {
-      const evaluate = await Evaluate.find();
+      const evaluate = await Evaluate.find()
+        .populate("idaccount")
+        .populate("idroom")
+        .populate("idbookingroom");
       res.status(200).json(evaluate);
     } catch (err) {
       res.status(500).json(err);
@@ -18,9 +21,21 @@ const EvaluateController = {
     }
   },
 
-  getEvaluateById: async (req, res) => {
+  getEvaluateByIdbookingroom: async (req, res) => {
     try {
       const evaluate = await Evaluate.findOne({ idbookingroom: req.params.id });
+      res.status(200).json(evaluate);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
+  getEvaluateById: async (req, res) => {
+    try {
+      const evaluate = await Evaluate.findById(req.params.id)
+        .populate("idaccount")
+        .populate("idroom")
+        .populate("idbookingroom");
       res.status(200).json(evaluate);
     } catch (error) {
       res.status(500).json(error);
@@ -66,6 +81,25 @@ const EvaluateController = {
         static: 1,
         date: req.body.date,
       };
+      const evaluate = await Evaluate.findByIdAndUpdate(
+        req.params.id,
+        updateEvaluate,
+        {
+          new: true,
+        }
+      );
+      if (!evaluate) {
+        return res.status(404).json("Wrong updateEvaluate!");
+      }
+      res.status(200).json(evaluate);
+    } catch (error) {
+      res.status(500).json("Error!!!");
+    }
+  },
+
+  updateEvaluateStatic: async (req, res) => {
+    try {
+      const updateEvaluate = req.body;
       const evaluate = await Evaluate.findByIdAndUpdate(
         req.params.id,
         updateEvaluate,
