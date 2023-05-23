@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -8,45 +9,81 @@ import {
 } from "react-native";
 import { Button, ScrollView } from "native-base";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import IpAddress from "../consts/variable";
+import axios from "axios";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 
 const CardInformation = () => {
-  return (
-    <View style={styles.cardInformation}>
-      <View style={styles.cardInformation_form}>
-        <View style={styles.cardInformation_form_avatar}>
-          <Image
-            style={styles.cardInformation_form_avatar_img}
-            source={require("../../assets/images/avatar/123.jpeg")}
-          />
-        </View>
-        <View style={styles.cardInformation_form_information}>
-          <View style={styles.cardInformation_form_information_title}>
-            <Text style={styles.cardInformation_form_information_title_text}>
-              Thông tin cá nhân
-            </Text>
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getUser();
+  }, []);
+  const getUser = async () => {
+    const idAccount = await AsyncStorage.getItem("idAccount");
+    await axios
+      .get("http://" + IpAddress + ":8000/account/" + idAccount)
+      .then(async (response) => {
+        const result = response.data;
+        console.log("result");
+        console.log(result);
+        setUser(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  if (user == {}) {
+    return <View />;
+  } else {
+    return (
+      <View style={styles.cardInformation}>
+        <View style={styles.cardInformation_form}>
+          <View style={styles.cardInformation_form_avatar}>
+            <Image
+              style={styles.cardInformation_form_avatar_img}
+              source={{
+                uri: "http://" + IpAddress + ":8000/singleimage/" + user.avatar,
+              }}
+            />
           </View>
-          <View style={styles.cardInformation_form_information_name}>
-            <Text style={styles.cardInformation_form_information_name_text}>
-              Nguyễn Văn Chuẩn
-            </Text>
-          </View>
-          <View style={styles.cardInformation_form_information_phone}>
-            <Text style={styles.cardInformation_form_information_phone_text}>
-              0865562385
-            </Text>
-          </View>
-          <View style={styles.cardInformation_form_information_address}>
-            <Text style={styles.cardInformation_form_information_address_text}>
-              50 Trương văn thành, hiệp phú , tp Thủ đức{" "}
-            </Text>
+          <View style={styles.cardInformation_form_information}>
+            <View style={styles.cardInformation_form_information_title}>
+              <Text style={styles.cardInformation_form_information_title_text}>
+                Thông tin cá nhân
+              </Text>
+            </View>
+            <View style={styles.cardInformation_form_information_name}>
+              <Text style={styles.cardInformation_form_information_name_text}>
+                {user.firstname + " " + user.lastname}
+              </Text>
+            </View>
+            <View style={styles.cardInformation_form_information_phone}>
+              <Text style={styles.cardInformation_form_information_phone_text}>
+                {user.phonenumber}
+              </Text>
+            </View>
+            <View style={styles.cardInformation_form_information_address}>
+              {user.sex == 0 ? (
+                <Text
+                  style={styles.cardInformation_form_information_address_text}
+                >
+                  Nam
+                </Text>
+              ) : (
+                <Text
+                  style={styles.cardInformation_form_information_address_text}
+                >
+                  Nữ
+                </Text>
+              )}
+            </View>
           </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 const CardSetting = ({ navigation }) => {
@@ -62,7 +99,7 @@ const CardSetting = ({ navigation }) => {
           </View>
           <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />
         </TouchableOpacity>
-        <View style={styles.hr} />
+        {/* <View style={styles.hr} />
         <TouchableOpacity style={styles.cardSetting_box_item}>
           <View style={styles.cardSetting_box_item_title}>
             <MaterialIconsIcon name="settings" size={20} color={"black"} />
@@ -71,7 +108,7 @@ const CardSetting = ({ navigation }) => {
             </Text>
           </View>
           <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.hr} />
         <TouchableOpacity
           style={styles.cardSetting_box_item}
@@ -91,6 +128,19 @@ const CardSetting = ({ navigation }) => {
             <MaterialIconsIcon name="language" size={20} color={"black"} />
             <Text style={styles.cardSetting_box_item_title_text}>
               Cài đặt ngôn ngữ
+            </Text>
+          </View>
+          <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />
+        </TouchableOpacity>
+        <View style={styles.hr} />
+        <TouchableOpacity
+          style={styles.cardSetting_box_item}
+          onPress={() => navigation.navigate("PostRoomScreen")}
+        >
+          <View style={styles.cardSetting_box_item_title}>
+            <MaterialIconsIcon name="home" size={20} color={"black"} />
+            <Text style={styles.cardSetting_box_item_title_text}>
+              Phòng cho thuê
             </Text>
           </View>
           <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />

@@ -15,57 +15,7 @@ import IpAddress from "../consts/variable";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 
-const HistoryScreen = ({ navigation }) => {
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      name: "Phòng ngủ",
-      startday: "19/03/2023",
-      endday: "23/03/2023",
-      location: "50/14 Trương văn thàng, p.Hiệp Phú, tp.Thủ Đức",
-      status: 0,
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      name: "Phòng ăn",
-      startday: "19/03/2023",
-      endday: "23/03/2023",
-      location: "50/14 Trương văn thàng, p.Hiệp Phú, tp.Thủ Đức",
-      status: 1,
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      name: "Phòng sự kiện",
-      startday: "19/03/2023",
-      endday: "23/03/2023",
-      location: "50/14 Trương văn thàng, p.Hiệp Phú, tp.Thủ Đức",
-      status: 0,
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d73",
-      name: "Phòng khách",
-      startday: "19/03/2023",
-      endday: "23/03/2023",
-      location: "50/14 Trương văn thàng, p.Hiệp Phú, tp.Thủ Đức",
-      status: 1,
-    },
-    {
-      id: "58694a0f-3da1-47f-bd96-145571e29d72",
-      name: "Phòng bếp",
-      startday: "19/03/2023",
-      endday: "23/03/2023",
-      location: "50/14 Trương văn thàng, p.Hiệp Phú, tp.Thủ Đức",
-      status: 0,
-    },
-    {
-      id: "58694a0f-3da1-f-bd96-145571e29d72",
-      name: "Phòng vệ sinh",
-      startday: "19/03/2023",
-      endday: "23/03/2023",
-      location: "50/14 Trương văn thàng, p.Hiệp Phú, tp.Thủ Đức",
-      status: 0,
-    },
-  ];
+const PostRoomScreen = ({ navigation }) => {
   const [arr, setArr] = useState([]);
   const loaddata = async () => {
     const idAccount = await AsyncStorage.getItem("idAccount");
@@ -254,7 +204,7 @@ const HistoryScreen = ({ navigation }) => {
             }}
           >
             <Text style={{ fontSize: 20, fontFamily: theme.FontMain }}>
-              Lịch sử thuê phòng
+              Quản lý phòng cho thuê
             </Text>
           </View>
           <View style={{ width: "100%", height: "40%", alignItems: "center" }}>
@@ -312,4 +262,4 @@ const HistoryScreen = ({ navigation }) => {
   );
 };
 
-export default HistoryScreen;
+export default PostRoomScreen;

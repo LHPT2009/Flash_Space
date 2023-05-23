@@ -54,10 +54,12 @@ const DetailsScreen = ({ navigation, route }) => {
       .then((res) => {
         setListImage(res.data);
       });
+    loadlistrate();
   }, []);
 
   const [selected, setSelected] = useState({});
   const [selectedDay, setSelectedDay] = useState("");
+  const [listrate, setListRate] = useState([]);
 
   LocaleConfig.locales["fr"] = {
     monthNames: [
@@ -102,15 +104,52 @@ const DetailsScreen = ({ navigation, route }) => {
   };
   LocaleConfig.defaultLocale = "fr";
 
-  const checkOpenBook = (list) => {
-    const result = list.map((val) => {
-      if (val.status == true) {
-        return true;
-      } else {
-        return false;
-      }
+  // const checkOpenBook = (list) => {
+  //   const result = list.map((val) => {
+  //     if (val.status == true) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+  //   setOpenbook(result.includes(true));
+  // };
+
+  const loadlistrate = async () => {
+    const load = await axios
+      .get("http://" + IpAddress + ":8000/evaluate/list/" + house._id)
+      .then((res) => {
+        console.log(res.data);
+        setListRate(res.data);
+      });
+  };
+  const arrfilter = listrate.filter((item) => item.static == 1);
+  console.log(arrfilter);
+  const sumrate = arrfilter.length;
+  const dateformat = (date) => {
+    const getdate = new Date(date);
+    const day =
+      getdate.getDate() < 10 ? `0${getdate.getDate()}` : getdate.getDate();
+    const month =
+      getdate.getMonth() < 10 ? `0${getdate.getMonth()}` : getdate.getMonth();
+    const year = getdate.getFullYear();
+    return day + "/" + month + "/" + year;
+  };
+  const loop = (value) => {
+    var myloop = [];
+    for (let i = 0; i < value; i++) {
+      myloop.push(<Icon name="star" size={18} color={"#E9D738"} />);
+    }
+    return <View style={{ flexDirection: "row" }}>{myloop}</View>;
+  };
+  const count = () => {
+    let sum = 0;
+    arrfilter.map((item) => {
+      sum = sum + item.point;
     });
-    setOpenbook(result.includes(true));
+    const point = (1 / sumrate) * sum;
+    const a = (point * 100) / 100;
+    return a;
   };
 
   const MultiSelecteHour = () => {
@@ -187,23 +226,6 @@ const DetailsScreen = ({ navigation, route }) => {
           elevation: 10,
           paddingBottom: 10,
         }}
-        // markingType="multi-period"
-        // markedDates={{
-        //   "2023-03-28": {
-        //     periods: [
-        //       { startingDay: false, endingDay: true, color: "#5f9ea0" },
-        //       { startingDay: false, endingDay: true, color: "#ffa500" },
-        //       { startingDay: true, endingDay: false, color: "#f0e68c" },
-        //     ],
-        //   },
-        //   "2023-03-30": {
-        //     periods: [
-        //       { startingDay: true, endingDay: false, color: "#ffa500" },
-        //       { color: "transparent" },
-        //       { startingDay: false, endingDay: false, color: "#f0e68c" },
-        //     ],
-        //   },
-        // }}
       />
     );
   };
@@ -292,10 +314,7 @@ const DetailsScreen = ({ navigation, route }) => {
               end={{ x: 0, y: 0 }}
             >
               <View style={style.header}>
-                <TouchableOpacity
-                  style={style.headerBtn}
-                  // onPress={() => }
-                >
+                <TouchableOpacity style={style.headerBtn}>
                   <Icon
                     name="arrow-back"
                     size={30}
@@ -338,7 +357,8 @@ const DetailsScreen = ({ navigation, route }) => {
                   fontSize: 18,
                 }}
               >
-                <Icon name="star" size={18} color={"#E9D738"} /> 4.5/5
+                <Icon name="star" size={18} color={"#E9D738"} />{" "}
+                {sumrate != 0 ? count() : "0"}/5
                 <Text
                   style={{
                     color: COLORS.grey,
@@ -346,7 +366,7 @@ const DetailsScreen = ({ navigation, route }) => {
                   }}
                 >
                   {" "}
-                  (60)
+                  ({sumrate})
                 </Text>
               </Text>
             </View>
@@ -447,81 +467,80 @@ const DetailsScreen = ({ navigation, route }) => {
                   fontFamily: theme.FontMain,
                 }}
               >
-                1238
+                {sumrate}
               </Text>{" "}
               bình luận về phòng
             </Text>
-            <View
-              style={{
-                width: "100%",
-                backgroundColor: COLORS.white,
-                flexDirection: "row",
-                borderRadius: 13,
-                paddingHorizontal: 15,
-                paddingVertical: 10,
-                marginBottom: 20,
-              }}
-            >
+            {sumrate != 0 ? (
               <View
                 style={{
-                  width: "20%",
+                  width: "100%",
                   backgroundColor: COLORS.white,
+                  flexDirection: "row",
+                  borderRadius: 13,
+                  paddingHorizontal: 15,
+                  paddingVertical: 10,
+                  marginBottom: 20,
                 }}
               >
                 <View
                   style={{
-                    alignItems: "center",
+                    width: "20%",
+                    backgroundColor: COLORS.white,
                   }}
                 >
-                  <Image
-                    style={{ borderRadius: 50, width: 50, height: 50 }}
-                    source={require("../../assets/images/avatar/123.jpeg")}
-                  />
-                </View>
-              </View>
-              <View
-                style={{
-                  width: "80%",
-                  backgroundColor: COLORS.white,
-                }}
-              >
-                <View>
-                  <Text
-                    style={{ color: COLORS.dark, fontFamily: theme.FontMain }}
-                  >
-                    Nguyễn Văn Chuẩn
-                  </Text>
-                  <Text
-                    style={{ color: COLORS.grey, fontFamily: theme.FontMain }}
-                  >
-                    26/03/2023
-                  </Text>
-                </View>
-                <View>
-                  <Text
+                  <View
                     style={{
-                      fontFamily: theme.FontMain,
-                      textAlign: "justify",
+                      alignItems: "center",
                     }}
                   >
-                    Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
-                    Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
-                    Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
-                    Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
-                    Phòng đẹp lắm đó nha mấy chế vPhòng đẹp lắm đó nha mấy chế
-                    Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế
-                    Phòng đẹp lắm đó nha mấy chế Phòng đẹp lắm đó nha mấy chế{" "}
-                  </Text>
+                    <Image
+                      style={{ borderRadius: 50, width: 50, height: 50 }}
+                      source={{
+                        uri:
+                          "http://" +
+                          IpAddress +
+                          ":8000/singleimage/" +
+                          arrfilter[0].idaccount.avatar,
+                      }}
+                    />
+                  </View>
                 </View>
-                <View style={{ flexDirection: "row" }}>
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
-                  <Icon name="star" size={18} color={"#E9D738"} />
+                <View
+                  style={{
+                    width: "80%",
+                    backgroundColor: COLORS.white,
+                  }}
+                >
+                  <View>
+                    <Text
+                      style={{ color: COLORS.dark, fontFamily: theme.FontMain }}
+                    >
+                      {arrfilter[0].idaccount.firstname}{" "}
+                      {arrfilter[0].idaccount.lastname}
+                    </Text>
+                    <Text
+                      style={{ color: COLORS.grey, fontFamily: theme.FontMain }}
+                    >
+                      {dateformat(arrfilter[0].date)}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        textAlign: "justify",
+                      }}
+                    >
+                      {arrfilter[0].content}{" "}
+                    </Text>
+                  </View>
+                  {loop(arrfilter[0].point)}
                 </View>
               </View>
-            </View>
+            ) : (
+              <View />
+            )}
           </View>
           <View
             style={{
@@ -581,7 +600,13 @@ const DetailsScreen = ({ navigation, route }) => {
             Giá theo giờ
           </Text>
         </View>
-        <TouchableOpacity style={style.bookNowBtn} onPress={() => onOpen()}>
+        <TouchableOpacity
+          style={style.bookNowBtn}
+          onPress={async () => {
+            await deleteListTimeSlot();
+            onOpen();
+          }}
+        >
           <Text
             style={{
               color: COLORS.white,

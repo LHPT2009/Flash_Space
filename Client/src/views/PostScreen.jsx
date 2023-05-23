@@ -1,4 +1,10 @@
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { CheckIcon, Input, Select } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
@@ -158,6 +164,7 @@ const PostScreen = ({ navigation }) => {
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
+      <View style={{ height: 20 }} />
       <View
         style={{ width: "100%", height: "90%", backgroundColor: COLORS.light }}
       >
@@ -921,6 +928,7 @@ const PostScreen = ({ navigation }) => {
             borderTopRightRadius: 13,
             justifyContent: "center",
             alignItems: "center",
+            marginTop: -20,
           }}
           onPress={() => {
             const content = {
@@ -961,6 +969,7 @@ const PostScreen = ({ navigation }) => {
             borderTopRightRadius: 13,
             justifyContent: "center",
             alignItems: "center",
+            marginTop: -20,
           }}
         >
           <Text

@@ -1,14 +1,80 @@
+import { useState, useEffect } from "react";
 import { View, Text, Image } from "react-native";
 import { Rating, AirbnbRating } from "react-native-ratings";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { showMessage, hideMessage } from "react-native-flash-message";
+import IpAddress from "../consts/variable";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 import { TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 const Addcomment = (prors) => {
+  const navigation = prors.navigation;
+  const idroom = prors.idroom;
+  const idbookingroom = prors.idbookingroom;
   const ratingCompleted = (rating) => {
-    console.log("Rating is: " + rating);
+    setStar(rating);
   };
+  const datenow = new Date();
+  const daynow = datenow.getDate();
+  const monthnow = datenow.getMonth() + 1;
+  const yearnow = datenow.getFullYear();
+
+  const [user, setUser] = useState({});
+  const [content, setContent] = useState("");
+  const [star, setStar] = useState(0);
+  const [id, setId] = useState("");
+  useEffect(() => {
+    getUser();
+    loadrate();
+  }, []);
+  const getUser = async () => {
+    const idAccount = await AsyncStorage.getItem("idAccount");
+
+    await axios
+      .get("http://" + IpAddress + ":8000/account/" + idAccount)
+      .then(async (response) => {
+        const result = response.data;
+        setUser(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const loadrate = async () => {
+    await axios
+      .get("http://" + IpAddress + ":8000/evaluate/" + idbookingroom)
+      .then((res) => {
+        setStar(res.data.point);
+        setContent(res.data.content);
+        setId(res.data._id);
+      });
+  };
+  const updaterate = async () => {
+    const idAccount = await AsyncStorage.getItem("idAccount");
+    const date = new Date();
+    await axios
+      .put("http://" + IpAddress + ":8000/evaluate/" + id, {
+        idaccount: idAccount,
+        idroom: idroom,
+        idbookingroom: idbookingroom,
+        point: star,
+        content: content,
+        date: date,
+      })
+      .then((res) => {
+        showMessage({
+          message: "Phản hồi đã được lưu lại  ✔",
+          description: "Cảm ơn bạn đã phản hồi",
+          type: "success",
+        });
+        prors.closeAdd(false);
+      });
+  };
+
   return (
     <View
       style={{
@@ -39,7 +105,9 @@ const Addcomment = (prors) => {
           <View style={{ padding: 10 }}>
             <Image
               style={{ borderRadius: 50, width: 50, height: 50 }}
-              source={require("../../assets/images/avatar/123.jpeg")}
+              source={{
+                uri: "http://" + IpAddress + ":8000/singleimage/" + user.avatar,
+              }}
             />
           </View>
           <View>
@@ -51,7 +119,7 @@ const Addcomment = (prors) => {
                   color: COLORS.dark,
                 }}
               >
-                Nguyễn Văn Chuẩn
+                {user.firstname + " " + user.lastname}
               </Text>
             </View>
             <View style={{ paddingLeft: 10 }}>
@@ -62,7 +130,7 @@ const Addcomment = (prors) => {
                   color: COLORS.grey,
                 }}
               >
-                28/03/2023
+                Ngày {daynow} tháng {monthnow} năm {yearnow}
               </Text>
             </View>
           </View>
@@ -84,8 +152,12 @@ const Addcomment = (prors) => {
           >
             <TextInput
               multiline={true}
+              value={content}
               style={{ fontFamily: theme.FontMain, padding: 10 }}
               placeholder="Viết bình luận của bạn"
+              onChangeText={(value) => {
+                setContent(value);
+              }}
             />
           </View>
         </View>
@@ -107,10 +179,11 @@ const Addcomment = (prors) => {
                 "Tuyệt vời",
               ]}
               showRating
-              defaultRating={5}
+              defaultRating={star}
               size={20}
               reviewColor={COLORS.dark}
               reviewSize={20}
+              onFinishRating={ratingCompleted}
             />
           </View>
         </View>
@@ -146,6 +219,7 @@ const Addcomment = (prors) => {
             alignItems: "center",
             borderRadius: 13,
           }}
+          onPress={() => updaterate()}
         >
           <Text
             style={{ fontFamily: theme.FontMain, fontSize: 18, color: "white" }}

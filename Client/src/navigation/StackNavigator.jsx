@@ -13,6 +13,7 @@ import HistoryScreen from "../views/HistoryScreen";
 import DetailBookScreen from "../views/DetailBookScreen";
 import BookScreen from "../views/BookScreen";
 import AuthScreen from "../views/AuthScreen";
+import AuthScreen2 from "../views/AuthScreen2";
 import TakephotoScreen from "../views/TakephotoScreen";
 import TakephotoScreenRoom from "../views/TakephotoScreenRoom";
 import TakephotoScreenRoom1 from "../views/TakephotoScreenRoom1";
@@ -21,6 +22,11 @@ import TakephotoScreenRoom3 from "../views/TakephotoScreenRoom3";
 import PostScreen from "../views/PostScreen";
 import PostEndScreen from "../views/PostEndScreen";
 import PostImageScreen from "../views/PostImageScreen";
+import Alert from "../components/Alert";
+import Addcomment from "../components/Addcomment";
+import PostRoomScreen from "../views/PostRoomScreen";
+import CheckPostScreen from "../views/CheckPostScreen";
+import PackageScreen from "../views/PackageScreen";
 // import Rooms from "../screens/Rooms";
 // import Detail from "../screens/Detail";
 // import HomeScreen from "../views/screens/HomeScreen";
@@ -67,9 +73,16 @@ const WelcomeStackNavigator = () => {
             component={TakephotoScreenRoom3}
           />
           <Stack.Screen name="AuthScreen" component={AuthScreen} />
+          <Stack.Screen name="AuthScreen2" component={AuthScreen2} />
           <Stack.Screen name="PostScreen" component={PostScreen} />
           <Stack.Screen name="PostEndScreen" component={PostEndScreen} />
           <Stack.Screen name="PostImageScreen" component={PostImageScreen} />
+          <Stack.Screen name="PostRoomScreen" component={PostRoomScreen} />
+          <Stack.Screen name="Alert" component={Alert} />
+          <Stack.Screen name="Addcomment" component={Addcomment} />
+          <Stack.Screen name="CheckPostScreen" component={CheckPostScreen} />
+          <Stack.Screen name="PackageScreen" component={PackageScreen} />
+
           {/* <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Rooms" component={Rooms} /> */}
         </Stack.Navigator>

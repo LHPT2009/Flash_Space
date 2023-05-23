@@ -1,43 +1,24 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Constants from "expo-constants";
 import { HStack, Spinner } from "native-base";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
-import * as Location from "expo-location";
 import { showMessage } from "react-native-flash-message";
 import ButtonCamera from "../components/ButtonCamera";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
-import { InformationAddRoomContext } from "../context/InformationAddRoom";
 
-export default function TakephotoScreenRoom1({ navigation }) {
+export default function AuthScreen2({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
-  const [image1, setImage] = useState(null);
+  const [image, setImage] = useState(null);
   const [spinner, setSpinner] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
-  const [location, setLocation] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [latitude, setLatitude] = useState("");
   const cameraRef = useRef(null);
-  const { informations } = useContext(InformationAddRoomContext);
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Vui long cap quyen truy cap");
-        return;
-      }
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      await Object.assign(informations, {
-        longitude: currentLocation.coords.longitude,
-        latitude: currentLocation.coords.latitude,
-      });
-      setLocation(currentLocation);
-      setLongitude(currentLocation.coords.longitude);
-      setLatitude(currentLocation.coords.latitude);
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
@@ -50,7 +31,7 @@ export default function TakephotoScreenRoom1({ navigation }) {
         setSpinner(true);
         const data = await cameraRef.current.takePictureAsync();
         console.log(data);
-        setImage(data);
+        setImage(data.uri);
       } catch (error) {
         console.log(error);
       }
@@ -58,45 +39,15 @@ export default function TakephotoScreenRoom1({ navigation }) {
   };
 
   const savePicture = async () => {
-    if (image1.uri) {
+    if (image) {
       try {
-        const asset = await MediaLibrary.createAssetAsync(image1.uri);
+        const asset = await MediaLibrary.createAssetAsync(image);
         showMessage({
           message: "Đã lưu hình  ✔",
           type: "success",
         });
-        const imageUpload = {
-          mediaType: asset.mediaType,
-          modificationTime: asset.modificationTime,
-          uri: image1.uri,
-          filename: asset.filename,
-          width: asset.width,
-          height: asset.height,
-          id: asset.id,
-          creationTime: asset.creationTime,
-          duration: asset.duration,
-        };
-        if (informations.multiImage == undefined) {
-          const arrimage = [imageUpload];
-          console.log(arrimage);
-          Object.assign(informations, {
-            multiImage: arrimage,
-          });
-        } else {
-          const arrimage = [...informations.multiImage, imageUpload];
-          console.log(arrimage);
-          Object.assign(informations, {
-            multiImage: arrimage,
-          });
-        }
-        navigation.navigate("PostImageScreen", {
-          multiImage: {
-            image: informations.multiImage[0],
-            image1: image1,
-            image2: informations.multiImage[2],
-            image3: informations.multiImage[3],
-          },
-        });
+        setImage(null);
+        navigation.navigate("CheckPostScreen");
         console.log("saved successfully");
       } catch (error) {
         console.log(error);
@@ -110,8 +61,14 @@ export default function TakephotoScreenRoom1({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {!image1 ? (
-        <View style={{ width: "100%", height: "90%" }}>
+      {!image ? (
+        <View
+          style={{
+            width: "100%",
+            height: "90%",
+            backgroundColor: "red",
+          }}
+        >
           <Camera
             style={styles.camera}
             type={type}
@@ -120,16 +77,16 @@ export default function TakephotoScreenRoom1({ navigation }) {
           >
             <View
               style={{
-                height: "20%",
-
+                height: "30%",
                 paddingHorizontal: 30,
-                backgroundColor: theme.PRIMARY_BG_COLOR,
+                backgroundColor: "rgba(220,220,220,0.3)",
               }}
             >
               {!spinner ? (
                 <View
                   style={{
                     height: "100%",
+                    paddingTop: 50,
                     flexDirection: "row",
                     justifyContent: "space-between",
                   }}
@@ -197,15 +154,25 @@ export default function TakephotoScreenRoom1({ navigation }) {
                 </View>
               </View>
             ) : (
-              <View></View>
+              <View
+                style={{
+                  width: "100%",
+                  height: "35%",
+                }}
+              >
+                <Image
+                  style={{ width: "100%", height: " 100%" }}
+                  source={require("../../assets/images/camera.png")}
+                />
+              </View>
             )}
             <View
               style={{
-                height: "20%",
+                height: "30%",
                 flexDirection: "row",
                 justifyContent: "space-between",
                 paddingHorizontal: 30,
-                backgroundColor: theme.PRIMARY_BG_COLOR,
+                backgroundColor: "rgba(220,220,220,0.3)",
               }}
             ></View>
           </Camera>
@@ -214,17 +181,17 @@ export default function TakephotoScreenRoom1({ navigation }) {
         <View style={{ width: "100%", height: "90%" }}>
           <View
             style={{
-              height: "20%",
+              height: "30%",
               flexDirection: "row",
               justifyContent: "space-between",
               paddingHorizontal: 30,
               backgroundColor: theme.PRIMARY_BG_COLOR,
             }}
           ></View>
-          <Image source={{ uri: image1.uri }} style={styles.camera} />
+          <Image source={{ uri: image }} style={styles.camera} />
           <View
             style={{
-              height: "20%",
+              height: "30%",
               flexDirection: "row",
               justifyContent: "space-between",
               paddingHorizontal: 30,
@@ -235,7 +202,7 @@ export default function TakephotoScreenRoom1({ navigation }) {
       )}
 
       <View style={styles.controls}>
-        {!image1 ? (
+        {!image ? (
           !spinner ? (
             <ButtonCamera title="Chụp" onPress={takePicture} icon="camera" />
           ) : (
@@ -268,14 +235,12 @@ export default function TakephotoScreenRoom1({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.PRIMARY_BG_COLOR,
-    padding: 8,
+    backgroundColor: "rgba(220,220,220,0.3)",
   },
   controls: {
+    justifyContent: "center",
+    backgroundColor: theme.PRIMARY_BG_COLOR,
     height: "10%",
-    flex: 0.5,
   },
   button: {
     height: 40,
@@ -292,7 +257,6 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 5,
-    borderRadius: 20,
     flexDirection: "column",
     justifyContent: "space-between",
   },

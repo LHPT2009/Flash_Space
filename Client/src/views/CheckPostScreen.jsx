@@ -4,7 +4,7 @@ import theme from "../styles/theme";
 import { TouchableOpacity } from "react-native";
 import FlashMessage from "react-native-flash-message";
 
-const AuthScreen = ({ navigation }) => {
+const CheckPostScreen = ({ navigation }) => {
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <StatusBar
@@ -38,7 +38,7 @@ const AuthScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress={navigation.goBack}>
+            <TouchableOpacity onPress={() => navigation.navigate("Main")}>
               <Text
                 style={{
                   fontFamily: theme.FontMain,
@@ -66,7 +66,7 @@ const AuthScreen = ({ navigation }) => {
               color: COLORS.dark,
             }}
           >
-            Xác thực người dùng
+            Đăng bài viết
           </Text>
         </View>
         <View style={{ width: "20%", height: "100%" }}></View>
@@ -74,7 +74,7 @@ const AuthScreen = ({ navigation }) => {
       <View
         style={{ width: "100%", height: "80%", backgroundColor: COLORS.light }}
       >
-        {/* <View style={{ width: "100%", height: "100%" }}>
+        <View style={{ width: "100%", height: "100%" }}>
           <View
             style={{
               width: "100%",
@@ -85,17 +85,25 @@ const AuthScreen = ({ navigation }) => {
           >
             <TouchableOpacity
               style={{
-                width: 300,
-                height: 300,
+                width: "80%",
+                height: 100,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
                 elevation: 10,
                 backgroundColor: COLORS.white,
                 borderRadius: 13,
               }}
-              onPress={() => navigation.navigate("TakephotoScreen")}
+              onPress={() => navigation.navigate("PackageScreen")}
             >
               <Image
-                source={require("../../assets/images/QR/qr.png")}
-                style={{ width: 300, height: 300, borderRadius: 13 }}
+                source={require("../../assets/images/buy.gif")}
+                style={{
+                  width: "80%",
+                  height: "80%",
+                  resizeMode: "repeat",
+                }}
               />
             </TouchableOpacity>
           </View>
@@ -108,14 +116,10 @@ const AuthScreen = ({ navigation }) => {
             }}
           >
             <Text style={{ fontFamily: theme.FontMain, fontSize: 15 }}>
-              Xác thực mã QR trên Căn cước công dân
+              Vui lòng mua thêm gói để sử dụng.
             </Text>
           </View>
-        </View> */}
-        <Image
-          style={{ width: "100%", height: "100%" }}
-          source={require("../../assets/images/anhxacthuc.jpg")}
-        />
+        </View>
       </View>
       <TouchableOpacity
         style={{
@@ -128,7 +132,7 @@ const AuthScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
         }}
-        onPress={() => navigation.navigate("AuthScreen2")}
+        onPress={() => navigation.navigate("PostScreen")}
       >
         <Text
           style={{
@@ -137,11 +141,11 @@ const AuthScreen = ({ navigation }) => {
             color: COLORS.white,
           }}
         >
-          Bắt đầu
+          Đăng bài
         </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default AuthScreen;
+export default CheckPostScreen;

@@ -21,8 +21,12 @@ const BookScreen = ({ navigation, route }) => {
     setOpenAddcomment(result);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
+    getBook();
+  }, []);
+  const getBook = async () => {
     const idAccount = await AsyncStorage.getItem("idAccount");
+    console.log(idAccount);
     await axios
       .get("http://" + IpAddress + ":8000/account/" + idAccount)
       .then(async (response) => {
@@ -33,8 +37,7 @@ const BookScreen = ({ navigation, route }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
+  };
   // const addorder = async (e) => {
   //   e.preventDefault();
   //   const idaccount = user._id ;
