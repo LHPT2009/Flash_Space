@@ -72,8 +72,8 @@ const PostImageScreen = ({ navigation, route }) => {
         type: "image/jpeg",
       });
     }
-    dt.append("longitude", 111111);
-    dt.append("latitude", 11111111);
+    dt.append("longitude", informations.longitude);
+    dt.append("latitude", informations.latitude);
     dt.append("idaccount", idAccount);
 
     const result = await axios.post("http://" + IpAddress + ":8000/room/", dt, {

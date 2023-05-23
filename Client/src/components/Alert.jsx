@@ -5,9 +5,10 @@ import IpAddress from "../consts/variable";
 import axios from "axios";
 import { TouchableOpacity } from "react-native";
 import { showMessage, hideMessage } from "react-native-flash-message";
-
+import { ListTimeSlotContext } from "../context/ListTimeSlotContext";
+import { useContext } from "react";
 const Alert = (prors) => {
-  console.log(prors);
+  const { deleteListTimeSlot } = useContext(ListTimeSlotContext);
   const addorder = async () => {
     const idaccount = prors.idaccount;
     const total = prors.total;
@@ -18,15 +19,15 @@ const Alert = (prors) => {
         timeslots,
         total,
       })
-      .then((item) => {
-        console.log(item);
-        prors.navigation.navigate("Main");
-        prors.closeAdd(false);
+      .then(async (item) => {
         showMessage({
           message: "Gửi yêu cầu thành công  ✔",
           description: "Yêu cầu của bạn đã được gửi cho chủ sở hữu",
           type: "success",
         });
+        await deleteListTimeSlot();
+        prors.closeAdd(false);
+        prors.navigation.navigate("Main");
       });
   };
   return (

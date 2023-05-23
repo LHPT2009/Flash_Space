@@ -25,19 +25,19 @@ export default function TakephotoScreenRoom2({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      // let { status } = await Location.requestForegroundPermissionsAsync();
-      // if (status !== "granted") {
-      //   console.log("Vui long cap quyen truy cap");
-      //   return;
-      // }
-      // let currentLocation = await Location.getCurrentPositionAsync({});
-      // await Object.assign(informations, {
-      //   longitude: currentLocation.coords.longitude,
-      //   latitude: currentLocation.coords.latitude,
-      // });
-      // setLocation(currentLocation);
-      // setLongitude(currentLocation.coords.longitude);
-      // setLatitude(currentLocation.coords.latitude);
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Vui long cap quyen truy cap");
+        return;
+      }
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      await Object.assign(informations, {
+        longitude: currentLocation.coords.longitude,
+        latitude: currentLocation.coords.latitude,
+      });
+      setLocation(currentLocation);
+      setLongitude(currentLocation.coords.longitude);
+      setLatitude(currentLocation.coords.latitude);
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");

@@ -23,6 +23,7 @@ import {
   Input,
 } from "native-base";
 import axios from "axios";
+import FlashMessage from "react-native-flash-message";
 import IpAddress from "../consts/variable";
 import COLORS from "../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -38,7 +39,7 @@ const RoomsScreen = ({ navigation }) => {
   const [groupValues, setGroupValues] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclose();
   const [onChangeValue, setOnChangeValue] = React.useState(70);
-
+  console.log("aaaa");
   useEffect(() => {
     axios.get("http://" + IpAddress + ":8000/room/").then((res) => {
       setRoomData(res.data);
@@ -226,6 +227,7 @@ const RoomsScreen = ({ navigation }) => {
         backgroundColor={COLORS.white}
         barStyle="dark-content"
       />
+      <FlashMessage position="top" />
       <View
         style={{
           flexDirection: "row",
