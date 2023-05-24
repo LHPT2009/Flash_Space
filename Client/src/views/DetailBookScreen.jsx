@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 import { TouchableOpacity } from "react-native";
@@ -46,10 +47,7 @@ const DetailBookScreen = ({ navigation, route }) => {
       <View
         style={{
           width: "100%",
-          height: "100%",
-          justifyContent: "center",
           backgroundColor: theme.PRIMARY_BG_COLOR,
-          alignItems: "center",
         }}
       >
         {openAddcomment ? (
@@ -63,57 +61,209 @@ const DetailBookScreen = ({ navigation, route }) => {
           <View />
         )}
         {/* <FlashMessage position="top" /> */}
-        <View style={{ width: "90%", height: "90%" }}>
+        <View style={{ width: "100%", alignItems: "center" }}>
           <View
             style={{
               width: "100%",
-              height: "70%",
-              backgroundColor: COLORS.white,
+              height: 90,
+              flexDirection: "row",
               justifyContent: "space-between",
-              borderTopLeftRadius: 50,
-              borderTopRightRadius: 50,
             }}
           >
             <View
               style={{
-                with: "100%",
-                height: "80%",
-                marginTop: 20,
+                width: "20%",
+                height: "100%",
+                justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <View style={{ width: "85%", height: "100%" }}>
-                <View style={{ width: "100%" }}>
+              <Icon
+                name="arrow-back"
+                size={30}
+                color={"white"}
+                onPress={navigation.goBack}
+              />
+            </View>
+            <View
+              style={{
+                width: "60%",
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: theme.FontMain,
+                  color: COLORS.white,
+                  fontSize: 25,
+                }}
+              >
+                {detail[0].idworkinghours.idroom.subject}
+              </Text>
+            </View>
+            <View
+              style={{
+                width: "20%",
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            ></View>
+          </View>
+          <ScrollView
+            style={{
+              width: "100%",
+            }}
+          >
+            <View
+              style={{
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  width: "80%",
+                }}
+              >
+                {detail.map((item) => {
+                  return (
+                    <View
+                      style={{
+                        width: "100%",
+                        height: 70,
+                        flexDirection: "row",
+                        marginBottom: 20,
+                      }}
+                    >
+                      <View
+                        style={{
+                          width: "30%",
+                          height: "100%",
+                          borderRightColor: COLORS.white,
+                          borderRightWidth: 2,
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: "100%",
+                            height: "40%",
+                            justifyContent: "flex-end",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily: theme.FontMain,
+                              color: COLORS.white,
+                              fontSize: 16,
+                            }}
+                          >
+                            {item.idworkinghours.idtimeslot.starttime}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            width: "100%",
+                            height: "20%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily: theme.FontMain,
+                              color: COLORS.white,
+                              fontSize: 16,
+                            }}
+                          >
+                            |
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            width: "100%",
+                            height: "40%",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily: theme.FontMain,
+                              color: COLORS.white,
+                              fontSize: 16,
+                            }}
+                          >
+                            {item.idworkinghours.idtimeslot.endtime}
+                          </Text>
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          width: "70%",
+                          height: "100%",
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: "100%",
+                            height: "50%",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontFamily: theme.FontMain,
+                              color: COLORS.white,
+                              fontSize: 20,
+                              paddingLeft: 20,
+                            }}
+                          >
+                            {item.idworkinghours.date}{" "}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+              <View
+                style={{
+                  width: "90%",
+                  height: 250,
+                  marginVertical: 20,
+                  alignItems: "center",
+                  backgroundColor: COLORS.white,
+                  borderRadius: 13,
+                }}
+              >
+                <View
+                  style={{
+                    width: "85%",
+                    height: "100%",
+                  }}
+                >
                   <View
                     style={{
                       width: "100%",
-                    }}
-                  >
-                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                      Phiếu thuê phòng
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      width: "100%",
-                      justifyContent: "center",
-                      borderBottomWidth: 0.5,
-                      borderColor: COLORS.grey,
-                      paddingBottom: 10,
+                      alignItems: "center",
+                      paddingTop: 10,
                     }}
                   >
                     <Text
                       style={{
                         fontFamily: theme.FontMain,
                         color: COLORS.grey,
-                        fontSize: 25,
+                        fontSize: 18,
                       }}
                     >
-                      {detail[0].idworkinghours.idroom.subject}
+                      Thông tin liên hệ
                     </Text>
                   </View>
-                </View>
-                <ScrollView>
                   <View
                     style={{
                       width: "100%",
@@ -153,7 +303,7 @@ const DetailBookScreen = ({ navigation, route }) => {
                       width: "100%",
                       flexDirection: "row",
                       justifyContent: "space-between",
-                      paddingBottom: 10,
+                      paddingBottom: 20,
                     }}
                   >
                     <Text
@@ -181,284 +331,139 @@ const DetailBookScreen = ({ navigation, route }) => {
                       </Text>
                     </View>
                   </View>
-
-                  {detail.map((item) => {
-                    return (
-                      <View
-                        style={{
-                          width: "100%",
-                          backgroundColor: COLORS.light,
-                          marginBottom: 5,
-                          borderRadius: 8,
-                          padding: 5,
-                        }}
-                      >
-                        <View
-                          style={{
-                            width: "100%",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              fontFamily: theme.FontMain,
-                              color: COLORS.grey,
-                              fontSize: 18,
-                            }}
-                          >
-                            Ngày
-                          </Text>
-                          <View
-                            style={{
-                              width: "50%",
-                            }}
-                          >
-                            <Text
-                              style={{
-                                fontFamily: theme.FontMain,
-                                color: COLORS.dark,
-                                fontSize: 16,
-                              }}
-                            >
-                              {item.idworkinghours.date}
-                            </Text>
-                          </View>
-                        </View>
-                        <View style={{ width: "100%", flexDirection: "row" }}>
-                          <View
-                            style={{
-                              width: "50%",
-                            }}
-                          >
-                            <Text
-                              style={{
-                                fontFamily: theme.FontMain,
-                                color: COLORS.grey,
-                                fontSize: 18,
-                              }}
-                            >
-                              Giờ bắt đầu
-                            </Text>
-                            <View
-                              style={{
-                                width: "100%",
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontFamily: theme.FontMain,
-                                  color: COLORS.dark,
-                                  fontSize: 16,
-                                }}
-                              >
-                                {item.idworkinghours.idtimeslot.starttime}
-                              </Text>
-                            </View>
-                          </View>
-                          <View
-                            style={{
-                              width: "50%",
-                            }}
-                          >
-                            <Text
-                              style={{
-                                fontFamily: theme.FontMain,
-                                color: COLORS.grey,
-                                fontSize: 18,
-                              }}
-                            >
-                              Giờ kết thúc
-                            </Text>
-                            <View
-                              style={{
-                                width: "100%",
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontFamily: theme.FontMain,
-                                  color: COLORS.dark,
-                                  fontSize: 16,
-                                }}
-                              >
-                                {item.idworkinghours.idtimeslot.endtime}
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    );
-                  })}
-                </ScrollView>
+                  <TouchableOpacity
+                    style={{
+                      width: "100%",
+                      height: 60,
+                      backgroundColor: theme.PRIMARY_BG_COLOR,
+                      borderRadius: 8,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    onPress={() => setOpenAddcomment(true)}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: theme.FontMain,
+                        color: COLORS.white,
+                        fontSize: 20,
+                      }}
+                    >
+                      Đánh giá phòng
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-            <View
-              style={{
-                with: "100%",
-                height: 20,
-                backgroundColor: COLORS.white,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <View
-                style={{
-                  width: 20,
-                  height: 20,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderTopRightRadius: 50,
-                }}
-              ></View>
-              <View
-                style={{
-                  width: 20,
-                  height: 20,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderTopLeftRadius: 50,
-                }}
-              ></View>
-            </View>
-          </View>
+          </ScrollView>
+
           <View
             style={{
               width: "100%",
-              height: "30%",
+              height: "15%",
+              flexDirection: "row",
               backgroundColor: COLORS.white,
-              justifyContent: "space-between",
-              borderBottomLeftRadius: 50,
-              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 13,
+              borderTopRightRadius: 13,
             }}
           >
-            <View
-              style={{
-                with: "100%",
-                height: 20,
-                backgroundColor: COLORS.white,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
+            <View style={{ width: "70%", height: "100%" }}>
               <View
                 style={{
-                  width: 20,
-                  height: 20,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderBottomRightRadius: 50,
+                  width: "100%",
+                  height: "50%",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
-              ></View>
-              <View style={{ width: "90%" }}>
-                <Image
+              >
+                <Text
                   style={{
-                    width: "100%",
-                    height: "10%",
+                    fontFamily: theme.FontMain,
+                    color: COLORS.grey,
+                    fontSize: 18,
+                    paddingLeft: 20,
                   }}
-                  source={require("../../assets/images/line1.png")}
-                />
+                >
+                  Tình trạng:
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    color: "#46AC5E",
+                    fontSize: 18,
+                    paddingLeft: 10,
+                  }}
+                >
+                  Đang thuê
+                </Text>
               </View>
               <View
                 style={{
-                  width: 20,
-                  height: 20,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderBottomLeftRadius: 50,
+                  width: "100%",
+                  height: "50%",
+                  flexDirection: "row",
                 }}
-              ></View>
+              >
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    color: COLORS.grey,
+                    fontSize: 18,
+                    paddingLeft: 20,
+                  }}
+                >
+                  Tổng tiền:
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    color: "#00cc00",
+                    fontSize: 18,
+                    paddingLeft: 10,
+                  }}
+                >
+                  {item.total}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    color: COLORS.dark,
+                    fontSize: 18,
+                    paddingLeft: 10,
+                  }}
+                >
+                  VNĐ
+                </Text>
+              </View>
             </View>
             <View
               style={{
-                width: "100%",
+                width: "30%",
+                height: "100%",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <View style={{ width: "85%", height: "90%" }}>
-                <View
+              <TouchableOpacity
+                style={{
+                  width: "70%",
+                  height: "70%",
+                  backgroundColor: "#ff5050",
+                  borderRadius: 8,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
                   style={{
-                    width: "100%",
-                    height: "20%",
-                    flexDirection: "row",
+                    fontFamily: theme.FontMain,
+                    color: COLORS.white,
+                    fontSize: 20,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontFamily: theme.FontMain,
-                      color: COLORS.grey,
-                      fontSize: 18,
-                    }}
-                  >
-                    Tình trạng:
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: theme.FontMain,
-                      color: "#46AC5E",
-                      fontSize: 18,
-                      paddingLeft: 10,
-                    }}
-                  >
-                    Đang thuê
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: "100%",
-                    height: "25%",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: theme.FontMain,
-                      color: COLORS.grey,
-                      fontSize: 18,
-                    }}
-                  >
-                    Tổng tiền:
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: theme.FontMain,
-                      color: "#00cc00",
-                      fontSize: 18,
-                      paddingLeft: 10,
-                    }}
-                  >
-                    {item.total}
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: theme.FontMain,
-                      color: COLORS.dark,
-                      fontSize: 18,
-                      paddingLeft: 10,
-                    }}
-                  >
-                    VNĐ
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    width: "100%",
-                    height: "50%",
-                    backgroundColor: theme.PRIMARY_BG_COLOR,
-                    borderRadius: 13,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onPress={() => setOpenAddcomment(true)}
-                >
-                  <Text
-                    style={{
-                      fontFamily: theme.FontMain,
-                      color: COLORS.white,
-                      fontSize: 20,
-                    }}
-                  >
-                    Bình luận phòng
-                  </Text>
-                </TouchableOpacity>
-              </View>
+                  Hủy
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

@@ -8,22 +8,38 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import axios from "axios";
+import IpAddress from "../consts/variable";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
+import { useEffect, useState } from "react";
 const { width } = Dimensions.get("screen");
 
-const PackageScreen = () => {
-  const roomData = [
-    { id: "1", name: "aaa", price: 1000, time: "1thang" },
-    { id: "2", name: "baba", price: 1000, time: "1thang" },
-    { id: "3", name: "caacaca", price: 1000, time: "1thang" },
-    { id: "4", name: "aaa", price: 1000, time: "1thang" },
-    { id: "5", name: "baba", price: 1000, time: "1thang" },
-    { id: "6", name: "caacaca", price: 1000, time: "1thang" },
-    { id: "7", name: "aaa", price: 1000, time: "1thang" },
-    { id: "8", name: "baba", price: 1000, time: "1thang" },
-    { id: "9", name: "caacaca", price: 1000, time: "1thang" },
-  ];
+const PackageScreen = ({ navigation }) => {
+  const [roomData, setRoomData] = useState([]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    await axios
+      .get("http://" + IpAddress + ":8000/servicepack/")
+      .then((res) => {
+        setRoomData(res.data);
+      });
+  };
+  // const roomData = [
+  //   { id: "1", name: "aaa", price: 1000, time: "1thang" },
+  //   { id: "2", name: "baba", price: 1000, time: "1thang" },
+  //   { id: "3", name: "caacaca", price: 1000, time: "1thang" },
+  //   { id: "4", name: "aaa", price: 1000, time: "1thang" },
+  //   { id: "5", name: "baba", price: 1000, time: "1thang" },
+  //   { id: "6", name: "caacaca", price: 1000, time: "1thang" },
+  //   { id: "7", name: "aaa", price: 1000, time: "1thang" },
+  //   { id: "8", name: "baba", price: 1000, time: "1thang" },
+  //   { id: "9", name: "caacaca", price: 1000, time: "1thang" },
+  // ];
   const CardGrid = ({ house }) => {
     return (
       <Pressable activeOpacity={0.8}>
@@ -43,48 +59,64 @@ const PackageScreen = () => {
               elevation: 10,
             }}
           >
-            {/* <Image
-              source={{
-                uri:
-                  "http://" +
-                  IpAddress +
-                  ":8000/singleimage/" +
-                  house.mainimage,
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                height: "20%",
+                alignItems: "center",
               }}
-              style={style.optionsCardImage}
-            /> */}
-            {/* Option title */}
-            <View style={{ flexDirection: "row" }}>
+            >
               <Text
                 style={{
-                  marginTop: 20,
                   marginLeft: 15,
                   fontSize: 15,
-                  fontWeight: "bold",
-                  height: 50,
                 }}
               >
                 Tên gói:
               </Text>
               <Text
                 style={{
-                  marginTop: 20,
                   fontSize: 15,
                   fontWeight: "bold",
-                  height: 50,
                 }}
               >
                 {"  "}
                 {house.name}
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            {/* <View style={{ width: "100%", height: "30%" }}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "bold",
+                }}
+              >
+                Nội dung:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  overflow: "hidden",
+                }}
+              >
+                {"  "}
+                {house.content}
+              </Text>
+            </View> */}
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                height: "20%",
+                alignItems: "center",
+              }}
+            >
               <Text
                 style={{
                   marginLeft: 15,
                   fontSize: 15,
-                  fontWeight: "bold",
-                  height: 50,
                 }}
               >
                 Giá:
@@ -100,13 +132,18 @@ const PackageScreen = () => {
                 {house.price} VNĐ
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                height: "20%",
+                alignItems: "center",
+              }}
+            >
               <Text
                 style={{
                   marginLeft: 15,
                   fontSize: 15,
-                  fontWeight: "bold",
-                  height: 50,
                 }}
               >
                 Thời hạn:
@@ -115,16 +152,42 @@ const PackageScreen = () => {
                 style={{
                   fontSize: 15,
                   fontWeight: "bold",
-                  height: 50,
                 }}
               >
                 {"  "}
-                {house.time}
+                {house.duration}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                height: "20%",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  marginLeft: 15,
+                  fontSize: 15,
+                }}
+              >
+                Số lượng bài đăng:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "bold",
+                }}
+              >
+                {"  "}
+                {house.amount}
               </Text>
             </View>
             <View
               style={{
                 width: "100%",
+                height: "20%",
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -132,12 +195,15 @@ const PackageScreen = () => {
               <TouchableOpacity
                 style={{
                   width: "70%",
+                  height: "75%",
                   backgroundColor: theme.PRIMARY_BG_COLOR,
                   justifyContent: "center",
                   alignItems: "center",
-                  paddingVertical: 10,
                   borderRadius: 13,
                 }}
+                onPress={() =>
+                  navigation.navigate("DetailPackageScreen", house)
+                }
               >
                 <Text
                   style={{
@@ -157,7 +223,9 @@ const PackageScreen = () => {
   };
 
   return (
-    <View style={{ width: "100%" }}>
+    <View
+      style={{ width: "100%", height: " 100%", backgroundColor: "#dc6539" }}
+    >
       <View style={{ width: "100%" }}>
         <Image
           style={{ width: "100%", height: 100, resizeMode: "stretch" }}

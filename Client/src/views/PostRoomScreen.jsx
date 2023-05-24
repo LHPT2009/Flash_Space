@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  TextInput,
   TouchableOpacity,
   Pressable,
 } from "react-native";
@@ -36,14 +37,14 @@ const PostRoomScreen = ({ navigation }) => {
       <TouchableOpacity
         style={{
           width: "100%",
-          height: 200,
+          height: 130,
           backgroundColor: COLORS.white,
           flexDirection: "row",
           borderRadius: 13,
           elevation: 10,
           marginBottom: 20,
         }}
-        onPress={() => navigation.navigate("DetailBookScreen", house)}
+        onPress={() => navigation.navigate("DetailRoomPostScreen", house)}
       >
         <View
           style={{
@@ -225,6 +226,33 @@ const PostRoomScreen = ({ navigation }) => {
             alignItems: "center",
           }}
         ></View>
+      </View>
+      <View
+        style={{
+          width: "100%",
+          height: 60,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          backgroundColor: COLORS.white,
+        }}
+      >
+        <View
+          style={{
+            width: "90%",
+            height: 50,
+            backgroundColor: COLORS.light,
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: 20,
+            borderRadius: 12,
+          }}
+        >
+          <Icon name="search" color={COLORS.grey} size={25} />
+          <TextInput
+            style={{ fontFamily: theme.FontMain }}
+            placeholder="Tìm theo ngày"
+          />
+        </View>
       </View>
       <ScrollView
         showsHorizontalScrollIndicator={false}

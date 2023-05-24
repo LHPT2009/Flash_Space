@@ -6,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  TextInput,
   Pressable,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -86,11 +87,11 @@ const HistoryScreen = ({ navigation }) => {
       <TouchableOpacity
         style={{
           width: "100%",
-          height: 200,
+          height: 130,
           backgroundColor: COLORS.white,
           flexDirection: "row",
           borderRadius: 13,
-          elevation: 10,
+          elevation: 5,
           marginBottom: 20,
         }}
         onPress={() => navigation.navigate("DetailBookScreen", house)}
@@ -100,7 +101,7 @@ const HistoryScreen = ({ navigation }) => {
             width: "10%",
             borderBottomLeftRadius: 10,
             borderTopLeftRadius: 10,
-            backgroundColor: COLORS.grey,
+            backgroundColor: "#b3ffb3",
           }}
         ></View>
         <View
@@ -224,7 +225,7 @@ const HistoryScreen = ({ navigation }) => {
       <View
         style={{
           width: "100%",
-          height: 100,
+          height: 70,
           backgroundColor: COLORS.white,
           flexDirection: "row",
         }}
@@ -276,6 +277,34 @@ const HistoryScreen = ({ navigation }) => {
           }}
         ></View>
       </View>
+      <View
+        style={{
+          width: "100%",
+          height: 60,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          backgroundColor: COLORS.white,
+        }}
+      >
+        <View
+          style={{
+            width: "90%",
+            height: 50,
+            backgroundColor: COLORS.light,
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: 20,
+            borderRadius: 12,
+          }}
+        >
+          <Icon name="search" color={COLORS.grey} size={25} />
+          <TextInput
+            style={{ fontFamily: theme.FontMain }}
+            placeholder="Tìm theo ngày"
+          />
+        </View>
+      </View>
+
       <ScrollView
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
