@@ -27,6 +27,8 @@ import Addcomment from "../components/Addcomment";
 import PostRoomScreen from "../views/PostRoomScreen";
 import CheckPostScreen from "../views/CheckPostScreen";
 import PackageScreen from "../views/PackageScreen";
+import DetailPackageScreen from "../views/DetailPackageScreen";
+import DetailRoomPostScreen from "../views/DetailRoomPostScreen";
 // import Rooms from "../screens/Rooms";
 // import Detail from "../screens/Detail";
 // import HomeScreen from "../views/screens/HomeScreen";
@@ -82,6 +84,14 @@ const WelcomeStackNavigator = () => {
           <Stack.Screen name="Addcomment" component={Addcomment} />
           <Stack.Screen name="CheckPostScreen" component={CheckPostScreen} />
           <Stack.Screen name="PackageScreen" component={PackageScreen} />
+          <Stack.Screen
+            name="DetailPackageScreen"
+            component={DetailPackageScreen}
+          />
+          <Stack.Screen
+            name="DetailRoomPostScreen"
+            component={DetailRoomPostScreen}
+          />
 
           {/* <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Rooms" component={Rooms} /> */}

@@ -39,7 +39,6 @@ const RoomsScreen = ({ navigation }) => {
   const [groupValues, setGroupValues] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclose();
   const [onChangeValue, setOnChangeValue] = React.useState(70);
-  console.log("aaaa");
   useEffect(() => {
     axios.get("http://" + IpAddress + ":8000/room/").then((res) => {
       setRoomData(res.data);
