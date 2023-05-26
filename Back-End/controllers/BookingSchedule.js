@@ -91,6 +91,9 @@ const BookingScheduleController = {
           populate: {
             path: "idroom",
           },
+        })
+        .populate({
+          path: "idbookingroom",
         });
       res.status(200).json(bookingSchedule);
     } catch (error) {

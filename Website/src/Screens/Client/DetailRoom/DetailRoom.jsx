@@ -20,11 +20,14 @@ const DetailRoom = () => {
   const [districtname, setDistrictname] = useState();
   const [provincename, setProvincename] = useState();
   const [quantity, setQuantity] = useState();
+  const [length, setLength] = useState();
+  const [width, setWidth] = useState();
   const [DateOrder, setDateOrder] = useState();
   const [listWorkingHours, setListWorkingHours] = useState([]);
   const [showImageRoom, setShowImageRoom] = useState();
   const [listImageRoom, setListImageRoom] = useState([]);
-  const { timeslots, deleteListTimeSlot } = useContext(ListTimeSlotContext);
+  const { timeslots, editListTimeSlot, deleteListTimeSlot } =
+    useContext(ListTimeSlotContext);
   useEffect(() => {
     deleteListTimeSlot();
   }, [id]);
@@ -63,9 +66,25 @@ const DetailRoom = () => {
         setProvincename(res.data.idprovince.provincename);
         setQuantity(res.data.quantity);
         setShowImageRoom(res.data.mainimage);
+        setDateOrder(formatday(new Date()));
+        setWidth(res.data.width);
+        setLength(res.data.length);
       });
   }, [id]);
 
+  const formatday = (date) => {
+    const datestring = new Date(date);
+    const day =
+      datestring.getDate() <= 10
+        ? `0${datestring.getDate()}`
+        : `${datestring.getDate()}`;
+    const month =
+      datestring.getMonth() + 1 <= 10
+        ? `0${datestring.getMonth() + 1}`
+        : `${datestring.getMonth() + 1}`;
+    const year = datestring.getFullYear();
+    return year + "-" + month + "-" + day;
+  };
   const searchWorkingHours = (date) => {
     const datestring = new Date(date);
     const day =
@@ -190,7 +209,7 @@ const DetailRoom = () => {
                                               onClick={addFavoriteRoom}
                                             >
                                               <i
-                                                class="fa fa-heart fa-2xl heart-gray"
+                                                class="fa fa-heart heart-red"
                                                 style={{ marginLeft: "10px" }}
                                               ></i>
                                             </a>
@@ -200,7 +219,16 @@ const DetailRoom = () => {
                                             <span class="period">VNĐ/1h</span>
                                           </span>
                                           <p class="card-text">{describe}</p>
-                                          <i class="fa fa-user"></i> {quantity}
+                                          <div className="row">
+                                            <div className="col-auto">
+                                              <i class="fa fa-user"></i>{" "}
+                                              {quantity}
+                                            </div>
+                                            <div className="col-auto">
+                                              <i class="fa fa-expand-arrows-alt"></i>{" "}
+                                              {length}m X {width}m
+                                            </div>
+                                          </div>
                                         </div>
                                         <div
                                           class="footer"
@@ -222,6 +250,7 @@ const DetailRoom = () => {
 
                                   <input
                                     type="date"
+                                    value={DateOrder}
                                     onChange={(e) => {
                                       if (localStorage.getItem("token")) {
                                         searchWorkingHours(e.target.value);
@@ -260,19 +289,49 @@ const DetailRoom = () => {
                               </div>
                               <footer>
                                 {timeslots.length > 0 ? (
-                                  <Link
-                                    to={"/order"}
+                                  <>
+                                    <Link
+                                      to={"/order"}
+                                      class="btn btn-primary btn-lg btn-radius"
+                                      style={{
+                                        width: "100%",
+                                        fontSize: "20px",
+                                      }}
+                                    >
+                                      Đặt lịch
+                                    </Link>
+                                    <div className=" mt-2">
+                                      <strong>Danh sách bạn đã chọn:</strong>
+                                      <br />
+                                      {timeslots.map((item) => (
+                                        <button
+                                          type="button"
+                                          className="btn btn-light btn-radius"
+                                          style={{
+                                            marginRight: "5px",
+                                            marginBottom: "5px",
+                                          }}
+                                          onClick={() => editListTimeSlot(item)}
+                                        >
+                                          {`${item.starttime} - ${item.endtime} - (${item.date})`}
+                                        </button>
+                                      ))}
+                                    </div>
+                                  </>
+                                ) : (
+                                  <button
+                                    // to={"/order"}
                                     class="btn btn-primary btn-lg btn-radius"
                                     style={{
                                       width: "100%",
                                       fontSize: "20px",
                                     }}
+                                    disabled
                                   >
-                                    Đặt lịch
-                                  </Link>
-                                ) : (
-                                  ""
+                                    Bạn chưa đặt thời gian nào
+                                  </button>
                                 )}
+                                <div></div>
                               </footer>
                             </div>
                           </div>
@@ -287,7 +346,7 @@ const DetailRoom = () => {
                     <table class="table table-striped table-product">
                       <tbody>
                         <tr>
-                          <td width="390">Tên</td>
+                          <td>Tên</td>
                           <td>Số lượng</td>
                         </tr>
                         <tr>

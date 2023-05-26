@@ -57,10 +57,20 @@ const DetailHistory = () => {
   useEffect(() => {
     infoAccount();
   }, []);
-  const datenow = new Date();
-  const daynow = datenow.getDate();
-  const monthnow = datenow.getMonth() + 1;
-  const yearnow = datenow.getFullYear();
+
+  const showformatday = (date) => {
+    const datestring = new Date(date);
+    const day =
+      datestring.getDate() <= 10
+        ? `0${datestring.getDate()}`
+        : `${datestring.getDate()}`;
+    const month =
+      datestring.getMonth() + 1 <= 10
+        ? `0${datestring.getMonth() + 1}`
+        : `${datestring.getMonth() + 1}`;
+    const year = datestring.getFullYear();
+    return `Ngày ${day} tháng ${month} năm ${year}`;
+  };
 
   return (
     <div>
@@ -108,9 +118,9 @@ const DetailHistory = () => {
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                           <div class="invoice-details">
                             <div class="invoice-num text-black">
-                              <div>Ngày hiện tại bạn xem:</div>
+                              <div>Hóa đơn được đặt vào ngày:</div>
                               <div>
-                                Ngày {daynow} tháng {monthnow} năm {yearnow}
+                                {showformatday(arr[0].idbookingroom.date)}
                               </div>
                               <br />
                             </div>
@@ -127,7 +137,7 @@ const DetailHistory = () => {
                               <thead>
                                 <tr>
                                   <th>Tên phòng</th>
-                                  <th>Mã Phòng</th>
+                                  <th>Ngày đặt</th>
                                   <th>Bắt đầu</th>
                                   <th>kết thúc</th>
                                   <th>giá tiền</th>
@@ -167,7 +177,7 @@ const DetailHistory = () => {
                                       </td>
 
                                       <td>
-                                        {item.idworkinghours.idroom.price}
+                                        {item.idworkinghours.idroom.price} VNĐ
                                       </td>
                                     </tr>
                                   );

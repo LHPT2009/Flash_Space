@@ -20,10 +20,18 @@ const SingleCard = (props) => {
           <span class="price">{props.price}VNĐ/1h</span>
         </span>
         <p class="card-text">{props.describe}</p>
-        <i class="fa fa-user"></i> 5
+        <div className="row">
+          <div className="col-auto">
+            <i class="fa fa-user"></i> {props.quantity}
+          </div>
+          <div className="col-auto">
+            <i class="fa fa-expand-arrows-alt"></i> {props.length}m X{" "}
+            {props.width}m
+          </div>
+        </div>
       </div>
       <div class="footer">
-        <small class="text-muted">07/04/2023</small>
+        <small class="text-muted">{props.dress}</small>
       </div>
     </Link>
   );

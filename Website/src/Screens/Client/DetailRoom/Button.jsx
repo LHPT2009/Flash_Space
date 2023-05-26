@@ -7,7 +7,7 @@ const Button = (props) => {
     setActive(!active);
     const date = new Date(props.date);
     const day = date.getDate();
-    const month = date.getMonth() + 1; 
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
     const idroom = props.idroom;
@@ -23,24 +23,23 @@ const Button = (props) => {
       starttime,
       endtime,
       pricetime,
-      date: `${day}-${month}-${year}`
+      date: `${day}-${month}-${year}`,
     };
-    editListTimeSlot(timeslot)
+    editListTimeSlot(timeslot);
   };
   return (
     <button
-    type="button"
-    className="btn btn-lg btn-radius"
-    style={{
-      marginRight: "5px",
-      marginBottom: "5px",
-      backgroundColor: active ? "green" : "gray"
-    }}
-    onClick={handleClick}
-  >
-    {`${props.starttime} - ${props.endtime}`}
-  </button>
+      type="button"
+      className="btn btn-light btn-radius"
+      style={{
+        marginRight: "5px",
+        marginBottom: "5px",
+      }}
+      onClick={handleClick}
+    >
+      {`${props.starttime} - ${props.endtime}`}
+    </button>
   );
-}
+};
 
 export default Button;
