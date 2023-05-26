@@ -8,7 +8,6 @@ const ItemGrid = (props) => {
       class="card"
       style={{
         textDecoration: "none",
-        height: "300px",
       }}
     >
       <div class="row">

@@ -3,26 +3,28 @@ import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Pagination from "../../components/Pagination/Pagination";
+
 const ListItem = () => {
   const [arr, setArr] = useState([]);
   const id = jwtDecode(localStorage.getItem("token")).id;
-  
+
   const loaddata = async () => {
     const load = await axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/favoriteroom/${id}`
-    )
-    .then((res) => {
-      setArr(res.data);
-    });
-  }
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/favoriteroom/${id}`
+      )
+      .then((res) => {
+        setArr(res.data);
+      });
+  };
 
   useEffect(() => {
-    loaddata()
+    loaddata();
   }, []);
 
   const delItem = async (idfar) => {
@@ -35,9 +37,20 @@ const ListItem = () => {
         }/favoriteroom/${idfar}`
       )
       .then((res) => {
-        loaddata()
+        loaddata();
       });
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = arr.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="container">
       <main className="col-lg-12 m-3">
@@ -97,10 +110,10 @@ const ListItem = () => {
                 </Link>
               </div>
               <div class="col-sm-1">
-              <button
+                <button
                   type="button"
                   class="btn btn-danger"
-                  style={{height:"300px"}}
+                  style={{ height: "300px" }}
                   onClick={(e) => delItem(item._id)}
                 >
                   Hủy yêu thích
@@ -112,33 +125,11 @@ const ListItem = () => {
         <hr />
 
         <footer className="d-flex mt-4">
-          <nav className="ms-3">
-            <ul className="pagination">
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  {"<"}
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  1
-                </a>
-              </li>
-              <li className="page-item active" aria-current="page">
-                <span className="page-link">2</span>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  3
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  {">"}
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={arr.length}
+            paginate={paginate}
+          />
         </footer>
       </main>
     </div>

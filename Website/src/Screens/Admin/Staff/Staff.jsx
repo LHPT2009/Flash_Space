@@ -90,7 +90,7 @@ const Staff = () => {
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <Link
-                                      to={"/detailaccount"}
+                                      to={"/newstaff"}
                                       className="btn btn-outline-primary btn-fw mb-4"
                                     >
                                       Thêm mới
@@ -148,7 +148,7 @@ const Staff = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={currentPosts.length}
+                        totalPosts={accountuser.length}
                         paginate={paginate}
                       />
                     </div>

@@ -6,6 +6,7 @@ import axios from "axios";
 import ItemGrid from "../../../components/ListItem/ItemGrid";
 // import Sidebar from "../../../components/Sidebar/Sidebar";
 // import ListItem from "../../../components/ListItem/ListItem";
+import Pagination from "../../../components/Pagination/Pagination";
 
 const Room = () => {
   const [roomData, setRoomData] = useState([]);
@@ -188,12 +189,20 @@ const Room = () => {
       });
   }, [listWard]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
+
   const room = roomFilterData;
   const district = listDistrict.filter(
     (n) => n.idprovince._id == searchProvince
   );
   const ward = listWard.filter((n) => n.iddistrict._id == searchDistrict);
 
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = room.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div>
       <TopNav />
@@ -349,41 +358,44 @@ const Room = () => {
                 </div>
               </aside>
               <main className="col-lg-9">
-                <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-                  <strong className="d-block py-2">
-                    {room.length} tổng số phòng tìm được{" "}
-                  </strong>
-                  <div className="ms-auto">
-                    <div className="d-inline-block w-auto me-1">
+                <small>Số phòng hiện tại</small>
+                <span style={{ color: "red", fontWeight: "bold" }}>
+                  {" "}
+                  {room.length}
+                </span>
+                <div class="row">
+                  <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+                    <div class="col-lg-3 m-1">
+                      <select
+                        className="form-select d-inline-block w-100"
+                        onChange={(e) => setSort(e.target.value)}
+                      >
+                        <option value="0">Tùy chọn</option>
+                        <option value="1">Giá thấp đến cao</option>
+                        <option value="2">Giá cao đến thấp</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-6 m-1">
                       <input
                         type="text"
-                        class="form-control"
+                        class="form-control d-inline-block w-100"
                         id="exampleFormControlInput1"
                         placeholder="Tìm kiểm theo tên"
                         onChange={(e) => setSearchName(e.target.value)}
                       />
                     </div>
-                    <select
-                      className="form-select d-inline-block w-auto me-1"
-                      onChange={(e) => setSort(e.target.value)}
-                    >
-                      <option value="0">Tùy chọn</option>
-                      <option value="1">Giá thấp đến cao</option>
-                      <option value="2">Giá cao đến thấp</option>
-                    </select>
-                    <div className="d-inline-block w-auto me-1">
+                    <div class="col-lg-3 m-1">
                       <button
                         type="button"
-                        class="btn btn-primary"
-                        style={{ marginBottom: "5px" }}
+                        class="btn btn-primary d-inline-block w-100"
                       >
                         Tìm vị trí gần khu vực
                       </button>
                     </div>
-                  </div>
-                </header>
+                  </header>
+                </div>
                 <div>
-                  {room.map((item) => (
+                  {currentPosts.map((item) => (
                     <ItemGrid
                       _id={item._id}
                       mainimage={item.mainimage}
@@ -399,33 +411,11 @@ const Room = () => {
                 <hr />
 
                 <footer className="d-flex mt-4">
-                  <nav className="ms-3">
-                    <ul className="pagination">
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          {"<"}
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item active" aria-current="page">
-                        <span className="page-link">2</span>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          {">"}
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
+                  <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={room.length}
+                    paginate={paginate}
+                  />
                 </footer>
               </main>
             </div>

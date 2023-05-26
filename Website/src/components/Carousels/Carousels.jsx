@@ -13,40 +13,12 @@ const Carousels = () => {
     <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
         <img
-          className="w-100 h-50 image"
+          className="image"
           src="https://cdn.mos.cms.futurecdn.net/wFzEvUmaoVtNimMMnQSgMR.gif"
           alt="First slide"
         />
         <Carousel.Caption>
-          <h5 style={{ color: "#FFC107" }}>Công việc</h5>
-          <p style={{ color: "#000" }}>
-            Chúng tôi có đa dạng về loại phòng và chúng tôi tin mình có thể hỗ
-            trợ tốt cho bạn
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="w-100 h-50 image"
-          src="https://cdn.mos.cms.futurecdn.net/wFzEvUmaoVtNimMMnQSgMR.gif"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h5 style={{ color: "#FFC107" }}>Công việc</h5>
-          <p style={{ color: "#000" }}>
-            Chúng tôi có đa dạng về loại phòng và chúng tôi tin mình có thể hỗ
-            trợ tốt cho bạn
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="w-100 h-50 image"
-          src="https://cdn.mos.cms.futurecdn.net/wFzEvUmaoVtNimMMnQSgMR.gif"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h5 style={{ color: "#FFC107" }}>Công việc</h5>
+          <h4 style={{ color: "#FFC107" }}>Công việc</h4>
           <p style={{ color: "#000" }}>
             Chúng tôi có đa dạng về loại phòng và chúng tôi tin mình có thể hỗ
             trợ tốt cho bạn

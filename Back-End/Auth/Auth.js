@@ -26,7 +26,7 @@ const AuthController = {
         phonenumber: "",
         emailverification: false,
         phonenumberverification: false,
-        sex: "",
+        sex: 0,
       });
       const newImagesCMND = new ImagesCMND({
         idaccount: newAccount.id,
@@ -194,7 +194,7 @@ const AuthController = {
         phonenumber: "",
         emailverification: false,
         phonenumberverification: false,
-        sex: "",
+        sex: 0,
       });
       const newWorkAssignment = new WorkAssignment({
         idroom: "6452a565c33ced564a4ab3b4",
