@@ -11,6 +11,7 @@ const SingleCard = (props) => {
         class="card-img-top"
         src={`http://localhost:8000/singleimage/${props.mainimage}`}
         alt="Card image cap"
+        style={{ height: "300px", width: "100%" }}
       />
       <div class="card-body" style={{ padding: "15px" }}>
         <small>{props.careername}</small>

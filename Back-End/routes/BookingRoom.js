@@ -6,6 +6,8 @@ router.get("/", BookingRoomController.getAllBookingRoom);
 
 router.get("/:id", BookingRoomController.getBookingRoomByIdAccount);
 
+router.get("/loadid/:id", BookingRoomController.getBookingRoomById);
+
 router.post("/", BookingRoomController.addBookingRoom);
 
 router.delete("/:id", BookingRoomController.deleteBookingRoom);

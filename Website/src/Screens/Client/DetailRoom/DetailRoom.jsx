@@ -136,7 +136,7 @@ const DetailRoom = () => {
                               <div class="product-gallery">
                                 <div class="thumbnail-images">
                                   <a
-                                    href="#"
+                                    // href="#"
                                     class="theater"
                                     rel="group"
                                     hidefocus="true"
@@ -145,13 +145,14 @@ const DetailRoom = () => {
                                       src={`http://localhost:8000/singleimage/${showImageRoom}`}
                                       class="img-responsive"
                                       alt=""
+                                      style={{ height: "300px" }}
                                     />
                                   </a>
                                 </div>
                                 <div class="thumbnail-images">
                                   {listImageRoom.map((item) => (
                                     <a
-                                      href="#"
+                                      // href="#"
                                       class="theater"
                                       rel="group"
                                       hidefocus="true"
@@ -162,6 +163,7 @@ const DetailRoom = () => {
                                       <img
                                         src={`http://localhost:8000/singleimage/${item.filename}`}
                                         alt=""
+                                        style={{ height: "100px" }}
                                       />
                                     </a>
                                   ))}

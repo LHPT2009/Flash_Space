@@ -1,7 +1,51 @@
+import { useEffect, useState } from "react";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import axios from "axios";
+import { Link, useParams } from "react-router-dom";
 
 const DetailPermission = () => {
+  const { id } = useParams();
+  const [name, setName] = useState();
+  const [date, setDate] = useState();
+  const [total, setTotal] = useState();
+  const [staticbk, setStatic] = useState();
+
+  const loadbookingroom = async () => {
+    const load = await axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/bookingroom/loadid/${id}`
+      )
+      .then((res) => {
+        setName(
+          `${res.data.idaccount.firstname} ${res.data.idaccount.lastname}`
+        );
+        setDate(res.data.date);
+        setTotal(res.data.total);
+        setStatic(res.data.static);
+      });
+  };
+
+  useEffect(() => {
+    loadbookingroom();
+  }, []);
+
+  const formatdate = (date) => {
+    const getdate = new Date(date);
+    const day =
+      getdate.getDate() < 10 ? `0${getdate.getDate()}` : getdate.getDate();
+    const month =
+      getdate.getMonth() < 10
+        ? `0${getdate.getMonth() + 1}`
+        : getdate.getMonth() + 1;
+    const year = getdate.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <>
       <TopNav />
@@ -12,51 +56,89 @@ const DetailPermission = () => {
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Default form</h4>
-                    <p className="card-description">Basic form layout</p>
+                    <h4 className="card-title">Chi tiết đơn đặt</h4>
                     <form className="forms-sample">
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Username</label>
+                        <label for="exampleInputUsername1">Mã đơn</label>
                         <input
                           type="text"
                           className="form-control"
-                          id="exampleInputUsername1"
-                          placeholder="Username"
+                          value={id}
+                          disabled
                         />
                       </div>
                       <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          placeholder="Email"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          placeholder="Password"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label for="exampleInputConfirmPassword1">
-                          Confirm Password
+                        <label for="exampleInputUsername1">
+                          Tên người đặt đơn
                         </label>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control"
-                          id="exampleInputConfirmPassword1"
-                          placeholder="Password"
+                          value={name}
+                          disabled
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2">
-                        Submit
-                      </button>
-                      <button className="btn btn-light">Cancel</button>
+                      <div className="form-group">
+                        <label for="exampleInputUsername1">Ngày đặt</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={date}
+                          disabled
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label for="exampleInputUsername1">Tổng tiền</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={total}
+                          disabled
+                        />
+                      </div>
+                      {staticbk == 0 ? (
+                        <div className="form-group">
+                          <label for="exampleInputUsername1">Trạng thái</label>
+                          <button
+                            className="form-control btn btn-warning btn-fw m-1"
+                            disabled
+                          >
+                            Đã gửi
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {staticbk == 1 ? (
+                        <div className="form-group">
+                          <label for="exampleInputUsername1">Trạng thái</label>
+                          <button
+                            className="form-control btn btn-success btn-fw m-1"
+                            disabled
+                          >
+                            Đặt thành công
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {staticbk == 2 ? (
+                        <div className="form-group">
+                          <label for="exampleInputUsername1">Trạng thái</label>
+                          <button
+                            className="form-control btn btn-danger btn-fw m-1"
+                            disabled
+                          >
+                            Hủy đơn đặt
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+
+                      <Link className="btn btn-light" to={"/bookingroom"}>
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>

@@ -6,7 +6,7 @@ const Evaluate = require("../models/Evaluate");
 const BookingRoomController = {
   getAllBookingRoom: async (req, res) => {
     try {
-      const bookingRoom = await BookingRoom.find();
+      const bookingRoom = await BookingRoom.find().populate("idaccount");
       res.status(200).json(bookingRoom);
     } catch (err) {
       res.status(500).json(err);
@@ -24,6 +24,17 @@ const BookingRoomController = {
   getBookingRoomByIdAccount: async (req, res) => {
     try {
       const bookingRoom = await BookingRoom.find({ idaccount: req.params.id });
+      res.status(200).json(bookingRoom);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
+  getBookingRoomById: async (req, res) => {
+    try {
+      const bookingRoom = await BookingRoom.findById(req.params.id).populate(
+        "idaccount"
+      );
       res.status(200).json(bookingRoom);
     } catch (error) {
       res.status(500).json(error);
