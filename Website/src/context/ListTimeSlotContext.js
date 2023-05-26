@@ -12,9 +12,10 @@ const ListTimeSlotProvider = (props) => {
       setTimeSlots(
         timeslots.filter((n) => n.idworkinghours !== timeslot.idworkinghours)
       );
+      alert("Đã xóa!!!");
     } else {
       setTimeSlots([...timeslots, timeslot]);
-      console.log([...timeslots, timeslot]);
+      alert("Đã thêm!!!");
     }
   };
 

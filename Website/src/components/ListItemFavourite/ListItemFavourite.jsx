@@ -66,7 +66,7 @@ const ListItem = () => {
           </div>
         </header>
         <div>
-          {arr.map((item) => (
+          {currentPosts.map((item) => (
             <div class="row">
               <div class="col-sm-11">
                 <Link

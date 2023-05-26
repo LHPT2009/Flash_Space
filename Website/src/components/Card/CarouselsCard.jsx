@@ -53,6 +53,10 @@ const CarouselsCard = (props) => {
       price={item.price}
       description={item.describe}
       careername={item.idcareer.careername}
+      dress={`${item.housenumberstreetname}, ${item.idward.wardname}, ${item.iddistrict.districtname}, ${item.idprovince.provincename}`}
+      length={item.length}
+      width={item.width}
+      quantity={item.quantity}
     />
   ));
   return (
