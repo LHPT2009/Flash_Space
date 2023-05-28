@@ -11,6 +11,27 @@ const ImagesCMNDSchema = new mongoose.Schema({
   backimage: {
     type: String,
   },
+  numbercard: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  birth: {
+    type: String,
+  },
+  sex: {
+    type: Number,
+  },
+  address: {
+    type: String,
+  },
+  datecard: {
+    type: String,
+  },
+  staticimage: {
+    type: Number,
+  },
   static: {
     type: Number,
   },

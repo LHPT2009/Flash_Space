@@ -30,9 +30,10 @@ const WorkAssignment = () => {
   const [postsPerPage] = useState(4);
 
   // Get current posts
-  const workassignmentfilter = workassignment
-    .filter((item) => item._id !== "645dcfa849e6e647782d6ba1")
-    .filter((item) => item.static == 0);
+  const workassignmentfilter = workassignment.filter(
+    (item) => item.idroom !== null
+  );
+  // .filter((item) => item.static == 0);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -43,6 +44,7 @@ const WorkAssignment = () => {
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  console.log(workassignmentfilter);
   return (
     <>
       <TopNav />
@@ -138,7 +140,18 @@ const WorkAssignment = () => {
                               ) : (
                                 ""
                               )}
-
+                              {item.static == 1 ? (
+                                <td>
+                                  <button
+                                    className="btn btn-success btn-fw m-1"
+                                    disabled
+                                  >
+                                    Đã duyệt tin
+                                  </button>
+                                </td>
+                              ) : (
+                                ""
+                              )}
                               <td>
                                 <Link
                                   to={`/detailworkassignment/${item._id}`}

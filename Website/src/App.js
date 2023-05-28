@@ -111,7 +111,7 @@ const App = () => {
           <Route path="/roomadmin" element={<RoomAdmin />} />
           <Route path="/evaluate" element={<Evaluate />} />
           <Route path="/servicepack" element={<ServicePack />} />
-          <Route path="/bookingschedule" element={<BookingSchedule />} />
+          {/* <Route path="/bookingschedule" element={<BookingSchedule />} /> */}
           <Route path="/career" element={<Career />} />
           <Route path="/district" element={<District />} />
           <Route path="/equipment" element={<Equipment />} />
