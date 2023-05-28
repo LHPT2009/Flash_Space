@@ -195,13 +195,13 @@ const TopNav = () => {
         <nav class="bottom-navbar">
           <div class="container">
             <ul class="nav page-navigation">
-              <li class="nav-item">
+              {/* <li class="nav-item">
                 <Link to={"/admin"} class="nav-link">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
                   <span class="menu-title">Bảng điều khiển</span>
                   <i class="menu-arrow"></i>
                 </Link>
-              </li>
+              </li> */}
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-cube-outline menu-icon"></i>
@@ -241,11 +241,11 @@ const TopNav = () => {
                         Nhân viên
                       </Link>
                     </li>
-                    <li class="nav-item">
+                    {/* <li class="nav-item">
                       <Link to={"/position"} class="nav-link">
                         Chức vụ nhân viên
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </li>
@@ -336,11 +336,11 @@ const TopNav = () => {
                         Thể loại phòng
                       </Link>
                     </li>
-                    <li class="nav-item">
+                    {/* <li class="nav-item">
                       <Link to={"/bookingschedule"} class="nav-link">
                         Khung giờ Khách đặt
                       </Link>
-                    </li>
+                    </li> */}
                     <li class="nav-item">
                       <Link to={"/servicepackinuse"} class="nav-link">
                         Các gói được sử dụng

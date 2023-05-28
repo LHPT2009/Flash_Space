@@ -32,6 +32,13 @@ const AuthController = {
         idaccount: newAccount.id,
         frontimage: "",
         backimage: "",
+        numbercard: "",
+        name: "",
+        birth: "",
+        sex: 0,
+        address: "",
+        datecard: "",
+        staticimage: 0,
         static: 0,
       });
       res.status(200).json(newAccount);
