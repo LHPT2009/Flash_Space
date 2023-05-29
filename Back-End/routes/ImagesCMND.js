@@ -1,7 +1,7 @@
 const ImagesCMNDController = require("../controllers/ImagesCMND");
 const multer = require("multer");
+// const sharp = require("sharp");
 const path = require("path");
-
 const router = require("express").Router();
 
 const uploadPath = path.join(__dirname, "uploads");
@@ -16,6 +16,7 @@ const storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
+
 router.get("/", ImagesCMNDController.getAllImagesCMND);
 
 router.get("/:id", ImagesCMNDController.getImagesCMNDById);
@@ -29,7 +30,7 @@ router.put(
   upload.array("multifiles[]"),
   ImagesCMNDController.updateImagesCMNDHaveImage
 );
-
 router.put("/not/:id", ImagesCMNDController.updateImagesCMNDHaveNotImage);
+router.put("/static/:id", ImagesCMNDController.updateStaticImageCMND);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const Room = require("../models/Room");
+const RoomDetail = require("../models/RoomDetail");
 const WorkAssignment = require("../models/WorkAssignment");
 const WorkingHours = require("../models/WorkingHours");
 const Image = require("../models/Image");
@@ -60,7 +61,7 @@ const RoomController = {
         },
       ]);
       const sortarr = arrworkAssignment.sort((a, b) => a.amount - b.amount);
-
+      const datetimenow = new Date();
       const newRoom = await new Room({
         idward: req.body.idward,
         idprovince: req.body.idprovince,
@@ -78,7 +79,7 @@ const RoomController = {
         housenumberstreetname: req.body.housenumberstreetname,
         mainimage: req.files[0].filename,
         quantity: req.body.quantity,
-        datetimenow: new Date.now(),
+        datetimenow: datetimenow,
       });
       await newRoom.save();
 
@@ -117,8 +118,8 @@ const RoomController = {
         implementationdate: implementationDate,
         static: 0,
       });
-
       newWorkAssignment.save();
+
       const arrwork = JSON.parse(req.body.workinghours);
       arrwork.forEach((ele) => {
         const newWorkinghours = new WorkingHours({
@@ -127,10 +128,20 @@ const RoomController = {
           date: ele.date,
           static: 0,
         });
-
         newWorkinghours.save();
       });
-      console.log("đã xong");
+
+      const arrDetailRoom = JSON.parse(req.body.detailroom);
+      arrDetailRoom.forEach((ele) => {
+        const newRoomDetails = new RoomDetail({
+          idequipment: ele.idequipment,
+          idroom: newRoom.id,
+          quantity: ele.quantity,
+          unit: ele.unit,
+        });
+        newRoomDetails.save();
+      });
+
       res.status(200).json("Add successfully");
     } catch (error) {
       res.status(500).json(error);

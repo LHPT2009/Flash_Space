@@ -27,6 +27,17 @@ const RoomDetailController = {
     }
   },
 
+  getRoomDetailByIdRoom: async (req, res) => {
+    try {
+      const roomDetail = await RoomDetail.find({
+        idroom: req.params.id,
+      }).populate("idequipment");
+      res.status(200).json(roomDetail);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
   addRoomDetail: async (req, res) => {
     try {
       const newRoomDetail = await new RoomDetail({
