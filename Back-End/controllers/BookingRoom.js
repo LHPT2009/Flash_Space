@@ -102,7 +102,15 @@ const BookingRoomController = {
 
   updateBookingRoom: async (req, res) => {
     try {
-      const updateBookingRoom = req.body;
+      const updateBookingRoom = {
+        static: req.body.static,
+      };
+      const updateWorkingHours = {
+        static: req.body.static,
+      };
+      const updateBookingSchedule = {
+        static: req.body.static,
+      };
       const bookingRoom = await BookingRoom.findByIdAndUpdate(
         req.params.id,
         updateBookingRoom,
@@ -110,6 +118,29 @@ const BookingRoomController = {
           new: true,
         }
       );
+      if (bookingRoom) {
+        const finddata = await BookingSchedule.find({
+          idbookingroom: req.params.id,
+        });
+
+        finddata.forEach(async (item) => {
+          const bookingschedule = await BookingSchedule.findByIdAndUpdate(
+            item._id,
+            updateBookingSchedule,
+            {
+              new: true,
+            }
+          );
+
+          const workinghours = await WorkingHours.findByIdAndUpdate(
+            item.idworkinghours,
+            updateWorkingHours,
+            {
+              new: true,
+            }
+          );
+        });
+      }
       if (!bookingRoom) {
         return res.status(404).json("Wrong updateAccount!");
       }

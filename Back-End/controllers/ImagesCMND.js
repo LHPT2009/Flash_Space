@@ -65,7 +65,7 @@ const ImagesCMNDController = {
         address: req.body.address,
         datecard: req.body.datecard,
         staticimage: 1,
-        static: 1,
+        static: 0,
       };
       const imagesCMND = await ImagesCMND.findByIdAndUpdate(
         req.params.id,
@@ -123,6 +123,27 @@ const ImagesCMNDController = {
       );
       if (!imagesCMND) {
         return res.status(404).json("Wrong updateImagesCMND!");
+      }
+      res.status(200).json(imagesCMND);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json("Error!!!");
+    }
+  },
+  updateStaticImageCMND: async (req, res) => {
+    try {
+      const updateImagesCMND = {
+        static: req.body.static,
+      };
+      const imagesCMND = await ImagesCMND.findByIdAndUpdate(
+        req.params.id,
+        updateImagesCMND,
+        {
+          new: true,
+        }
+      );
+      if (!imagesCMND) {
+        return res.status(404).json("Wrong updateStaticImagesCMND!");
       }
       res.status(200).json(imagesCMND);
     } catch (error) {
