@@ -153,14 +153,14 @@ const BookingSchedule = () => {
                               )}
                               <td>
                                 <Link
-                                  to={`/detailimagecmnd/${item.id}`}
+                                  to={`/detailimagecmnd/${item._id}`}
                                   className="btn btn-outline-success btn-fw m-1"
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1">
+                                {/* <Link className="btn btn-outline-danger btn-fw m-1">
                                   Xóa
-                                </Link>
+                                </Link> */}
                               </td>
                             </tr>
                           ))}
