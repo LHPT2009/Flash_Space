@@ -4,30 +4,26 @@ import theme from "../theme";
 const style = StyleSheet.create({
   container: {
     width: "100%",
-    height: "100%",
+    height: "90%",
     display: "flex",
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
     backgroundColor: "white",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     zIndex: 100,
   },
   content: {
     width: "100%",
-    height: "60%",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
   },
   close: {
     width: "95%",
-    height: "20%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
     paddingVertical: 10,
-    paddingTop: 30,
   },
   content__box: {
     width: theme.WIDTH_FULL,
-    height: "60%",
     alignItems: "center",
   },
   content__box__input: {

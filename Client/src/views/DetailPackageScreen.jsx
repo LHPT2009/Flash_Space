@@ -73,8 +73,7 @@ const DetailPackageScreen = ({ navigation, route }) => {
           closeAdd={closeAlertBuyPackage}
           idaccount={user._id}
           idservicepack={item._id}
-          starttime={dateformat(date)}
-          endtime={getDuration()}
+          duration={item.duration}
           navigation={navigation}
         />
       ) : (

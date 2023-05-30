@@ -95,11 +95,26 @@ const RoomsScreen = ({ navigation }) => {
                 marginTop: 10,
                 fontSize: 15,
                 fontWeight: "bold",
-                height: 50,
               }}
             >
               {house.subject}
             </Text>
+            <View style={{ marginTop: 10, flexDirection: "row" }}>
+              <View style={style.facility}>
+                <Icon name="aspect-ratio" size={18} />
+                <Text style={style.facilityText}>
+                  {house.length + "m x " + house.width + "m"}
+                </Text>
+              </View>
+              <View style={style.facility}>
+                <Icon name="people" size={18} />
+                <Text
+                  style={[style.facilityText, { fontFamily: theme.FontMain }]}
+                >
+                  {house.quantity}
+                </Text>
+              </View>
+            </View>
             <View
               style={{
                 flexDirection: "row",
@@ -212,6 +227,14 @@ const RoomsScreen = ({ navigation }) => {
                   {house.length + "m x " + house.width + "m"}
                 </Text>
               </View>
+              <View style={style.facility}>
+                <Icon name="people" size={18} />
+                <Text
+                  style={[style.facilityText, { fontFamily: theme.FontMain }]}
+                >
+                  {house.quantity}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -226,7 +249,6 @@ const RoomsScreen = ({ navigation }) => {
         backgroundColor={COLORS.white}
         barStyle="dark-content"
       />
-      <FlashMessage position="top" />
       <View
         style={{
           flexDirection: "row",

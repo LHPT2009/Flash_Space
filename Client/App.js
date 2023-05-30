@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import FlashMessage from "react-native-flash-message";
+
 import { createStackNavigator } from "@react-navigation/stack";
 import BottomTabNavigator from "./src/navigation/TabNavigator";
 import DetailsScreen from "./src/views/DetailsScreen";
@@ -61,6 +63,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <NativeBaseProvider>
+        <FlashMessage position="top" />
         <WelcomeStackNavigator />
       </NativeBaseProvider>
     </NavigationContainer>

@@ -128,12 +128,12 @@ const styles = StyleSheet.create({
 
   register: {
     width: theme.WIDTH_FULL,
-    height: "110%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingBottom: 50,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+
     zIndex: 2,
   },
 });

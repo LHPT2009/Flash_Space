@@ -48,9 +48,10 @@ const WelcomeStackNavigator = () => {
   return (
     <InformationAddRoom>
       <ListTimeSlotProvider>
-        <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Navigator key="Main" screenOptions={screenOptionStyle}>
           <Stack.Screen name="Main" component={BottomTabNavigator} />
           <Stack.Screen name="HomeScreen" component={Home} />
+          <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
           <Stack.Screen name="CommentsSreen" component={CommentsScreen} />
           <Stack.Screen name="Welcome" component={Welcome} />
