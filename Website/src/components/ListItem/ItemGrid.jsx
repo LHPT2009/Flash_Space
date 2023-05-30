@@ -31,7 +31,7 @@ const ItemGrid = (props) => {
             <i class="fa fa-user"></i> {props.quantity}
           </div>
           <div class="footer">
-            <small class="text-muted">{props.date}</small>
+            <small class="text-muted">{props.location}</small>
           </div>
         </div>
       </div>
