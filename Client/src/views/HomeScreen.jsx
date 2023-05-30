@@ -42,6 +42,7 @@ import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FlashMessage from "react-native-flash-message";
 import styles from "../styles/views/home";
 
 const { width, height } = Dimensions.get("window");
@@ -489,6 +490,7 @@ function Home(props) {
       {/* <SafeAreaView>
         <View style={styles.upperHeader}></View>
       </SafeAreaView> */}
+      <FlashMessage position="top" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}

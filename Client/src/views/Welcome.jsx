@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import FlashMessage from "react-native-flash-message";
 import Login from "./Login";
 import Register from "./Register";
 import styles from "../styles/views/welcome";
@@ -38,6 +39,7 @@ function Welcome({ navigation, props }) {
   // };
 
   const changeClosedParen = (isClosed) => {
+    console.log(isClosed);
     setClosed(isClosed);
     setIsLogin(false);
     setIsRegister(false);
@@ -45,6 +47,7 @@ function Welcome({ navigation, props }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <FlashMessage position="top" />
       <View style={StyleSheet.absoluteFill}>
         <LinearGradient
           style={styles.container__background}
@@ -98,7 +101,10 @@ function Welcome({ navigation, props }) {
         </View>
       ) : isRegister ? (
         <View style={styles.register}>
-          <Register functionClosed={changeClosedParen} />
+          <Register
+            functionClosed={changeClosedParen}
+            navigation={navigation}
+          />
         </View>
       ) : (
         <View></View>

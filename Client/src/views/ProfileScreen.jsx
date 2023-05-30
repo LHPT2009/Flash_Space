@@ -10,32 +10,41 @@ import {
 import { Button, ScrollView } from "native-base";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import { CommonActions } from "@react-navigation/native";
+import { StackActions } from "@react-navigation/native";
 import IpAddress from "../consts/variable";
 import axios from "axios";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 
-const CardInformation = () => {
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    getUser();
-  }, []);
-  const getUser = async () => {
-    const idAccount = await AsyncStorage.getItem("idAccount");
-    await axios
-      .get("http://" + IpAddress + ":8000/account/" + idAccount)
-      .then(async (response) => {
-        const result = response.data;
-        console.log("result");
-        console.log(result);
-        setUser(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  if (user == {}) {
-    return <View />;
+const CardInformation = (props) => {
+  const user = props.user;
+  if (JSON.stringify(user) == "{}") {
+    return (
+      <View style={styles.cardInformation}>
+        <View style={styles.cardInformation_form}>
+          <View style={styles.cardInformation_form_avatar}>
+            <Image
+              style={styles.cardInformation_form_avatar_img}
+              source={require("../../assets/images/avatar/123.jpeg")}
+            />
+          </View>
+          <View style={styles.cardInformation_form_information}>
+            <View style={styles.cardInformation_form_information_title}>
+              <Text style={styles.cardInformation_form_information_title_text}>
+                Thông tin cá nhân
+              </Text>
+            </View>
+            <View style={styles.cardInformation_form_information_name}></View>
+            <View style={styles.cardInformation_form_information_phone}></View>
+            <View
+              style={styles.cardInformation_form_information_address}
+            ></View>
+          </View>
+        </View>
+      </View>
+    );
   } else {
     return (
       <View style={styles.cardInformation}>
@@ -55,29 +64,32 @@ const CardInformation = () => {
               </Text>
             </View>
             <View style={styles.cardInformation_form_information_name}>
+              <Text
+                style={{
+                  color: "gray",
+                  fontFamily: theme.FontMain,
+                  fontSize: 18,
+                }}
+              >
+                Họ tên
+              </Text>
               <Text style={styles.cardInformation_form_information_name_text}>
-                {user.firstname + " " + user.lastname}
+                {user.lastname + " " + user.firstname}
               </Text>
             </View>
             <View style={styles.cardInformation_form_information_phone}>
-              <Text style={styles.cardInformation_form_information_phone_text}>
-                {user.phonenumber}
+              <Text
+                style={{
+                  color: "gray",
+                  fontFamily: theme.FontMain,
+                  fontSize: 18,
+                }}
+              >
+                Email
               </Text>
-            </View>
-            <View style={styles.cardInformation_form_information_address}>
-              {user.sex == 0 ? (
-                <Text
-                  style={styles.cardInformation_form_information_address_text}
-                >
-                  Nam
-                </Text>
-              ) : (
-                <Text
-                  style={styles.cardInformation_form_information_address_text}
-                >
-                  Nữ
-                </Text>
-              )}
+              <Text style={styles.cardInformation_form_information_phone_text}>
+                {user.email}
+              </Text>
             </View>
           </View>
         </View>
@@ -150,7 +162,48 @@ const CardSetting = ({ navigation }) => {
   );
 };
 
-const ProfileScreen = ({ navigation, route }) => {
+const ProfileScreen = ({ route }) => {
+  const [user, setUser] = useState({});
+  console.log(user);
+  useEffect(() => {
+    getUser();
+  }, []);
+  const getUser = async () => {
+    const idAccount = await AsyncStorage.getItem("idAccount");
+    await axios
+      .get("http://" + IpAddress + ":8000/account/" + idAccount)
+      .then(async (response) => {
+        const result = response.data;
+        console.log("result");
+        console.log(result);
+        setUser(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const navigation = useNavigation();
+  const handleLogout = async () => {
+    AsyncStorage.clear();
+    // navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 0,
+    //     routes: [
+    //       { name: "Main" }, // Key của màn hình muốn reload
+    //     ],
+    //   })
+    // );
+    await navigation.reset({
+      index: 0,
+      routes: [
+        { name: "Main" }, // Key của màn hình muốn reload
+      ],
+    });
+    navigation.navigate("Welcome");
+  };
+  const handleLogin = () => {
+    navigation.navigate("Welcome");
+  };
   return (
     <View style={styles.container}>
       <StatusBar
@@ -162,16 +215,19 @@ const ProfileScreen = ({ navigation, route }) => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
-        <CardInformation />
+        <CardInformation user={user} />
         <View style={styles.space} />
         <CardSetting navigation={navigation} />
         <View style={styles.button_box}>
-          <Button
-            style={styles.button}
-            onPress={() => navigation.navigate("Welcome")}
-          >
-            <Text style={styles.sign_out}>Đăng xuất</Text>
-          </Button>
+          {JSON.stringify(user) == "{}" ? (
+            <Button style={styles.button} onPress={() => handleLogin()}>
+              <Text style={styles.sign_out}>Đăng nhập</Text>
+            </Button>
+          ) : (
+            <Button style={styles.button} onPress={() => handleLogout()}>
+              <Text style={styles.sign_out}>Đăng xuất</Text>
+            </Button>
+          )}
         </View>
         <View style={styles.bottom} />
       </ScrollView>
@@ -223,16 +279,15 @@ const styles = StyleSheet.create({
   },
   cardInformation_form_information_name: {
     width: "100%",
-    height: "20%",
-    justifyContent: "center",
+    height: "25%",
   },
   cardInformation_form_information_phone: {
     width: "100%",
-    height: "20%",
+    height: "40%",
   },
   cardInformation_form_information_address: {
     width: "100%",
-    height: "40%",
+    height: "30%",
   },
   cardInformation_form_information_title_text: {
     color: COLORS.grey,
@@ -242,7 +297,7 @@ const styles = StyleSheet.create({
   cardInformation_form_information_name_text: {
     color: "white",
     fontFamily: theme.FontMain,
-    fontSize: 20,
+    fontSize: 18,
   },
   cardInformation_form_information_phone_text: {
     color: "white",

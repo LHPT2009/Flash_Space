@@ -9,15 +9,13 @@ const AlertBuyPackage = (prors) => {
   const buyPackage = async () => {
     const idaccount = prors.idaccount;
     const idservicepack = prors.idservicepack;
-    const starttime = prors.starttime;
-    const endtime = prors.endtime;
+    const duration = prors.duration;
 
     const add = await axios
       .post("http://" + IpAddress + ":8000/servicepackinuse", {
         idaccount,
         idservicepack,
-        starttime,
-        endtime,
+        duration,
       })
       .then(async (item) => {
         showMessage({
