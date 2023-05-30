@@ -12,6 +12,7 @@ const DetailHistory = () => {
   const [inforacc, setInforAcc] = useState([]);
   const [sum, setSum] = useState(0);
   const [idroom, setIdRoom] = useState("");
+  const [date, setDate] = useState("");
   const loaddata = async () => {
     const data = await axios
       .get(
@@ -24,6 +25,8 @@ const DetailHistory = () => {
       .then((res) => {
         setArr(res.data);
         setIdRoom(res.data[0].idworkinghours.idroom._id);
+        setDate(res.data[0].idbookingroom.date);
+        console.log(res.data[0].idbookingroom.date);
       });
   };
 
@@ -119,9 +122,7 @@ const DetailHistory = () => {
                           <div class="invoice-details">
                             <div class="invoice-num text-black">
                               <div>Hóa đơn được đặt vào ngày:</div>
-                              <div>
-                                {showformatday(arr[0].idbookingroom.date)}
-                              </div>
+                              <div>{showformatday(date)}</div>
                               <br />
                             </div>
                           </div>

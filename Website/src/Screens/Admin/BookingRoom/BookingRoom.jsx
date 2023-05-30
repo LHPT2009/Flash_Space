@@ -116,11 +116,10 @@ const BookingSchedule = () => {
                       <table className="table table-hover">
                         <thead>
                           <tr>
-                            <th>User</th>
-                            <th>First name</th>
-                            <th>Progress</th>
-                            <th>Amount</th>
-                            <th>Deadline</th>
+                            <th>Mã đơn</th>
+                            <th>Họ tên người đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Ngày đặt</th>
                             <th></th>
                           </tr>
                         </thead>

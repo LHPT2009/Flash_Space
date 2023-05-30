@@ -30,7 +30,7 @@ const SingleCard = (props) => {
           </div>
         </div>
       </div>
-      <div class="footer">
+      <div class="footer" style={{ height: "75px" }}>
         <small class="text-muted">{props.dress}</small>
       </div>
     </Link>

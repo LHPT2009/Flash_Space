@@ -165,7 +165,10 @@ const TopNav = () => {
                     id="profileDropdown"
                   >
                     <span class="online-status"></span>
-                    <img src="images/faces/face28.png" alt="profile" />
+                    <img
+                      src={`http://localhost:8000/singleimage/iconAccount.png`}
+                      alt="profile"
+                    />
                   </a>
                   <div
                     class="dropdown-menu dropdown-menu-right navbar-dropdown"
@@ -351,11 +354,11 @@ const TopNav = () => {
                         Đánh giá
                       </Link>
                     </li>
-                    <li class="nav-item">
+                    {/* <li class="nav-item">
                       <Link to={"/statistical"} class="nav-link">
                         Thống kê
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </li>

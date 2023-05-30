@@ -20,23 +20,23 @@ const DetailPermission = () => {
     .then((res) => {
       setEquipment(res.data);
     });
-    const editEquipment = async (e) => {
-      e.preventDefault();
-      const edit = await axios
-        .put(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/equipment/${id}`,
-          {
-            equipmentname,
-          }
-        )
-        .then(() => {
-          navigate("/equipment");
-        });
-    };
+  const editEquipment = async (e) => {
+    e.preventDefault();
+    const edit = await axios
+      .put(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/equipment/${id}`,
+        {
+          equipmentname,
+        }
+      )
+      .then(() => {
+        navigate("/equipment");
+      });
+  };
   return (
     <>
       <TopNav />
@@ -50,7 +50,9 @@ const DetailPermission = () => {
                     <h4 className="card-title">Chi tiết trang thiết bị</h4>
                     <form className="forms-sample" onSubmit={editEquipment}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Tên trang thiết bị</label>
+                        <label for="exampleInputUsername1">
+                          Tên trang thiết bị
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -60,12 +62,16 @@ const DetailPermission = () => {
                           defaultValue={equipment.equipmentname}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2"
-                       onClick={editEquipment}
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={editEquipment}
                       >
                         Cập nhật
                       </button>
-                      <Link to={"/equipment"} className="btn btn-light">Cancel</Link>
+                      <Link to={"/equipment"} className="btn btn-light">
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>
