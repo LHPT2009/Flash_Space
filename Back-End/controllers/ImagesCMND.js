@@ -22,7 +22,9 @@ const ImagesCMNDController = {
 
   getImagesCMNDById: async (req, res) => {
     try {
-      const imagesCMND = await ImagesCMND.findById(req.params.id);
+      const imagesCMND = await ImagesCMND.findById(req.params.id).populate(
+        "idaccount"
+      );
       res.status(200).json(imagesCMND);
     } catch (error) {
       res.status(500).json(error);
