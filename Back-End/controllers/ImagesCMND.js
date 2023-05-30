@@ -5,7 +5,7 @@ const sharp = require("sharp");
 const ImagesCMNDController = {
   getAllImagesCMND: async (req, res) => {
     try {
-      const imagesCMND = await ImagesCMND.find();
+      const imagesCMND = await ImagesCMND.find().populate("idaccount");
       res.status(200).json(imagesCMND);
     } catch (err) {
       res.status(500).json(err);

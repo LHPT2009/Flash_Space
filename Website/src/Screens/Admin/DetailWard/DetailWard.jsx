@@ -57,6 +57,16 @@ const DetailWard = () => {
                     <h4 className="card-title">Chi tiết Phường/xã</h4>
                     <form className="forms-sample" onSubmit={editWard}>
                       <div className="form-group">
+                        <label for="exampleSelectGender">Thành phố</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Quận/huyện"
+                          value={"Hồ Chí Minh"}
+                          disabled
+                        />
+                      </div>
+                      <div className="form-group">
                         <label for="exampleSelectGender">Quận/huyện</label>
                         <input
                           type="text"

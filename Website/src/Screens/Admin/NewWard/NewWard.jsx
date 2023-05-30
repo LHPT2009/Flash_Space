@@ -5,9 +5,9 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const NewPermission = () => {
-  const [listdistrict,setListDistrict] = useState([]);
-  const [iddistrict,setIdDistrict]= useState("");
-  const [wardname,setWardName]= useState("");
+  const [listdistrict, setListDistrict] = useState([]);
+  const [iddistrict, setIdDistrict] = useState("");
+  const [wardname, setWardName] = useState("");
   const navigate = useNavigate();
   axios
     .get(
@@ -21,24 +21,24 @@ const NewPermission = () => {
       setListDistrict(res.data);
     });
 
-    const NWard = async (e) => {
-      e.preventDefault();
-      const newWard = await axios
-        .post(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/ward`,
-          {
-            iddistrict,
-            wardname,
-          }
-        )
-        .then(() => {
-          navigate("/ward");
-        });
-    };
+  const NWard = async (e) => {
+    e.preventDefault();
+    const newWard = await axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/ward`,
+        {
+          iddistrict,
+          wardname,
+        }
+      )
+      .then(() => {
+        navigate("/ward");
+      });
+  };
 
   return (
     <>
@@ -54,6 +54,20 @@ const NewPermission = () => {
                     <form className="forms-sample" onSubmit={NWard}>
                       <div className="form-group">
                         <label for="exampleSelectGender">Thành phố</label>
+                        <select
+                          className="form-control"
+                          onChange={(e) => setIdDistrict(e.target.value)}
+                        >
+                          <option value="none">Mời bạn chọn Thành phố</option>
+                          {listdistrict.map((item) => (
+                            <option value={item._id}>
+                              {item.districtname}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label for="exampleSelectGender">Quận/Huyện</label>
                         <select
                           className="form-control"
                           onChange={(e) => setIdDistrict(e.target.value)}
