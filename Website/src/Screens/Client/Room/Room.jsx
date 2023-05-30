@@ -404,7 +404,10 @@ const Room = () => {
                       price={item.price}
                       describe={item.describe}
                       quantity={item.quantity}
-                      date={"03/04/2023"}
+                      location={`${item.housenumberstreetname}
+                      , ${item.idward.wardname}
+                      , ${item.iddistrict.districtname}
+                      , ${item.idprovince.provincename}`}
                     />
                   ))}
                 </div>
