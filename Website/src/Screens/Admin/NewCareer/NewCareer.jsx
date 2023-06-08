@@ -3,9 +3,10 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const NewCareer = () => {
-  const [careername,setCareerName] = useState("");
+  const [careername, setCareerName] = useState("");
   const navigate = useNavigate();
   const newCareer = async (e) => {
     e.preventDefault();
@@ -21,7 +22,13 @@ const NewCareer = () => {
         }
       )
       .then(() => {
-        navigate("/career");
+        Swal.fire({
+          icon: "success",
+          title: "Đã thêm thể loại mới thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/career");
+        });
       });
   };
   return (
@@ -45,10 +52,16 @@ const NewCareer = () => {
                           onChange={(e) => setCareerName(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2" onClick={newCareer}>
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={newCareer}
+                      >
                         Thêm mới
                       </button>
-                      <Link to={"/career"} className="btn btn-light">Trở lại</Link>
+                      <Link to={"/career"} className="btn btn-light">
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>

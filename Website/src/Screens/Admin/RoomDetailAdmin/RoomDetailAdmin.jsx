@@ -3,6 +3,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const RoomDetail = () => {
   const { id } = useParams();
@@ -79,8 +80,13 @@ const RoomDetail = () => {
         }
       )
       .then((res) => {
-        alert("đã cập nhật!");
-        navigator("/roomadmin");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật trạng thái hoạt động!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigator(`/roomdetailadmin/${id}`);
+        });
       });
   };
 

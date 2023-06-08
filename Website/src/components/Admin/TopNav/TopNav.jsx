@@ -244,11 +244,6 @@ const TopNav = () => {
                         Nhân viên
                       </Link>
                     </li>
-                    {/* <li class="nav-item">
-                      <Link to={"/position"} class="nav-link">
-                        Chức vụ nhân viên
-                      </Link>
-                    </li> */}
                   </ul>
                 </div>
               </li>
@@ -283,13 +278,6 @@ const TopNav = () => {
                   </ul>
                 </div>
               </li>
-              {/* <li class="nav-item">
-                <Link to={"/evaluate"} class="nav-link">
-                  <i class="mdi mdi-emoticon menu-icon"></i>
-                  <span class="menu-title">Đánh giá</span>
-                  <i class="menu-arrow"></i>
-                </Link>
-              </li> */}
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="mdi mdi-codepen menu-icon"></i>
@@ -339,11 +327,6 @@ const TopNav = () => {
                         Thể loại phòng
                       </Link>
                     </li>
-                    {/* <li class="nav-item">
-                      <Link to={"/bookingschedule"} class="nav-link">
-                        Khung giờ Khách đặt
-                      </Link>
-                    </li> */}
                     <li class="nav-item">
                       <Link to={"/servicepackinuse"} class="nav-link">
                         Các gói được sử dụng
@@ -354,11 +337,6 @@ const TopNav = () => {
                         Đánh giá
                       </Link>
                     </li>
-                    {/* <li class="nav-item">
-                      <Link to={"/statistical"} class="nav-link">
-                        Thống kê
-                      </Link>
-                    </li> */}
                   </ul>
                 </div>
               </li>

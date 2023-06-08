@@ -4,6 +4,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const District = () => {
   const [district, setDistrict] = useState([]);
@@ -30,7 +31,13 @@ const District = () => {
         }/district/${id}`
       )
       .then(() => {
-        navigate("/district");
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/district");
+        });
       });
   };
 

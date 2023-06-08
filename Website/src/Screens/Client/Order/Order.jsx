@@ -6,10 +6,13 @@ import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
 import { useContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 const Order = () => {
   const navigator = useNavigate();
   const id = jwtDecode(localStorage.getItem("token")).id;
-  const { timeslots, editListTimeSlot ,deleteitem} = useContext(ListTimeSlotContext);
+  const { timeslots, editListTimeSlot, deleteitem } =
+    useContext(ListTimeSlotContext);
   const [account, setAccount] = useState([]);
   const [sum, setSum] = useState(0);
   useEffect(() => {
@@ -39,19 +42,37 @@ const Order = () => {
     });
     setSum(sum);
   }, [timeslots]);
-  
+
   const addorder = async (e) => {
     e.preventDefault();
     const idaccount = id;
     const total = sum;
-    const add = await axios.post(
-      `${process.env.REACT_APP_URL ? `${process.env.REACT_APP_URL}` : `http://localhost:8000`}/bookingroom`,
-      {idaccount,timeslots,total}
-     ).then((item) => {
-      alert("da xong!!!")
-      navigator("/")
-     })
-  }
+    const add = await axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/bookingroom`,
+        { idaccount, timeslots, total }
+      )
+      .then((item) => {
+        Swal.fire({
+          icon: "success",
+          title: "Cảm ơn đã sử dụng dịch vụ!",
+          text: "Mời bạn về trang chủ",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (swal) => {
+            swal.addEventListener("mouseenter", Swal.stopTimer);
+            swal.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        }).then(() => {
+          navigator("/");
+        });
+      });
+  };
   return (
     <div>
       <TopNav />
@@ -134,7 +155,12 @@ const Order = () => {
                                     <td>{item.endtime}</td>
                                     <td>{item.pricetime} VNĐ</td>
                                     <td>
-                                      <button className="btn btn-warning btn-lg btn-radius" onClick={() => deleteitem(item.idworkinghours)}>
+                                      <button
+                                        className="btn btn-warning btn-lg btn-radius"
+                                        onClick={() =>
+                                          deleteitem(item.idworkinghours)
+                                        }
+                                      >
                                         Hủy
                                       </button>
                                     </td>

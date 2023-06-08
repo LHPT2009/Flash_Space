@@ -1,26 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const DetailProvince = () => {
   const { id } = useParams();
-  const [province, setprovince] = useState("");
   const [provincename, setprovincename] = useState("");
   const navigate = useNavigate();
 
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/province/${id}`
-    )
-    .then((res) => {
-      setprovince(res.data);
-    });
+  const loaddata = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/province/${id}`
+      )
+      .then((res) => {
+        setprovincename(res.data.provincename);
+      });
+  };
+
+  useEffect(() => {
+    loaddata();
+  }, []);
 
   const editProvince = async (e) => {
     e.preventDefault();
@@ -36,7 +42,13 @@ const DetailProvince = () => {
         }
       )
       .then(() => {
-        navigate("/province");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detailprovince/${id}`);
+        });
       });
   };
   return (
@@ -57,7 +69,7 @@ const DetailProvince = () => {
                           type="text"
                           className="form-control"
                           onChange={(e) => setprovincename(e.target.value)}
-                          defaultValue={province.provincename}
+                          value={provincename}
                         />
                       </div>
                       <button

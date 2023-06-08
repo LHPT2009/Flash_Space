@@ -1,30 +1,36 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import Swal from "sweetalert2";
 
 const DetailWard = () => {
   const { id } = useParams();
   const [districtnameshow, setDistrictNameShow] = useState("");
-  const [wardnameshow, setWardNameShow] = useState("");
   const [wardname, setWardName] = useState("");
   const [iddistrict, setIdDistrict] = useState("");
   const navigate = useNavigate();
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/ward/${id}`
-    )
-    .then((res) => {
-      setDistrictNameShow(res.data.iddistrict.districtname);
-      setIdDistrict(res.data.iddistrict._id);
-      setWardNameShow(res.data.wardname);
-    });
 
+  const loaddata = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/ward/${id}`
+      )
+      .then((res) => {
+        setDistrictNameShow(res.data.iddistrict.districtname);
+        setIdDistrict(res.data.iddistrict._id);
+        setWardName(res.data.wardname);
+      });
+  };
+
+  useEffect(() => {
+    loaddata();
+  }, []);
   const editWard = async (e) => {
     e.preventDefault();
     const edit = await axios
@@ -40,7 +46,13 @@ const DetailWard = () => {
         }
       )
       .then(() => {
-        navigate("/ward");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detailward/${id}`);
+        });
       });
   };
 
@@ -82,7 +94,7 @@ const DetailWard = () => {
                           type="text"
                           className="form-control"
                           placeholder="Điền Phường/xã"
-                          defaultValue={wardnameshow}
+                          value={wardname}
                           onChange={(e) => setWardName(e.target.value)}
                         />
                       </div>

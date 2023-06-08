@@ -4,6 +4,7 @@ import "./Login.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -19,9 +20,32 @@ const Login = () => {
           console.log(err);
         });
       if (Auth) {
-        // console.log(Auth.data);
-        localStorage.setItem("token", Auth.data.accessToken);
-        navigate("/");
+        // const Toast = Swal.mixin({
+        //   toast: true,
+        //   position: "center-end",
+        //   showConfirmButton: false,
+        //   timer: 3000,
+        //   timerProgressBar: true,
+        //   didOpen: (toast) => {
+        //     toast.addEventListener("mouseenter", Swal.stopTimer);
+        //     toast.addEventListener("mouseleave", Swal.resumeTimer);
+        //   },
+        // });
+
+        Swal.fire({
+          icon: "success",
+          title: "Bạn đã đăng nhập thành công!",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (swal) => {
+            swal.addEventListener("mouseenter", Swal.stopTimer);
+            swal.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        }).then(() => {
+          localStorage.setItem("token", Auth.data.accessToken);
+          navigate("/");
+        });
       }
     } catch (err) {
       console.log(err);

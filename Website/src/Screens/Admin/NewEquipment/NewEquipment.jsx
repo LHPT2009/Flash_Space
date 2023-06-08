@@ -3,9 +3,10 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const NewPermission = () => {
-  const [equipmentname,setEquipmentName] = useState("");
+  const [equipmentname, setEquipmentName] = useState("");
   const navigate = useNavigate();
   const newEquipment = async (e) => {
     e.preventDefault();
@@ -21,7 +22,13 @@ const NewPermission = () => {
         }
       )
       .then(() => {
-        navigate("/equipment");
+        Swal.fire({
+          icon: "success",
+          title: "Đã thêm thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/equipment");
+        });
       });
   };
   return (
@@ -35,10 +42,11 @@ const NewPermission = () => {
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">Thêm thiết bị mới</h4>
-                    <form className="forms-sample"
-                    onSubmit={newEquipment}>
+                    <form className="forms-sample" onSubmit={newEquipment}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Tên thiết bị mới</label>
+                        <label for="exampleInputUsername1">
+                          Tên thiết bị mới
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -47,12 +55,16 @@ const NewPermission = () => {
                           onChange={(e) => setEquipmentName(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2"
-                      onClick={newEquipment}
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={newEquipment}
                       >
                         Thêm mới
                       </button>
-                      <Link to={"/equipment"} className="btn btn-light">Trở lại</Link>
+                      <Link to={"/equipment"} className="btn btn-light">
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>

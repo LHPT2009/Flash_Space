@@ -4,6 +4,8 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import "./DetailAccount.css";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 const DetailAccount = () => {
   const { id } = useParams();
   const [info, setInfo] = useState({});
@@ -41,8 +43,13 @@ const DetailAccount = () => {
         }
       )
       .then((res) => {
-        alert("Đã cập nhật!");
-        navigator("/accountadmin");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật trạng thái hoạt động!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigator(`/detailaccount/${id}`);
+        });
       });
   };
   return (

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
+import Swal from "sweetalert2";
 
 const Ward = () => {
   const [ward, setWard] = useState([]);
@@ -30,7 +31,13 @@ const Ward = () => {
         }/ward/${id}`
       )
       .then(() => {
-        navigate("/ward");
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/ward");
+        });
       });
   };
 

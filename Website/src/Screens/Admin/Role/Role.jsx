@@ -4,9 +4,10 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Tables = () => {
-  const [role,setRole] = useState([]);
+  const [role, setRole] = useState([]);
   const navigate = useNavigate();
   axios
     .get(
@@ -19,20 +20,26 @@ const Tables = () => {
     .then((res) => {
       setRole(res.data);
     });
-  
-    const delRole = async (id) => {
-      const del = await axios
-        .delete(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/role/${id}`
-        )
-        .then(() => {
+
+  const delRole = async (id) => {
+    const del = await axios
+      .delete(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/role/${id}`
+      )
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Đã xóa thành công!",
+          showConfirmButton: true,
+        }).then(() => {
           navigate("/role");
         });
-    };
+      });
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
@@ -130,7 +137,10 @@ const Tables = () => {
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1" onClick={() => delRole(item._id)}>
+                                <Link
+                                  className="btn btn-outline-danger btn-fw m-1"
+                                  onClick={() => delRole(item._id)}
+                                >
                                   Xóa
                                 </Link>
                               </td>

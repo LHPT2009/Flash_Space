@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
   const { id } = useParams();
@@ -13,19 +14,25 @@ const DetailPermission = () => {
 
   const navigate = useNavigate();
 
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/district/${id}`
-    )
-    .then((res) => {
-      setProvinceName(res.data.idprovince.provincename);
-      setDistrictNameShow(res.data.districtname);
-      setIdProvince(res.data.idprovince._id);
-    });
+  const loaddistrict = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/district/${id}`
+      )
+      .then((res) => {
+        setProvinceName(res.data.idprovince.provincename);
+        setDistrictNameShow(res.data.districtname);
+        setIdProvince(res.data.idprovince._id);
+      });
+  };
+
+  useEffect(() => {
+    loaddistrict();
+  }, []);
 
   const editDistrict = async (e) => {
     e.preventDefault();
@@ -42,7 +49,13 @@ const DetailPermission = () => {
         }
       )
       .then(() => {
-        navigate("/district");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detaildistrict/${id}`);
+        });
       });
   };
   return (

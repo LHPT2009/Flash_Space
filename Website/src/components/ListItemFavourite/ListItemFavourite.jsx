@@ -4,6 +4,7 @@ import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
+import Swal from "sweetalert2";
 
 const ListItem = () => {
   const [arr, setArr] = useState([]);
@@ -28,17 +29,23 @@ const ListItem = () => {
   }, []);
 
   const delItem = async (idfar) => {
-    const del = await axios
-      .delete(
-        `${
-          process.env.REACT_APP_URL
-            ? `${process.env.REACT_APP_URL}`
-            : `http://localhost:8000`
-        }/favoriteroom/${idfar}`
-      )
-      .then((res) => {
-        loaddata();
-      });
+    Swal.fire({
+      icon: "success",
+      title: "Đã xóa thành công!",
+      showConfirmButton: true,
+    }).then(async () => {
+      const del = await axios
+        .delete(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/favoriteroom/${idfar}`
+        )
+        .then((res) => {
+          loaddata();
+        });
+    });
   };
 
   const [currentPage, setCurrentPage] = useState(1);

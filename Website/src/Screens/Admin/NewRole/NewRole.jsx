@@ -3,9 +3,10 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const NewPermission = () => {
-  const [rolename,setRoleName] = useState("");
+  const [rolename, setRoleName] = useState("");
   const navigate = useNavigate();
   const newRole = async (e) => {
     e.preventDefault();
@@ -21,7 +22,13 @@ const NewPermission = () => {
         }
       )
       .then(() => {
-        navigate("/role");
+        Swal.fire({
+          icon: "success",
+          title: "Đã thêm quyền thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/role");
+        });
       });
   };
   return (
@@ -46,7 +53,11 @@ const NewPermission = () => {
                           onChange={(e) => setRoleName(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2" onClick={newRole}>
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={newRole}
+                      >
                         Thêm
                       </button>
                       <button className="btn btn-light">Trở lại</button>
