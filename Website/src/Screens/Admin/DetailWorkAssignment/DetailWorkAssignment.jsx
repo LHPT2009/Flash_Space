@@ -3,6 +3,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
   const { id } = useParams();
@@ -92,8 +93,13 @@ const DetailPermission = () => {
         }
       )
       .then((res) => {
-        alert("đã cập nhật!");
-        navigator("/workassignment");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigator(`/detailworkassignment/${id}`);
+        });
       });
   };
   return (

@@ -4,8 +4,10 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 const Equipment = () => {
-  const [equipment,setEquipMent] = useState([])
+  const [equipment, setEquipMent] = useState([]);
   const navigate = useNavigate();
   axios
     .get(
@@ -19,19 +21,25 @@ const Equipment = () => {
       setEquipMent(res.data);
     });
 
-    const delEquipment = async (id) => {
-      const edit = await axios
-        .delete(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/equipment/${id}`
-        )
-        .then(() => {
+  const delEquipment = async (id) => {
+    const edit = await axios
+      .delete(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/equipment/${id}`
+      )
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công!",
+          showConfirmButton: true,
+        }).then(() => {
           navigate("/equipment");
         });
-    };
+      });
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
@@ -127,10 +135,11 @@ const Equipment = () => {
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1"
-                                onClick={() =>{
-                                  delEquipment(item._id)
-                                }}
+                                <Link
+                                  className="btn btn-outline-danger btn-fw m-1"
+                                  onClick={() => {
+                                    delEquipment(item._id);
+                                  }}
                                 >
                                   Xóa
                                 </Link>

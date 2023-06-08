@@ -3,6 +3,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const NewServicePack = () => {
   const [name, setName] = useState("");
@@ -30,7 +31,13 @@ const NewServicePack = () => {
         }
       )
       .then(() => {
-        navigate("/servicepack");
+        Swal.fire({
+          icon: "success",
+          title: "Đã thêm gói dịch vụ mới!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/servicepack");
+        });
       });
   };
 

@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import Swal from "sweetalert2";
 export const ListTimeSlotContext = createContext();
 
 const ListTimeSlotProvider = (props) => {
@@ -9,13 +10,35 @@ const ListTimeSlotProvider = (props) => {
       return item.idworkinghours === timeslot.idworkinghours;
     });
     if (existedTimeslot) {
-      setTimeSlots(
-        timeslots.filter((n) => n.idworkinghours !== timeslot.idworkinghours)
-      );
-      alert("Đã xóa!!!");
+      Swal.fire({
+        icon: "warning",
+        title: "Đã xóa!!!",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: false,
+        didOpen: (swal) => {
+          swal.addEventListener("mouseenter", Swal.stopTimer);
+          swal.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      }).then(() => {
+        setTimeSlots(
+          timeslots.filter((n) => n.idworkinghours !== timeslot.idworkinghours)
+        );
+      });
     } else {
-      setTimeSlots([...timeslots, timeslot]);
-      alert("Đã thêm!!!");
+      Swal.fire({
+        icon: "success",
+        title: "Đã thêm!!!",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: false,
+        didOpen: (swal) => {
+          swal.addEventListener("mouseenter", Swal.stopTimer);
+          swal.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      }).then(() => {
+        setTimeSlots([...timeslots, timeslot]);
+      });
     }
   };
 
@@ -24,7 +47,21 @@ const ListTimeSlotProvider = (props) => {
   };
 
   const deleteitem = (idworkinghours) => {
-    setTimeSlots(timeslots.filter((n) => n.idworkinghours !== idworkinghours));
+    Swal.fire({
+      icon: "warning",
+      title: "Đã xóa giờ theo yêu cầu!!!",
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: false,
+      didOpen: (swal) => {
+        swal.addEventListener("mouseenter", Swal.stopTimer);
+        swal.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    }).then(() => {
+      setTimeSlots(
+        timeslots.filter((n) => n.idworkinghours !== idworkinghours)
+      );
+    });
   };
   return (
     <ListTimeSlotContext.Provider

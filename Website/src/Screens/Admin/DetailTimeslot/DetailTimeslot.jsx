@@ -3,45 +3,52 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
   const { id } = useParams();
-  const [starttime,setStartTime] = useState("");
-  const [endtime,setEndTime] = useState("");
+  const [starttime, setStartTime] = useState("");
+  const [endtime, setEndTime] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/timeslot/${id}`
-    )
-    .then((res) => {
-      setStartTime(res.data.starttime);
-      setEndTime(res.data.endtime);
-    });
-  },[])
-    const editTimeSlot = async (e) => {
-      e.preventDefault();
-      const edit = await axios
-        .put(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/timeslot/${id}`,
-          {
-            starttime,
-            endtime,
-          }
-        )
-        .then(() => {
-          navigate("/timeslot");
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/timeslot/${id}`
+      )
+      .then((res) => {
+        setStartTime(res.data.starttime);
+        setEndTime(res.data.endtime);
+      });
+  }, []);
+  const editTimeSlot = async (e) => {
+    e.preventDefault();
+    const edit = await axios
+      .put(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/timeslot/${id}`,
+        {
+          starttime,
+          endtime,
+        }
+      )
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detailtimeslot/${id}`);
         });
-    };
+      });
+  };
 
   return (
     <>
@@ -56,7 +63,9 @@ const DetailPermission = () => {
                     <h4 className="card-title">Chi tiết khung giờ hoạt động</h4>
                     <form className="forms-sample" onSubmit={editTimeSlot}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Thời gian bắt đầu</label>
+                        <label for="exampleInputUsername1">
+                          Thời gian bắt đầu
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -67,7 +76,9 @@ const DetailPermission = () => {
                         />
                       </div>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">Thời gian kết thúc</label>
+                        <label for="exampleInputUsername1">
+                          Thời gian kết thúc
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -77,11 +88,16 @@ const DetailPermission = () => {
                           onChange={(e) => setEndTime(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2"
-                      onClick={editTimeSlot}>
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={editTimeSlot}
+                      >
                         Cập nhật
                       </button>
-                      <Link to={"/"} className="btn btn-light">Trở lại</Link>
+                      <Link to={"/timeslot"} className="btn btn-light">
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>

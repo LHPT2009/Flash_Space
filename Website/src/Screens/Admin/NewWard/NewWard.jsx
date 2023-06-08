@@ -1,25 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const NewPermission = () => {
+  const [listprovince, setListProvince] = useState([]);
   const [listdistrict, setListDistrict] = useState([]);
+  const [idprovince, setIdProvince] = useState("");
   const [iddistrict, setIdDistrict] = useState("");
   const [wardname, setWardName] = useState("");
   const navigate = useNavigate();
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/district`
-    )
-    .then((res) => {
-      setListDistrict(res.data);
-    });
+  const loaddistrict = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/district`
+      )
+      .then((res) => {
+        setListDistrict(res.data);
+      });
+  };
+  const loadprovince = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/province`
+      )
+      .then((res) => {
+        setListProvince(res.data);
+      });
+  };
+
+  useEffect(() => {
+    loaddistrict();
+    loadprovince();
+  }, []);
 
   const NWard = async (e) => {
     e.preventDefault();
@@ -36,9 +59,19 @@ const NewPermission = () => {
         }
       )
       .then(() => {
-        navigate("/ward");
+        Swal.fire({
+          icon: "success",
+          title: "Đã thêm Phường/Xã thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/ward");
+        });
       });
   };
+
+  const filter = listdistrict.filter(
+    (item) => item.idprovince._id == idprovince
+  );
 
   return (
     <>
@@ -56,12 +89,12 @@ const NewPermission = () => {
                         <label for="exampleSelectGender">Thành phố</label>
                         <select
                           className="form-control"
-                          onChange={(e) => setIdDistrict(e.target.value)}
+                          onChange={(e) => setIdProvince(e.target.value)}
                         >
                           <option value="none">Mời bạn chọn Thành phố</option>
-                          {listdistrict.map((item) => (
+                          {listprovince.map((item) => (
                             <option value={item._id}>
-                              {item.districtname}
+                              {item.provincename}
                             </option>
                           ))}
                         </select>
@@ -73,7 +106,7 @@ const NewPermission = () => {
                           onChange={(e) => setIdDistrict(e.target.value)}
                         >
                           <option value="none">Mời bạn chọn Quận/Huyện</option>
-                          {listdistrict.map((item) => (
+                          {filter.map((item) => (
                             <option value={item._id}>
                               {item.districtname}
                             </option>

@@ -1,25 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
   const { id } = useParams();
-  const [equipment, setEquipment] = useState([]);
   const [equipmentname, setEquipmentName] = useState("");
   const navigate = useNavigate();
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/equipment/${id}`
-    )
-    .then((res) => {
-      setEquipment(res.data);
-    });
+
+  const loadequipment = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/equipment/${id}`
+      )
+      .then((res) => {
+        setEquipmentName(res.data.equipmentname);
+      });
+  };
+
+  useEffect(() => {
+    loadequipment();
+  }, []);
+
   const editEquipment = async (e) => {
     e.preventDefault();
     const edit = await axios
@@ -34,7 +42,13 @@ const DetailPermission = () => {
         }
       )
       .then(() => {
-        navigate("/equipment");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detailequipment/${id}`);
+        });
       });
   };
   return (
@@ -59,7 +73,7 @@ const DetailPermission = () => {
                           id="exampleInputUsername1"
                           placeholder="Tên trang thiết bị"
                           onChange={(e) => setEquipmentName(e.target.value)}
-                          defaultValue={equipment.equipmentname}
+                          value={equipmentname}
                         />
                       </div>
                       <button

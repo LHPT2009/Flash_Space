@@ -2,26 +2,32 @@ import axios from "axios";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
-  const {id} = useParams();
-  const [career, setcareer] = useState([]);
+  const { id } = useParams();
   const [careername, setCareerName] = useState("");
   const navigate = useNavigate();
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/career/${id}`
-    )
-    .then((res) => {
-      setcareer(res.data);
-    });
 
-    const editCareer = async (e) => {
+  const loaddata = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/career/${id}`
+      )
+      .then((res) => {
+        setCareerName(res.data.careername);
+      });
+  };
+
+  useEffect(() => {
+    loaddata();
+  }, []);
+  const editCareer = async (e) => {
     e.preventDefault();
     const edit = await axios
       .put(
@@ -35,7 +41,13 @@ const DetailPermission = () => {
         }
       )
       .then(() => {
-        navigate("/career");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detailcareer/${id}`);
+        });
       });
   };
   return (
@@ -51,19 +63,26 @@ const DetailPermission = () => {
                     <h4 className="card-title">Chi tiết thể loại phòng</h4>
                     <form className="forms-sample" onSubmit={editCareer}>
                       <div className="form-group">
-                        <label for="exampleInputUsername1">tên thể loại phòng</label>
+                        <label for="exampleInputUsername1">
+                          tên thể loại phòng
+                        </label>
                         <input
                           type="text"
                           className="form-control"
-                          defaultValue={career.careername}
+                          value={careername}
                           onChange={(e) => setCareerName(e.target.value)}
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary me-2" 
-                      onClick={editCareer}>
+                      <button
+                        type="submit"
+                        className="btn btn-primary me-2"
+                        onClick={editCareer}
+                      >
                         Cập nhật
                       </button>
-                      <Link to={"/career"} className="btn btn-light">Trở lại</Link>
+                      <Link to={"/career"} className="btn btn-light">
+                        Trở lại
+                      </Link>
                     </form>
                   </div>
                 </div>

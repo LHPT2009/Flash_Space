@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
+
 const DetailHistory = () => {
   const { id } = useParams();
   const [arr, setArr] = useState([]);

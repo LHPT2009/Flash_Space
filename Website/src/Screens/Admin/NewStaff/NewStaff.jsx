@@ -3,6 +3,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const NewPermission = () => {
   const [firstname, setFirstname] = useState("");
@@ -28,7 +29,13 @@ const NewPermission = () => {
         }
       )
       .then(() => {
-        navigate("/staff");
+        Swal.fire({
+          icon: "success",
+          title: "Đã thêm một nhân viên mới!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/staff");
+        });
       });
   };
   return (

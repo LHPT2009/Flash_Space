@@ -4,6 +4,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Province = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,19 +24,25 @@ const Province = () => {
       setProvince(res.data);
     });
 
-    const delProvince = async (id) => {
-      const edit = await axios
-        .delete(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/province/${id}`
-        )
-        .then(() => {
+  const delProvince = async (id) => {
+    const edit = await axios
+      .delete(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/province/${id}`
+      )
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công!",
+          showConfirmButton: true,
+        }).then(() => {
           navigate("/province");
         });
-    };
+      });
+  };
 
   // Get current posts
   const indexOfLastProvince = currentPage * postsPerProvince;
@@ -131,9 +138,12 @@ const Province = () => {
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1" onClick={() =>{
-                                  delProvince(province._id)
-                                }}>
+                                <Link
+                                  className="btn btn-outline-danger btn-fw m-1"
+                                  onClick={() => {
+                                    delProvince(province._id);
+                                  }}
+                                >
                                   Xóa
                                 </Link>
                               </td>

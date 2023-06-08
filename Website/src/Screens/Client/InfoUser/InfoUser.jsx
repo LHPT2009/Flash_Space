@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import jwtdecode from "jwt-decode";
+import Swal from "sweetalert2";
 
 const InfoUser = () => {
   const id = jwtdecode(localStorage.getItem("token")).id;
@@ -64,8 +65,13 @@ const InfoUser = () => {
           { headers: { "content-type": "multipart/form-data" } }
         )
         .then((res) => {
-          alert("da cap nhat!");
-          navigate("/infouser");
+          Swal.fire({
+            icon: "success",
+            title: "Đã cập nhật!",
+            showConfirmButton: true,
+          }).then(() => {
+            navigate("/infouser");
+          });
         })
         .catch((res) => {
           alert(res);
@@ -90,8 +96,13 @@ const InfoUser = () => {
           }
         )
         .then((res) => {
-          alert("da cap nhat!");
-          navigate("/infouser");
+          Swal.fire({
+            icon: "success",
+            title: "Đã cập nhật!",
+            showConfirmButton: true,
+          }).then(() => {
+            navigate("/infouser");
+          });
         })
         .catch((res) => {
           alert(res);

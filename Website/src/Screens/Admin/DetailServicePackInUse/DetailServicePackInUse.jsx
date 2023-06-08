@@ -3,6 +3,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
   const { id } = useParams();
@@ -62,7 +63,13 @@ const DetailPermission = () => {
         }
       )
       .then((res) => {
-        navigator("/servicepackinuse");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật trang thái thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigator(`/detailservicepackinuse/${id}`);
+        });
       });
   };
   return (
@@ -140,7 +147,7 @@ const DetailPermission = () => {
                         className="btn btn-primary me-2"
                         onClick={updatestatic}
                       >
-                        Submit
+                        Cập nhật
                       </Link>
                       <Link className="btn btn-light" to={"/servicepackinuse"}>
                         Trở lại

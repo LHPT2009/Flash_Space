@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./Comment.css";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
+import Swal from "sweetalert2";
+
 const Comment = (props) => {
   const [point, setPoint] = useState(0);
   const [content, setContent] = useState("");
@@ -46,7 +48,12 @@ const Comment = (props) => {
         }
       )
       .then((res) => {
-        alert("cảm ơn bạn đã đánh giá!");
+        Swal.fire({
+          icon: "success",
+          title: "Cảm ơn bạn đã đánh giá!",
+          text: "Đánh giá của bạn đã được lưu.",
+          showConfirmButton: true,
+        });
       });
   };
 

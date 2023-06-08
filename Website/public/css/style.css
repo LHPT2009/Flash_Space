@@ -10663,7 +10663,7 @@ progress {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .table-responsive-md {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -14880,7 +14880,7 @@ fieldset:disabled .btn {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .modal-fullscreen-md-down {
     width: 100vw;
     max-width: none;
@@ -24031,7 +24031,7 @@ dl li {
   flex-direction: column;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .main-panel {
     padding-top: 80px;
   }
@@ -24145,16 +24145,16 @@ dl li {
   font-size: 1.5rem;
 }
 
-@media (max-width: 991px) {
+/* @media (max-width: 991px) {
   .horizontal-menu
     .top-navbar
     .navbar-menu-wrapper
     .navbar-toggler:not(.navbar-toggler-right) {
     display: none;
   }
-}
+} */
 
-@media (max-width: 991px) {
+/* @media (max-width: 991px) {
   .horizontal-menu
     .top-navbar
     .navbar-menu-wrapper
@@ -24162,7 +24162,7 @@ dl li {
     padding-left: 15px;
     padding-right: 11px;
   }
-}
+} */
 
 .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item {
   margin-left: 0.5rem;
@@ -24759,7 +24759,7 @@ dl li {
   -moz-box-shadow: 0 19px 34px -15px #f1f6f8;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu .bottom-navbar {
     display: none;
   }
@@ -24786,7 +24786,7 @@ dl li {
   transition-property: background, box-shadow;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu .bottom-navbar .page-navigation {
     border: none;
   }
@@ -24797,7 +24797,7 @@ dl li {
   text-align: left;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu .bottom-navbar .page-navigation > .nav-item {
     display: block;
     width: 100%;
@@ -24958,7 +24958,7 @@ dl li {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu
     .bottom-navbar
     .page-navigation
@@ -25247,7 +25247,7 @@ dl li {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu
     .bottom-navbar
     .page-navigation
@@ -25259,7 +25259,7 @@ dl li {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu
     .bottom-navbar
     .page-navigation
@@ -25279,7 +25279,7 @@ dl li {
   padding: 25px;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu
     .bottom-navbar
     .page-navigation
@@ -25344,7 +25344,7 @@ dl li {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu
     .bottom-navbar
     .page-navigation
@@ -25379,7 +25379,7 @@ dl li {
   padding: 0 1rem;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 800px) {
   .horizontal-menu
     .bottom-navbar
     .page-navigation

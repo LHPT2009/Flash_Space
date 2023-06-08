@@ -3,10 +3,11 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
   const { id } = useParams();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const [idroom, setIdroom] = useState("");
   const [subject, setSubject] = useState("");
   const [nameaccount, setNameAccount] = useState("");
@@ -52,8 +53,13 @@ const DetailPermission = () => {
         }
       )
       .then((res) => {
-        alert("đã cập nhật!");
-        navigator("/evaluate");
+        Swal.fire({
+          icon: "success",
+          title: "Đã cập nhật trang thái thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detailevaluate/${id}`);
+        });
       });
   };
   return (

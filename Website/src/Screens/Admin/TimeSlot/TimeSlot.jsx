@@ -1,38 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const TimeSlot = () => {
-  const [timeslot,setTimeSlot] = useState([]);
+  const [timeslot, setTimeSlot] = useState([]);
   const navigate = useNavigate();
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/timeslot`
-    )
-    .then((res) => {
-      setTimeSlot(res.data);
-    });
 
-    const delTimeSlot = async (id) => {
-      const edit = await axios
-        .delete(
-          `${
-            process.env.REACT_APP_URL
-              ? `${process.env.REACT_APP_URL}`
-              : `http://localhost:8000`
-          }/timeslot/${id}`
-        )
-        .then(() => {
+  const loaddata = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/timeslot`
+      )
+      .then((res) => {
+        setTimeSlot(res.data);
+      });
+  };
+  useEffect(() => {
+    loaddata();
+  }, []);
+
+  const delTimeSlot = async (id) => {
+    const edit = await axios
+      .delete(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/timeslot/${id}`
+      )
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công!",
+          showConfirmButton: true,
+        }).then(() => {
           navigate("/timeslot");
+          loaddata();
         });
-    };
+      });
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
@@ -130,9 +144,12 @@ const TimeSlot = () => {
                                 >
                                   Chi tiết
                                 </Link>
-                                <Link className="btn btn-outline-danger btn-fw m-1" onClick={() =>{
-                                  delTimeSlot(item._id)
-                                }}>
+                                <Link
+                                  className="btn btn-outline-danger btn-fw m-1"
+                                  onClick={() => {
+                                    delTimeSlot(item._id);
+                                  }}
+                                >
                                   Xóa
                                 </Link>
                               </td>

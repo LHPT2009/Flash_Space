@@ -8,6 +8,7 @@ import Button from "./Button";
 import { ListTimeSlotContext } from "../../../context/ListTimeSlotContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import Swal from "sweetalert2";
 const DetailRoom = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -129,9 +130,19 @@ const DetailRoom = () => {
           }
         )
         .then((ele) => {
-          alert("đã thêm vào yêu thích!");
+          Swal.fire({
+            icon: "success",
+            title: "đã thêm vào yêu thích!",
+            showConfirmButton: true,
+          });
         })
-        .catch((ele) => alert("Đã thêm yêu thích vào từ trước đó!"));
+        .catch((ele) =>
+          Swal.fire({
+            icon: "warning",
+            title: "Đã thêm yêu thích vào từ trước đó!",
+            showConfirmButton: true,
+          })
+        );
     } else {
       alert("Bạn chưa đăng nhập!");
       navigate("/login");

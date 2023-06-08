@@ -4,6 +4,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const ServicePack = () => {
   const [servicepack, setServicePack] = useState([]);
@@ -30,7 +31,13 @@ const ServicePack = () => {
         }/servicepack/${id}`
       )
       .then(() => {
-        navigate("/servicepack");
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/servicepack");
+        });
       });
   };
 

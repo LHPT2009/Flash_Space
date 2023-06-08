@@ -2,24 +2,32 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const NewPermission = () => {
   const [listprovince, setListProvince] = useState([]);
   const [idprovince, setIdProvince] = useState("");
   const [districtname, setDisTrictName] = useState("");
   const navigate = useNavigate();
-  axios
-    .get(
-      `${
-        process.env.REACT_APP_URL
-          ? `${process.env.REACT_APP_URL}`
-          : `http://localhost:8000`
-      }/province`
-    )
-    .then((res) => {
-      setListProvince(res.data);
-    });
+
+  const loaddataprovince = () => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/province`
+      )
+      .then((res) => {
+        setListProvince(res.data);
+      });
+  };
+
+  useEffect(() => {
+    loaddataprovince();
+  }, []);
 
   const NProvince = async (e) => {
     e.preventDefault();
@@ -36,7 +44,13 @@ const NewPermission = () => {
         }
       )
       .then(() => {
-        navigate("/district");
+        Swal.fire({
+          icon: "success",
+          title: "Đã thêm Quận/Huyện thành công!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate("/district");
+        });
       });
   };
 

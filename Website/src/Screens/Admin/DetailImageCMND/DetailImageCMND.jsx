@@ -3,6 +3,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const DetailPermission = () => {
   const { id } = useParams();
@@ -60,8 +61,13 @@ const DetailPermission = () => {
         }
       )
       .then((res) => {
-        alert("da cap nhat!");
-        navigate("/imagecmnd");
+        Swal.fire({
+          icon: "success",
+          title: "Bạn đã cập nhật trạng thái xác thực!",
+          showConfirmButton: true,
+        }).then(() => {
+          navigate(`/detailimagecmnd/${id}`);
+        });
       })
       .catch((res) => {
         alert(res);
