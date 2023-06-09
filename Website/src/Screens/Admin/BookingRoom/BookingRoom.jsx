@@ -4,7 +4,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
-import XLSX from "xlsx";
+import * as XLSX from "xlsx";
 
 const BookingSchedule = () => {
   const [bookingroom, setBookingRoom] = useState([]);
@@ -122,6 +122,10 @@ const BookingSchedule = () => {
                       </div>
                     </div>
                     <h5 className="card-title">Bảng danh sách</h5>
+                    <button className="btn btn-success" onClick={excel}>
+                      {" "}
+                      Xuất excel
+                    </button>
                     <div className="table-responsive">
                       <table className="table table-hover">
                         <thead>
