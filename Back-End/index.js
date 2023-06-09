@@ -27,6 +27,8 @@ const AuthRoute = require("./routes/Auth");
 const RoleRoute = require("./routes/Role");
 const SingleImageRoute = require("./routes/SingleImage");
 const QueryRoute = require("./routes/Query");
+const RechartsRoute = require("./routes/Recharts");
+const ChatgptRoute = require("./routes/Chatgpt");
 
 dotenv.config();
 const app = express();
@@ -64,6 +66,8 @@ app.use("/workinghours", WorkingHoursRoute);
 app.use("/auth", AuthRoute);
 app.use("/role", RoleRoute);
 app.use("/query", QueryRoute);
+app.use("/recharts", RechartsRoute);
+app.use("/chatgpt", ChatgptRoute);
 
 app.use("/singleimage", SingleImageRoute);
 
