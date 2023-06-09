@@ -518,6 +518,7 @@ const PostEndScreen = ({ navigation }) => {
             <ScrollView
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
+              style={{ paddingTop: 30 }}
             >
               <View
                 style={{

@@ -18,6 +18,125 @@ import theme from "../styles/theme";
 
 const PostRoomScreen = ({ navigation }) => {
   const [arr, setArr] = useState([]);
+  const data_room_hot = [
+    {
+      id: "1",
+      title: "Phòng họp, tổ chức sinh nhật",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house1.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house1.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "2",
+      title: "Phòng livestream, phòng hát",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house2.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house2.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "3",
+      title: "Phòng làm việc, phòng nghỉ",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house3.jpg"),
+      details: `Yên tĩnh, sạch sẽ, thơm`,
+      interiors: [
+        require("../../assets/house3.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "4",
+      title: "Phòng họp, tổ chức sinh nhật",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house1.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house1.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "5",
+      title: "Phòng livestream, phòng hát",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house2.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house2.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "6",
+      title: "Phòng làm việc, phòng nghỉ",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house3.jpg"),
+      details: `Yên tĩnh, sạch sẽ, thơm`,
+      interiors: [
+        require("../../assets/house3.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "7",
+      title: "Phòng họp, tổ chức sinh nhật",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house1.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house1.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "8",
+      title: "Phòng livestream, phòng hát",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house2.jpg"),
+      details: `Sạch sẽ, thoáng mát, gần các cửa hàng tập hóa`,
+      interiors: [
+        require("../../assets/house2.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+    {
+      id: "9",
+      title: "Phòng làm việc, phòng nghỉ",
+      location: "50/14 Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức",
+      image: require("../../assets/house3.jpg"),
+      details: `Yên tĩnh, sạch sẽ, thơm`,
+      interiors: [
+        require("../../assets/house3.jpg"),
+        require("../../assets/interior1.jpg"),
+        require("../../assets/interior2.jpg"),
+        require("../../assets/interior3.jpg"),
+      ],
+    },
+  ];
   const loaddata = async () => {
     const idAccount = await AsyncStorage.getItem("idAccount");
     const data = await axios
@@ -34,140 +153,76 @@ const PostRoomScreen = ({ navigation }) => {
 
   const Card = ({ house }) => {
     return (
-      <TouchableOpacity
-        style={{
-          width: "100%",
-          height: 130,
-          backgroundColor: COLORS.white,
-          flexDirection: "row",
-          borderRadius: 13,
-          elevation: 10,
-          marginBottom: 20,
+      <Pressable
+        activeOpacity={0.8}
+        onPress={() => {
+          navigation.navigate("DetailRoomPostScreen");
         }}
-        onPress={() => navigation.navigate("DetailRoomPostScreen", house)}
       >
         <View
           style={{
-            width: "10%",
-            borderBottomLeftRadius: 10,
-            borderTopLeftRadius: 10,
-            backgroundColor: COLORS.grey,
-          }}
-        ></View>
-        <View
-          style={{
-            width: "59%",
+            height: 150,
+            backgroundColor: COLORS.white,
+            width: "100%",
+            marginBottom: 15,
+            borderRadius: 13,
+            flexDirection: "row",
             alignItems: "center",
-            justifyContent: "center",
+            elevation: 2,
           }}
         >
-          <View
+          {/* House image */}
+          <Image
+            source={house.image}
             style={{
-              width: "90%",
+              width: "35%",
+              height: 140,
+              marginLeft: 5,
+              borderRadius: 15,
             }}
-          >
+          />
+          <View style={{ width: "65%", marginLeft: -15, paddingLeft: 25 }}>
             <View
               style={{
-                width: "90%",
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
             >
               <Text
                 style={{
-                  color: COLORS.dark,
+                  fontSize: 20,
+                  fontWeight: "bold",
                   fontFamily: theme.FontMain,
                 }}
               >
-                Mã hóa đơn: {house._id}
+                {house.title}
               </Text>
             </View>
 
-            <View
+            <Text
               style={{
-                width: "90%",
-                flexDirection: "row",
+                color: COLORS.grey,
+                fontSize: 14,
+                fontFamily: theme.FontMain,
               }}
             >
-              <Text
-                style={{
-                  color: COLORS.dark,
-                  fontFamily: theme.FontMain,
-                }}
-              >
-                Ngày thuê:{" "}
-              </Text>
-              <Text
-                style={{
-                  color: "#D93C57",
-                  fontFamily: theme.FontMain,
-                }}
-              >
-                {house.date}
-              </Text>
-            </View>
-            <View
-              style={{
-                width: "90%",
-                flexDirection: "row",
-              }}
-            >
-              <Text
-                style={{
-                  color: COLORS.dark,
-                  fontFamily: theme.FontMain,
-                }}
-              >
-                Tổng tiền:{" "}
-              </Text>
-              <Text
-                style={{
-                  color: "#D93C57",
-                  fontFamily: theme.FontMain,
-                }}
-              >
-                {house.total}
-              </Text>
-            </View>
-          </View>
-        </View>
-        <Image
-          style={{ width: "1%", height: "100%" }}
-          source={require("../../assets/images/dottedLine.png")}
-        />
-        <View
-          style={{
-            width: "30%",
-            borderBottomRightRadius: 10,
-            borderTopRightRadius: 10,
-            backgroundColor: COLORS.white,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: COLORS.dark, fontFamily: theme.FontMain }}>
-              Tình trạng
+              {house.location}
             </Text>
-            {/* {item.status == 0 ? (
-              <Text style={{ color: "#46AC5E", fontFamily: theme.FontMain }}>
-                Đang thuê
-              </Text>
-            ) : (
-              <Text style={{ color: "#D93C57", fontFamily: theme.FontMain }}>
-                Hết hạn
-              </Text>
-            )} */}
+            {/* <Text
+              style={{
+                color: theme.PRIMARY_BG_COLOR,
+                fontSize: 14,
+
+                fontFamily: theme.FontMain,
+              }}
+            >
+              200.000 VND/Giờ
+            </Text> */}
           </View>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
-
   return (
     <View
       style={{ backgroundColor: COLORS.light, width: "100%", height: "100%" }}
@@ -178,6 +233,7 @@ const PostRoomScreen = ({ navigation }) => {
           height: 100,
           backgroundColor: COLORS.white,
           flexDirection: "row",
+          paddingTop: 30,
         }}
       >
         <View
@@ -272,16 +328,29 @@ const PostRoomScreen = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <FlatList
-                key={"_"}
-                scrollEnabled={false}
-                showsHorizontalScrollIndicator={false}
-                data={arr}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) => (
-                  <Card navigation={navigation} house={item} />
-                )}
-              />
+              <View
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    height: "100%",
+                    width: "95%",
+                  }}
+                >
+                  <FlatList
+                    data={data_room_hot}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingVertical: 20 }}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => <Card house={item} />}
+                  />
+                </View>
+              </View>
             </View>
           </View>
         </View>

@@ -214,6 +214,7 @@ const ProfileScreen = ({ route }) => {
       <ScrollView
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        style={{ paddingTop: 50 }}
       >
         <CardInformation user={user} />
         <View style={styles.space} />

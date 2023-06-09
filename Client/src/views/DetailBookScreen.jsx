@@ -47,6 +47,7 @@ const DetailBookScreen = ({ navigation, route }) => {
       <View
         style={{
           width: "100%",
+          height: "100%",
           backgroundColor: theme.PRIMARY_BG_COLOR,
         }}
       >
@@ -61,10 +62,11 @@ const DetailBookScreen = ({ navigation, route }) => {
           <View />
         )}
         {/* <FlashMessage position="top" /> */}
-        <View style={{ width: "100%", alignItems: "center" }}>
+        <View style={{ width: "100%", height: "100%", alignItems: "center" }}>
           <View
             style={{
               width: "100%",
+              paddingTop: 30,
               height: 90,
               flexDirection: "row",
               justifyContent: "space-between",
@@ -115,6 +117,7 @@ const DetailBookScreen = ({ navigation, route }) => {
           <ScrollView
             style={{
               width: "100%",
+              paddingTop: 10,
             }}
           >
             <View

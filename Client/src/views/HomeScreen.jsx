@@ -65,8 +65,8 @@ const DATA = [
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d73",
-    title: "Quận 1",
-    image: require("../../assets/images/address/3618cdc17cb8c8898f2077d9894abbc1.jpg"),
+    title: "Quận 3",
+    image: require("../../assets/images/address/di-choi-voi-nguoi-yeu-nen-di-dau-4.jpeg"),
   },
   {
     id: "58694a0f-3da1-47f-bd96-145571e29d72",

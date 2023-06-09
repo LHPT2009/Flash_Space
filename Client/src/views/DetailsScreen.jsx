@@ -119,12 +119,10 @@ const DetailsScreen = ({ navigation, route }) => {
     const load = await axios
       .get("http://" + IpAddress + ":8000/evaluate/list/" + house._id)
       .then((res) => {
-        console.log(res.data);
         setListRate(res.data);
       });
   };
   const arrfilter = listrate.filter((item) => item.static == 1);
-  console.log(arrfilter);
   const sumrate = arrfilter.length;
   const dateformat = (date) => {
     const getdate = new Date(date);
@@ -148,7 +146,7 @@ const DetailsScreen = ({ navigation, route }) => {
       sum = sum + item.point;
     });
     const point = (1 / sumrate) * sum;
-    const a = (point * 100) / 100;
+    const a = point.toFixed(1);
     return a;
   };
 
@@ -282,7 +280,6 @@ const DetailsScreen = ({ navigation, route }) => {
         : `${datestring.getMonth() + 1}`;
     const year = datestring.getFullYear();
     const convertdate = year + "-" + month + "-" + day;
-
     await axios
       .post("http://" + IpAddress + ":8000/workinghours/" + house._id, {
         date: convertdate,
