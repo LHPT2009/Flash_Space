@@ -341,6 +341,7 @@ const AuthController = {
     return jwt.sign(
       {
         id: account.id,
+        rolename: account.idrole.rolename,
       },
       process.env.JWT_ACCESS_KEY,
       { expiresIn: "15s" }
