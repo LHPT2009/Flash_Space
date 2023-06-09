@@ -408,6 +408,8 @@ const Room = () => {
                       , ${item.idward.wardname}
                       , ${item.iddistrict.districtname}
                       , ${item.idprovince.provincename}`}
+                      lengthroom={item.length}
+                      widthroom={item.width}
                     />
                   ))}
                 </div>

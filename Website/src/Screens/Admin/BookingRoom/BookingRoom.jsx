@@ -4,6 +4,7 @@ import Footer from "../../../components/Admin/Footer/Footer";
 import TopNav from "../../../components/Admin/TopNav/TopNav";
 import Pagination from "../../../components/Pagination/Pagination";
 import axios from "axios";
+import XLSX from "xlsx";
 
 const BookingSchedule = () => {
   const [bookingroom, setBookingRoom] = useState([]);
@@ -37,6 +38,13 @@ const BookingSchedule = () => {
         : getdate.getMonth() + 1;
     const year = getdate.getFullYear();
     return `${day}-${month}-${year}`;
+  };
+
+  const excel = () => {
+    const wb = XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(bookingroom);
+    XLSX.utils.book_append_sheet(wb, ws, "Mysheet1");
+    XLSX.writeFile(wb, "MyExcel.xlsx");
   };
 
   const sortbookingroom = bookingroom.reverse();
