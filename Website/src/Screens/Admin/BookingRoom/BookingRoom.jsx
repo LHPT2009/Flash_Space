@@ -39,13 +39,15 @@ const BookingSchedule = () => {
     return `${day}-${month}-${year}`;
   };
 
+  const sortbookingroom = bookingroom.reverse();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = bookingroom.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sortbookingroom.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -186,7 +188,7 @@ const BookingSchedule = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={bookingroom.length}
+                        totalPosts={sortbookingroom.length}
                         paginate={paginate}
                       />
                     </div>

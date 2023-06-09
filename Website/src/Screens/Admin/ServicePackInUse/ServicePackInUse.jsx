@@ -37,13 +37,15 @@ const ServicePackInUse = () => {
     const year = getdate.getFullYear();
     return `${day}-${month}-${year}`;
   };
+  const sortservicepackinuse = servicepackinuse.reverse();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = servicepackinuse.slice(
+  const currentPosts = sortservicepackinuse.slice(
     indexOfFirstPost,
     indexOfLastPost
   );
@@ -178,7 +180,7 @@ const ServicePackInUse = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={servicepackinuse.length}
+                        totalPosts={sortservicepackinuse.length}
                         paginate={paginate}
                       />
                     </div>

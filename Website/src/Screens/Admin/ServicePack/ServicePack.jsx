@@ -41,13 +41,15 @@ const ServicePack = () => {
       });
   };
 
+  const sortservicepack = servicepack.reverse();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = servicepack.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sortservicepack.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -179,7 +181,7 @@ const ServicePack = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={servicepack.length}
+                        totalPosts={sortservicepack.length}
                         paginate={paginate}
                       />
                     </div>

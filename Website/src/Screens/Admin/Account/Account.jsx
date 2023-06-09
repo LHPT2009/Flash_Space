@@ -29,9 +29,9 @@ const Tables = () => {
   const [postsPerPage] = useState(4);
 
   // Get current posts
-  const accountuser = listaccount.filter(
-    (item) => item.idrole._id == "642dc5fe3db1f869d982a638"
-  );
+  const accountuser = listaccount
+    .filter((item) => item.idrole._id == "642dc5fe3db1f869d982a638")
+    .reverse();
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;

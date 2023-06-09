@@ -48,12 +48,13 @@ const ListItem = () => {
     });
   };
 
+  const sortarr = arr.reverse();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = arr.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sortarr.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -134,7 +135,7 @@ const ListItem = () => {
         <footer className="d-flex mt-4">
           <Pagination
             postsPerPage={postsPerPage}
-            totalPosts={arr.length}
+            totalPosts={sortarr.length}
             paginate={paginate}
           />
         </footer>

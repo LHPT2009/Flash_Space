@@ -32,7 +32,8 @@ const Evaluate = () => {
   // Get current posts
   const evaluatefilter = evaluate
     .filter((item) => item.content !== "")
-    .filter((item) => item.point !== 0);
+    .filter((item) => item.point !== 0)
+    .reverse();
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = evaluatefilter.slice(indexOfFirstPost, indexOfLastPost);
