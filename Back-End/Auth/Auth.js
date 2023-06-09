@@ -334,7 +334,7 @@ const AuthController = {
           static: true,
           email: req.body.email,
           phonenumber: "",
-          emailverification: false,
+          emailverification: true,
           phonenumberverification: false,
           sex: "",
         });

@@ -4,6 +4,7 @@ import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -26,7 +27,13 @@ const Register = () => {
           email,
         })
         .then(function (response) {
-          navigate("/");
+          Swal.fire({
+            icon: "success",
+            title: "Mail Đã được gửi đi, mời bạn xác thực!",
+            showConfirmButton: true,
+          }).then(() => {
+            navigate("/login");
+          });
         })
         .catch(function (error) {
           console.log(error);

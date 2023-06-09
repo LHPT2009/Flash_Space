@@ -17,7 +17,11 @@ const Login = () => {
       const Auth = await axios
         .post(`http://localhost:8000/auth/login`, { username, password })
         .catch((err) => {
-          console.log(err);
+          Swal.fire({
+            icon: "warning",
+            title: "Tài khoản hoặc mậu khẩu bị sai!!!",
+            showConfirmButton: true,
+          });
         });
       if (Auth) {
         // const Toast = Swal.mixin({
@@ -31,21 +35,28 @@ const Login = () => {
         //     toast.addEventListener("mouseleave", Swal.resumeTimer);
         //   },
         // });
-
-        Swal.fire({
-          icon: "success",
-          title: "Bạn đã đăng nhập thành công!",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: (swal) => {
-            swal.addEventListener("mouseenter", Swal.stopTimer);
-            swal.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        }).then(() => {
-          localStorage.setItem("token", Auth.data.accessToken);
-          navigate("/");
-        });
+        if (Auth.data.emailverification == false) {
+          Swal.fire({
+            icon: "warning",
+            title: "Bạn vẫn chưa xác thực thông tin!",
+            showConfirmButton: true,
+          });
+        } else {
+          Swal.fire({
+            icon: "success",
+            title: "Bạn đã đăng nhập thành công!",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (swal) => {
+              swal.addEventListener("mouseenter", Swal.stopTimer);
+              swal.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          }).then(() => {
+            localStorage.setItem("token", Auth.data.accessToken);
+            navigate("/");
+          });
+        }
       }
     } catch (err) {
       console.log(err);
