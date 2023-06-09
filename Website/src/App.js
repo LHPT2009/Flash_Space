@@ -7,6 +7,7 @@ import History from "./Screens/Client/History/History";
 import InfoUser from "./Screens/Client/InfoUser/InfoUser";
 import Order from "./Screens/Client/Order/Order";
 import Favourite from "./Screens/Client/Favourite/Favourite";
+import ConfirmMail from "./Screens/Auth/ConfirmMail/ConfirmMail";
 import Dashboard from "./Screens/Admin/Dashboard/Dashboard";
 import Login from "./Screens/Auth/Login/Login";
 import Register from "./Screens/Auth/Register/Register";
@@ -96,6 +97,8 @@ const App = () => {
           <Route path="/newreset" element={<NewReset />} />
           <Route path="/favourite" element={<Favourite />} />
           <Route path="/order" element={<Order />} />
+
+          <Route path="/confirmmail" element={<ConfirmMail />} />
 
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/accountadmin" element={<AccountAdmin />} />
