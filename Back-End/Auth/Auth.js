@@ -60,114 +60,83 @@ const AuthController = {
       let info = await transporter.sendMail({
         from: process.env.USERNAME_MAIL,
         to: req.body.email,
-        subject: "Confirm Email",
-        text: "Confirm Email!",
-        html: `<body
-              style="
-                margin: 0px;
-                background-color: #f5f5f5;
-                font-size: 16px;
-                border: 1px solid rgba(115, 130, 126, 0.6);
-                max-width: 512px;
-              "
-            >
-              <div style="margin: 40px; color: #1f1f1f">
-                <div
-                  style="
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    margin-bottom: 24px;
-                  "
-                >
-                  <img src="https://i.imgur.com/MiYjZYF.png" alt="logo-bug-on" />
-                </div>
-                <div style="width: fit-content">
-                  <h2 style="line-height: 135%">Chào mừng đến với Flash Space</h2>
-                  <p style="letter-spacing: 0.04em">Xác thực tài khoản tại đây</p>
-                  <button
-              style="
-                text-align: center;
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                padding: 16px;
-                margin: 48px 0px;
-                border-radius: 16px;
-                color: #07221b;
-                background-color: #dee4e2;
-              "
-            >
-              <a
-                style="text-decoration: none; font-weight: 600; color: inherit"
-                href="http://localhost:3000/confirmmail?confirm=${send}"
-                >Xác thực</a
-              >
-            </button>
-                  <!-- <p style="letter-spacing: 0.04em">
-                    Email này được gửi vì tài khoản của bạn chọn quên mật khẩu. Bạn có 60s
-                    để thay đổi nhập mã.
-                  </p> -->
-                  <p>
-                    Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng
-                    tôi qua bugOnDev@gmail.com
-                  </p>
-                  <div
-                    style="
-                      box-sizing: border-box;
-                      display: flex;
-                      flex-direction: row;
-                      align-items: flex-start;
-                      padding: 16px 24px;
-                      margin: 56px 0px;
-                      border-left: 2px solid #3d685e;
-                    "
-                  >
-                    <p style="letter-spacing: 0.04em">
-                      Chân thành cảm ơn,<br />
-                      Flash Space
-                    </p>
-                  </div>
-                  <div
-                    style="
-                      height: 0px;
-                      border: 1px solid rgba(115, 130, 126, 0.6);
-                      margin: 16px 0px;
-                    "
-                  ></div>
-                  <div class="footer">
-                    <ul
-                      style="
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        align-items: center;
-                        padding-top: px;
-                        gap: 24px;
-                        list-style: none;
-                      "
-                    >
-                      <li>
-                        <a href="#" target="_blank">
-                          <img src="https://i.imgur.com/nwpLYiW.png" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" target="_blank">
-                          <img src="https://i.imgur.com/pmgrgRf.png" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" target="_blank">
-                          <img src="https://i.imgur.com/SScCr1k.png" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </body>`,
+        subject: "Mail xác thực!",
+        text: "Mail xác thực!",
+        html: `
+        <body
+    style="
+      margin: 0px;
+      background-color: #f5f5f5;
+      font-size: 16px;
+      border: 1px solid #004274;
+      max-width: 512px;
+    "
+  >
+    <div style="margin: 40px; color: #1f1f1f">
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 24px;
+        "
+      >
+      <h1 class="fw-bold m-0" style="color: rgb(255, 193, 7);">FLASH SPACE</h1>
+      </div>
+      <div style="width: fit-content">
+        <h2 style="line-height: 135%">Chào mừng đến với Flash Space</h2>
+        <p style="letter-spacing: 0.04em">Xác thực tài khoản tại đây</p>
+        <button
+          style="
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            margin: 48px 0px;
+            border-radius: 16px;
+            color: #004274;
+            background-color: #dce2e7;
+          "
+        >
+          <a
+            style="text-decoration: none; font-weight: 600; color: inherit"
+            href="http://localhost:3000/confirmmail?confirm=${send}"
+            >Xác thực</a
+          >
+        </button>
+        <p>
+          Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng
+          tôi qua flashspacevn@gmail.com
+        </p>
+        <div
+          style="
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 16px 24px;
+            margin: 56px 0px;
+            border-left: 2px solid #004274;
+          "
+        >
+          <p style="letter-spacing: 0.04em">
+            Chân thành cảm ơn,<br />
+            Flash Space Team
+          </p>
+        </div>
+        <div
+          style="
+            height: 0px;
+            border: 1px solid #004274;
+            margin: 16px 0px;
+          "
+        ></div>
+      </div>
+    </div>
+  </body>
+            `,
       });
     } catch (error) {
       console.log(error);
@@ -230,14 +199,15 @@ const AuthController = {
       let info = await transporter.sendMail({
         from: process.env.USERNAME_MAIL,
         to: req.body.email,
-        subject: "Password đăng nhập của bạn",
-        text: "Password tài khoản",
-        html: `<body
+        subject: "Mật khẩu đăng nhập của bạn",
+        text: "Mật khẩu tài khoản",
+        html: `
+        <body
               style="
                 margin: 0px;
                 background-color: #f5f5f5;
                 font-size: 16px;
-                border: 1px solid rgba(115, 130, 126, 0.6);
+                border: 1px solid #004274;
                 max-width: 512px;
               "
             >
@@ -250,10 +220,10 @@ const AuthController = {
                     margin-bottom: 24px;
                   "
                 >
-                  <img src="https://i.imgur.com/MiYjZYF.png" alt="logo-bug-on" />
+                <h1 class="fw-bold m-0" style="color: rgb(255, 193, 7);">FLASH SPACE</h1>
                 </div>
                 <div style="width: fit-content">
-                  <h2 style="line-height: 135%">Chào mừng đến với Flash Space</h2>
+                  <h2 style="line-height: 135%">Chào mừng thành viên mới đến với Flash Space</h2>
                   <p style="letter-spacing: 0.04em">Mật khẩu đăng nhập của bạn</p>
                   <button
               style="
@@ -265,7 +235,7 @@ const AuthController = {
                 padding: 16px;
                 margin: 48px 0px;
                 border-radius: 16px;
-                color: #07221b;
+                color: #004274;
                 background-color: #dee4e2;
               "
             >
@@ -273,7 +243,7 @@ const AuthController = {
             </button>
                   <p>
                     Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng
-                    tôi qua bugOnDev@gmail.com
+                    tôi qua flashspacevn@gmail.com
                   </p>
                   <div
                     style="
@@ -283,53 +253,25 @@ const AuthController = {
                       align-items: flex-start;
                       padding: 16px 24px;
                       margin: 56px 0px;
-                      border-left: 2px solid #3d685e;
+                      border-left: 2px solid #004274;
                     "
                   >
                     <p style="letter-spacing: 0.04em">
                       Chân thành cảm ơn,<br />
-                      Flash Space
+                      Flash Space Team
                     </p>
                   </div>
                   <div
                     style="
                       height: 0px;
-                      border: 1px solid rgba(115, 130, 126, 0.6);
+                      border: 1px solid #004274;
                       margin: 16px 0px;
                     "
                   ></div>
-                  <div class="footer">
-                    <ul
-                      style="
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        align-items: center;
-                        padding-top: px;
-                        gap: 24px;
-                        list-style: none;
-                      "
-                    >
-                      <li>
-                        <a href="#" target="_blank">
-                          <img src="https://i.imgur.com/nwpLYiW.png" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" target="_blank">
-                          <img src="https://i.imgur.com/pmgrgRf.png" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" target="_blank">
-                          <img src="https://i.imgur.com/SScCr1k.png" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
-            </body>`,
+            </body>
+            `,
       });
     } catch (error) {
       console.log(error);
@@ -448,71 +390,45 @@ const AuthController = {
           {
             from: process.env.USERNAME_MAIL, // sender address
             to: `${email}`, // list of receivers
-            subject: "Reset Password!", // Subject line
-            text: "Reset Password!", // plain text body
-            html: `<body style="margin: 0px; background-color: #F5F5F5; font-size: 16px; border: 1px solid rgba(115, 130, 126, 0.6);">
-          <div style="margin: 40px; color: #1F1F1F;max-width: 512px;">
-              <div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 24px;">
-                  <img src="https://i.imgur.com/MiYjZYF.png" alt="logo-bug-on">
-              </div>
-              <div style="width: fit-content;">
-                  <h2 style="line-height: 135%;">Thân gửi Khách hàng,</h2>
-                  <p style="letter-spacing: 0.04em">Đây là mã thay đổi mật khẩu của tài khoản </p>
-                  <div style="display: flex;
-                  flex-direction: row;
-                  justify-content: center;
-                  align-items: center;
-                  padding: 16px;
-                  margin: 48px 0px;
-                  border-radius: 16px;
-                  color: #07221B;
-                  background-color: #dee4e2;">
-                      <h1>${Stext}</h1>
-                  </div>
-                  <p style="letter-spacing: 0.04em">Email này được gửi vì tài khoản của bạn chọn quên mật khẩu. Bạn có 60s để thay đổi nhập mã.</p>
-                  <p>Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng tôi qua bugOnDev@gmail.com</p>
-                  <div style="box-sizing: border-box;
-                  display: flex;
-                  flex-direction: row;
-                  align-items: flex-start;
-                  padding: 16px 24px;
-                  margin: 56px 0px;
-                  border-left: 2px solid #3D685E;">
-                      <p style="letter-spacing: 0.04em">Chân thành cảm ơn,<br>
-                          Bug Ổn Team</p>
-                  </div>
-                  <div style="height: 0px;
-                  border: 1px solid rgba(115, 130, 126, 0.6);
-                  margin: 16px 0px;">
-                  </div>
-                  <div class="footer">
-                      <ul style="display: flex;
-                      flex-direction: row;
-                      justify-content: center;
-                      align-items: center;
-                      padding-top: px;
-                      gap: 24px;
-                      list-style: none;">
-                          <li>
-                              <a href="#" target="_blank">
-                                  <img src="https://i.imgur.com/nwpLYiW.png">
-                              </a>
-                          </li>
-                          <li>
-                              <a href="#" target="_blank">
-                                  <img src="https://i.imgur.com/pmgrgRf.png">
-                              </a>
-                          </li>
-                          <li>
-                              <a href="#" target="_blank">
-                                  <img src="https://i.imgur.com/SScCr1k.png">
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
-      </body>`,
+            subject: "Lấy lại mật khẩu!", // Subject line
+            text: "Lấy lại mật khẩu!", // plain text body
+            html: `
+            <body style="margin: 0px; font-size: 16px; border: 1px solid rgba(115, 130, 126, 0.6);">
+    <div style="margin: 40px; color: #1F1F1F;max-width: 512px;">
+          <h1 class="fw-bold m-0" style="color: rgb(255, 193, 7);">FLASH SPACE</h1>
+        <div style="width: fit-content;">
+            <h2 style="line-height: 135%;">Thân gửi Khách hàng,</h2>
+            <p style="letter-spacing: 0.04em">Đây là mã thay đổi mật khẩu của tài khoản </p>
+            <div style="display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            margin: 48px 0px;
+            border-radius: 16px;
+            color: #07221B;
+            background-color: #dee4e2;">
+                <h1>${Stext}</h1>
+            </div>
+            <p style="letter-spacing: 0.04em">Email này được gửi vì tài khoản của bạn chọn quên mật khẩu. Bạn có 60s để thay đổi nhập mã.</p>
+            <p>Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng tôi qua flashspacevn@gmail.com</p>
+            <div style="box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 16px 24px;
+            margin: 56px 0px;
+            border-left: 2px solid #004274;">
+                <p style="letter-spacing: 0.04em">Chân thành cảm ơn,<br>
+                  Flash Space Team</p>
+            </div>
+            <div style="height: 0px;
+            border: 1px solid #004274;
+            margin: 16px 0px;">
+            </div>
+        </div>
+    </div>
+</body>`,
           },
           (err) => {
             if (err) {
