@@ -99,6 +99,7 @@ const PostImageScreen = ({ navigation, route }) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          style={{ paddingTop: 30 }}
         >
           <View
             style={{

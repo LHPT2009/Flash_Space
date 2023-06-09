@@ -244,11 +244,11 @@ const RoomsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
       {/* Customise status bar */}
-      <StatusBar
+      {/* <StatusBar
         translucent={false}
         backgroundColor={COLORS.white}
         barStyle="dark-content"
-      />
+      /> */}
       <View
         style={{
           flexDirection: "row",

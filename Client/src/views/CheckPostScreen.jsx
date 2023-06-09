@@ -22,6 +22,7 @@ const CheckPostScreen = ({ navigation }) => {
           flexDirection: "row",
           backgroundColor: COLORS.white,
           elevation: 10,
+          paddingTop: 30,
         }}
       >
         <View
@@ -75,11 +76,11 @@ const CheckPostScreen = ({ navigation }) => {
       </View>
 
       {arr.length != 0 ? (
-        <View>
+        <View style={{ width: "100%", height: "90%" }}>
           <View
             style={{
               width: "100%",
-              height: "80%",
+              height: "90%",
               backgroundColor: COLORS.light,
             }}
           >
@@ -101,19 +102,28 @@ const CheckPostScreen = ({ navigation }) => {
                     justifyContent: "center",
                     alignItems: "center",
                     elevation: 10,
-                    backgroundColor: COLORS.white,
+                    backgroundColor: theme.PRIMARY_BG_COLOR,
                     borderRadius: 13,
                   }}
                   onPress={() => navigation.navigate("PackageScreen")}
                 >
-                  <Image
+                  {/* <Image
                     source={require("../../assets/images/buy.gif")}
                     style={{
                       width: "80%",
                       height: "80%",
                       resizeMode: "repeat",
                     }}
-                  />
+                  /> */}
+                  <Text
+                    style={{
+                      fontFamily: theme.FontMain,
+                      fontSize: 25,
+                      color: COLORS.white,
+                    }}
+                  >
+                    Mua gói dịch vụ tại đây
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View

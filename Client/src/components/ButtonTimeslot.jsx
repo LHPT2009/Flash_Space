@@ -4,9 +4,9 @@ import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 import { ListTimeSlotContext } from "../context/ListTimeSlotContext";
 const ButtonTimeslot = (props) => {
+  console.log("Đã vô");
   const [active, setActive] = useState(false);
-  const { timeslots } = useContext(ListTimeSlotContext);
-  const { editListTimeSlot } = useContext(ListTimeSlotContext);
+  const { timeslots, editListTimeSlot } = useContext(ListTimeSlotContext);
   const handleClick = () => {
     setActive(!active);
     const date = new Date(props.date);

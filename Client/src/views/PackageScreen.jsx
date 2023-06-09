@@ -224,11 +224,28 @@ const PackageScreen = ({ navigation }) => {
 
   return (
     <View
-      style={{ width: "100%", height: " 100%", backgroundColor: "#dc6539" }}
+      style={{
+        width: "100%",
+        height: " 100%",
+        backgroundColor: theme.PRIMARY_BG_COLOR,
+      }}
     >
-      <View style={{ width: "100%" }}>
+      <View
+        style={{
+          width: "100%",
+          paddingTop: 40,
+
+          backgroundColor: "#dc6539",
+          marginBottom: 50,
+        }}
+      >
         <Image
-          style={{ width: "100%", height: 100, resizeMode: "stretch" }}
+          style={{
+            width: "100%",
+            height: 100,
+            resizeMode: "stretch",
+            marginBottom: -30,
+          }}
           source={require("../../assets/images/taphoa.png")}
         />
       </View>

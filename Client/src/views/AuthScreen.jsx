@@ -20,6 +20,7 @@ const AuthScreen = ({ navigation }) => {
           flexDirection: "row",
           backgroundColor: COLORS.white,
           elevation: 10,
+          paddingTop: 30,
         }}
       >
         <View

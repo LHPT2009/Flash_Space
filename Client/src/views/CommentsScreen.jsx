@@ -33,7 +33,8 @@ const CommentsScreen = ({ navigation, route }) => {
   const sumrate = arrfilter.length;
   const calrate = (number) => {
     let numbercal = (number / sumrate) * 100;
-    return numbercal;
+    const a = numbercal.toFixed(1);
+    return a;
   };
 
   const count = () => {
@@ -41,9 +42,8 @@ const CommentsScreen = ({ navigation, route }) => {
     arrfilter.map((item) => {
       sum = sum + item.point;
     });
-    console.log(sum);
     const point = (1 / sumrate) * sum;
-    const a = (point * 100) / 100;
+    const a = point.toFixed(1);
     return a;
   };
 
@@ -62,6 +62,7 @@ const CommentsScreen = ({ navigation, route }) => {
       <View
         style={{
           width: "100%",
+          paddingTop: 30,
           height: 100,
           backgroundColor: COLORS.white,
           flexDirection: "row",
