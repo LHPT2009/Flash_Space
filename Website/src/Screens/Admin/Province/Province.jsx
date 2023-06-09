@@ -44,10 +44,11 @@ const Province = () => {
       });
   };
 
+  const sortpronvice = province.reverse();
   // Get current posts
   const indexOfLastProvince = currentPage * postsPerProvince;
   const indexOfFirstProvince = indexOfLastProvince - postsPerProvince;
-  const currentProvince = province.slice(
+  const currentProvince = sortpronvice.slice(
     indexOfFirstProvince,
     indexOfLastProvince
   );
@@ -153,7 +154,7 @@ const Province = () => {
                       </table>
                       <Pagination
                         postsPerProvince={postsPerProvince}
-                        totalPosts={province.length}
+                        totalPosts={sortpronvice.length}
                         paginate={paginate}
                       />
                     </div>

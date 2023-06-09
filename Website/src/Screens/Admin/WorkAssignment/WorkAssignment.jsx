@@ -30,9 +30,9 @@ const WorkAssignment = () => {
   const [postsPerPage] = useState(4);
 
   // Get current posts
-  const workassignmentfilter = workassignment.filter(
-    (item) => item.idroom !== null
-  );
+  const workassignmentfilter = workassignment
+    .filter((item) => item.idroom !== null)
+    .reverse();
   // .filter((item) => item.static == 0);
 
   const indexOfLastPost = currentPage * postsPerPage;

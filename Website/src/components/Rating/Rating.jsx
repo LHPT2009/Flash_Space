@@ -33,7 +33,7 @@ const Rating = (props) => {
     const year = getdate.getFullYear();
     return day + "/" + month + "/" + year;
   };
-  const arrfilter = listrate.filter((item) => item.static == 1);
+  const arrfilter = listrate.filter((item) => item.static == 1).reverse();
   const sumrate = arrfilter.length;
   const calrate = (number) => {
     let numbercal = (number / sumrate) * 100;
@@ -248,7 +248,7 @@ const Rating = (props) => {
           >
             <Pagination
               postsPerPage={postsPerPage}
-              totalPosts={listrate.length}
+              totalPosts={arrfilter.length}
               paginate={paginate}
             />
           </div>

@@ -41,13 +41,14 @@ const Tables = () => {
       });
   };
 
+  const sortrole = role.reverse();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = role.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sortrole.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -150,7 +151,7 @@ const Tables = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={role.length}
+                        totalPosts={sortrole.length}
                         paginate={paginate}
                       />
                     </div>

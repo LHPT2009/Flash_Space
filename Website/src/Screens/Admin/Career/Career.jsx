@@ -45,13 +45,16 @@ const Career = () => {
         });
       });
   };
+
+  const sortcareer = career.reverse();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = career.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sortcareer.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -154,7 +157,7 @@ const Career = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={career.length}
+                        totalPosts={sortcareer.length}
                         paginate={paginate}
                       />
                     </div>

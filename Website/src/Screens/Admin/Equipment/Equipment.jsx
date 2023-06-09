@@ -41,13 +41,14 @@ const Equipment = () => {
       });
   };
 
+  const sortequipment = equipment.reverse();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = equipment.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sortequipment.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -150,7 +151,7 @@ const Equipment = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={equipment.length}
+                        totalPosts={sortequipment.length}
                         paginate={paginate}
                       />
                     </div>

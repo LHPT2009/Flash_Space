@@ -32,7 +32,8 @@ const RoomAdmin = () => {
   // Get current posts
   const roomactive = waroom
     .filter((item) => item.static == 1)
-    .filter((item) => item._id !== "645dcfa849e6e647782d6ba1");
+    .filter((item) => item._id !== "645dcfa849e6e647782d6ba1")
+    .reverse();
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;

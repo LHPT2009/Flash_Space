@@ -48,13 +48,15 @@ const TimeSlot = () => {
       });
   };
 
+  const sorttimeslot = timeslot.reverse();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = timeslot.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = sorttimeslot.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -159,7 +161,7 @@ const TimeSlot = () => {
                       </table>
                       <Pagination
                         postsPerPage={postsPerPage}
-                        totalPosts={timeslot.length}
+                        totalPosts={sorttimeslot.length}
                         paginate={paginate}
                       />
                     </div>

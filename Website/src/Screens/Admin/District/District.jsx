@@ -41,13 +41,15 @@ const District = () => {
       });
   };
 
+  const sortdistrict = district.reverse();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [districtsPerPage] = useState(4);
 
   // Get current districts
   const indexOfLastdistrict = currentPage * districtsPerPage;
   const indexOfFirstdistrict = indexOfLastdistrict - districtsPerPage;
-  const currentdistricts = district.slice(
+  const currentdistricts = sortdistrict.slice(
     indexOfFirstdistrict,
     indexOfLastdistrict
   );
@@ -155,7 +157,7 @@ const District = () => {
                       </table>
                       <Pagination
                         postsPerPage={districtsPerPage}
-                        totalPosts={district.length}
+                        totalPosts={sortdistrict.length}
                         paginate={paginate}
                       />
                     </div>
