@@ -32,6 +32,23 @@ const WorkingHoursController = {
     }
   },
 
+  getDateByIdRoom: async (req, res) => {
+    try {
+      const workingHours = await WorkingHours.find({
+        idroom: req.params.idRoom,
+      });
+      const listDate = [];
+      await workingHours.map((item) => {
+        if (!listDate.includes(item.date)) {
+          listDate.push({ day: item.date });
+        }
+      });
+      res.status(200).json(listDate);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
   addWorkingHours: async (req, res) => {
     try {
       const newWorkingHours = await new WorkingHours({

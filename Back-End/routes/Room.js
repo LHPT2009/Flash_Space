@@ -27,4 +27,6 @@ router.delete("/:id", RoomController.deleteRoom);
 
 router.put("/:id", RoomController.updateRoom);
 
+router.get("/account/:idAccount", RoomController.getRoomsOfAccount);
+
 module.exports = router;

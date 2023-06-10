@@ -12,4 +12,6 @@ router.delete("/:id", WorkingHoursController.deleteWorkingHours);
 
 router.put("/:id", WorkingHoursController.updateWorkingHours);
 
+router.get("/room/:idRoom", WorkingHoursController.getDateByIdRoom);
+
 module.exports = router;
