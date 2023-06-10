@@ -192,7 +192,7 @@ const Dashboard = () => {
         </>
       );
     } else {
-      return <Navigate to={"/"} />;
+      return <Navigate to={"/reset"} />;
     }
   } else {
     return <Navigate to={"/"} />;

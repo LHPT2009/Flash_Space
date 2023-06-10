@@ -4,6 +4,7 @@ import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Reset = () => {
   const [email, setEmail] = useState("");
@@ -11,12 +12,23 @@ const Reset = () => {
 
   const resetPassword = async (e) => {
     e.preventDefault();
-    axios
+    Swal.fire({
+      icon: "success",
+      title: "Chờ trong giây lát!",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (swal) => {
+        swal.addEventListener("mouseenter", Swal.stopTimer);
+        swal.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+    await axios
       .post(`http://localhost:8000/auth/sendcoderesetbymail`, {
         email,
       })
-      .then(function (response) {
-        console.log(response);
+      .then((item) => {
+        localStorage.setItem("passcode", item.data);
         navigate("/confirm");
       })
       .catch(function (error) {

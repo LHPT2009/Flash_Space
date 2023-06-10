@@ -267,8 +267,14 @@ const DetailRoom = () => {
                                         searchWorkingHours(e.target.value);
                                         setDateOrder(e.target.value);
                                       } else {
-                                        alert("mời bạn đăng nhập");
-                                        navigate("/login");
+                                        Swal.fire({
+                                          icon: "error",
+                                          title:
+                                            "Bạn vẫn chưa đăng nhập hãy đến trang đăng nhập!",
+                                          showConfirmButton: true,
+                                        }).then(() => {
+                                          navigate("/login");
+                                        });
                                       }
                                     }}
                                     className="form-control"

@@ -19,7 +19,7 @@ const Login = () => {
         .catch((err) => {
           Swal.fire({
             icon: "warning",
-            title: "Tài khoản hoặc mậu khẩu bị sai!!!",
+            title: "Tài khoản hoặc mật khẩu bị sai!!!",
             showConfirmButton: true,
           });
         });

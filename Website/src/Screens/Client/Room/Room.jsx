@@ -192,7 +192,7 @@ const Room = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
-  const room = roomFilterData;
+  const room = roomFilterData.filter((item) => item.static == 1).reverse();
   const district = listDistrict.filter(
     (n) => n.idprovince._id == searchProvince
   );
