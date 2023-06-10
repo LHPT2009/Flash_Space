@@ -163,6 +163,18 @@ const RoomController = {
       res.status(500).json("Error!!!");
     }
   },
+
+  getRoomsOfAccount: async (req, res) => {
+    try {
+      const room = await Room.find({ idaccount: req.params.idAccount })
+        .populate("idprovince")
+        .populate("iddistrict")
+        .populate("idward");
+      res.status(200).json(room);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
 };
 
 module.exports = RoomController;
