@@ -1,4 +1,5 @@
 const Evaluate = require("../models/Evaluate");
+const { Configuration, OpenAIApi } = require("openai");
 
 const EvaluateController = {
   getAllEvaluate: async (req, res) => {
@@ -72,13 +73,39 @@ const EvaluateController = {
 
   updateEvaluate: async (req, res) => {
     try {
+      const configuration = new Configuration({
+        apiKey: "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",
+      });
+      const openai = new OpenAIApi(configuration);
+
+      const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        max_tokens: 1000,
+        messages: [
+          { role: "system", content: "You are helpful assisant." },
+          {
+            role: "user",
+            content: `"${req.body.content}" hãy kiểm tra câu trên và xem xét nó có chứa nội dung tiêu cực hay không? trả lời tốm tắt một trong hai đáp án 'có' hoặc 'không'?`,
+          },
+        ],
+      });
+
+      console.log(completion.data.choices[0].message.content);
+
+      let static = 0;
+      if (completion.data.choices[0].message.content == "Không.") {
+        static = 1;
+      }
+      if (completion.data.choices[0].message.content == "Có.") {
+        static = 0;
+      }
       const updateEvaluate = {
         idaccount: req.body.idaccount,
         idroom: req.body.idroom,
         idbookingroom: req.body.idbookingroom,
         point: req.body.point,
         content: req.body.content,
-        static: 1,
+        static: static,
         date: req.body.date,
       };
       const evaluate = await Evaluate.findByIdAndUpdate(
