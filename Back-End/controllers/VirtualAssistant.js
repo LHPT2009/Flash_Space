@@ -1,9 +1,9 @@
 const { Configuration, OpenAIApi } = require("openai");
 
-const ChatgptController = {
-  chatGPT: async (req, res) => {
+const VirtualAssistantController = {
+  ResVirtualAssistant: async (req, res) => {
     try {
-      const { prompt } = req.body;
+      const { contentchatgpt } = req.body;
       const configuration = new Configuration({
         apiKey: "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",
       });
@@ -11,8 +11,8 @@ const ChatgptController = {
 
       const completion = await openai.createCompletion(
         {
-          model: "gpt-3.5-turbo",
-          prompt: prompt,
+          model: "text-davinci-003",
+          prompt: contentchatgpt,
           max_tokens: 512,
           temperature: 0,
         },
@@ -24,11 +24,11 @@ const ChatgptController = {
           },
         }
       );
-      res.status(200).json(completion.data.choices[0].text);
+      res.status(200).json(completion.data.choices[0].text.replace(/\n/g, ""));
     } catch (error) {
       res.status(500).json(error);
     }
   },
 };
 
-module.exports = ChatgptController;
+module.exports = VirtualAssistantController;
