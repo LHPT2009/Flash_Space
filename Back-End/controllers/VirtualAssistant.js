@@ -9,22 +9,15 @@ const VirtualAssistantController = {
       });
       const openai = new OpenAIApi(configuration);
 
-      const completion = await openai.createCompletion(
-        {
-          model: "text-davinci-003",
-          prompt: contentchatgpt,
-          max_tokens: 512,
-          temperature: 0,
-        },
-        {
-          // timeout: 1000,
-          headers: {
-            Authorization:
-              "Bearer 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",
-          },
-        }
-      );
-      res.status(200).json(completion.data.choices[0].text.replace(/\n/g, ""));
+      const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        max_tokens: 1000,
+        messages: [
+          { role: "system", content: "You are helpful assisant." },
+          { role: "user", content: contentchatgpt },
+        ],
+      });
+      res.status(200).json(completion.data.choices[0].message.content);
     } catch (error) {
       res.status(500).json(error);
     }

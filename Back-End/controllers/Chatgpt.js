@@ -9,22 +9,15 @@ const ChatgptController = {
       });
       const openai = new OpenAIApi(configuration);
 
-      const completion = await openai.createCompletion(
-        {
-          model: "gpt-3.5-turbo",
-          prompt: prompt,
-          max_tokens: 512,
-          temperature: 0,
-        },
-        {
-          // timeout: 1000,
-          headers: {
-            Authorization:
-              "Bearer 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",
-          },
-        }
-      );
-      res.status(200).json(completion.data.choices[0].text);
+      const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        max_tokens: 1000,
+        messages: [
+          { role: "system", content: "You are helpful assisant." },
+          { role: "user", content: prompt },
+        ],
+      });
+      res.status(200).json(completion.data.choices[0].message.content);
     } catch (error) {
       res.status(500).json(error);
     }
