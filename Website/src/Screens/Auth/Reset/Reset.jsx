@@ -8,6 +8,9 @@ import Swal from "sweetalert2";
 
 const Reset = () => {
   const [email, setEmail] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("");
+  const [check, setCheck] = useState("checkmail");
+
   const navigate = useNavigate();
 
   const resetPassword = async (e) => {
@@ -24,8 +27,10 @@ const Reset = () => {
       },
     });
     await axios
-      .post(`http://localhost:8000/auth/sendcoderesetbymail`, {
+      .post(`http://localhost:8000/auth/sendcodereset`, {
         email,
+        phonenumber,
+        check,
       })
       .then((item) => {
         localStorage.setItem("passcode", item.data);
@@ -57,19 +62,71 @@ const Reset = () => {
                   <div class="py-4 px-3 w-75">
                     <h4>Lấy lại tài khoản</h4>
                     <form onSubmit={resetPassword}>
-                      <div class="row mt-2">
+                      <div class="row mt-2 mb-2">
                         <div class="col-md-12">
-                          <div class="input-field">
+                          <div class="form-check form-check-inline">
                             <input
-                              class="form-control"
-                              id="input3"
-                              required
-                              onChange={(e) => setEmail(e.target.value)}
+                              class="form-check-input"
+                              type="radio"
+                              name="exampleRadios"
+                              id="exampleRadios1"
+                              value="option1"
+                              onChange={(e) => {
+                                setCheck("checkmail");
+                                setPhoneNumber("");
+                              }}
                             />
-                            <label for="input3">Email</label>
+                            <label class="form-check-label" for="inlineRadio1">
+                              Email
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="exampleRadios"
+                              id="exampleRadios2"
+                              value="option2"
+                              onChange={(e) => {
+                                setCheck("checkphonenumber");
+                                setEmail("");
+                              }}
+                            />
+                            <label class="form-check-label" for="inlineRadio2">
+                              số điện thoại
+                            </label>
                           </div>
                         </div>
                       </div>
+                      {check == "checkmail" ? (
+                        <div class="row mt-2">
+                          <div class="col-md-12">
+                            <div class="input-field">
+                              <input
+                                class="form-control"
+                                id="input3"
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
+                              />
+                              <label for="input3">Email</label>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div class="row mt-2">
+                          <div class="col-md-12">
+                            <div class="input-field">
+                              <input
+                                class="form-control"
+                                id="input3"
+                                required
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                              />
+                              <label for="input3">Số điện thoại</label>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </form>
                     <div class="row mt-2">
                       <div class="col-md-12">

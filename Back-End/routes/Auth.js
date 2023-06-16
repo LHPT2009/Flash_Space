@@ -12,7 +12,7 @@ router.post("/logingoogle", AuthController.loginGoogle);
 
 router.get("/confirmemail/:id", AuthController.confirmEmail);
 
-router.post("/sendcoderesetbymail", AuthController.SendCodeResetByMail);
+router.post("/sendcodereset", AuthController.SendCodeReset);
 
 router.post("/reset", AuthController.ResetPassword);
 

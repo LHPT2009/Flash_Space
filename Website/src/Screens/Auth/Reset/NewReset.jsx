@@ -9,15 +9,28 @@ import Swal from "sweetalert2";
 
 const NewReset = () => {
   const navigate = useNavigate();
+
   const [password, setPassword] = useState("");
   const [passwordconfirm, setPasswordConfirm] = useState("");
-  const email = jwtDecode(localStorage.getItem("passcode")).email;
-  const resetpass = () => {
+
+  const resetpass = async () => {
+    let email = "";
+    let phonenumber = "";
+    const type = await jwtDecode(localStorage.getItem("passcode")).type;
+
+    if (type == "email") {
+      email = jwtDecode(localStorage.getItem("passcode")).email;
+    }
+    if (type == "phonenumber") {
+      phonenumber = jwtDecode(localStorage.getItem("passcode")).phonenumber;
+    }
     if (password == passwordconfirm) {
       axios
         .post(`http://localhost:8000/auth/reset`, {
           email,
+          phonenumber,
           password,
+          type,
         })
         .then((item) => {
           Swal.fire({

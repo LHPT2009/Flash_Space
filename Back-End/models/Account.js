@@ -32,10 +32,7 @@ const AccountSchema = new mongoose.Schema({
   phonenumber: {
     type: String,
   },
-  emailverification: {
-    type: Boolean,
-  },
-  phonenumberverification: {
+  verification: {
     type: Boolean,
   },
   sex: {
