@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const twilio = require("twilio");
+
 dotenv.config();
 
 const AuthController = {
@@ -23,9 +25,8 @@ const AuthController = {
         birthday: "",
         static: 1,
         email: req.body.email,
-        phonenumber: "",
-        emailverification: false,
-        phonenumberverification: false,
+        phonenumber: req.body.phonenumber,
+        verification: false,
         sex: 0,
       });
       const newImagesCMND = new ImagesCMND({
@@ -44,100 +45,124 @@ const AuthController = {
       res.status(200).json(newAccount);
       await newImagesCMND.save();
       await newAccount.save();
-      let transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.USERNAME_MAIL,
-          pass: process.env.PASSWORD_MAIL,
-        },
-      });
-      let send = jwt.sign(
-        {
-          id: newAccount._id,
-        },
-        process.env.JWT_ACCESS_KEY
-      );
-      let info = await transporter.sendMail({
-        from: process.env.USERNAME_MAIL,
-        to: req.body.email,
-        subject: "Mail xác thực!",
-        text: "Mail xác thực!",
-        html: `
-        <body
-    style="
-      margin: 0px;
-      background-color: #f5f5f5;
-      font-size: 16px;
-      border: 1px solid #004274;
-      max-width: 512px;
-    "
-  >
-    <div style="margin: 40px; color: #1f1f1f">
-      <div
-        style="
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          margin-bottom: 24px;
-        "
-      >
-      <h1 class="fw-bold m-0" style="color: rgb(255, 193, 7);">FLASH SPACE</h1>
-      </div>
-      <div style="width: fit-content">
-        <h2 style="line-height: 135%">Chào mừng đến với Flash Space</h2>
-        <p style="letter-spacing: 0.04em">Xác thực tài khoản tại đây</p>
-        <button
+
+      if (req.body.check == "checkmail") {
+        let transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.USERNAME_MAIL,
+            pass: process.env.PASSWORD_MAIL,
+          },
+        });
+        let send = jwt.sign(
+          {
+            id: newAccount._id,
+          },
+          process.env.JWT_ACCESS_KEY
+        );
+        let info = await transporter.sendMail({
+          from: process.env.USERNAME_MAIL,
+          to: req.body.email,
+          subject: "Mail xác thực!",
+          text: "Mail xác thực!",
+          html: `
+          <body
+      style="
+        margin: 0px;
+        background-color: #f5f5f5;
+        font-size: 16px;
+        border: 1px solid #004274;
+        max-width: 512px;
+      "
+    >
+      <div style="margin: 40px; color: #1f1f1f">
+        <div
           style="
-            text-align: center;
             display: flex;
             flex-direction: row;
-            justify-content: center;
             align-items: center;
-            padding: 16px;
-            margin: 48px 0px;
-            border-radius: 16px;
-            color: #004274;
-            background-color: #dce2e7;
+            margin-bottom: 24px;
           "
         >
-          <a
-            style="text-decoration: none; font-weight: 600; color: inherit"
-            href="http://localhost:3000/confirmmail?confirm=${send}"
-            >Xác thực</a
-          >
-        </button>
-        <p>
-          Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng
-          tôi qua flashspacevn@gmail.com
-        </p>
-        <div
-          style="
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            padding: 16px 24px;
-            margin: 56px 0px;
-            border-left: 2px solid #004274;
-          "
-        >
-          <p style="letter-spacing: 0.04em">
-            Chân thành cảm ơn,<br />
-            Flash Space Team
-          </p>
+        <h1 class="fw-bold m-0" style="color: rgb(255, 193, 7);">FLASH SPACE</h1>
         </div>
-        <div
-          style="
-            height: 0px;
-            border: 1px solid #004274;
-            margin: 16px 0px;
-          "
-        ></div>
+        <div style="width: fit-content">
+          <h2 style="line-height: 135%">Chào mừng đến với Flash Space</h2>
+          <p style="letter-spacing: 0.04em">Xác thực tài khoản tại đây</p>
+          <button
+            style="
+              text-align: center;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              padding: 16px;
+              margin: 48px 0px;
+              border-radius: 16px;
+              color: #004274;
+              background-color: #dce2e7;
+            "
+          >
+            <a
+              style="text-decoration: none; font-weight: 600; color: inherit"
+              href="http://localhost:3000/confirmmail?confirm=${send}"
+              >Xác thực</a
+            >
+          </button>
+          <p>
+            Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng
+            tôi qua flashspacevn@gmail.com
+          </p>
+          <div
+            style="
+              box-sizing: border-box;
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
+              padding: 16px 24px;
+              margin: 56px 0px;
+              border-left: 2px solid #004274;
+            "
+          >
+            <p style="letter-spacing: 0.04em">
+              Chân thành cảm ơn,<br />
+              Flash Space Team
+            </p>
+          </div>
+          <div
+            style="
+              height: 0px;
+              border: 1px solid #004274;
+              margin: 16px 0px;
+            "
+          ></div>
+        </div>
       </div>
-    </div>
-  </body>
-            `,
-      });
+    </body>
+              `,
+        });
+      }
+      if (req.body.check == "checkphonenumber") {
+        const accountSid = "AC890500f71af605b50b69fdcdf370f0a5";
+        const authToken = "638bf4e6f9e35560f74921e4bc050131";
+        const client = new twilio(accountSid, authToken);
+
+        let send = jwt.sign(
+          {
+            id: newAccount._id,
+          },
+          process.env.JWT_ACCESS_KEY
+        );
+
+        client.messages
+          .create({
+            body: `Hãy bấm vào link ở này để đến trang xác thực của flashspacevn:\n
+             http://localhost:3000/confirmmail?confirm=${send}`,
+            to: `+84${req.body.phonenumber}`,
+            from: "+14066934842",
+          })
+          .then((message) => console.log(message.sid));
+      }
     } catch (error) {
       console.log(error);
       res.status(500).json(error);
@@ -168,8 +193,7 @@ const AuthController = {
         static: 0,
         email: req.body.email,
         phonenumber: "",
-        emailverification: false,
-        phonenumberverification: false,
+        verification: false,
         sex: 0,
       });
       const newWorkAssignment = new WorkAssignment({
@@ -334,8 +358,7 @@ const AuthController = {
           static: true,
           email: req.body.email,
           phonenumber: "",
-          emailverification: true,
-          phonenumberverification: false,
+          verification: true,
           sex: "",
         });
         await newAccount.save();
@@ -353,7 +376,7 @@ const AuthController = {
     try {
       const account = await Account.findByIdAndUpdate(
         req.params.id,
-        { emailverification: true },
+        { verification: true },
         {
           new: true,
         }
@@ -366,90 +389,118 @@ const AuthController = {
       res.status(500).json(err);
     }
   },
-  SendCodeResetByMail: async (req, res) => {
+  SendCodeReset: async (req, res) => {
     try {
-      const { email } = req.body;
-      const account = await Account.findOne({ email: email });
-      if (account) {
-        let transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.USERNAME_MAIL, // generated ethereal user
-            pass: process.env.PASSWORD_MAIL, // generated ethereal password
-          },
-        });
-        var Stext = "";
-        var length = 5;
-        var possible =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (var i = 0; i < length; i++)
-          Stext += possible.charAt(Math.floor(Math.random() * possible.length));
+      const { email, phonenumber, check } = req.body;
+      var Stext = "";
+      var length = 5;
+      var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (var i = 0; i < length; i++)
+        Stext += possible.charAt(Math.floor(Math.random() * possible.length));
 
-        // send mail with defined transport object
-        let info = await transporter.sendMail(
-          {
-            from: process.env.USERNAME_MAIL, // sender address
-            to: `${email}`, // list of receivers
-            subject: "Lấy lại mật khẩu!", // Subject line
-            text: "Lấy lại mật khẩu!", // plain text body
-            html: `
-            <body style="margin: 0px; font-size: 16px; border: 1px solid rgba(115, 130, 126, 0.6);">
-    <div style="margin: 40px; color: #1F1F1F;max-width: 512px;">
-          <h1 class="fw-bold m-0" style="color: rgb(255, 193, 7);">FLASH SPACE</h1>
-        <div style="width: fit-content;">
-            <h2 style="line-height: 135%;">Thân gửi Khách hàng,</h2>
-            <p style="letter-spacing: 0.04em">Đây là mã thay đổi mật khẩu của tài khoản </p>
-            <div style="display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            margin: 48px 0px;
-            border-radius: 16px;
-            color: #07221B;
-            background-color: #dee4e2;">
-                <h1>${Stext}</h1>
-            </div>
-            <p style="letter-spacing: 0.04em">Email này được gửi vì tài khoản của bạn chọn quên mật khẩu. Bạn có 60s để thay đổi nhập mã.</p>
-            <p>Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng tôi qua flashspacevn@gmail.com</p>
-            <div style="box-sizing: border-box;
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            padding: 16px 24px;
-            margin: 56px 0px;
-            border-left: 2px solid #004274;">
-                <p style="letter-spacing: 0.04em">Chân thành cảm ơn,<br>
-                  Flash Space Team</p>
-            </div>
-            <div style="height: 0px;
-            border: 1px solid #004274;
-            margin: 16px 0px;">
-            </div>
-        </div>
-    </div>
-</body>`,
-          },
-          (err) => {
-            if (err) {
-              return res.json({
-                message: "Lỗi",
-                err,
-              });
+      if (check == "checkmail") {
+        const account = await Account.findOne({ email: email });
+        if (account) {
+          let transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: process.env.USERNAME_MAIL, // generated ethereal user
+              pass: process.env.PASSWORD_MAIL, // generated ethereal password
+            },
+          });
+          // send mail with defined transport object
+          let info = await transporter.sendMail(
+            {
+              from: process.env.USERNAME_MAIL, // sender address
+              to: `${email}`, // list of receivers
+              subject: "Lấy lại mật khẩu!", // Subject line
+              text: "Lấy lại mật khẩu!", // plain text body
+              html: `
+              <body style="margin: 0px; font-size: 16px; border: 1px solid rgba(115, 130, 126, 0.6);">
+      <div style="margin: 40px; color: #1F1F1F;max-width: 512px;">
+            <h1 class="fw-bold m-0" style="color: rgb(255, 193, 7);">FLASH SPACE</h1>
+          <div style="width: fit-content;">
+              <h2 style="line-height: 135%;">Thân gửi Khách hàng,</h2>
+              <p style="letter-spacing: 0.04em">Đây là mã thay đổi mật khẩu của tài khoản </p>
+              <div style="display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              padding: 16px;
+              margin: 48px 0px;
+              border-radius: 16px;
+              color: #07221B;
+              background-color: #dee4e2;">
+                  <h1>${Stext}</h1>
+              </div>
+              <p style="letter-spacing: 0.04em">Email này được gửi vì tài khoản của bạn chọn quên mật khẩu. Bạn có 60s để thay đổi nhập mã.</p>
+              <p>Nếu bạn không phải người thực hiện việc này thì hãy liên hệ cho chúng tôi qua flashspacevn@gmail.com</p>
+              <div style="box-sizing: border-box;
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
+              padding: 16px 24px;
+              margin: 56px 0px;
+              border-left: 2px solid #004274;">
+                  <p style="letter-spacing: 0.04em">Chân thành cảm ơn,<br>
+                    Flash Space Team</p>
+              </div>
+              <div style="height: 0px;
+              border: 1px solid #004274;
+              margin: 16px 0px;">
+              </div>
+          </div>
+      </div>
+  </body>`,
+            },
+            (err) => {
+              if (err) {
+                return res.json({
+                  message: "Lỗi",
+                  err,
+                });
+              }
+              const tokenreset = jwt.sign(
+                {
+                  email: email,
+                  passcode: Stext,
+                  type: "email",
+                },
+                process.env.JWT_ACCESS_KEY,
+                { expiresIn: "60s" }
+              );
+              return res.status(200).json(tokenreset);
             }
-            const tokenreset = jwt.sign(
-              {
-                email: email,
-                passcode: Stext,
-              },
-              process.env.JWT_ACCESS_KEY,
-              { expiresIn: "60s" }
-            );
-            return res.status(200).json(tokenreset);
-          }
+          );
+        } else {
+          res.status(500).json("error email");
+        }
+      }
+      if (check == "checkphonenumber") {
+        const accountSid = "AC890500f71af605b50b69fdcdf370f0a5";
+        const authToken = "638bf4e6f9e35560f74921e4bc050131";
+        const client = new twilio(accountSid, authToken);
+
+        client.messages
+          .create({
+            body: `Code xác thực bạn được gửi từ flashspacevn:
+             ${Stext}`,
+            to: `+84${phonenumber}`,
+            from: "+14066934842",
+          })
+          .then((message) => console.log(message.sid));
+
+        const tokenreset = jwt.sign(
+          {
+            phonenumber: phonenumber,
+            passcode: Stext,
+            type: "phonenumber",
+          },
+          process.env.JWT_ACCESS_KEY,
+          { expiresIn: "60s" }
         );
-      } else {
-        res.status(500).json("error email");
+        return res.status(200).json(tokenreset);
       }
     } catch (error) {
       console.log(error);
@@ -458,20 +509,34 @@ const AuthController = {
   },
   ResetPassword: async (req, res) => {
     const email = req.body.email;
+    const phonenumber = req.body.phonenumber;
     const pass = req.body.password;
+    const type = req.body.type;
 
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(pass, salt);
 
-    const account = await Account.findOneAndUpdate(
-      { email: email },
-      { password: hashed }
-    );
-
-    if (account) {
-      res.status(200).json(account);
-    } else {
-      res.status(404).json("Có gì đó ko ổn!!!");
+    if (type == "email") {
+      const account = await Account.findOneAndUpdate(
+        { email: email },
+        { password: hashed }
+      );
+      if (account) {
+        res.status(200).json(account);
+      } else {
+        res.status(404).json("Có gì đó ko ổn!!!");
+      }
+    }
+    if (type == "phonenumber") {
+      const account = await Account.findOneAndUpdate(
+        { phonenumber: phonenumber },
+        { password: hashed }
+      );
+      if (account) {
+        res.status(200).json(account);
+      } else {
+        res.status(404).json("Có gì đó ko ổn!!!");
+      }
     }
   },
 };

@@ -13,6 +13,8 @@ const Register = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("");
+  const [check, setCheck] = useState("checkmail");
   const navigate = useNavigate();
 
   const addUser = async (e) => {
@@ -25,11 +27,13 @@ const Register = () => {
           firstname,
           lastname,
           email,
+          phonenumber,
+          check,
         })
         .then(function (response) {
           Swal.fire({
             icon: "success",
-            title: "Mail Đã được gửi đi, mời bạn xác thực!",
+            title: "Mã đã được gửi đi, mời bạn xác thực!",
             showConfirmButton: true,
           }).then(() => {
             navigate("/login");
@@ -124,17 +128,71 @@ const Register = () => {
                       </div>
                       <div class="row mt-2 mb-2">
                         <div class="col-md-12">
-                          <div class="input-field">
+                          <div class="form-check form-check-inline">
                             <input
-                              class="form-control"
-                              id="input4"
-                              required
-                              onChange={(e) => setEmail(e.target.value)}
+                              class="form-check-input"
+                              type="radio"
+                              name="exampleRadios"
+                              id="exampleRadios1"
+                              value="option1"
+                              onChange={(e) => {
+                                setCheck("checkmail");
+                                setPhoneNumber("");
+                              }}
                             />
-                            <label for="input4">Email</label>
+                            <label class="form-check-label" for="inlineRadio1">
+                              Email
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="exampleRadios"
+                              id="exampleRadios2"
+                              value="option2"
+                              onChange={(e) => {
+                                setCheck("checkphonenumber");
+                                setEmail("");
+                              }}
+                            />
+                            <label class="form-check-label" for="inlineRadio2">
+                              số điện thoại
+                            </label>
                           </div>
                         </div>
                       </div>
+                      {check == "checkmail" ? (
+                        <div class="row mt-2 mb-2">
+                          <div class="col-md-12">
+                            <div class="input-field">
+                              <input
+                                class="form-control"
+                                id="input4"
+                                value={email}
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
+                              />
+                              <label for="input4">Email</label>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div class="row mt-2 mb-2">
+                          <div class="col-md-12">
+                            <div class="input-field">
+                              <input
+                                class="form-control"
+                                id="input4"
+                                value={phonenumber}
+                                required
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                              />
+                              <label for="input4">Số điện thoại</label>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                       <span class="">Mật khẩu không được ý hơn 8 ký tự</span>
                       <div class="row mt-2">
                         <div class="col-md-12">
