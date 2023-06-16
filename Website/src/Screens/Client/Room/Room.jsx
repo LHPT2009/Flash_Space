@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import ItemGrid from "../../../components/ListItem/ItemGrid";
-// import Sidebar from "../../../components/Sidebar/Sidebar";
-// import ListItem from "../../../components/ListItem/ListItem";
 import Pagination from "../../../components/Pagination/Pagination";
 
 const Room = () => {
@@ -26,7 +24,10 @@ const Room = () => {
   const [searchWard, setSearchWard] = useState();
   const [searchDistrict, setSearchDistrict] = useState();
   const [searchProvince, setSearchProvince] = useState();
-
+  const [contentchatgpt, setContentChatGPT] = useState("");
+  const [rescontentchatgpt, setResContentChatGPT] = useState(
+    "Chào bạn tôi rất sẵn lòng hỗ trợ bạn!"
+  );
   useEffect(() => {
     axios
       .get(
@@ -203,6 +204,23 @@ const Room = () => {
   const currentPosts = room.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const chatgptroom = () => {
+    axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/virtualassistant`,
+        {
+          contentchatgpt,
+        }
+      )
+      .then((res) => {
+        setResContentChatGPT(res.data);
+      });
+  };
   return (
     <div>
       <TopNav />
@@ -213,7 +231,7 @@ const Room = () => {
         <section className="padding-y">
           <div className="container">
             <div className="row">
-              <aside className="col-lg-3">
+              <aside className="col-lg-4">
                 <button
                   className="btn btn-outline-secondary mb-3 w-100  d-lg-none"
                   data-bs-toggle="collapse"
@@ -225,6 +243,45 @@ const Room = () => {
                   id="aside_filter"
                   className="collapse card d-lg-block mb-5"
                 >
+                  <article className="filter-group">
+                    <header className="card-header">Trợ lý giải đáp AI</header>
+                    <div className="collapse show" id="collapse_aside_brands">
+                      <div className="card-body">
+                        <div class="input-group">
+                          <textarea
+                            class="form-control"
+                            aria-label="With textarea"
+                            value={rescontentchatgpt}
+                            style={{ height: "200px" }}
+                            disabled
+                          ></textarea>
+                          <div class="input-group mt-3">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Nội dung bạn muốn hỏi?"
+                              onChange={(e) =>
+                                setContentChatGPT(e.target.value)
+                              }
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-success"
+                                type="button"
+                                onClick={chatgptroom}
+                              >
+                                <i
+                                  class="fa fa-arrow-right"
+                                  aria-hidden="true"
+                                ></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
                   <article className="filter-group">
                     <header className="card-header">Nghề nghiệp</header>
                     <div className="collapse show" id="collapse_aside_brands">
@@ -357,7 +414,7 @@ const Room = () => {
                   </article>
                 </div>
               </aside>
-              <main className="col-lg-9">
+              <main className="col-lg-8">
                 <small>Số phòng hiện tại</small>
                 <span style={{ color: "red", fontWeight: "bold" }}>
                   {" "}
