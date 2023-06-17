@@ -3,19 +3,103 @@ import axios from "axios";
 import "./Login.css";
 import TopNav from "../../../components/TopNav/TopNav";
 import Footer from "../../../components/Footer/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import ReCAPTCHA from "react-google-recaptcha";
+import { GoogleLogin } from "react-google-login";
+import { gapi } from "gapi-script";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
   const navigate = useNavigate();
+  const clientId =
+    "274010756034-p6lifcugpjfclvj4m90p8mm7ssg3d5e3.apps.googleusercontent.com";
+  useEffect(() => {
+    gapi.load("client:auth2", () => {
+      gapi.auth2.init({ clientId: clientId });
+    });
+  }, []);
 
   const loginUser = async (e) => {
     e.preventDefault();
     try {
+      if (token != "") {
+        const Auth = await axios
+          .post(`http://localhost:8000/auth/login`, { username, password })
+          .catch((err) => {
+            Swal.fire({
+              icon: "warning",
+              title: "Tài khoản hoặc mật khẩu bị sai!!!",
+              showConfirmButton: true,
+            });
+          });
+        if (Auth) {
+          if (Auth.data.emailverification == false) {
+            Swal.fire({
+              icon: "warning",
+              title: "Bạn vẫn chưa xác thực thông tin!",
+              showConfirmButton: true,
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: "Bạn đã đăng nhập thành công!",
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (swal) => {
+                swal.addEventListener("mouseenter", Swal.stopTimer);
+                swal.addEventListener("mouseleave", Swal.resumeTimer);
+              },
+            }).then(() => {
+              localStorage.setItem("token", Auth.data.accessToken);
+              navigate("/");
+            });
+          }
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Bạn chưa xác nhận RECAPTCHA!",
+          showConfirmButton: true,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const responseGoogle = async (response) => {
+    try {
       const Auth = await axios
-        .post(`http://localhost:8000/auth/login`, { username, password })
+        .post(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/auth/logingoogle`,
+          {
+            email: response.profileObj.email,
+            firstname: response.profileObj.familyName
+              ? response.profileObj.familyName
+              : "",
+            lastname: response.profileObj.givenName
+              ? response.profileObj.givenName
+              : "",
+          }
+        )
+        .then((item) => {
+          Swal.fire({
+            icon: "success",
+            title: "Đăng nhập tài khoản!",
+            showConfirmButton: true,
+          }).then(() => {
+            localStorage.setItem("token", item.data.accessToken);
+            navigate("/");
+          });
+        })
         .catch((err) => {
           Swal.fire({
             icon: "warning",
@@ -23,43 +107,12 @@ const Login = () => {
             showConfirmButton: true,
           });
         });
-      if (Auth) {
-        // const Toast = Swal.mixin({
-        //   toast: true,
-        //   position: "center-end",
-        //   showConfirmButton: false,
-        //   timer: 3000,
-        //   timerProgressBar: true,
-        //   didOpen: (toast) => {
-        //     toast.addEventListener("mouseenter", Swal.stopTimer);
-        //     toast.addEventListener("mouseleave", Swal.resumeTimer);
-        //   },
-        // });
-        if (Auth.data.emailverification == false) {
-          Swal.fire({
-            icon: "warning",
-            title: "Bạn vẫn chưa xác thực thông tin!",
-            showConfirmButton: true,
-          });
-        } else {
-          Swal.fire({
-            icon: "success",
-            title: "Bạn đã đăng nhập thành công!",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: (swal) => {
-              swal.addEventListener("mouseenter", Swal.stopTimer);
-              swal.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          }).then(() => {
-            localStorage.setItem("token", Auth.data.accessToken);
-            navigate("/");
-          });
-        }
-      }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Đăng nhập đã bị gian đoạn!",
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -111,6 +164,17 @@ const Login = () => {
                         </div>
                       </div>
                     </form>
+
+                    <div class="row mt-2">
+                      <div class="col-md-12">
+                        <ReCAPTCHA
+                          sitekey={"6LeTsqYmAAAAABMelNSGlU6nCkMDJuxzSM_qgn3g"}
+                          onChange={(token) => {
+                            setToken(token);
+                          }}
+                        />
+                      </div>
+                    </div>
                     <div class="row mt-2">
                       <div class="col-md-12">
                         <button
@@ -119,6 +183,16 @@ const Login = () => {
                         >
                           Đăng nhập
                         </button>
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-md-12">
+                        <GoogleLogin
+                          clientId={clientId}
+                          buttonText="Đăng nhập bằng Google"
+                          onSuccess={responseGoogle}
+                          onFailure={responseGoogle}
+                        />
                       </div>
                     </div>
                     <div class="member mt-1">
