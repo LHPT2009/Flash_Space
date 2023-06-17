@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ScrollView, View, Text, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as MediaLibrary from "expo-media-library";
@@ -9,42 +9,33 @@ import theme from "../styles/theme";
 import { InformationAddRoomContext } from "../context/InformationAddRoom";
 import IpAddress from "../consts/variable";
 
-const PostImageScreen = ({ navigation, route }) => {
-  const { informations, listWork } = useContext(InformationAddRoomContext);
-  const result = route.params;
-  if (result != undefined) {
-    image = result.multiImage.image;
-    image1 = result.multiImage.image1;
-    image2 = result.multiImage.image2;
-    image3 = result.multiImage.image3;
-  } else {
-    Object.assign(informations, {
-      multiImage: [],
-    });
-  }
+const ViewImage = ({ navigation, idRoom }) => {
+  const [result, setResult] = useState({});
+  const [image, setImage] = useState({});
+  const [image1, setImage1] = useState({});
+  const [image2, setImage2] = useState({});
+  const [image3, setImage3] = useState({});
+  useEffect(() => {
+    getImage();
+  }, []);
 
-  console.log(JSON.stringify(informations));
-  // console.log(typeof informations.multiImage);
-  // console.log(informations.multiImage.length);
-  console.log("aaaa");
-  console.log(listWork);
-  let image = "";
-  let image1 = "";
-  let image2 = "";
-  let image3 = "";
-  if (informations.multiImage[0] != undefined) {
-    image = informations.multiImage[0];
-  }
-  if (informations.multiImage[1] != undefined) {
-    image1 = informations.multiImage[1];
-  }
-  if (informations.multiImage[2] != undefined) {
-    image2 = informations.multiImage[2];
-  }
-  if (informations.multiImage[3] != undefined) {
-    image3 = informations.multiImage[3];
-  }
-
+  const getImage = async () => {
+    await axios
+      .get("http://" + IpAddress + ":8000/image/byroom/" + idRoom)
+      .then(async (response) => {
+        const result = response.data;
+        if (result != []) {
+          setResult(result);
+          setImage(result[0]);
+          setImage1(result[1]);
+          setImage2(result[2]);
+          setImage3(result[3]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const postInformation = async (req) => {
     // try {
     const idAccount = await AsyncStorage.getItem("idAccount");
@@ -72,10 +63,8 @@ const PostImageScreen = ({ navigation, route }) => {
         type: "image/jpeg",
       });
     }
-    // dt.append("longitude", informations.longitude);
-    // dt.append("latitude", informations.latitude);
-    dt.append("longitude", "111111");
-    dt.append("latitude", "1111111");
+    dt.append("longitude", informations.longitude);
+    dt.append("latitude", informations.latitude);
     dt.append("idaccount", idAccount);
 
     const result = await axios.post("http://" + IpAddress + ":8000/room/", dt, {
@@ -103,95 +92,6 @@ const PostImageScreen = ({ navigation, route }) => {
           showsHorizontalScrollIndicator={false}
           style={{ paddingTop: 30 }}
         >
-          <View
-            style={{
-              width: "100%",
-              height: 50,
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: theme.FontMain,
-                fontSize: 17,
-                color: COLORS.dark,
-              }}
-            >
-              Bước 3: Chọn hình ảnh
-            </Text>
-          </View>
-          <View
-            style={{
-              width: "100%",
-              height: 80,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <View
-              style={{
-                width: "50%",
-                height: "40%",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  width: 30,
-                  height: 30,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onPress={() => navigation.navigate("PostScreen")}
-              >
-                <Text style={{ color: "white" }}>1</Text>
-              </TouchableOpacity>
-              <View
-                style={{
-                  width: 90,
-                  height: 7,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                }}
-              ></View>
-              <TouchableOpacity
-                style={{
-                  width: 30,
-                  height: 30,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onPress={navigation.goBack}
-              >
-                <Text style={{ color: "white" }}>2</Text>
-              </TouchableOpacity>
-              <View
-                style={{
-                  width: 90,
-                  height: 7,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                }}
-              ></View>
-              <View
-                style={{
-                  width: 30,
-                  height: 30,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ color: "white" }}>3</Text>
-              </View>
-            </View>
-          </View>
           <View
             style={{
               width: "100%",
@@ -270,7 +170,13 @@ const PostImageScreen = ({ navigation, route }) => {
                       >
                         {image ? (
                           <Image
-                            source={{ uri: image.uri }}
+                            source={{
+                              uri:
+                                "http://" +
+                                IpAddress +
+                                ":8000/singleimage/" +
+                                image.filename,
+                            }}
                             style={{
                               flex: 5,
                               borderRadius: 20,
@@ -308,7 +214,13 @@ const PostImageScreen = ({ navigation, route }) => {
                       >
                         {image1 ? (
                           <Image
-                            source={{ uri: image1.uri }}
+                            source={{
+                              uri:
+                                "http://" +
+                                IpAddress +
+                                ":8000/singleimage/" +
+                                image1.filename,
+                            }}
                             style={{
                               flex: 5,
                               borderRadius: 20,
@@ -354,7 +266,13 @@ const PostImageScreen = ({ navigation, route }) => {
                       >
                         {image2 ? (
                           <Image
-                            source={{ uri: image2.uri }}
+                            source={{
+                              uri:
+                                "http://" +
+                                IpAddress +
+                                ":8000/singleimage/" +
+                                image2.filename,
+                            }}
                             style={{
                               flex: 5,
                               borderRadius: 20,
@@ -392,7 +310,13 @@ const PostImageScreen = ({ navigation, route }) => {
                       >
                         {image3 ? (
                           <Image
-                            source={{ uri: image3.uri }}
+                            source={{
+                              uri:
+                                "http://" +
+                                IpAddress +
+                                ":8000/singleimage/" +
+                                image3.filename,
+                            }}
                             style={{
                               flex: 5,
                               borderRadius: 20,
@@ -464,4 +388,4 @@ const PostImageScreen = ({ navigation, route }) => {
   );
 };
 
-export default PostImageScreen;
+export default ViewImage;

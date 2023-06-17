@@ -19,10 +19,12 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { LocaleConfig, Calendar } from "react-native-calendars";
 import COLORS from "../consts/colors";
 import { LinearGradient } from "expo-linear-gradient";
+import { showMessage } from "react-native-flash-message";
 import theme from "../styles/theme";
 import IpAddress from "../consts/variable";
 import ButtonTimeslot from "../components/ButtonTimeslot";
 import { ListTimeSlotContext } from "../context/ListTimeSlotContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("screen");
 
@@ -114,6 +116,40 @@ const DetailsScreen = ({ navigation, route }) => {
   //   });
   //   setOpenbook(result.includes(true));
   // };
+
+  const addFavoriteRoom = async () => {
+    const idAcc = await AsyncStorage.getItem("idAccount");
+    if (idAcc) {
+      const add = await axios
+        .post("http://" + IpAddress + ":8000/favoriteroom/", {
+          idaccount: idAcc,
+          idroom: house._id,
+        })
+        .then((ele) => {
+          showMessage({
+            message: "Đã thêm vào danh sách phòng yêu thích  ✔",
+            description: "Bạn có thể xem lại ở mục yêu thích",
+            type: "success",
+          });
+          navigation.reset({
+            index: 0,
+            routes: [
+              { name: "Main" }, // Key của màn hình muốn reload
+            ],
+          });
+        })
+        .catch((ele) =>
+          showMessage({
+            message: "Bạn đã thêm trước đó  ✔",
+            description: "Bạn có thể xem lại ở mục yêu thích",
+            type: "danger",
+          })
+        );
+    } else {
+      alert("Bạn chưa đăng nhập!");
+      navigate("/login");
+    }
+  };
 
   const loadlistrate = async () => {
     const load = await axios
@@ -229,7 +265,8 @@ const DetailsScreen = ({ navigation, route }) => {
   };
 
   const onChangeFavorite = () => {
-    setIsFavorite(!isFavorite);
+    setIsFavorite(true);
+    addFavoriteRoom();
   };
   const InteriorCard = ({ interior, index }) => {
     return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -11,11 +11,14 @@ import {
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import theme from "../styles/theme";
 import COLORS from "../consts/colors";
+import { showMessage } from "react-native-flash-message";
 import { LinearGradient } from "expo-linear-gradient";
 import { FlatList } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Popover, Box, Button } from "native-base";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import IpAddress from "../consts/variable";
 const FavoriteScreen = ({ navigation }) => {
   const data_room_hot = [
     {
@@ -136,81 +139,59 @@ const FavoriteScreen = ({ navigation }) => {
       ],
     },
   ];
-  const [itemStart, setItemStart] = useState(
-    data_room_hot.find((item) => item.id == "1")
-  );
-  const DetailSelect = () => {
-    return (
-      <View style={style.room_content_items}>
-        <TouchableOpacity
-          style={style.room_content_item_image}
-          onPress={() => {
-            navigation.navigate("DetailsScreen", itemStart);
-          }}
-        >
-          <ImageBackground
-            source={itemStart.image}
-            resizeMode="cover"
-            style={style.images__room__imageStyle}
-          >
-            <LinearGradient
-              style={style.backgroundImage_linear}
-              colors={["rgba(255, 255, 255, 0)", "rgba(38, 38, 38,0.8)"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-            >
-              <View style={style.header}>
-                <View style={style.headerBtn}>
-                  <View style={style.room_hot_content_item_title_category}>
-                    <Text
-                      style={style.room_hot_content_item_title_category_text}
-                    >
-                      Phòng học, họp
-                    </Text>
-                  </View>
-                  <View style={style.room_hot_content_item_title_name}>
-                    <Text style={style.room_hot_content_item_title_name_text}>
-                      {itemStart.title} &nbsp;
-                      <MaterialIconsIcon
-                        name="verified-user"
-                        style={style.icon1}
-                      ></MaterialIconsIcon>
-                    </Text>
-                  </View>
-                  <View style={style.room_hot_content_item_detail}>
-                    <Text style={style.room_hot_content_item_detail_text}>
-                      Nhấn vào để xem chi tiết
-                    </Text>
-                  </View>
-                </View>
-                {/* <TouchableOpacity
-                    style={style.headerBtnFavorite}
-                    onPress={() => onChangeFavorite()}
-                  >
-                    {!isFavorite ? (
-                      <Icon
-                        name="favorite-outline"
-                        size={25}
-                        color={COLORS.white}
-                      />
-                    ) : (
-                      <Icon name="favorite" size={25} color={COLORS.red} />
-                    )}
-                  </TouchableOpacity> */}
-              </View>
-            </LinearGradient>
-          </ImageBackground>
-        </TouchableOpacity>
-      </View>
-    );
+  const [arr, setArr] = useState([]);
+  console.log(arr.length);
+
+  const loaddata = async () => {
+    const id = await AsyncStorage.getItem("idAccount");
+    await axios
+      .get(
+        "http://" +
+          IpAddress +
+          ":8000/favoriteroom/" +
+          (await AsyncStorage.getItem("idAccount"))
+      )
+      .then(async (res) => {
+        await setArr(res.data);
+      });
+  };
+
+  useEffect(() => {
+    loaddata();
+  }, []);
+
+  const delItem = async (idfar) => {
+    const del = await axios
+      .delete("http://" + IpAddress + ":8000/favoriteroom/" + idfar)
+      .then((res) => {
+        showMessage({
+          message: "Đã xóa khỏi danh sách phòng yêu thích  ✔",
+          type: "success",
+        });
+        loaddata();
+      });
   };
 
   const Card = ({ house }) => {
     return (
-      <Pressable activeOpacity={0.8} onPress={() => setItemStart(house)}>
+      <Pressable
+        activeOpacity={0.8}
+        onPress={() => {
+          navigation.navigate("DetailsScreen", house.idroom);
+        }}
+      >
         <View style={style.card}>
           {/* House image */}
-          <Image source={house.image} style={style.cardImage} />
+          <Image
+            source={{
+              uri:
+                "http://" +
+                IpAddress +
+                ":8000/singleimage/" +
+                house.idroom.mainimage,
+            }}
+            style={style.cardImage}
+          />
           <View style={{ width: "65%", marginLeft: -15, paddingLeft: 25 }}>
             <View
               style={{
@@ -241,7 +222,12 @@ const FavoriteScreen = ({ navigation }) => {
                     <Popover.CloseButton />
                     <Popover.Footer justifyContent="flex-end">
                       <Button.Group space={2}>
-                        <Button colorScheme="danger">Bỏ Thích</Button>
+                        <Button
+                          colorScheme="danger"
+                          onPress={() => delItem(house._id)}
+                        >
+                          Bỏ Thích
+                        </Button>
                       </Button.Group>
                     </Popover.Footer>
                   </Popover.Content>
@@ -262,7 +248,7 @@ const FavoriteScreen = ({ navigation }) => {
                   fontFamily: theme.FontMain,
                 }}
               >
-                {house.title}
+                {house.idroom.subject}
               </Text>
               {/* <Text
                 style={{
@@ -285,9 +271,7 @@ const FavoriteScreen = ({ navigation }) => {
                 fontSize: 14,
                 fontFamily: theme.FontMain,
               }}
-            >
-              {house.location}
-            </Text>
+            ></Text>
             <Text
               style={{
                 color: theme.PRIMARY_BG_COLOR,
@@ -296,7 +280,7 @@ const FavoriteScreen = ({ navigation }) => {
                 fontFamily: theme.FontMain,
               }}
             >
-              200.000 VND/Giờ
+              {house.idroom.price} VND/Giờ
             </Text>
             {/* Facilities container */}
             {/* <View style={{ marginTop: 10, flexDirection: "row" }}>
@@ -313,10 +297,8 @@ const FavoriteScreen = ({ navigation }) => {
 
   return (
     <View style={style.container}>
-      <View style={style.container_select}>
-        {data_room_hot.length !== 0 ? <DetailSelect /> : <View />}
-      </View>
-      <View style={style.container_list}>
+      <View style={style.container_select_1}></View>
+      <View style={style.container_list_1}>
         <View style={style.room_hot_content_item_title}>
           <Text style={style.room_hot_content_item_title_text}>
             Danh sách các phòng đã lưu
@@ -341,11 +323,11 @@ const FavoriteScreen = ({ navigation }) => {
         <View style={style.container_list_items}>
           <View style={style.container_list_item}>
             <FlatList
-              data={data_room_hot}
+              data={arr}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingVertical: 20 }}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item._id}
               renderItem={({ item }) => <Card house={item} />}
             />
             <View style={style.bottom}></View>
@@ -367,9 +349,19 @@ const style = StyleSheet.create({
     height: "30%",
     backgroundColor: "rgba(239,240,242,1)",
   },
+  container_select_1: {
+    width: "100%",
+    height: "5%",
+    backgroundColor: "rgba(239,240,242,1)",
+  },
   container_list: {
     width: "100%",
     height: "70%",
+    backgroundColor: "rgba(239,240,242,1)",
+  },
+  container_list_1: {
+    width: "100%",
+    height: "100%",
     backgroundColor: "rgba(239,240,242,1)",
   },
   room_content_items: {

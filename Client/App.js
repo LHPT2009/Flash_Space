@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { LogBox } from "react-native";
 import { View } from "react-native";
 import { NativeBaseProvider, Box, Text } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
@@ -39,7 +40,7 @@ const App = () => {
   const [fontsLoaded] = useFonts({
     "TiltNeon-Regular": require("./assets/fonts/TiltNeon-Regular.ttf"),
   });
-
+  LogBox.ignoreAllLogs();
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();

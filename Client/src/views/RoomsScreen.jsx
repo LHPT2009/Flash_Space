@@ -39,12 +39,185 @@ const RoomsScreen = ({ navigation }) => {
   const [groupValues, setGroupValues] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclose();
   const [onChangeValue, setOnChangeValue] = React.useState(70);
+
+  //ListCate
+  const [listCarrer, setListCarrer] = useState([]);
+  const [listProvince, setListProvince] = useState([]);
+  const [listDistrict, setListDistrict] = useState([]);
+  const [listWard, setListWard] = useState([]);
+
+  // Filter
+  const [searchName, setSearchName] = useState();
+  const [sort, setSort] = useState("0");
+  const [arrFilterCarrer, setArrFilterCarrer] = useState([]);
+  const [maxPrice, setMaxPrice] = useState();
+  const [searchQuantity, setsearchQuantity] = useState();
+  const [searchWard, setSearchWard] = useState();
+  const [searchDistrict, setSearchDistrict] = useState();
+  const [searchProvince, setSearchProvince] = useState();
+
   useEffect(() => {
     axios.get("http://" + IpAddress + ":8000/room/").then((res) => {
       setRoomData(res.data);
       setRoomFilterData(res.data);
     });
   }, []);
+
+  const applyFilters = () => {
+    let updatedList = roomData;
+
+    if (arrFilterCarrer) {
+      let arr = [];
+      arrFilterCarrer.map((item) => {
+        let List = updatedList.filter(
+          (itemlist) => itemlist.idcareer._id === item.id
+        );
+        arr.push(...List);
+      });
+      if (arr.length == 0) {
+        updatedList = roomData;
+      } else {
+        updatedList = arr;
+      }
+    }
+
+    if (searchProvince) {
+      updatedList = updatedList.filter(
+        (item) => item.idprovince._id == searchProvince
+      );
+    }
+
+    if (searchDistrict) {
+      updatedList = updatedList.filter(
+        (item) => item.iddistrict._id == searchDistrict
+      );
+    }
+
+    if (searchWard) {
+      updatedList = updatedList.filter((item) => item.idward._id == searchWard);
+    }
+
+    if (searchQuantity) {
+      updatedList = updatedList.filter(
+        (item) => item.quantity <= searchQuantity
+      );
+    }
+
+    if (sort) {
+      if (sort == "1") {
+        updatedList = updatedList.sort((a, b) => (a.price > b.price ? 1 : -1));
+      }
+      if (sort == "2") {
+        updatedList = updatedList.sort((a, b) => (a.price < b.price ? 1 : -1));
+      }
+    }
+
+    if (searchName) {
+      updatedList = updatedList.filter(
+        (item) =>
+          item.subject.toLowerCase().search(searchName.toLowerCase().trim()) !==
+          -1
+      );
+    }
+
+    if (maxPrice) {
+      updatedList = updatedList.filter((item) => item.price <= maxPrice);
+    }
+
+    setRoomFilterData(updatedList);
+  };
+
+  const handleChangeChecked = (id) => {
+    const list = arrFilterCarrer;
+    const check = list.find((item) => {
+      return item.id === id;
+    });
+    if (check) {
+      console.log(list.filter((n) => n.id !== id));
+      setArrFilterCarrer(list.filter((n) => n.id !== id));
+    } else {
+      console.log([...list, { id: id }]);
+      setArrFilterCarrer([...list, { id: id }]);
+    }
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [
+    searchName,
+    sort,
+    arrFilterCarrer,
+    maxPrice,
+    searchQuantity,
+    searchProvince,
+    searchDistrict,
+    searchWard,
+  ]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/career`
+      )
+      .then((res) => {
+        setListCarrer(res.data);
+      });
+  }, [listCarrer]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/province`
+      )
+      .then((res) => {
+        setListProvince(res.data);
+      });
+  }, [listProvince]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/district`
+      )
+      .then((res) => {
+        setListDistrict(res.data);
+      });
+  }, [listDistrict]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/ward`
+      )
+      .then((res) => {
+        setListWard(res.data);
+      });
+  }, [listWard]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
+
+  const room = roomFilterData.filter((item) => item.static == 1).reverse();
+  const district = listDistrict.filter(
+    (n) => n.idprovince._id == searchProvince
+  );
+  const ward = listWard.filter((n) => n.iddistrict._id == searchDistrict);
 
   const ListCategories = () => {
     return (

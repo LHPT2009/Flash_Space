@@ -8,6 +8,7 @@ import style from "../styles/views/register";
 import { TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage, hideMessage } from "react-native-flash-message";
+import theme from "../styles/theme";
 
 function Register(props) {
   const [username, setUsername] = useState("");
@@ -15,6 +16,8 @@ function Register(props) {
   const [repassword, setRePassword] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [phoneOrmail, setPhonOrMail] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [eye, setEye] = useState(true);
   const [eye1, setEye1] = useState(true);
@@ -26,6 +29,10 @@ function Register(props) {
   };
   const changeClosed = () => {
     props.functionClosed(true);
+  };
+
+  const changePhoneOrMail = () => {
+    setPhonOrMail(!phoneOrmail);
   };
 
   const handleRegister = async () => {
@@ -81,12 +88,12 @@ function Register(props) {
           </View>
           <View style={style.content__box}>
             <View style={style.content__box__title}>
-              <Text style={style.content__box__title_text}>Họ và tên đệm</Text>
+              <Text style={style.content__box__title_text}>Họ</Text>
             </View>
             <View style={style.content__box__input}>
               <TextInput
                 style={style.content__box__input_text}
-                placeholder="Họ và tên đệm"
+                placeholder="Họ"
                 onChangeText={(value) => {
                   setLastname(value);
                 }}
@@ -104,25 +111,105 @@ function Register(props) {
                 }}
               />
             </View>
-            <View style={style.content__box__title}>
+            <View
+              style={{
+                paddingTop: 20,
+                width: "75%",
+                flexDirection: "row",
+              }}
+            >
+              <TouchableOpacity
+                style={
+                  phoneOrmail == 0
+                    ? {
+                        width: 15,
+                        height: 15,
+                        backgroundColor: theme.PRIMARY_BG_COLOR,
+                        marginRight: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                    : {
+                        width: 15,
+                        height: 15,
+                        marginRight: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                }
+                onPress={() => changePhoneOrMail()}
+              ></TouchableOpacity>
+              <Text style={style.content__box__title_text}>Số điện thoại</Text>
+              <TouchableOpacity
+                style={
+                  phoneOrmail == 1
+                    ? {
+                        width: 15,
+                        height: 15,
+                        backgroundColor: theme.PRIMARY_BG_COLOR,
+                        marginRight: 10,
+                        marginLeft: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                    : {
+                        width: 15,
+                        height: 15,
+                        marginRight: 10,
+                        marginLeft: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                }
+                onPress={() => changePhoneOrMail()}
+              ></TouchableOpacity>
               <Text style={style.content__box__title_text}>Email</Text>
             </View>
-            <View style={style.content__box__input}>
-              <TextInput
-                style={style.content__box__input_text}
-                placeholder="Email"
-                onChangeText={(value) => {
-                  setEmail(value);
-                }}
-              />
-            </View>
+            {phoneOrmail == 0 ? (
+              <View style={style.content__box__title}>
+                <Text style={style.content__box__title_text}>
+                  Số điện thoại
+                </Text>
+              </View>
+            ) : (
+              <View style={style.content__box__title}>
+                <Text style={style.content__box__title_text}>Email</Text>
+              </View>
+            )}
+            {phoneOrmail == 0 ? (
+              <View style={style.content__box__input}>
+                <TextInput
+                  style={style.content__box__input_text}
+                  placeholder="Số điện thoại"
+                  keyboardType="numeric"
+                  onChangeText={(value) => {
+                    setEmail(value);
+                  }}
+                />
+              </View>
+            ) : (
+              <View style={style.content__box__input}>
+                <TextInput
+                  style={style.content__box__input_text}
+                  placeholder="Email"
+                  onChangeText={(value) => {
+                    setEmail(value);
+                  }}
+                />
+              </View>
+            )}
+
             <View style={style.content__box__title}>
-              <Text style={style.content__box__title_text}>Username</Text>
+              <Text style={style.content__box__title_text}>Tài khoản</Text>
             </View>
             <View style={style.content__box__input}>
               <TextInput
                 style={style.content__box__input_text}
-                placeholder="Username"
+                placeholder="Tài khoản"
                 onChangeText={(value) => {
                   setUsername(value);
                 }}

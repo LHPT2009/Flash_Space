@@ -225,9 +225,10 @@ const HistoryScreen = ({ navigation }) => {
       <View
         style={{
           width: "100%",
-          height: 70,
+          height: 80,
           backgroundColor: COLORS.white,
           flexDirection: "row",
+          paddingTop: 35,
         }}
       >
         <View

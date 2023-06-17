@@ -33,7 +33,7 @@ function Login(props) {
         showMessage({
           message: "Đăng nhập thành công  ✔",
           description: "Chào mừng bạn đến với Flash Space",
-          type: "succes",
+          type: "success",
         });
         props.navigation.reset({
           index: 0,
