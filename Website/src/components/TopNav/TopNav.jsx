@@ -94,13 +94,13 @@ const TopNav = () => {
                   Phòng
                 </Link>
                 <Link
-                  to={"/contact"}
+                  to={"/commingsoon"}
                   className="nav-item nav-link text-white active"
                 >
                   Liên hệ
                 </Link>
                 <Link
-                  to={"/service"}
+                  to={"/commingsoon"}
                   className="nav-item nav-link text-white active"
                 >
                   Dịch vụ

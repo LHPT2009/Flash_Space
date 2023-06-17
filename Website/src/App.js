@@ -7,6 +7,7 @@ import History from "./Screens/Client/History/History";
 import InfoUser from "./Screens/Client/InfoUser/InfoUser";
 import Order from "./Screens/Client/Order/Order";
 import Favourite from "./Screens/Client/Favourite/Favourite";
+import CommingSoon from "./Screens/Client/CommingSoon/CommingSoon";
 import ConfirmMail from "./Screens/Auth/ConfirmMail/ConfirmMail";
 import Dashboard from "./Screens/Admin/Dashboard/Dashboard";
 import Login from "./Screens/Auth/Login/Login";
@@ -35,7 +36,6 @@ import Position from "./Screens/Admin/Position/Position";
 import RoomAdmin from "./Screens/Admin/RoomAdmin/RoomAdmin";
 import Evaluate from "./Screens/Admin/Evaluate/Evaluate";
 import ServicePack from "./Screens/Admin/ServicePack/ServicePack";
-import BookingSchedule from "./Screens/Admin/BookingSchedule/BookingSchedule";
 import Career from "./Screens/Admin/Career/Career";
 import District from "./Screens/Admin/District/District";
 import Equipment from "./Screens/Admin/Equipment/Equipment";
@@ -99,6 +99,7 @@ const App = () => {
           <Route path="/order" element={<Order />} />
 
           <Route path="/confirmmail" element={<ConfirmMail />} />
+          <Route path="/commingsoon" element={<CommingSoon />} />
 
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/accountadmin" element={<AccountAdmin />} />
