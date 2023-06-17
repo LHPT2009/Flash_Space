@@ -345,17 +345,17 @@ const AuthController = {
       );
       if (account) {
         const accessToken = AuthController.generateAccessToken(account);
-        res.status(200).json(accessToken);
+        res.status(200).json({ ...account._doc, accessToken });
       } else {
         const newAccount = new Account({
           idrole: "642dc5fe3db1f869d982a638",
           username: "Thong tin bao mat tu Google",
           password: "Thong tin bao mat tu Google",
-          firstname: "",
-          lastname: "",
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
           avatar: "",
           birthday: "",
-          static: true,
+          static: 1,
           email: req.body.email,
           phonenumber: "",
           verification: true,
@@ -366,7 +366,7 @@ const AuthController = {
           email: req.body.email,
         }).populate("idrole");
         const accessToken = AuthController.generateAccessToken(account);
-        res.status(200).json(accessToken);
+        res.status(200).json({ ...account._doc, accessToken });
       }
     } catch (err) {
       res.status(500).json(err);
