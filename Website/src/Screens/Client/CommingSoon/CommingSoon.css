@@ -1,0 +1,8 @@
+.bodycommingsoon {
+  height: 90vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center center;
+}
