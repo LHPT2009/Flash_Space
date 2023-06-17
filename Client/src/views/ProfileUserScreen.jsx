@@ -1,23 +1,19 @@
-import { useState, useEffect, useContext } from "react";
 import {
   ScrollView,
-  Text,
   View,
-  ImageBackground,
+  Text,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { CheckIcon, Input, Select } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { InformationAddRoomContext } from "../context/InformationAddRoom";
-import axios from "axios";
-import IpAddress from "../consts/variable";
 import COLORS from "../consts/colors";
 import theme from "../styles/theme";
-import ViewTimeslot from "../components/ViewTimeslot";
-import ViewImage from "../components/ViewImage";
-const DetailRoomPostScreen = ({ navigation, route }) => {
-  console.log(route.params);
-  const [idRoom, setIdRoom] = useState(route.params);
+import { useEffect, useState, useContext } from "react";
+import IpAddress from "../consts/variable";
+import axios from "axios";
+
+const ProfileUserScreen = ({ navigation }) => {
   const [subject, setSubject] = useState("");
   const [describe, setDescribe] = useState("");
   const [career, setCareer] = useState("");
@@ -36,41 +32,9 @@ const DetailRoomPostScreen = ({ navigation, route }) => {
   const [listWard, setListWard] = useState([]);
   const [listDistrict, setListDistrict] = useState([]);
   const [listProvince, setListProvince] = useState([]);
-  const [mainimage, setMainimage] = useState("");
-  const [view, setView] = useState(0);
   const { informations } = useContext(InformationAddRoomContext);
 
-  useEffect(() => {
-    loadData();
-    getAllCareer();
-    getAllProvince();
-  }, []);
-
-  const loadData = async () => {
-    await axios
-      .get("http://" + IpAddress + ":8000/room/" + idRoom)
-      .then(async (response) => {
-        const result = response.data;
-        setDescribe(result.describe);
-        setSubject(result.subject);
-        setMainimage(result.mainimage);
-        setLength(result.length);
-        setWidth(result.width);
-        setPrice(JSON.stringify(result.price));
-        setQuantity(JSON.stringify(result.quantity));
-        setHousenumberstreetname(result.housenumberstreetname);
-        setCareer(result.idcareer._id);
-        setProvince(result.idprovince._id);
-        await getDistrict(result.idprovince._id);
-        setDistrict(result.iddistrict._id);
-        await getWard(result.iddistrict._id);
-        setWard(result.idward._id);
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  useEffect(() => {}, []);
   const getAllCareer = async () => {
     await axios
       .get("http://" + IpAddress + ":8000/career/")
@@ -83,85 +47,6 @@ const DetailRoomPostScreen = ({ navigation, route }) => {
       .catch((error) => {
         console.log(error);
       });
-  };
-
-  const getAllProvince = async () => {
-    await axios
-      .get("http://" + IpAddress + ":8000/province/")
-      .then(async (response) => {
-        const result = response.data;
-        if (result != []) {
-          setListProvince(result);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const getDistrict = async (itemValue) => {
-    await axios
-      .get("http://" + IpAddress + ":8000/district/province/" + itemValue)
-      .then(async (response) => {
-        const result = response.data;
-        if (result != []) {
-          setListDistrict(result);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const getWard = async (itemValue) => {
-    await axios
-      .get("http://" + IpAddress + ":8000/ward/district/" + itemValue)
-      .then(async (response) => {
-        const result = response.data;
-        if (result != []) {
-          setListWard(result);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const checkAcreage = (value) => {
-    const convert = Number(value);
-    if (convert < 0) {
-      setStatusAgreace(1);
-    } else if (isNaN(convert)) {
-      setStatusAgreace(2);
-    } else {
-      setStatusAgreace(0);
-    }
-  };
-
-  const checkPrice = (value) => {
-    const priceConvert = Number(value);
-    if (priceConvert < 1000) {
-      setStatusPrice(1);
-    } else if (priceConvert > 100000000) {
-      setStatusPrice(2);
-    } else if (isNaN(priceConvert)) {
-      setStatusPrice(3);
-    } else {
-      setStatusPrice(0);
-    }
-  };
-
-  const checkQuantity = (value) => {
-    const priceConvert = Number(value);
-    if (priceConvert < 1) {
-      setStatusQuantity(1);
-    } else if (priceConvert > 1000) {
-      setStatusQuantity(2);
-    } else if (isNaN(priceConvert)) {
-      setStatusQuantity(3);
-    } else {
-      setStatusQuantity(0);
-    }
   };
 
   const onChangeSubject = (event) => {
@@ -193,324 +78,104 @@ const DetailRoomPostScreen = ({ navigation, route }) => {
   const onHousenumberstreetname = (event) => {
     setHousenumberstreetname(event);
   };
+
   return (
     <View style={{ width: "100%", height: "100%" }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            width: "100%",
-            height: 350,
-          }}
+      <View style={{ height: 20 }} />
+      <View
+        style={{ width: "100%", height: "90%", backgroundColor: COLORS.light }}
+      >
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         >
-          <ImageBackground
+          <View
             style={{
-              height: "100%",
               width: "100%",
-              overflow: "hidden",
-              borderBottomLeftRadius: 30,
-              borderBottomRightRadius: 30,
-            }}
-            source={{
-              uri: "http://" + IpAddress + ":8000/singleimage/" + mainimage,
-            }}
-          >
-            <View
-              style={{
-                paddingVertical: 50,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                paddingHorizontal: 10,
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  height: 50,
-                  width: 50,
-                  backgroundColor: COLORS.white,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Icon
-                  name="arrow-back"
-                  size={30}
-                  color={"black"}
-                  onPress={navigation.goBack}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  height: 50,
-                  width: 50,
-                  backgroundColor: COLORS.white,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                // onPress={() => onChangeFavorite()}
-              >
-                <Icon name="edit" size={25} color="black" />
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
-        </View>
-        <View
-          style={{
-            width: "100%",
-            marginTop: -60,
-            height: 100,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              width: "80%",
-              height: "100%",
-              backgroundColor: COLORS.white,
-              borderRadius: 13,
-              flexDirection: "row",
-              justifyContent: "space-around",
+              height: 50,
+              justifyContent: "flex-end",
               alignItems: "center",
-              elevation: 10,
             }}
           >
-            <View
+            <Text
               style={{
-                width: "30%",
-                height: "90%",
-                justifyContent: "center",
-                alignItems: "center",
+                fontFamily: theme.FontMain,
+                fontSize: 17,
+                color: COLORS.dark,
               }}
             >
-              <Text
-                style={{
-                  fontSize: 22,
-                  color: COLORS.dark,
-                  fontFamily: theme.FontMain,
-                  paddingBottom: 10,
-                }}
-              >
-                139
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: COLORS.succes,
-                  fontFamily: theme.FontMain,
-                }}
-              >
-                Đơn đã đặt
-              </Text>
-            </View>
-            <View
-              style={{
-                width: "30%",
-                height: "90%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 22,
-                  color: COLORS.dark,
-                  fontFamily: theme.FontMain,
-                  paddingBottom: 10,
-                }}
-              >
-                6
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: COLORS.waiting,
-                  fontFamily: theme.FontMain,
-                }}
-              >
-                Đơn yêu cầu
-              </Text>
-            </View>
-            <View
-              style={{
-                width: "30%",
-                height: "90%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 22,
-                  color: COLORS.dark,
-                  fontFamily: theme.FontMain,
-                  paddingBottom: 10,
-                }}
-              >
-                19
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: COLORS.cancel,
-                  fontFamily: theme.FontMain,
-                }}
-              >
-                Lượt đánh giá
-              </Text>
-            </View>
+              Bước 1: Nhập thông tin cơ bản của phòng
+            </Text>
           </View>
-        </View>
-        <View style={{ width: "100%", padding: 30 }}></View>
-        <View
-          style={{
-            width: "100%",
-            height: 70,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
           <View
             style={{
-              width: "90%",
-              height: "85%",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              width: "100%",
+              height: 80,
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {view == 0 ? (
+            <View
+              style={{
+                width: "50%",
+                height: "40%",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <View
                 style={{
-                  width: "30%",
-                  height: "100%",
+                  width: 30,
+                  height: 30,
                   backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 25,
+                  borderRadius: 50,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: COLORS.white,
-                    fontFamily: theme.FontMain,
-                  }}
-                >
-                  Thông tin
-                </Text>
+                <Text style={{ color: "white" }}>1</Text>
               </View>
-            ) : (
-              <TouchableOpacity
-                style={{
-                  width: "30%",
-                  height: "100%",
-                  borderRadius: 25,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onPress={() => setView(0)}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: COLORS.grey,
-                    fontFamily: theme.FontMain,
-                  }}
-                >
-                  Thông tin
-                </Text>
-              </TouchableOpacity>
-            )}
-            {view == 1 ? (
               <View
                 style={{
-                  width: "30%",
-                  height: "100%",
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 25,
-                  justifyContent: "center",
-                  alignItems: "center",
+                  width: 90,
+                  height: 7,
+                  backgroundColor: COLORS.grey,
                 }}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: COLORS.white,
-                    fontFamily: theme.FontMain,
-                  }}
-                >
-                  Khung giờ
-                </Text>
-              </View>
-            ) : (
-              <TouchableOpacity
-                style={{
-                  width: "30%",
-                  height: "100%",
-                  borderRadius: 25,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onPress={() => setView(1)}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: COLORS.grey,
-                    fontFamily: theme.FontMain,
-                  }}
-                >
-                  Khung giờ
-                </Text>
-              </TouchableOpacity>
-            )}
-            {view == 2 ? (
+              ></View>
               <View
                 style={{
-                  width: "30%",
-                  height: "100%",
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 25,
+                  width: 30,
+                  height: 30,
+                  backgroundColor: COLORS.grey,
+                  borderRadius: 50,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: COLORS.white,
-                    fontFamily: theme.FontMain,
-                  }}
-                >
-                  Ảnh
-                </Text>
+                <Text style={{ color: "black" }}>2</Text>
               </View>
-            ) : (
-              <TouchableOpacity
+              <View
                 style={{
-                  width: "30%",
-                  height: "100%",
-                  borderRadius: 25,
+                  width: 90,
+                  height: 7,
+                  backgroundColor: COLORS.grey,
+                }}
+              ></View>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor: COLORS.grey,
+                  borderRadius: 50,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                onPress={() => setView(2)}
               >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: COLORS.grey,
-                    fontFamily: theme.FontMain,
-                  }}
-                >
-                  Ảnh
-                </Text>
-              </TouchableOpacity>
-            )}
+                <Text style={{ color: "black" }}>3</Text>
+              </View>
+            </View>
           </View>
-        </View>
-        {view == 0 ? (
           <View
             style={{
               width: "100%",
@@ -877,7 +542,6 @@ const DetailRoomPostScreen = ({ navigation, route }) => {
                   >
                     <Input
                       variant="filled"
-                      value={price}
                       placeholder="Vui lòng nhập giá thuê"
                       keyboardType="numeric"
                       onChangeText={(value) => onChangePrice(value)}
@@ -955,7 +619,6 @@ const DetailRoomPostScreen = ({ navigation, route }) => {
                   >
                     <Input
                       variant="filled"
-                      value={quantity}
                       placeholder="Vui lòng nhập sức chứa"
                       keyboardType="numeric"
                       onChangeText={(value) => onChangeQuantity(value)}
@@ -1159,38 +822,86 @@ const DetailRoomPostScreen = ({ navigation, route }) => {
                 </View>
               </View>
             </View>
-
-            <View
-              style={{
-                width: "90%",
-                borderRadius: 13,
-                height: 50,
-                backgroundColor: theme.PRIMARY_BG_COLOR,
-                marginVertical: 10,
-                elevation: 10,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontFamily: theme.FontMain,
-                  fontSize: 16,
-                  color: COLORS.white,
-                }}
-              >
-                Lưu thay đổi
-              </Text>
-            </View>
           </View>
-        ) : view == 1 ? (
-          <ViewTimeslot idRoom={idRoom} />
-        ) : (
-          <ViewImage idRoom={idRoom} />
-        )}
-      </ScrollView>
+        </ScrollView>
+      </View>
+      {subject != "" &&
+      describe != "" &&
+      length != "" &&
+      width != "" &&
+      career != "" &&
+      price != "" &&
+      quantity != "" &&
+      housenumberstreetname != "" &&
+      province != "" &&
+      district != "" &&
+      ward != "" ? (
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: "10%",
+            backgroundColor: theme.PRIMARY_BG_COLOR,
+            borderTopLeftRadius: 13,
+            borderTopRightRadius: 13,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: -20,
+          }}
+          onPress={() => {
+            const content = {
+              subject: subject,
+              describe: describe,
+              length: length,
+              width: width,
+              career: career,
+              price: price,
+              quantity: quantity,
+              housenumberstreetname: housenumberstreetname,
+              province: province,
+              district: district,
+              ward: ward,
+            };
+
+            Object.assign(informations, content);
+            navigation.navigate("PostEndScreen");
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: theme.FontMain,
+              fontSize: 19,
+              color: COLORS.white,
+            }}
+          >
+            Tiếp
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: "10%",
+            backgroundColor: COLORS.gray,
+            borderTopLeftRadius: 13,
+            borderTopRightRadius: 13,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: -20,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: theme.FontMain,
+              fontSize: 19,
+              color: COLORS.white,
+            }}
+          >
+            Tiếp
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
-export default DetailRoomPostScreen;
+export default ProfileUserScreen;
