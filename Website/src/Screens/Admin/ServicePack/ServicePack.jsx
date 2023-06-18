@@ -133,7 +133,12 @@ const ServicePack = () => {
                             <tr>
                               <td>{item._id}</td>
                               <td>{item.name}</td>
-                              <td>{item.price}</td>
+                              <td>
+                                {item.price.toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                              </td>
                               <td>{item.duration}</td>
                               {item.static == 1 ? (
                                 <td>

@@ -17,7 +17,7 @@ const SingleCard = (props) => {
         <small>{props.careername}</small>
         <h5 class="card-title">{props.subject}</h5>
         <span class="pull-left">
-          <span class="price">{props.price}VNĐ/1h</span>
+          <span class="price">{props.price}/1h</span>
         </span>
         <p class="card-text">{props.describe}</p>
         <div className="row">

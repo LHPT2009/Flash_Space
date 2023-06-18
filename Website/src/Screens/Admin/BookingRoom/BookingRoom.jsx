@@ -145,7 +145,12 @@ const BookingSchedule = () => {
                                 {item.idaccount.firstname}{" "}
                                 {item.idaccount.lastname}
                               </td>
-                              <td>{item.total}</td>
+                              <td>
+                                {item.total.toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                              </td>
                               <td>{formatdate(item.date)}</td>
                               {item.static == 0 ? (
                                 <td>

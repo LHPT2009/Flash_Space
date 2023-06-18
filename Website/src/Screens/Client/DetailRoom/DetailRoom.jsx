@@ -59,7 +59,12 @@ const DetailRoom = () => {
       .then((res) => {
         setCareername(res.data.idcareer.careername);
         setSubject(res.data.subject);
-        setPrice(res.data.price);
+        setPrice(
+          res.data.price.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          })
+        );
         setDescribe(res.data.describe);
         setHousenumberstreetname(res.data.housenumberstreetname);
         setWardname(res.data.idward.wardname);
@@ -227,7 +232,7 @@ const DetailRoom = () => {
                                           </h4>
                                           <span class="pull-left">
                                             <span class="price">{price}</span>
-                                            <span class="period">VNĐ/1h</span>
+                                            <span class="period">/1h</span>
                                           </span>
                                           <p class="card-text">{describe}</p>
                                           <div className="row">
