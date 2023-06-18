@@ -101,7 +101,12 @@ const ListItem = () => {
                 <div className="m-3">{item.date}</div>
               </div>
               <div class="col-3 d-flex align-items-center">
-                <div className="m-3">{item.total}</div>
+                <div className="m-3">
+                  {item.total.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </div>
               </div>
             </div>
           </Link>

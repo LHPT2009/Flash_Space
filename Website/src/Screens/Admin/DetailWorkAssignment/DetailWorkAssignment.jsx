@@ -67,7 +67,12 @@ const DetailPermission = () => {
 
         setCareername(res.data.idroom.idcareer.careername);
         setSubject(res.data.idroom.subject);
-        setPrice(res.data.idroom.price);
+        setPrice(
+          res.data.idroom.price.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          })
+        );
         setDescribe(res.data.idroom.describe);
         setHousenumberstreetname(res.data.idroom.housenumberstreetname);
         setWardname(res.data.idroom.idward.wardname);
@@ -279,7 +284,7 @@ const DetailPermission = () => {
                                                           {price}
                                                         </span>
                                                         <span class="period">
-                                                          VNĐ/1h
+                                                          /1h
                                                         </span>
                                                       </span>
                                                       <p class="card-text">

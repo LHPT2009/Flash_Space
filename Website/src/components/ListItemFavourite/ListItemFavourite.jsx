@@ -99,8 +99,13 @@ const ListItem = () => {
                         <small>{item.idroom.idcareer.careername}</small>
                         <h5 class="card-title">{item.idroom.subject}</h5>
                         <span class="pull-left">
-                          <span class="price">{item.idroom.price}</span>
-                          <span class="period">VNĐ/1h</span>
+                          <span class="price">
+                            {item.idroom.price.toLocaleString("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            })}
+                          </span>
+                          <span class="period">/1h</span>
                         </span>
                         <p class="card-text">{item.idroom.describe}</p>
                         <i class="fa fa-user"></i> 5

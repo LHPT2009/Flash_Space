@@ -19,7 +19,7 @@ const Room = () => {
   const [searchName, setSearchName] = useState();
   const [sort, setSort] = useState("0");
   const [arrFilterCarrer, setArrFilterCarrer] = useState([]);
-  const [maxPrice, setMaxPrice] = useState();
+  const [maxPrice, setMaxPrice] = useState(0);
   const [searchQuantity, setsearchQuantity] = useState();
   const [searchWard, setSearchWard] = useState();
   const [searchDistrict, setSearchDistrict] = useState();
@@ -378,14 +378,20 @@ const Room = () => {
                       <div className="card-body">
                         <div className="row mb-3">
                           <label for="customRange2" class="form-label">
-                            Giá hiện tại: {maxPrice}
+                            Giá hiện tại:{" "}
+                            {maxPrice.toLocaleString("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            })}
                           </label>
                           <input
                             type="range"
                             class="form-range"
                             min="0"
-                            max="1000000"
-                            onChange={(e) => setMaxPrice(e.target.value)}
+                            max="500000"
+                            onChange={(e) =>
+                              setMaxPrice(Number(e.target.value))
+                            }
                           />
                         </div>
                       </div>
@@ -458,7 +464,10 @@ const Room = () => {
                       mainimage={item.mainimage}
                       careername={item.idcareer.careername}
                       subject={item.subject}
-                      price={item.price}
+                      price={item.price.toLocaleString("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
                       describe={item.describe}
                       quantity={item.quantity}
                       location={`${item.housenumberstreetname}

@@ -179,7 +179,13 @@ const DetailHistory = () => {
                                       </td>
 
                                       <td>
-                                        {item.idworkinghours.idroom.price} VNĐ
+                                        {item.idworkinghours.idroom.price.toLocaleString(
+                                          "vi-VN",
+                                          {
+                                            style: "currency",
+                                            currency: "VND",
+                                          }
+                                        )}
                                       </td>
                                     </tr>
                                   );
@@ -194,7 +200,12 @@ const DetailHistory = () => {
                                   </td>
                                   <td>
                                     <h5 class="text-black">
-                                      <strong>{sum} VNĐ</strong>
+                                      <strong>
+                                        {sum.toLocaleString("vi-VN", {
+                                          style: "currency",
+                                          currency: "VND",
+                                        })}
+                                      </strong>
                                     </h5>
                                   </td>
                                 </tr>
