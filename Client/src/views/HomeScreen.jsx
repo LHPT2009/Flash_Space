@@ -44,6 +44,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FlashMessage from "react-native-flash-message";
 import styles from "../styles/views/home";
+import IpAddress from "../consts/variable";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 const Item_room_hot_size = width;
@@ -127,6 +129,17 @@ const data_room_hot = [
     image: require("../../assets/house3.jpg"),
   },
 ];
+
+const checkCMND = async (idAccount) => {
+  await axios
+    .get("http://" + IpAddress + ":8000/imagescmnd/account/" + idAccount)
+    .then(async (response) => {
+      const result = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 const Item_Trend_Search = ({ item }) => {
   return (
@@ -216,7 +229,24 @@ const BoxSearch = ({ navigate }) => {
                 onPress={async () => {
                   const idAccount = await AsyncStorage.getItem("idAccount");
                   if (idAccount) {
-                    navigate("AuthScreen");
+                    await axios
+                      .get(
+                        "http://" +
+                          IpAddress +
+                          ":8000/imagescmnd/account/" +
+                          idAccount
+                      )
+                      .then(async (response) => {
+                        const result = response.data;
+                        if (result.length != 0) {
+                          navigate("AuthScreen");
+                        } else {
+                          navigate("CheckPostScreen");
+                        }
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
                   } else {
                     navigate("Welcome");
                   }

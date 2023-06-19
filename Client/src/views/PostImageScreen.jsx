@@ -72,10 +72,8 @@ const PostImageScreen = ({ navigation, route }) => {
         type: "image/jpeg",
       });
     }
-    // dt.append("longitude", informations.longitude);
-    // dt.append("latitude", informations.latitude);
-    dt.append("longitude", "111111");
-    dt.append("latitude", "1111111");
+    dt.append("longitude", informations.longitude);
+    dt.append("latitude", informations.latitude);
     dt.append("idaccount", idAccount);
 
     const result = await axios.post("http://" + IpAddress + ":8000/room/", dt, {
@@ -83,6 +81,12 @@ const PostImageScreen = ({ navigation, route }) => {
         "Content-Type": "multipart/form-data",
       },
     });
+    const redure = await axios.get(
+      "http://" +
+        IpAddress +
+        ":8000/servicepackinuse/redure/" +
+        informations.idPackage
+    );
     if (result.status == 200) {
       navigation.navigate("Main");
     } else {

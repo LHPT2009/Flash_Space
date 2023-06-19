@@ -12,67 +12,63 @@ import theme from "../styles/theme";
 import { useEffect, useState, useContext } from "react";
 import IpAddress from "../consts/variable";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileUserScreen = ({ navigation }) => {
-  const [subject, setSubject] = useState("");
-  const [describe, setDescribe] = useState("");
-  const [career, setCareer] = useState("");
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [statusAgreace, setStatusAgreace] = useState(0);
-  const [price, setPrice] = useState("");
-  const [statusPrice, setStatusPrice] = useState(0);
-  const [quantity, setQuantity] = useState("");
-  const [statusQuantity, setStatusQuantity] = useState(0);
-  const [housenumberstreetname, setHousenumberstreetname] = useState("");
-  const [listCareer, setListCareer] = useState([]);
-  const [ward, setWard] = useState("");
-  const [district, setDistrict] = useState("");
-  const [province, setProvince] = useState("");
-  const [listWard, setListWard] = useState([]);
-  const [listDistrict, setListDistrict] = useState([]);
-  const [listProvince, setListProvince] = useState([]);
-  const { informations } = useContext(InformationAddRoomContext);
+  const [user, setUser] = useState({});
+  const [lastname, setlastname] = useState("");
+  const [firstname, setfirstname] = useState("");
+  const [email, setemail] = useState("");
+  const [phone, setphone] = useState("");
 
-  useEffect(() => {}, []);
-  const getAllCareer = async () => {
+  useEffect(() => {
+    getUser();
+  }, []);
+  const getUser = async () => {
+    const idAccount = await AsyncStorage.getItem("idAccount");
     await axios
-      .get("http://" + IpAddress + ":8000/career/")
+      .get("http://" + IpAddress + ":8000/account/" + idAccount)
       .then(async (response) => {
         const result = response.data;
-        if (result != []) {
-          setListCareer(result);
-        }
+        console.log("result");
+        console.log(result);
+        setUser(result);
+        setlastname(result.lastname);
+        setfirstname(result.firstname);
+        setemail(result.email);
+        setphone(result.phonenumber);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  // const getAllemail = async () => {
+  //   await axios
+  //     .get("http://" + IpAddress + ":8000/email/")
+  //     .then(async (response) => {
+  //       const result = response.data;
+  //       if (result != []) {
+  //         setListemail(result);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-  const onChangeSubject = (event) => {
-    setSubject(event);
+  const onChangelastname = (event) => {
+    setlastname(event);
   };
-  const onChangeDescribe = (event) => {
-    setDescribe(event);
-  };
-  const onChangeLength = (event) => {
-    checkAcreage(event);
-    setLength(event);
+  const onChangefirstname = (event) => {
+    setfirstname(event);
   };
 
-  const onChangeWidth = (event) => {
-    checkAcreage(event);
-    setWidth(event);
+  const onChangeEmail = (value) => {
+    setemail(value);
   };
 
-  const onChangePrice = (value) => {
-    checkPrice(value);
-    setPrice(value);
-  };
-
-  const onChangeQuantity = (value) => {
-    checkQuantity(value);
-    setQuantity(value);
+  const onChangePhone = (value) => {
+    setphone(value);
   };
 
   const onHousenumberstreetname = (event) => {
@@ -89,93 +85,6 @@ const ProfileUserScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         >
-          <View
-            style={{
-              width: "100%",
-              height: 50,
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: theme.FontMain,
-                fontSize: 17,
-                color: COLORS.dark,
-              }}
-            >
-              Bước 1: Nhập thông tin cơ bản của phòng
-            </Text>
-          </View>
-          <View
-            style={{
-              width: "100%",
-              height: 80,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <View
-              style={{
-                width: "50%",
-                height: "40%",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: 30,
-                  height: 30,
-                  backgroundColor: theme.PRIMARY_BG_COLOR,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ color: "white" }}>1</Text>
-              </View>
-              <View
-                style={{
-                  width: 90,
-                  height: 7,
-                  backgroundColor: COLORS.grey,
-                }}
-              ></View>
-              <View
-                style={{
-                  width: 30,
-                  height: 30,
-                  backgroundColor: COLORS.grey,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ color: "black" }}>2</Text>
-              </View>
-              <View
-                style={{
-                  width: 90,
-                  height: 7,
-                  backgroundColor: COLORS.grey,
-                }}
-              ></View>
-              <View
-                style={{
-                  width: 30,
-                  height: 30,
-                  backgroundColor: COLORS.grey,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ color: "black" }}>3</Text>
-              </View>
-            </View>
-          </View>
           <View
             style={{
               width: "100%",
@@ -207,7 +116,7 @@ const ProfileUserScreen = ({ navigation }) => {
                     color: COLORS.grey,
                   }}
                 >
-                  Tiêu đề
+                  Họ
                 </Text>
               </View>
               <View
@@ -231,11 +140,11 @@ const ProfileUserScreen = ({ navigation }) => {
                     }}
                   >
                     <Input
-                      value={subject}
+                      value={lastname}
                       multiline={true}
-                      onChangeText={onChangeSubject}
+                      onChangeText={onChangelastname}
                       variant="filled"
-                      placeholder="Vui lòng nhập tiêu đề"
+                      placeholder="Họ"
                     />
                   </View>
                 </View>
@@ -265,7 +174,7 @@ const ProfileUserScreen = ({ navigation }) => {
                     color: COLORS.grey,
                   }}
                 >
-                  Nội dung
+                  Tên
                 </Text>
               </View>
               <View
@@ -290,16 +199,74 @@ const ProfileUserScreen = ({ navigation }) => {
                   >
                     <Input
                       multiline={true}
-                      value={describe}
-                      onChangeText={onChangeDescribe}
+                      value={firstname}
+                      onChangeText={onChangefirstname}
                       variant="filled"
-                      placeholder="Vui lòng nhập nội dung"
+                      placeholder="Tên"
                     />
                   </View>
                 </View>
               </View>
             </View>
             <View
+              style={{
+                width: "90%",
+                borderRadius: 13,
+                backgroundColor: COLORS.white,
+                marginVertical: 10,
+                elevation: 10,
+              }}
+            >
+              <View
+                style={{
+                  width: "100%",
+                  height: 40,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    fontSize: 16,
+                    paddingLeft: 20,
+                    color: COLORS.grey,
+                  }}
+                >
+                  Email
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: "90%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingBottom: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Input
+                      multiline={true}
+                      value={email}
+                      onChangeText={onChangeEmail}
+                      variant="filled"
+                      placeholder="Email"
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            {/* <View
               style={{
                 width: "90%",
                 borderRadius: 13,
@@ -398,8 +365,8 @@ const ProfileUserScreen = ({ navigation }) => {
                   </View>
                 </View>
               </View>
-            </View>
-            <View
+            </View> */}
+            {/* <View
               style={{
                 width: "90%",
                 borderRadius: 13,
@@ -447,7 +414,7 @@ const ProfileUserScreen = ({ navigation }) => {
                     }}
                   >
                     <Select
-                      selectedValue={career}
+                      selectedValue={email}
                       minWidth="200"
                       accessibilityLabel="Chọn loại phòng"
                       placeholder="Chọn loại phòng"
@@ -457,13 +424,13 @@ const ProfileUserScreen = ({ navigation }) => {
                         endIcon: <CheckIcon size="5" />,
                       }}
                       mt={1}
-                      onValueChange={(itemValue) => setCareer(itemValue)}
+                      onValueChange={(itemValue) => setemail(itemValue)}
                     >
-                      {listCareer.map((item) => {
+                      {listemail.map((item) => {
                         return (
                           <Select.Item
                             key={item._id}
-                            label={item.careername}
+                            label={item.emailname}
                             value={item._id}
                           />
                         );
@@ -472,8 +439,8 @@ const ProfileUserScreen = ({ navigation }) => {
                   </View>
                 </View>
               </View>
-            </View>
-            <View
+            </View> */}
+            {/* <View
               style={{
                 width: "90%",
                 borderRadius: 13,
@@ -549,7 +516,7 @@ const ProfileUserScreen = ({ navigation }) => {
                   </View>
                 </View>
               </View>
-            </View>
+            </View> */}
             <View
               style={{
                 width: "90%",
@@ -574,7 +541,7 @@ const ProfileUserScreen = ({ navigation }) => {
                     color: COLORS.grey,
                   }}
                 >
-                  Sức chứa
+                  Số điện thoại
                 </Text>
               </View>
               <View
@@ -591,7 +558,7 @@ const ProfileUserScreen = ({ navigation }) => {
                     paddingBottom: 15,
                   }}
                 >
-                  {statusQuantity == 1 ? (
+                  {/* {statusQuantity == 1 ? (
                     <View style={{ width: "100%", paddingVertical: 10 }}>
                       <Text style={{ color: "red" }}>
                         Sức chứa phải lớn hơn 1
@@ -609,7 +576,7 @@ const ProfileUserScreen = ({ navigation }) => {
                     </View>
                   ) : (
                     <View />
-                  )}
+                  )} */}
 
                   <View
                     style={{
@@ -619,15 +586,16 @@ const ProfileUserScreen = ({ navigation }) => {
                   >
                     <Input
                       variant="filled"
-                      placeholder="Vui lòng nhập sức chứa"
+                      placeholder="Số điện thoại"
                       keyboardType="numeric"
-                      onChangeText={(value) => onChangeQuantity(value)}
+                      value={phone}
+                      onChangeText={(value) => onChangePhone(value)}
                     />
                   </View>
                 </View>
               </View>
             </View>
-            <View
+            {/* <View
               style={{
                 width: "90%",
                 borderRadius: 13,
@@ -684,8 +652,8 @@ const ProfileUserScreen = ({ navigation }) => {
                   </View>
                 </View>
               </View>
-            </View>
-            <View
+            </View> */}
+            {/* <View
               style={{
                 width: "90%",
                 borderRadius: 13,
@@ -821,62 +789,43 @@ const ProfileUserScreen = ({ navigation }) => {
                   </View>
                 </View>
               </View>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </View>
-      {subject != "" &&
-      describe != "" &&
+      {/* {lastname != "" &&
+      firstname != "" &&
       length != "" &&
       width != "" &&
-      career != "" &&
+      email != "" &&
       price != "" &&
-      quantity != "" &&
-      housenumberstreetname != "" &&
-      province != "" &&
-      district != "" &&
-      ward != "" ? (
-        <TouchableOpacity
+      quantity != "" ? ( */}
+      <TouchableOpacity
+        style={{
+          width: "100%",
+          height: "10%",
+          backgroundColor: theme.PRIMARY_BG_COLOR,
+          borderTopLeftRadius: 13,
+          borderTopRightRadius: 13,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: -20,
+        }}
+        onPress={() => {
+          navigation.navigate("PostEndScreen");
+        }}
+      >
+        <Text
           style={{
-            width: "100%",
-            height: "10%",
-            backgroundColor: theme.PRIMARY_BG_COLOR,
-            borderTopLeftRadius: 13,
-            borderTopRightRadius: 13,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: -20,
-          }}
-          onPress={() => {
-            const content = {
-              subject: subject,
-              describe: describe,
-              length: length,
-              width: width,
-              career: career,
-              price: price,
-              quantity: quantity,
-              housenumberstreetname: housenumberstreetname,
-              province: province,
-              district: district,
-              ward: ward,
-            };
-
-            Object.assign(informations, content);
-            navigation.navigate("PostEndScreen");
+            fontFamily: theme.FontMain,
+            fontSize: 19,
+            color: COLORS.white,
           }}
         >
-          <Text
-            style={{
-              fontFamily: theme.FontMain,
-              fontSize: 19,
-              color: COLORS.white,
-            }}
-          >
-            Tiếp
-          </Text>
-        </TouchableOpacity>
-      ) : (
+          Chỉnh sửa thông tin cá nhân
+        </Text>
+      </TouchableOpacity>
+      {/* ) : (
         <TouchableOpacity
           style={{
             width: "100%",
@@ -896,10 +845,10 @@ const ProfileUserScreen = ({ navigation }) => {
               color: COLORS.white,
             }}
           >
-            Tiếp
+            Chỉnh sửa thông tin cá nhân
           </Text>
         </TouchableOpacity>
-      )}
+      )} */}
     </View>
   );
 };

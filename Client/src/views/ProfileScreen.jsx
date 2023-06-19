@@ -102,7 +102,10 @@ const CardSetting = ({ navigation }) => {
   return (
     <View style={styles.cardSetting}>
       <View style={styles.cardSetting_box}>
-        <TouchableOpacity style={styles.cardSetting_box_item}>
+        <TouchableOpacity
+          style={styles.cardSetting_box_item}
+          onPress={() => navigation.navigate("ProfileUserScreen")}
+        >
           <View style={styles.cardSetting_box_item_title}>
             <MaterialIconsIcon name="edit" size={20} color={"black"} />
             <Text style={styles.cardSetting_box_item_title_text}>
@@ -135,11 +138,14 @@ const CardSetting = ({ navigation }) => {
           <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />
         </TouchableOpacity>
         <View style={styles.hr} />
-        <TouchableOpacity style={styles.cardSetting_box_item}>
+        <TouchableOpacity
+          style={styles.cardSetting_box_item}
+          onPress={() => navigation.navigate("OrderScreen")}
+        >
           <View style={styles.cardSetting_box_item_title}>
-            <MaterialIconsIcon name="language" size={20} color={"black"} />
+            <MaterialIconsIcon name="mail" size={20} color={"black"} />
             <Text style={styles.cardSetting_box_item_title_text}>
-              Cài đặt ngôn ngữ
+              Đơn yêu cầu xác nhận
             </Text>
           </View>
           <MaterialIconsIcon name="chevron-right" size={30} color={"black"} />
