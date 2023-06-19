@@ -1,4 +1,5 @@
 const ServicePackInUse = require("../models/ServicePackInUse");
+const { param } = require("../routes/BookingRoom");
 
 const ServicePackInUseController = {
   getAllServicePackInUse: async (req, res) => {
@@ -31,6 +32,17 @@ const ServicePackInUseController = {
     }
   },
 
+  getServicePackInUseByIdAccount: async (req, res) => {
+    try {
+      const servicePackInUse = await ServicePackInUse.find({
+        idaccount: req.params.id,
+      }).populate("idservicepack");
+      res.status(200).json(servicePackInUse);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
   addServicePackInUse: async (req, res) => {
     try {
       const countmonth = req.body.duration;
@@ -57,6 +69,7 @@ const ServicePackInUseController = {
         idservicepack: req.body.idservicepack,
         starttime: formatdaynow,
         endtime: formatday,
+        post: req.body.post,
         static: 1,
       });
       await newServicePackInUse.save();
@@ -74,6 +87,25 @@ const ServicePackInUseController = {
         updateServicePackInUse,
         {
           new: true,
+        }
+      );
+      if (!servicePackInUse) {
+        return res.status(404).json("Wrong updateServicePackInUse!");
+      }
+      res.status(200).json(servicePackInUse);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json("Error!!!");
+    }
+  },
+  redurePostInServicePack: async (req, res) => {
+    try {
+      const service = await ServicePackInUse.findById(req.params.idPackage);
+      const p = service.post - 1;
+      const servicePackInUse = await ServicePackInUse.findByIdAndUpdate(
+        req.params.idPackage,
+        {
+          post: p,
         }
       );
       if (!servicePackInUse) {

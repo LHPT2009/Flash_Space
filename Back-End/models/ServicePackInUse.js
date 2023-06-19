@@ -15,6 +15,9 @@ const ServicePackInUseSchema = new mongoose.Schema({
   endtime: {
     type: String,
   },
+  post: {
+    type: Number,
+  },
   static: {
     type: Number,
   },

@@ -6,6 +6,8 @@ router.get("/", BookingRoomController.getAllBookingRoom);
 
 router.get("/:id", BookingRoomController.getBookingRoomByIdAccount);
 
+router.get("/booking/:idAccount", BookingRoomController.getBookingRoomForBoss);
+
 router.get("/loadid/:id", BookingRoomController.getBookingRoomById);
 
 router.post("/", BookingRoomController.addBookingRoom);

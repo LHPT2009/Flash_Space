@@ -12,4 +12,13 @@ router.delete("/:id", ServicePackInUseController.deleteServicePackInUse);
 
 router.put("/:id", ServicePackInUseController.updateServicePackInUse);
 
+router.get(
+  "/getPosts/:id",
+  ServicePackInUseController.getServicePackInUseByIdAccount
+);
+
+router.get(
+  "/redure/:idPackage",
+  ServicePackInUseController.redurePostInServicePack
+);
 module.exports = router;

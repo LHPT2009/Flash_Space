@@ -131,16 +131,16 @@ const RoomController = {
         newWorkinghours.save();
       });
 
-      const arrDetailRoom = JSON.parse(req.body.detailroom);
-      arrDetailRoom.forEach((ele) => {
-        const newRoomDetails = new RoomDetail({
-          idequipment: ele.idequipment,
-          idroom: newRoom.id,
-          quantity: ele.quantity,
-          unit: ele.unit,
-        });
-        newRoomDetails.save();
-      });
+      // const arrDetailRoom = JSON.parse(req.body.detailroom);
+      // arrDetailRoom.forEach((ele) => {
+      //   const newRoomDetails = new RoomDetail({
+      //     idequipment: ele.idequipment,
+      //     idroom: newRoom.id,
+      //     quantity: ele.quantity,
+      //     unit: ele.unit,
+      //   });
+      //   newRoomDetails.save();
+      // });
 
       res.status(200).json("Add successfully");
     } catch (error) {
