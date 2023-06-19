@@ -33,4 +33,9 @@ router.put(
 router.put("/not/:id", ImagesCMNDController.updateImagesCMNDHaveNotImage);
 router.put("/static/:id", ImagesCMNDController.updateStaticImageCMND);
 
+router.get(
+  "/account/:idAccount",
+  ImagesCMNDController.getImagesCMNDByIdAccount
+);
+
 module.exports = router;

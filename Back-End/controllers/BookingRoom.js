@@ -2,6 +2,8 @@ const BookingRoom = require("../models/BookingRoom");
 const BookingSchedule = require("../models/BookingSchedule");
 const WorkingHours = require("../models/WorkingHours");
 const Evaluate = require("../models/Evaluate");
+const Room = require("../models/Room");
+const e = require("cors");
 
 const BookingRoomController = {
   getAllBookingRoom: async (req, res) => {
@@ -145,6 +147,48 @@ const BookingRoomController = {
         return res.status(404).json("Wrong updateAccount!");
       }
       res.status(200).json(bookingRoom);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json("Error!!!");
+    }
+  },
+  getBookingRoomForBoss: async (req, res) => {
+    try {
+      const idAccount = req.params.idAccount;
+      const listRoom = await Room.find({ idaccount: idAccount });
+      if (listRoom.length != 0) {
+        let listEvaluate = [];
+        let l = listRoom.length;
+        const list = listRoom.map(async (item) => {
+          const evaluate = await Evaluate.find({ idroom: item._id });
+          l = l - 1;
+          if (evaluate.length != 0) {
+            listEvaluate.push(evaluate);
+          }
+          if (l == 0) {
+            const mergedArray = listEvaluate.reduce(
+              (accumulator, currentValue) => {
+                return accumulator.concat(currentValue);
+              },
+              []
+            );
+            let listBookingRoom = [];
+            let l = mergedArray.length;
+            mergedArray.map(async (item) => {
+              const idBKR = JSON.stringify(item.idbookingroom);
+              console.log(idBKR);
+              const bk = await BookingRoom.findById(item.idbookingroom);
+              if (bk != null) {
+                listBookingRoom.push(bk);
+              }
+              l = l - 1;
+              if (l == 0) {
+                res.status(200).json(listBookingRoom);
+              }
+            });
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
       res.status(500).json("Error!!!");

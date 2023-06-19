@@ -31,6 +31,17 @@ const ImagesCMNDController = {
     }
   },
 
+  getImagesCMNDByIdAccount: async (req, res) => {
+    try {
+      const imagesCMND = await ImagesCMND.find({
+        idaccount: req.params.idAccount,
+      });
+      res.status(200).json(imagesCMND);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
   addImagesCMND: async (req, res) => {
     try {
       const newImagesCMND = await new ImagesCMND({
