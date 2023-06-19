@@ -9,13 +9,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import IpAddress from "../consts/variable";
 import Addcomment from "../components/Addcomment";
 
-const DetailBookScreen = ({ navigation, route }) => {
+const DetailOrderScreen = ({ navigation, route }) => {
   const item = route.params;
   console.log(item);
   const [detail, setDetail] = useState([]);
   const [openAddcomment, setOpenAddcomment] = useState(false);
   const [user, setUser] = useState({});
-  console.log(detail);
   const closeAddComment = (result) => {
     setOpenAddcomment(result);
   };
@@ -36,13 +35,13 @@ const DetailBookScreen = ({ navigation, route }) => {
         static: st,
       })
       .then(async (res) => {
-        navigation.navigate("DetailBookScreen", res.data);
+        navigation.navigate("DetailOrderScreen", res.data);
       });
   };
   const getUser = async () => {
     const idAccount = await AsyncStorage.getItem("idAccount");
     await axios
-      .get("http://" + IpAddress + ":8000/account/" + idAccount)
+      .get("http://" + IpAddress + ":8000/account/" + item.idaccount)
       .then(async (response) => {
         const result = response.data;
         setUser(result);
@@ -246,7 +245,7 @@ const DetailBookScreen = ({ navigation, route }) => {
               <View
                 style={{
                   width: "90%",
-                  height: 250,
+                  height: 150,
                   marginVertical: 20,
                   alignItems: "center",
                   backgroundColor: COLORS.white,
@@ -343,27 +342,6 @@ const DetailBookScreen = ({ navigation, route }) => {
                       </Text>
                     </View>
                   </View>
-                  <TouchableOpacity
-                    style={{
-                      width: "100%",
-                      height: 60,
-                      backgroundColor: theme.PRIMARY_BG_COLOR,
-                      borderRadius: 8,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                    onPress={() => setOpenAddcomment(true)}
-                  >
-                    <Text
-                      style={{
-                        fontFamily: theme.FontMain,
-                        color: COLORS.white,
-                        fontSize: 20,
-                      }}
-                    >
-                      Đánh giá phòng
-                    </Text>
-                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -398,6 +376,16 @@ const DetailBookScreen = ({ navigation, route }) => {
                 >
                   Tình trạng:
                 </Text>
+                {/* <Text
+                  style={{
+                    fontFamily: theme.FontMain,
+                    color: "#46AC5E",
+                    fontSize: 18,
+                    paddingLeft: 10,
+                  }}
+                >
+                  Đang thuê
+                </Text> */}
                 {item.static == 0 ? (
                   <Text
                     style={{
@@ -476,15 +464,40 @@ const DetailBookScreen = ({ navigation, route }) => {
               style={{
                 width: "30%",
                 height: "100%",
-                justifyContent: "center",
+                justifyContent: "space-evenly",
                 alignItems: "center",
               }}
             >
               {item.static == 0 ? (
                 <TouchableOpacity
                   style={{
-                    width: "70%",
-                    height: "70%",
+                    width: "90%",
+                    height: "40%",
+                    backgroundColor: "#46AC5E",
+                    borderRadius: 8,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onPress={() => updateStatic(1)}
+                >
+                  <Text
+                    style={{
+                      fontFamily: theme.FontMain,
+                      color: COLORS.white,
+                      fontSize: 20,
+                    }}
+                  >
+                    Xác nhận
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <View />
+              )}
+              {item.static == 0 ? (
+                <TouchableOpacity
+                  style={{
+                    width: "90%",
+                    height: "40%",
                     backgroundColor: "#ff5050",
                     borderRadius: 8,
                     justifyContent: "center",
@@ -514,4 +527,4 @@ const DetailBookScreen = ({ navigation, route }) => {
     return <View style={{ width: "100%", height: "100%" }} />;
   }
 };
-export default DetailBookScreen;
+export default DetailOrderScreen;

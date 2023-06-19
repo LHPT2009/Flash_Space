@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { TextInput } from "react-native";
 import axios from "axios";
@@ -16,8 +16,8 @@ function Register(props) {
   const [repassword, setRePassword] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const [phoneOrmail, setPhonOrMail] = useState(0);
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [check, setPhonOrMail] = useState("checkmail");
+  const [phonenumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [eye, setEye] = useState(true);
   const [eye1, setEye1] = useState(true);
@@ -31,10 +31,6 @@ function Register(props) {
     props.functionClosed(true);
   };
 
-  const changePhoneOrMail = () => {
-    setPhonOrMail(!phoneOrmail);
-  };
-
   const handleRegister = async () => {
     await axios
       .post("http://" + IpAddress + ":8000/auth/register", {
@@ -43,26 +39,22 @@ function Register(props) {
         firstname,
         lastname,
         email,
+        phonenumber,
+        check,
       })
       .then(async (response) => {
         const result = response.data;
-        await AsyncStorage.setItem("idAccount", result._id);
-        await AsyncStorage.setItem(
-          "name",
-          result.firstname + " " + result.lastname
-        );
+        // await AsyncStorage.setItem("idAccount", result._id);
+        // await AsyncStorage.setItem(
+        //   "name",
+        //   result.firstname + " " + result.lastname
+        // );
         showMessage({
-          message: "Đăng ký thành công  ✔",
-          description: "Chào mừng bạn đến với Flash Space",
-          type: "succes",
+          message: "Mã đã được gửi đi  ✔",
+          description: "Mời bạn xác thực",
+          type: "success",
         });
-        props.navigation.reset({
-          index: 0,
-          routes: [
-            { name: "Main" }, // Key của màn hình muốn reload
-          ],
-        });
-        props.navigation.navigate("Main");
+        props.navigation.navigate("Welcome");
       })
       .catch((error) => {
         showMessage({
@@ -74,8 +66,8 @@ function Register(props) {
       });
   };
   return (
-    <View style={style.container}>
-      <ScrollView>
+    <KeyboardAvoidingView behavior="padding" style={style.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={style.content}>
           <View style={style.close}>
             <Icon
@@ -111,97 +103,6 @@ function Register(props) {
                 }}
               />
             </View>
-            <View
-              style={{
-                paddingTop: 20,
-                width: "75%",
-                flexDirection: "row",
-              }}
-            >
-              <TouchableOpacity
-                style={
-                  phoneOrmail == 0
-                    ? {
-                        width: 15,
-                        height: 15,
-                        backgroundColor: theme.PRIMARY_BG_COLOR,
-                        marginRight: 10,
-                        borderRadius: 50,
-                        borderWidth: 2,
-                        borderColor: theme.PRIMARY_BG_COLOR,
-                      }
-                    : {
-                        width: 15,
-                        height: 15,
-                        marginRight: 10,
-                        borderRadius: 50,
-                        borderWidth: 2,
-                        borderColor: theme.PRIMARY_BG_COLOR,
-                      }
-                }
-                onPress={() => changePhoneOrMail()}
-              ></TouchableOpacity>
-              <Text style={style.content__box__title_text}>Số điện thoại</Text>
-              <TouchableOpacity
-                style={
-                  phoneOrmail == 1
-                    ? {
-                        width: 15,
-                        height: 15,
-                        backgroundColor: theme.PRIMARY_BG_COLOR,
-                        marginRight: 10,
-                        marginLeft: 10,
-                        borderRadius: 50,
-                        borderWidth: 2,
-                        borderColor: theme.PRIMARY_BG_COLOR,
-                      }
-                    : {
-                        width: 15,
-                        height: 15,
-                        marginRight: 10,
-                        marginLeft: 10,
-                        borderRadius: 50,
-                        borderWidth: 2,
-                        borderColor: theme.PRIMARY_BG_COLOR,
-                      }
-                }
-                onPress={() => changePhoneOrMail()}
-              ></TouchableOpacity>
-              <Text style={style.content__box__title_text}>Email</Text>
-            </View>
-            {phoneOrmail == 0 ? (
-              <View style={style.content__box__title}>
-                <Text style={style.content__box__title_text}>
-                  Số điện thoại
-                </Text>
-              </View>
-            ) : (
-              <View style={style.content__box__title}>
-                <Text style={style.content__box__title_text}>Email</Text>
-              </View>
-            )}
-            {phoneOrmail == 0 ? (
-              <View style={style.content__box__input}>
-                <TextInput
-                  style={style.content__box__input_text}
-                  placeholder="Số điện thoại"
-                  keyboardType="numeric"
-                  onChangeText={(value) => {
-                    setEmail(value);
-                  }}
-                />
-              </View>
-            ) : (
-              <View style={style.content__box__input}>
-                <TextInput
-                  style={style.content__box__input_text}
-                  placeholder="Email"
-                  onChangeText={(value) => {
-                    setEmail(value);
-                  }}
-                />
-              </View>
-            )}
 
             <View style={style.content__box__title}>
               <Text style={style.content__box__title_text}>Tài khoản</Text>
@@ -269,7 +170,102 @@ function Register(props) {
                 />
               )}
             </View>
-
+            <View
+              style={{
+                paddingTop: 20,
+                width: "75%",
+                flexDirection: "row",
+              }}
+            >
+              <TouchableOpacity
+                style={
+                  check != "checkmail"
+                    ? {
+                        width: 15,
+                        height: 15,
+                        backgroundColor: theme.PRIMARY_BG_COLOR,
+                        marginRight: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                    : {
+                        width: 15,
+                        height: 15,
+                        marginRight: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                }
+                onPress={() => {
+                  setPhonOrMail("checkphonenumber");
+                }}
+              ></TouchableOpacity>
+              <Text style={style.content__box__title_text}>Số điện thoại</Text>
+              <TouchableOpacity
+                style={
+                  check == "checkmail"
+                    ? {
+                        width: 15,
+                        height: 15,
+                        backgroundColor: theme.PRIMARY_BG_COLOR,
+                        marginRight: 10,
+                        marginLeft: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                    : {
+                        width: 15,
+                        height: 15,
+                        marginRight: 10,
+                        marginLeft: 10,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: theme.PRIMARY_BG_COLOR,
+                      }
+                }
+                onPress={() => {
+                  setPhonOrMail("checkmail");
+                }}
+              ></TouchableOpacity>
+              <Text style={style.content__box__title_text}>Email</Text>
+            </View>
+            {check != "checkmail" ? (
+              <View style={style.content__box__title}>
+                <Text style={style.content__box__title_text}>
+                  Số điện thoại
+                </Text>
+              </View>
+            ) : (
+              <View style={style.content__box__title}>
+                <Text style={style.content__box__title_text}>Email</Text>
+              </View>
+            )}
+            {check != "checkmail" ? (
+              <View style={style.content__box__input}>
+                <TextInput
+                  style={style.content__box__input_text}
+                  placeholder="Số điện thoại"
+                  keyboardType="numeric"
+                  autoFocus={true}
+                  onChangeText={(value) => {
+                    setPhoneNumber(value);
+                  }}
+                />
+              </View>
+            ) : (
+              <View style={style.content__box__input}>
+                <TextInput
+                  style={style.content__box__input_text}
+                  placeholder="Email"
+                  onChangeText={(value) => {
+                    setEmail(value);
+                  }}
+                />
+              </View>
+            )}
             <TouchableOpacity
               style={style.content__box__button}
               onPress={() => handleRegister()}
@@ -280,7 +276,7 @@ function Register(props) {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 export default Register;

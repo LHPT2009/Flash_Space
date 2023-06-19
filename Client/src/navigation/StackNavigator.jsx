@@ -31,6 +31,9 @@ import DetailPackageScreen from "../views/DetailPackageScreen";
 import DetailRoomPostScreen from "../views/DetailRoomPostScreen";
 import ButtonTimeslot from "../components/ButtonTimeslot";
 import FavoriteScreen from "../views/FavoriteSreen";
+import OrderScreen from "../views/OrderScreen";
+import DetailOrderScreen from "../views/DetailOrderScreen";
+import ProfileUserScreen from "../views/ProfileUserScreen";
 // import Rooms from "../screens/Rooms";
 // import Detail from "../screens/Detail";
 // import HomeScreen from "../views/screens/HomeScreen";
@@ -60,7 +63,16 @@ const WelcomeStackNavigator = () => {
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="ButtonTimeslot" component={ButtonTimeslot} />
           <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
+          <Stack.Screen name="OrderScreen" component={OrderScreen} />
           <Stack.Screen name="DetailBookScreen" component={DetailBookScreen} />
+          <Stack.Screen
+            name="ProfileUserScreen"
+            component={ProfileUserScreen}
+          />
+          <Stack.Screen
+            name="DetailOrderScreen"
+            component={DetailOrderScreen}
+          />
           <Stack.Screen name="BookScreen" component={BookScreen} />
           <Stack.Screen name="TakephotoScreen" component={TakephotoScreen} />
           <Stack.Screen

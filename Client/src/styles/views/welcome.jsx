@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   header__40: {
     width: theme.WIDTH_FULL,
-    height: "40%",
+    height: "20%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   buttons__60: {
     width: theme.WIDTH_FULL,
-    height: "70%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

@@ -10,6 +10,7 @@ const style = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    marginBottom: -80,
     zIndex: 100,
   },
   content: {
