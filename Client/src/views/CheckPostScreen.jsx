@@ -17,6 +17,7 @@ import IpAddress from "../consts/variable";
 import axios from "axios";
 const { width } = Dimensions.get("screen");
 import { InformationAddRoomContext } from "../context/InformationAddRoom";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CheckPostScreen = ({ navigation }) => {
   const [roomData, setRoomData] = useState([]);
@@ -26,26 +27,27 @@ const CheckPostScreen = ({ navigation }) => {
   }, []);
 
   const loadData = async () => {
+    const idAccount = await AsyncStorage.getItem("idAccount");
     await axios
       .get(
-        "http://" +
-          IpAddress +
-          ":8000/servicepackinuse/getPosts/6442af166a9a07710faa9651"
+        "http://" + IpAddress + ":8000/servicepackinuse/getPosts/" + idAccount
       )
       .then((res) => {
+        console.log(res.data);
         setRoomData(res.data);
       });
   };
 
   const CardGrid = ({ house }) => {
-    console.log(house);
     const { informations } = useContext(InformationAddRoomContext);
     const dateformat = (date) => {
       const getdate = new Date(date);
       const day =
         getdate.getDate() < 10 ? `0${getdate.getDate()}` : getdate.getDate();
       const month =
-        getdate.getMonth() < 10 ? `0${getdate.getMonth()}` : getdate.getMonth();
+        getdate.getMonth() < 10
+          ? `0${getdate.getMonth() + 1}`
+          : getdate.getMonth() + 1;
       const year = getdate.getFullYear();
       return day + "/" + month + "/" + year;
     };
@@ -216,7 +218,7 @@ const CheckPostScreen = ({ navigation }) => {
                     borderRadius: 13,
                   }}
                   onPress={() => {
-                    const content = { idPackage: house.idservicepack };
+                    const content = { idPackage: house };
                     Object.assign(informations, content);
                     navigation.navigate("PostScreen");
                   }}
@@ -403,7 +405,7 @@ const CheckPostScreen = ({ navigation }) => {
                     }}
                     renderItem={({ item }) => <CardGrid house={item} />}
                     keyExtractor={(item) => "_*" + item.id}
-                    numColumns={2}
+                    numColumns={0}
                     scrollEnabled={false}
                   />
                 </ScrollView>

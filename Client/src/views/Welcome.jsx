@@ -56,7 +56,7 @@ function Welcome({ navigation, props }) {
           end={{ x: 0, y: 1 }}
         >
           <ImageBackground
-            source={require("../../assets/images/background/miami-beach.jpg")}
+            source={require("../../assets/images/background/18644.jpg")}
             style={styles.container__background_images}
           ></ImageBackground>
         </LinearGradient>

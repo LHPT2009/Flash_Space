@@ -26,8 +26,7 @@ const PostImageScreen = ({ navigation, route }) => {
   console.log(JSON.stringify(informations));
   // console.log(typeof informations.multiImage);
   // console.log(informations.multiImage.length);
-  console.log("aaaa");
-  console.log(listWork);
+
   let image = "";
   let image1 = "";
   let image2 = "";
@@ -48,7 +47,6 @@ const PostImageScreen = ({ navigation, route }) => {
   const postInformation = async (req) => {
     // try {
     const idAccount = await AsyncStorage.getItem("idAccount");
-    console.log(idAccount);
     const dt = new FormData();
     dt.append("subject", informations.subject);
     dt.append("describe", informations.describe);
@@ -81,11 +79,12 @@ const PostImageScreen = ({ navigation, route }) => {
         "Content-Type": "multipart/form-data",
       },
     });
+
     const redure = await axios.get(
       "http://" +
         IpAddress +
         ":8000/servicepackinuse/redure/" +
-        informations.idPackage
+        informations.idPackage._id
     );
     if (result.status == 200) {
       navigation.navigate("Main");

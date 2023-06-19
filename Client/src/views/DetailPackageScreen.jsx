@@ -74,6 +74,7 @@ const DetailPackageScreen = ({ navigation, route }) => {
           idaccount={user._id}
           idservicepack={item._id}
           duration={item.duration}
+          amount={item.amount}
           navigation={navigation}
         />
       ) : (
