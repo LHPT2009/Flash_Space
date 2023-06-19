@@ -11,13 +11,14 @@ import Swal from "sweetalert2";
 const Order = () => {
   const navigator = useNavigate();
   const id = jwtDecode(localStorage.getItem("token")).id;
-  const { timeslots, editListTimeSlot, deleteitem } =
-    useContext(ListTimeSlotContext);
+  const { timeslots, deleteitem } = useContext(ListTimeSlotContext);
   const [account, setAccount] = useState([]);
   const [sum, setSum] = useState(0);
 
   const [pageotp, setPageOTP] = useState(false);
   const [pageotptwo, setPageOTPtwo] = useState(false);
+  const [check, setCheck] = useState("");
+  const [inputotp, setInputOTP] = useState("");
 
   useEffect(() => {
     axios
@@ -47,35 +48,46 @@ const Order = () => {
     setSum(sum);
   }, [timeslots]);
 
-  const addorder = async (e) => {
-    e.preventDefault();
+  const addorder = async () => {
     const idaccount = id;
     const total = sum;
-    const add = await axios
-      .post(
-        `${
-          process.env.REACT_APP_URL
-            ? `${process.env.REACT_APP_URL}`
-            : `http://localhost:8000`
-        }/bookingroom`,
-        { idaccount, timeslots, total }
-      )
-      .then((item) => {
-        Swal.fire({
-          icon: "success",
-          title: "Cảm ơn đã sử dụng dịch vụ!",
-          text: "Mời bạn về trang chủ",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (swal) => {
-            swal.addEventListener("mouseenter", Swal.stopTimer);
-            swal.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        }).then(() => {
-          navigator("/");
+    if (inputotp == jwtDecode(localStorage.getItem("otp")).otp) {
+      const add = await axios
+        .post(
+          `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/bookingroom`,
+          { idaccount, timeslots, total }
+        )
+        .then((item) => {
+          Swal.fire({
+            icon: "success",
+            title: "Cảm ơn đã sử dụng dịch vụ!",
+            text: "Mời bạn về trang chủ",
+            showConfirmButton: true,
+          }).then(() => {
+            localStorage.removeItem("otp");
+            navigator("/");
+          });
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Lỗi!",
+            text: error,
+            showConfirmButton: true,
+          });
         });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Mã OTP sai!",
+        text: "Mời bạn kiểm tra lại",
+        showConfirmButton: true,
       });
+    }
   };
 
   const changepage = () => {
@@ -86,6 +98,31 @@ const Order = () => {
     setPageOTPtwo(!pageotptwo);
   };
 
+  const sendOTP = async () => {
+    const send = await axios
+      .post(
+        `${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/otp`,
+        {
+          check,
+          idacc: id,
+        }
+      )
+      .then((item) => {
+        Swal.fire({
+          icon: "success",
+          title: "Mã xác thực đã được gửi!",
+          text: "Chờ trong giây lát",
+          showConfirmButton: true,
+        }).then(() => {
+          setPageOTPtwo(!pageotptwo);
+        });
+        localStorage.setItem("otp", item.data);
+      });
+  };
   return (
     <>
       {!pageotp ? (
@@ -168,7 +205,15 @@ const Order = () => {
                                         <td>{item.date}</td>
                                         <td>{item.starttime}</td>
                                         <td>{item.endtime}</td>
-                                        <td>{item.pricetime} VNĐ</td>
+                                        <td>
+                                          {item.pricetime.toLocaleString(
+                                            "vi-VN",
+                                            {
+                                              style: "currency",
+                                              currency: "VND",
+                                            }
+                                          )}
+                                        </td>
                                         <td>
                                           <button
                                             className="btn btn-warning btn-lg btn-radius"
@@ -192,7 +237,12 @@ const Order = () => {
                                       </td>
                                       <td>
                                         <h5 class="text-black">
-                                          <strong>{sum} VNĐ</strong>
+                                          <strong>
+                                            {sum.toLocaleString("vi-VN", {
+                                              style: "currency",
+                                              currency: "VND",
+                                            })}
+                                          </strong>
                                         </h5>
                                       </td>
                                     </tr>
@@ -212,9 +262,7 @@ const Order = () => {
                         Thay đổi thay tin cá nhân
                       </Link>
                       <button
-                        // to={"/"}
                         className="btn btn-success btn-lg btn-radius m-1"
-                        // onClick={addorder}
                         onClick={changepage}
                       >
                         tiếp tục
@@ -265,10 +313,9 @@ const Order = () => {
                                       name="exampleRadios"
                                       id="exampleRadios1"
                                       value="option1"
-                                      // onChange={(e) => {
-                                      //   setCheck("checkmail");
-                                      //   setPhoneNumber("");
-                                      // }}
+                                      onChange={(e) => {
+                                        setCheck("checkmail");
+                                      }}
                                     />
                                     <label
                                       class="form-check-label"
@@ -284,10 +331,9 @@ const Order = () => {
                                       name="exampleRadios"
                                       id="exampleRadios2"
                                       value="option2"
-                                      // onChange={(e) => {
-                                      //   setCheck("checkphonenumber");
-                                      //   setEmail("");
-                                      // }}
+                                      onChange={(e) => {
+                                        setCheck("checkphonenumber");
+                                      }}
                                     />
                                     <label
                                       class="form-check-label"
@@ -301,7 +347,7 @@ const Order = () => {
                               <div class="mt-3 mb-5">
                                 <button
                                   class="btn btn-success px-4 verify-btn"
-                                  onClick={changepagetwo}
+                                  onClick={sendOTP}
                                 >
                                   gửi mã xác thực OTP
                                 </button>
@@ -314,6 +360,7 @@ const Order = () => {
                                   type="text"
                                   class="m-1 text-center form-control rounded"
                                   maxlength="5"
+                                  onChange={(e) => setInputOTP(e.target.value)}
                                 />
                               </div>
                               <small>
@@ -329,7 +376,7 @@ const Order = () => {
                               <div class="mt-3 mb-5">
                                 <button
                                   class="btn btn-success px-4 verify-btn"
-                                  // onClick={addorder}
+                                  onClick={addorder}
                                 >
                                   Kiểm tra
                                 </button>

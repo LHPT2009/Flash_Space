@@ -15,6 +15,7 @@ const DetailRoom = () => {
   const [careername, setCareername] = useState();
   const [subject, setSubject] = useState();
   const [price, setPrice] = useState();
+  const [priceshow, setPriceShow] = useState();
   const [describe, setDescribe] = useState();
   const [housenumberstreetname, setHousenumberstreetname] = useState();
   const [wardname, setWardname] = useState();
@@ -59,7 +60,8 @@ const DetailRoom = () => {
       .then((res) => {
         setCareername(res.data.idcareer.careername);
         setSubject(res.data.subject);
-        setPrice(
+        setPrice(res.data.price);
+        setPriceShow(
           res.data.price.toLocaleString("vi-VN", {
             style: "currency",
             currency: "VND",
@@ -231,7 +233,9 @@ const DetailRoom = () => {
                                             </a>
                                           </h4>
                                           <span class="pull-left">
-                                            <span class="price">{price}</span>
+                                            <span class="price">
+                                              {priceshow}
+                                            </span>
                                             <span class="period">/1h</span>
                                           </span>
                                           <p class="card-text">{describe}</p>
