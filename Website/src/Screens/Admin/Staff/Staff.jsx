@@ -7,6 +7,7 @@ import axios from "axios";
 
 const Staff = () => {
   const [listaccount, setListAccount] = useState([]);
+  const [search, setSearch] = useState("");
 
   const loadlistaccount = async () => {
     const load = await axios
@@ -31,6 +32,12 @@ const Staff = () => {
   // Get current posts
   const accountuser = listaccount
     .filter((item) => item.idrole._id !== "642dc5fe3db1f869d982a638")
+    .filter(
+      (item) =>
+        `${item.firstname} ${item.lastname}`
+          .toLowerCase()
+          .search(search.toLowerCase().trim()) !== -1
+    )
     .reverse();
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -65,11 +72,14 @@ const Staff = () => {
                                       type="text"
                                       className="form-control"
                                       placeholder="Tìm kiếm theo tên"
+                                      onChange={(e) =>
+                                        setSearch(e.target.value)
+                                      }
                                     />
                                   </div>
                                 </div>
                               </div>
-                              <div className="col-md-2">
+                              {/* <div className="col-md-2">
                                 <div className="form-group row">
                                   <div className="col-sm-12">
                                     <select
@@ -85,7 +95,7 @@ const Staff = () => {
                                     </select>
                                   </div>
                                 </div>
-                              </div>
+                              </div> */}
                               <div className="col-md-3">
                                 <div className="form-group row">
                                   <div className="col-sm-12">

@@ -7,6 +7,8 @@ import axios from "axios";
 
 const BookingSchedule = () => {
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("0");
 
   const loaddata = async () => {
     const load = await axios
@@ -29,7 +31,14 @@ const BookingSchedule = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
-  const datafil = data.filter((item) => item.numbercard !== "").reverse();
+  const datafil = data
+    .filter((item) => item.numbercard !== "")
+    .filter(
+      (item) =>
+        `${item.idaccount.firstname} ${item.idaccount.lastname}`
+          .toLowerCase()
+          .search(search.toLowerCase().trim()) !== -1
+    );
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -63,6 +72,9 @@ const BookingSchedule = () => {
                                       type="text"
                                       className="form-control"
                                       placeholder="Tìm kiếm theo tên"
+                                      onChange={(e) =>
+                                        setSearch(e.target.value)
+                                      }
                                     />
                                   </div>
                                 </div>
@@ -73,13 +85,11 @@ const BookingSchedule = () => {
                                     <select
                                       class="form-select"
                                       aria-label="Default select example"
+                                      onChange={(e) => setSort(e.target.value)}
                                     >
-                                      <option selected>
-                                        Chọn cách sắp xếp
-                                      </option>
-                                      <option value="1">One</option>
-                                      <option value="2">Two</option>
-                                      <option value="3">Three</option>
+                                      <option value="0">Chưa xác thực</option>
+                                      <option value="1">Đã xác thực</option>
+                                      <option value="2">Tất cả</option>
                                     </select>
                                   </div>
                                 </div>
