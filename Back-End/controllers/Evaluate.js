@@ -1,5 +1,8 @@
 const Evaluate = require("../models/Evaluate");
 const { Configuration, OpenAIApi } = require("openai");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const EvaluateController = {
   getAllEvaluate: async (req, res) => {
@@ -74,7 +77,7 @@ const EvaluateController = {
   updateEvaluate: async (req, res) => {
     try {
       const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: process.env.APIKEYOPENAI,
       });
       const openai = new OpenAIApi(configuration);
 
