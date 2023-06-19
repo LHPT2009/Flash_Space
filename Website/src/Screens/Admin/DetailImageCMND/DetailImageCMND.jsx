@@ -95,7 +95,19 @@ const DetailPermission = () => {
                           <div class="row">
                             <div class="col-sm-6 text-end">
                               <img
-                                src={`http://localhost:8000/singleimage/${frontimage}`}
+                                src={`${
+                                  process.env.REACT_APP_URL
+                                    ? `${process.env.REACT_APP_URL}`
+                                    : `http://localhost:8000`
+                                }/singleimage/${frontimage}`}
+                                onError={({ currentTarget }) => {
+                                  currentTarget.onerror = null; // prevents looping
+                                  currentTarget.src = `${
+                                    process.env.REACT_APP_URL
+                                      ? `${process.env.REACT_APP_URL}`
+                                      : `http://localhost:8000`
+                                  }/singleimage/error.jpg`;
+                                }}
                                 class="card-img"
                                 alt="..."
                                 style={{ height: "300px", width: "500px" }}
@@ -103,7 +115,19 @@ const DetailPermission = () => {
                             </div>
                             <div class="col-sm-6">
                               <img
-                                src={`http://localhost:8000/singleimage/${backimage}`}
+                                src={`${
+                                  process.env.REACT_APP_URL
+                                    ? `${process.env.REACT_APP_URL}`
+                                    : `http://localhost:8000`
+                                }/singleimage/${backimage}`}
+                                onError={({ currentTarget }) => {
+                                  currentTarget.onerror = null; // prevents looping
+                                  currentTarget.src = `${
+                                    process.env.REACT_APP_URL
+                                      ? `${process.env.REACT_APP_URL}`
+                                      : `http://localhost:8000`
+                                  }/singleimage/error.jpg`;
+                                }}
                                 class="card-img"
                                 alt="..."
                                 style={{ height: "300px", width: "500px" }}

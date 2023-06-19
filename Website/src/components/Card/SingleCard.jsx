@@ -9,8 +9,19 @@ const SingleCard = (props) => {
     >
       <img
         class="card-img-top"
-        src={`http://localhost:8000/singleimage/${props.mainimage}`}
-        alt="Card image cap"
+        src={`${
+          process.env.REACT_APP_URL
+            ? `${process.env.REACT_APP_URL}`
+            : `http://localhost:8000`
+        }/singleimage/${props.mainimage}`}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = `${
+            process.env.REACT_APP_URL
+              ? `${process.env.REACT_APP_URL}`
+              : `http://localhost:8000`
+          }/singleimage/error.jpg`;
+        }}
         style={{ height: "300px", width: "100%" }}
       />
       <div class="card-body" style={{ padding: "15px" }}>

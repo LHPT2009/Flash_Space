@@ -108,8 +108,20 @@ const Tables = () => {
                               <td>{item._id}</td>
                               <td className="py-1">
                                 <img
-                                  src={`http://localhost:8000/singleimage/${item.avatar}`}
+                                  src={`${
+                                    process.env.REACT_APP_URL
+                                      ? `${process.env.REACT_APP_URL}`
+                                      : `http://localhost:8000`
+                                  }/singleimage/${item.avatar}`}
                                   alt="image"
+                                  onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null; // prevents looping
+                                    currentTarget.src = `${
+                                      process.env.REACT_APP_URL
+                                        ? `${process.env.REACT_APP_URL}`
+                                        : `http://localhost:8000`
+                                    }/singleimage/error.jpg`;
+                                  }}
                                 />
                               </td>
                               <td>
