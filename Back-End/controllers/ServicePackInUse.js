@@ -63,13 +63,18 @@ const ServicePackInUseController = {
         date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
       const year = date.getFullYear();
       const formatday = `${year}-${month}-${day}`;
+      console.log("formatday");
 
+      console.log(formatday);
+      console.log("formatdaynow");
+
+      console.log(formatdaynow);
       const newServicePackInUse = await new ServicePackInUse({
         idaccount: req.body.idaccount,
         idservicepack: req.body.idservicepack,
         starttime: formatdaynow,
         endtime: formatday,
-        post: req.body.post,
+        post: req.body.amount,
         static: 1,
       });
       await newServicePackInUse.save();
@@ -102,6 +107,7 @@ const ServicePackInUseController = {
     try {
       const service = await ServicePackInUse.findById(req.params.idPackage);
       const p = service.post - 1;
+      console.log(p);
       const servicePackInUse = await ServicePackInUse.findByIdAndUpdate(
         req.params.idPackage,
         {
