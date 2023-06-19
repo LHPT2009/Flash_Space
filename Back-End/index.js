@@ -30,6 +30,7 @@ const QueryRoute = require("./routes/Query");
 const RechartsRoute = require("./routes/Recharts");
 const ChatgptRoute = require("./routes/Chatgpt");
 const VirtualAssistantRoute = require("./routes/VirtualAssistant");
+const OTPRoute = require("./routes/OTP");
 
 dotenv.config();
 const app = express();
@@ -70,6 +71,7 @@ app.use("/query", QueryRoute);
 app.use("/recharts", RechartsRoute);
 app.use("/chatgpt", ChatgptRoute);
 app.use("/virtualassistant", VirtualAssistantRoute);
+app.use("/otp", OTPRoute);
 
 app.use("/singleimage", SingleImageRoute);
 
