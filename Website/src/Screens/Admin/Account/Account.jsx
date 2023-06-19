@@ -7,6 +7,7 @@ import axios from "axios";
 
 const Tables = () => {
   const [listaccount, setListAccount] = useState([]);
+  const [search, setSearch] = useState("");
 
   const loadlistaccount = async () => {
     const load = await axios
@@ -25,13 +26,21 @@ const Tables = () => {
   useEffect(() => {
     loadlistaccount();
   }, []);
+
+  const accountuser = listaccount
+    .filter((item) => item.idrole._id == "642dc5fe3db1f869d982a638")
+    .filter(
+      (item) =>
+        `${item.firstname} ${item.lastname}`
+          .toLowerCase()
+          .search(search.toLowerCase().trim()) !== -1
+    )
+    .reverse();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
   // Get current posts
-  const accountuser = listaccount
-    .filter((item) => item.idrole._id == "642dc5fe3db1f869d982a638")
-    .reverse();
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -63,24 +72,10 @@ const Tables = () => {
                                       type="text"
                                       className="form-control"
                                       placeholder="Tìm kiếm theo tên"
+                                      onChange={(e) =>
+                                        setSearch(e.target.value)
+                                      }
                                     />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-md-2">
-                                <div className="form-group row">
-                                  <div className="col-sm-12">
-                                    <select
-                                      class="form-select"
-                                      aria-label="Default select example"
-                                    >
-                                      <option selected>
-                                        Chọn cách sắp xếp
-                                      </option>
-                                      <option value="1">One</option>
-                                      <option value="2">Two</option>
-                                      <option value="3">Three</option>
-                                    </select>
                                   </div>
                                 </div>
                               </div>
