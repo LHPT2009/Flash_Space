@@ -15,6 +15,10 @@ const Order = () => {
     useContext(ListTimeSlotContext);
   const [account, setAccount] = useState([]);
   const [sum, setSum] = useState(0);
+
+  const [pageotp, setPageOTP] = useState(false);
+  const [pageotptwo, setPageOTPtwo] = useState(false);
+
   useEffect(() => {
     axios
       .get(
@@ -73,144 +77,286 @@ const Order = () => {
         });
       });
   };
+
+  const changepage = () => {
+    setPageOTP(!pageotp);
+  };
+
+  const changepagetwo = () => {
+    setPageOTPtwo(!pageotptwo);
+  };
+
   return (
-    <div>
-      <TopNav />
-      <div className="bodydth">
-        <div class="container">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="card" style={{ height: "800px" }}>
-                <div class="card-header text-black">
-                  Kiểm tra thông tin của bạn trước khi xác nhận đặt phòng
-                </div>
-                <div class="card-body p-0">
-                  <div class="invoice-container">
-                    <div class="invoice-header">
-                      <div class="row gutters">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-start">
-                          <a
-                            href="index.html"
-                            class="btn"
-                            style={{ fontSize: "30px", color: "#FFC107" }}
-                          >
-                            FLASH SPACE
-                          </a>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                          <address class="text-end text-black">
-                            435 Điện biên Phủ , phường 11, Quận Bình Thạnh
-                            <br />
-                            Hồ chí Minh, Việt Nam
-                            <br />
-                            123123123123
-                          </address>
-                        </div>
-                      </div>
-                      <div class="row gutters">
-                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                          <div class="invoice-details">
-                            <address className="text-black">
-                              {account.firstname + " " + account.lastname}
-                              <br />
-                              {account.email}
-                              <br />
-                              {account.phonenumber}
-                            </address>
+    <>
+      {!pageotp ? (
+        <>
+          <TopNav />
+          <div className="bodydth">
+            <div class="container">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="card" style={{ height: "800px" }}>
+                    <div class="card-header text-black">
+                      Kiểm tra thông tin của bạn trước khi xác nhận đặt phòng
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="invoice-container">
+                        <div class="invoice-header">
+                          <div class="row gutters">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-start">
+                              <a
+                                href="index.html"
+                                class="btn"
+                                style={{ fontSize: "30px", color: "#FFC107" }}
+                              >
+                                FLASH SPACE
+                              </a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                              <address class="text-end text-black">
+                                435 Điện biên Phủ , phường 11, Quận Bình Thạnh
+                                <br />
+                                Hồ chí Minh, Việt Nam
+                                <br />
+                                123123123123
+                              </address>
+                            </div>
+                          </div>
+                          <div class="row gutters">
+                            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                              <div class="invoice-details">
+                                <address className="text-black">
+                                  {account.firstname + " " + account.lastname}
+                                  <br />
+                                  {account.email}
+                                  <br />
+                                  {account.phonenumber}
+                                </address>
+                              </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                              <div class="invoice-details">
+                                <div class="invoice-num text-black">
+                                  <div>
+                                    Ngày {day} tháng {month} năm {year}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                          <div class="invoice-details">
-                            <div class="invoice-num text-black">
-                              <div>
-                                Ngày {day} tháng {month} năm {year}
+
+                        <div class="invoice-body">
+                          <div class="row gutters">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <div class="table-responsive">
+                                <table class="table custom-table m-0">
+                                  <thead>
+                                    <tr>
+                                      <th>Tên phòng</th>
+                                      <th>Ngày đặt</th>
+                                      <th>Bắt đầu</th>
+                                      <th>kết thúc</th>
+                                      <th>giá tiền</th>
+                                      <th></th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {timeslots.map((item) => (
+                                      <tr>
+                                        <td>{item.roomname}</td>
+                                        <td>{item.date}</td>
+                                        <td>{item.starttime}</td>
+                                        <td>{item.endtime}</td>
+                                        <td>{item.pricetime} VNĐ</td>
+                                        <td>
+                                          <button
+                                            className="btn btn-warning btn-lg btn-radius"
+                                            onClick={() =>
+                                              deleteitem(item.idworkinghours)
+                                            }
+                                          >
+                                            Hủy
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    ))}
+                                    <tr>
+                                      <td>&nbsp;</td>
+                                      <td>&nbsp;</td>
+
+                                      <td colspan="2">
+                                        <h5 class="text-black">
+                                          <strong>Tổng tiền</strong>
+                                        </h5>
+                                      </td>
+                                      <td>
+                                        <h5 class="text-black">
+                                          <strong>{sum} VNĐ</strong>
+                                        </h5>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    <div class="invoice-body">
-                      <div class="row gutters">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                          <div class="table-responsive">
-                            <table class="table custom-table m-0">
-                              <thead>
-                                <tr>
-                                  <th>Tên phòng</th>
-                                  <th>Ngày đặt</th>
-                                  <th>Bắt đầu</th>
-                                  <th>kết thúc</th>
-                                  <th>giá tiền</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {timeslots.map((item) => (
-                                  <tr>
-                                    <td>{item.roomname}</td>
-                                    <td>{item.date}</td>
-                                    <td>{item.starttime}</td>
-                                    <td>{item.endtime}</td>
-                                    <td>{item.pricetime} VNĐ</td>
-                                    <td>
-                                      <button
-                                        className="btn btn-warning btn-lg btn-radius"
-                                        onClick={() =>
-                                          deleteitem(item.idworkinghours)
-                                        }
-                                      >
-                                        Hủy
-                                      </button>
-                                    </td>
-                                  </tr>
-                                ))}
-                                <tr>
-                                  <td>&nbsp;</td>
-                                  <td>&nbsp;</td>
-
-                                  <td colspan="2">
-                                    <h5 class="text-black">
-                                      <strong>Tổng tiền</strong>
-                                    </h5>
-                                  </td>
-                                  <td>
-                                    <h5 class="text-black">
-                                      <strong>{sum} VNĐ</strong>
-                                    </h5>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="card-footer text-end">
+                      <Link
+                        to={"/infouser"}
+                        className="btn btn-primary btn-lg btn-radius m-1"
+                      >
+                        Thay đổi thay tin cá nhân
+                      </Link>
+                      <button
+                        // to={"/"}
+                        className="btn btn-success btn-lg btn-radius m-1"
+                        // onClick={addorder}
+                        onClick={changepage}
+                      >
+                        tiếp tục
+                      </button>
                     </div>
                   </div>
-                </div>
-                <div class="card-footer text-end">
-                  <Link
-                    to={"/infouser"}
-                    className="btn btn-primary btn-lg btn-radius m-1"
-                  >
-                    Thay đổi thay tin cá nhân
-                  </Link>
-                  <Link
-                    to={"/"}
-                    className="btn btn-success btn-lg btn-radius m-1"
-                    onClick={addorder}
-                  >
-                    Đặt phòng
-                  </Link>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
+          <Footer />
+        </>
+      ) : (
+        <>
+          <TopNav />
+          <div className="bodydth">
+            <div class="container">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div
+                    class="card"
+                    // style={{ height: "800px" }}
+                  >
+                    <div class="card-header text-black">Xác thực OTP</div>
+                    <div class="card-body p-0">
+                      <div
+                        class="container w-100"
+                        style={{ marginTop: "15px" }}
+                      >
+                        <div class="card text-center">
+                          <div class="card-header p-5">
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/512/421/421648.png"
+                              height="150px"
+                              width="150px"
+                              className="mb-2"
+                            />
+                            <h5 class="mb-2">XÁC THỰC OTP</h5>
+                          </div>
+                          {!pageotptwo ? (
+                            <div>
+                              <div class="row mt-2 mb-2">
+                                <div class="col-md-12">
+                                  <div class="form-check form-check-inline">
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="exampleRadios"
+                                      id="exampleRadios1"
+                                      value="option1"
+                                      // onChange={(e) => {
+                                      //   setCheck("checkmail");
+                                      //   setPhoneNumber("");
+                                      // }}
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      for="inlineRadio1"
+                                    >
+                                      Email
+                                    </label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="exampleRadios"
+                                      id="exampleRadios2"
+                                      value="option2"
+                                      // onChange={(e) => {
+                                      //   setCheck("checkphonenumber");
+                                      //   setEmail("");
+                                      // }}
+                                    />
+                                    <label
+                                      class="form-check-label"
+                                      for="inlineRadio2"
+                                    >
+                                      số điện thoại
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="mt-3 mb-5">
+                                <button
+                                  class="btn btn-success px-4 verify-btn"
+                                  onClick={changepagetwo}
+                                >
+                                  gửi mã xác thực OTP
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div>
+                              <div class="input-container d-flex flex-row justify-content-center mt-2">
+                                <input
+                                  type="text"
+                                  class="m-1 text-center form-control rounded"
+                                  maxlength="5"
+                                />
+                              </div>
+                              <small>
+                                Không nhận được mã OTP{" "}
+                                <a
+                                  href="#"
+                                  class="text-decoration-none"
+                                  onClick={changepagetwo}
+                                >
+                                  Gửi lại
+                                </a>
+                              </small>
+                              <div class="mt-3 mb-5">
+                                <button
+                                  class="btn btn-success px-4 verify-btn"
+                                  // onClick={addorder}
+                                >
+                                  Kiểm tra
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer text-end">
+                      <button
+                        // to={"/"}
+                        className="btn btn-success btn-lg btn-radius m-1"
+                        onClick={changepage}
+                      >
+                        trở lại
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Footer />
+        </>
+      )}
+    </>
   );
 };
 
