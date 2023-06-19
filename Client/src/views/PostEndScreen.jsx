@@ -35,6 +35,18 @@ const PostEndScreen = ({ navigation }) => {
   useEffect(() => {
     getListTimeSlot();
   }, []);
+
+  const dateformat = (date) => {
+    const getdate = new Date(date);
+    const day =
+      getdate.getDate() < 10 ? `0${getdate.getDate()}` : getdate.getDate();
+    const month =
+      getdate.getMonth() < 10
+        ? `0${getdate.getMonth() + 1}`
+        : getdate.getMonth() + 1;
+    const year = getdate.getFullYear();
+    return day + "/" + month + "/" + year;
+  };
   LocaleConfig.locales["fr"] = {
     monthNames: [
       "Tháng 1",
@@ -723,7 +735,7 @@ const PostEndScreen = ({ navigation }) => {
                                   alignItems: "center",
                                 }}
                               >
-                                <Text>{element.day}</Text>
+                                <Text>{dateformat(element.day)}</Text>
                               </View>
                             </TouchableOpacity>
                           );

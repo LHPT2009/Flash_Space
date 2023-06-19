@@ -222,9 +222,31 @@ const ProfileScreen = ({ route }) => {
         showsVerticalScrollIndicator={false}
         style={{ paddingTop: 50 }}
       >
-        <CardInformation user={user} />
-        <View style={styles.space} />
-        <CardSetting navigation={navigation} />
+        {JSON.stringify(user) == "{}" ? (
+          <View
+            style={{
+              width: "100%",
+              height: "100%",
+              alignItems: "center",
+              paddingTop: 150,
+            }}
+          >
+            <View
+              style={{ width: "80%", height: "100%", alignItems: "center" }}
+            >
+              <Image
+                style={styles.cardInformation_form_avatar_img}
+                source={require("../../assets/images/4957136.jpg")}
+              />
+            </View>
+          </View>
+        ) : (
+          <View>
+            <CardInformation user={user} />
+            <View style={styles.space} />
+            <CardSetting navigation={navigation} />
+          </View>
+        )}
         <View style={styles.button_box}>
           {JSON.stringify(user) == "{}" ? (
             <Button style={styles.button} onPress={() => handleLogin()}>
