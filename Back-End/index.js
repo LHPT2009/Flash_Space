@@ -75,6 +75,8 @@ app.use("/otp", OTPRoute);
 
 app.use("/singleimage", SingleImageRoute);
 
-app.listen(8000, () => {
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => {
   console.log("Server is running...");
 });

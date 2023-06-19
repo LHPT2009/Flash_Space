@@ -143,8 +143,8 @@ const AuthController = {
         });
       }
       if (req.body.check == "checkphonenumber") {
-        const accountSid = "AC890500f71af605b50b69fdcdf370f0a5";
-        const authToken = "638bf4e6f9e35560f74921e4bc050131";
+        const accountSid = process.env.ACCOUNTSID;
+        const authToken = process.env.AUTHTOKEN;
         const client = new twilio(accountSid, authToken);
 
         let send = jwt.sign(
@@ -156,8 +156,9 @@ const AuthController = {
 
         client.messages
           .create({
-            body: `Hãy bấm vào link ở này để đến trang xác thực của flashspacevn:\n
-             http://localhost:3000/confirmmail?confirm=${send}`,
+            body: `Hãy bấm vào link ở này để đến trang xác thực của flashspacevn:${
+              process.env.PORTFE ? process.env.PORTFE : `http://localhost:3000`
+            }/confirmmail?confirm=${send}`,
             to: `+84${req.body.phonenumber}`,
             from: "+14066934842",
           })
@@ -478,8 +479,8 @@ const AuthController = {
         }
       }
       if (check == "checkphonenumber") {
-        const accountSid = "AC890500f71af605b50b69fdcdf370f0a5";
-        const authToken = "638bf4e6f9e35560f74921e4bc050131";
+        const accountSid = process.env.ACCOUNTSID;
+        const authToken = process.env.AUTHTOKEN;
         const client = new twilio(accountSid, authToken);
 
         client.messages
