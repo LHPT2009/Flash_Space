@@ -65,7 +65,19 @@ const DetailAccountStaff = () => {
                     <div class="user-profile">
                       <div class="user-avatar">
                         <img
-                          src={`http://localhost:8000/singleimage/${info.avatar}`}
+                          src={`${
+                            process.env.REACT_APP_URL
+                              ? `${process.env.REACT_APP_URL}`
+                              : `http://localhost:8000`
+                          }/singleimage/${info.avatar}`}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = `${
+                              process.env.REACT_APP_URL
+                                ? `${process.env.REACT_APP_URL}`
+                                : `http://localhost:8000`
+                            }/singleimage/error.jpg`;
+                          }}
                           alt="Maxwell Admin"
                         />
                       </div>

@@ -88,7 +88,19 @@ const ListItem = () => {
                   <div class="row">
                     <div class="col-sm-6">
                       <img
-                        src={`http://localhost:8000/singleimage/${item.idroom.mainimage}`}
+                        src={`${
+                          process.env.REACT_APP_URL
+                            ? `${process.env.REACT_APP_URL}`
+                            : `http://localhost:8000`
+                        }/singleimage/${item.idroom.mainimage}`}
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null; // prevents looping
+                          currentTarget.src = `${
+                            process.env.REACT_APP_URL
+                              ? `${process.env.REACT_APP_URL}`
+                              : `http://localhost:8000`
+                          }/singleimage/error.jpg`;
+                        }}
                         class="card-img"
                         alt="..."
                         style={{ height: "300px" }}

@@ -179,7 +179,19 @@ const DetailRoom = () => {
                                     hidefocus="true"
                                   >
                                     <img
-                                      src={`http://localhost:8000/singleimage/${showImageRoom}`}
+                                      src={`${
+                                        process.env.REACT_APP_URL
+                                          ? `${process.env.REACT_APP_URL}`
+                                          : `http://localhost:8000`
+                                      }/singleimage/${showImageRoom}`}
+                                      onError={({ currentTarget }) => {
+                                        currentTarget.onerror = null; // prevents looping
+                                        currentTarget.src = `${
+                                          process.env.REACT_APP_URL
+                                            ? `${process.env.REACT_APP_URL}`
+                                            : `http://localhost:8000`
+                                        }/singleimage/error.jpg`;
+                                      }}
                                       class="img-responsive"
                                       alt=""
                                       style={{ height: "300px" }}
@@ -198,7 +210,19 @@ const DetailRoom = () => {
                                       }
                                     >
                                       <img
-                                        src={`http://localhost:8000/singleimage/${item.filename}`}
+                                        src={`${
+                                          process.env.REACT_APP_URL
+                                            ? `${process.env.REACT_APP_URL}`
+                                            : `http://localhost:8000`
+                                        }/singleimage/${item.filename}`}
+                                        onError={({ currentTarget }) => {
+                                          currentTarget.onerror = null; // prevents looping
+                                          currentTarget.src = `${
+                                            process.env.REACT_APP_URL
+                                              ? `${process.env.REACT_APP_URL}`
+                                              : `http://localhost:8000`
+                                          }/singleimage/error.jpg`;
+                                        }}
                                         alt=""
                                         style={{ height: "100px" }}
                                       />
