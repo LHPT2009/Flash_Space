@@ -19,6 +19,7 @@ import { Popover, Box, Button } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import IpAddress from "../consts/variable";
+import numeral from "numeral";
 const FavoriteScreen = ({ navigation }) => {
   const data_room_hot = [
     {
@@ -142,6 +143,9 @@ const FavoriteScreen = ({ navigation }) => {
   const [arr, setArr] = useState([]);
   console.log(arr.length);
 
+  const formatCurrency = (amount) => {
+    return numeral(amount).format("0,0 ");
+  };
   const loaddata = async () => {
     const id = await AsyncStorage.getItem("idAccount");
     await axios
@@ -280,7 +284,7 @@ const FavoriteScreen = ({ navigation }) => {
                 fontFamily: theme.FontMain,
               }}
             >
-              {house.idroom.price} VND/Giờ
+              {formatCurrency(house.idroom.price)} VND/Giờ
             </Text>
             {/* Facilities container */}
             {/* <View style={{ marginTop: 10, flexDirection: "row" }}>

@@ -1,30 +1,4 @@
-// import React from "react";
-// import { View, Button, Text, StyleSheet, TextInput } from "react-native";
-
-// const Home = ({ navigation }) => {
-//   return (
-//     <View style={styles.center}>
-//       <Text>vinh</Text>
-//       <TextInput></TextInput>
-//       <Button
-//         title="Go to About Screen"
-//         onPress={() => navigation.navigate("About")} // We added an onPress event which would navigate to the About screen
-//       />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   center: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     textAlign: "center",
-//   },
-// });
-
-// export default Home;
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -46,6 +20,7 @@ import FlashMessage from "react-native-flash-message";
 import styles from "../styles/views/home";
 import IpAddress from "../consts/variable";
 import axios from "axios";
+import numeral from "numeral";
 
 const { width, height } = Dimensions.get("window");
 const Item_room_hot_size = width;
@@ -79,54 +54,6 @@ const DATA = [
     id: "58694a0f-3da1-f-bd96-145571e29d72",
     title: "Bình thạnh",
     image: require("../../assets/images/address/2459232ecba25009d674323308f1e126.jpg"),
-  },
-];
-
-const data_room_hot = [
-  {
-    id: "1",
-    title: "a",
-    image: require("../../assets/house4.jpg"),
-  },
-  {
-    id: "2",
-    title: "a",
-    image: require("../../assets/house2.jpg"),
-  },
-  {
-    id: "3",
-    title: "a",
-    image: require("../../assets/house3.jpg"),
-  },
-  {
-    id: "4",
-    title: "a",
-    image: require("../../assets/house4.jpg"),
-  },
-  {
-    id: "5",
-    title: "a",
-    image: require("../../assets/house2.jpg"),
-  },
-  {
-    id: "6",
-    title: "a",
-    image: require("../../assets/house3.jpg"),
-  },
-  {
-    id: "7",
-    title: "a",
-    image: require("../../assets/house4.jpg"),
-  },
-  {
-    id: "8",
-    title: "a",
-    image: require("../../assets/house2.jpg"),
-  },
-  {
-    id: "9",
-    title: "a",
-    image: require("../../assets/house3.jpg"),
   },
 ];
 
@@ -291,6 +218,9 @@ const Trend_Search = () => {
   );
 };
 
+const formatCurrency = (amount) => {
+  return numeral(amount).format("0,0 ");
+};
 const Item_room_hot = ({ item, index, scrollX }) => {
   return (
     <View>
@@ -317,7 +247,10 @@ const Item_room_hot = ({ item, index, scrollX }) => {
         <View style={styles.room_hot_content_items}>
           <View style={styles.room_hot_content_item_image}>
             <ImageBackground
-              source={item.image}
+              source={{
+                uri:
+                  "http://" + IpAddress + ":8000/singleimage/" + item.mainimage,
+              }}
               resizeMode="cover"
               style={styles.images__room__hot__imageStyle}
             >
@@ -334,22 +267,29 @@ const Item_room_hot = ({ item, index, scrollX }) => {
           <View style={styles.room_hot_content_item_title}>
             <View style={styles.room_hot_content_item_title_category}>
               <Text style={styles.room_hot_content_item_title_category_text}>
-                Phòng học, họp
+                {item.idcareer.careername}
               </Text>
             </View>
             <View style={styles.room_hot_content_item_title_name}>
               <Text style={styles.room_hot_content_item_title_name_text}>
-                Phòng đầy dủ tiện nghi quận Bình Thạnh
+                {item.subject}
               </Text>
             </View>
             <View style={styles.room_hot_content_item_title_price}>
               <Text style={styles.room_hot_content_item_title_price_text}>
-                200.000 VND/giờ
+                {formatCurrency(item.price)}
+                VND/giờ
               </Text>
             </View>
             <View style={styles.room_hot_content_item_title_address}>
               <Text style={styles.room_hot_content_item_title_address_text}>
-                50/4 Đường Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức
+                {item.housenumberstreetname +
+                  "," +
+                  item.idward.wardname +
+                  "," +
+                  item.iddistrict.districtname +
+                  "," +
+                  item.idprovince.provincename}
               </Text>
             </View>
           </View>
@@ -379,7 +319,10 @@ const Item_room_accreditation = ({ item, numColumn }) => {
       >
         <View style={styles.room_accreditation_content_item_image}>
           <ImageBackground
-            source={item.image}
+            source={{
+              uri:
+                "http://" + IpAddress + ":8000/singleimage/" + item.mainimage,
+            }}
             resizeMode="cover"
             style={styles.images__room__accreditation__imageStyle}
           >
@@ -398,28 +341,35 @@ const Item_room_accreditation = ({ item, numColumn }) => {
             <Text
               style={styles.room_accreditation_content_item_title_category_text}
             >
-              Phòng học, họp
+              {item.idcareer.careername}
             </Text>
           </View>
           <View style={styles.room_accreditation_content_item_title_name}>
             <Text
               style={styles.room_accreditation_content_item_title_name_text}
             >
-              Phòng đầy dủ tiện nghi quận Bình Thạnh
+              {item.subject}
             </Text>
           </View>
           <View style={styles.room_accreditation_content_item_title_price}>
             <Text
               style={styles.room_accreditation_content_item_title_price_text}
             >
-              200.000 VND/giờ
+              {formatCurrency(item.price)}
+              VND/giờ
             </Text>
           </View>
           <View style={styles.room_accreditation_content_item_title_address}>
             <Text
               style={styles.room_accreditation_content_item_title_address_text}
             >
-              50/4 Đường Trương Văn Thành, p.Hiệp Phú, tp.Thủ Đức
+              {item.housenumberstreetname +
+                "," +
+                item.idward.wardname +
+                "," +
+                item.iddistrict.districtname +
+                "," +
+                item.idprovince.provincename}
             </Text>
           </View>
         </View>
@@ -428,12 +378,13 @@ const Item_room_accreditation = ({ item, numColumn }) => {
   );
 };
 
-const Room_hot = () => {
+const Room_hot = (prors) => {
+  const dt = prors.roomData;
   const scrollX = React.useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.room_hot}>
       <Text style={styles.text}>
-        Phòng nổi bật{" "}
+        Phòng ngẫu nhiên{" "}
         <MaterialIconsIcon
           name="verified-user"
           style={styles.icon_room_hot}
@@ -444,7 +395,7 @@ const Room_hot = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.room_hot_flatlist}
-          data={data_room_hot}
+          data={dt}
           renderItem={({ item, index }) => (
             <Item_room_hot item={item} index={index} scrollX={scrollX} />
           )}
@@ -473,12 +424,13 @@ const Room_hot = () => {
   );
 };
 
-const Room_accreditation = () => {
+const Room_accreditation = (prors) => {
+  const dt = prors.roomData;
   const numColumn = 2;
   return (
     <View style={styles.room_accreditation}>
       <Text style={styles.text}>
-        Phòng nhiều lượt xem{" "}
+        Phòng nhiều lượt đặt{" "}
         <MaterialIconsIcon
           name="visibility"
           style={styles.icon_room_accreditation}
@@ -489,7 +441,7 @@ const Room_accreditation = () => {
           showsHorizontalScrollIndicator={false}
           scrollEnabled={false}
           style={styles.room_accreditation_flatlist}
-          data={data_room_hot}
+          data={dt}
           renderItem={({ item }) => (
             <Item_room_accreditation item={item} numColumn={numColumn} />
           )}
@@ -514,7 +466,19 @@ const Room_accreditation = () => {
 };
 
 function Home(props) {
+  const [roomData, setRoomData] = useState([]);
   const { navigate } = props.navigation;
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    await axios.get("http://" + IpAddress + ":8000/room/").then((res) => {
+      console.log(res.data);
+      setRoomData(res.data);
+    });
+  };
+
   return (
     <View style={styles.container}>
       {/* <SafeAreaView>
@@ -537,9 +501,15 @@ function Home(props) {
         </View>
         <Text style={styles.text}>Xu hướng tìm kiếm</Text>
         <Trend_Search />
-        <Room_hot />
+        {roomData.length != 0 ? <Room_hot roomData={roomData} /> : <View />}
+
         <View style={styles.space}></View>
-        <Room_accreditation />
+        {roomData.length != 0 ? (
+          <Room_accreditation roomData={roomData} />
+        ) : (
+          <View />
+        )}
+
         <View style={styles.bottom}></View>
       </ScrollView>
     </View>

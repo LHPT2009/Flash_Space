@@ -40,6 +40,10 @@ const CheckPostScreen = ({ navigation }) => {
 
   const CardGrid = ({ house }) => {
     const { informations } = useContext(InformationAddRoomContext);
+
+    const endDate = new Date(house.endtime);
+    const nowDate = new Date();
+    console.log(endDate - nowDate);
     const dateformat = (date) => {
       const getdate = new Date(date);
       const day =
@@ -186,7 +190,28 @@ const CheckPostScreen = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              {house.post == 0 ? (
+              {house.post == 0 && endDate - nowDate <= 0 ? (
+                <TouchableOpacity
+                  style={{
+                    width: "70%",
+                    height: "75%",
+                    backgroundColor: COLORS.gray,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 13,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      fontSize: 14,
+                      fontFamily: theme.FontMain,
+                    }}
+                  >
+                    Hết hạn
+                  </Text>
+                </TouchableOpacity>
+              ) : house.post == 0 ? (
                 <TouchableOpacity
                   style={{
                     width: "70%",
@@ -205,6 +230,27 @@ const CheckPostScreen = ({ navigation }) => {
                     }}
                   >
                     Dùng
+                  </Text>
+                </TouchableOpacity>
+              ) : endDate - nowDate <= 0 ? (
+                <TouchableOpacity
+                  style={{
+                    width: "70%",
+                    height: "75%",
+                    backgroundColor: COLORS.gray,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 13,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      fontSize: 14,
+                      fontFamily: theme.FontMain,
+                    }}
+                  >
+                    Hết hạn
                   </Text>
                 </TouchableOpacity>
               ) : (

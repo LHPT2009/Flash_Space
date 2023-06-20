@@ -277,6 +277,7 @@ const styles = StyleSheet.create({
   room_hot_content_item_title: {
     width: "100%",
     height: "45%",
+    paddingTop: 5,
   },
   room_hot_content_item_title_category: {
     width: "100%",

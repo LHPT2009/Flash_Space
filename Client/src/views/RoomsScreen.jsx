@@ -30,6 +30,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const { width } = Dimensions.get("screen");
 import houses from "../consts/houses";
 import theme from "../styles/theme";
+import numeral from "numeral";
 
 const RoomsScreen = ({ navigation }) => {
   const categoryList = ["Lưới", "Dọc", "Ngang"];
@@ -57,11 +58,18 @@ const RoomsScreen = ({ navigation }) => {
   const [searchProvince, setSearchProvince] = useState();
 
   useEffect(() => {
-    axios.get("http://" + IpAddress + ":8000/room/").then((res) => {
+    loadData();
+  }, []);
+
+  const formatCurrency = (amount) => {
+    return numeral(amount).format("0,0 ");
+  };
+  const loadData = async () => {
+    await axios.get("http://" + IpAddress + ":8000/room/").then((res) => {
       setRoomData(res.data);
       setRoomFilterData(res.data);
     });
-  }, []);
+  };
 
   const applyFilters = () => {
     let updatedList = roomData;
@@ -311,7 +319,7 @@ const RoomsScreen = ({ navigation }) => {
                   fontFamily: theme.FontMain,
                 }}
               >
-                {house.price} VND/Giờ
+                {formatCurrency(house.price)} VND/Giờ
               </Text>
             </View>
           </View>
@@ -390,7 +398,7 @@ const RoomsScreen = ({ navigation }) => {
                 fontFamily: theme.FontMain,
               }}
             >
-              {house.price} VND/Giờ
+              {formatCurrency(house.price)} VND/Giờ
             </Text>
             {/* Facilities container */}
             <View style={{ marginTop: 10, flexDirection: "row" }}>

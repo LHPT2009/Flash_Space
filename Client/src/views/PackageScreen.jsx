@@ -14,6 +14,7 @@ import COLORS from "../consts/colors";
 import theme from "../styles/theme";
 import { useEffect, useState } from "react";
 const { width } = Dimensions.get("screen");
+import numeral from "numeral";
 
 const PackageScreen = ({ navigation }) => {
   const [roomData, setRoomData] = useState([]);
@@ -21,7 +22,9 @@ const PackageScreen = ({ navigation }) => {
   useEffect(() => {
     loadData();
   }, []);
-
+  const formatCurrency = (amount) => {
+    return numeral(amount).format("0,0 ");
+  };
   const loadData = async () => {
     await axios
       .get("http://" + IpAddress + ":8000/servicepack/")
@@ -29,17 +32,7 @@ const PackageScreen = ({ navigation }) => {
         setRoomData(res.data);
       });
   };
-  // const roomData = [
-  //   { id: "1", name: "aaa", price: 1000, time: "1thang" },
-  //   { id: "2", name: "baba", price: 1000, time: "1thang" },
-  //   { id: "3", name: "caacaca", price: 1000, time: "1thang" },
-  //   { id: "4", name: "aaa", price: 1000, time: "1thang" },
-  //   { id: "5", name: "baba", price: 1000, time: "1thang" },
-  //   { id: "6", name: "caacaca", price: 1000, time: "1thang" },
-  //   { id: "7", name: "aaa", price: 1000, time: "1thang" },
-  //   { id: "8", name: "baba", price: 1000, time: "1thang" },
-  //   { id: "9", name: "caacaca", price: 1000, time: "1thang" },
-  // ];
+
   const CardGrid = ({ house }) => {
     return (
       <Pressable activeOpacity={0.8}>
@@ -129,7 +122,7 @@ const PackageScreen = ({ navigation }) => {
                 }}
               >
                 {"  "}
-                {house.price} VNĐ
+                {formatCurrency(house.price)} VNĐ
               </Text>
             </View>
             <View

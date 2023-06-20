@@ -7,6 +7,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import IpAddress from "../consts/variable";
 import AlertBuyPackage from "../components/AlertBuyPackage";
+import numeral from "numeral";
 
 const DetailPackageScreen = ({ navigation, route }) => {
   const item = route.params;
@@ -28,6 +29,9 @@ const DetailPackageScreen = ({ navigation, route }) => {
       .then((res) => {
         setDetail(res.data);
       });
+  };
+  const formatCurrency = (amount) => {
+    return numeral(amount).format("0,0 ");
   };
   const date = new Date();
   const dateformat = (date) => {
@@ -438,7 +442,7 @@ const DetailPackageScreen = ({ navigation, route }) => {
                     paddingLeft: 10,
                   }}
                 >
-                  {item.price}
+                  {formatCurrency(item.price)}
                 </Text>
                 <Text
                   style={{
