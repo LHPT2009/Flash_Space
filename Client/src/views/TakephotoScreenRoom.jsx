@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { resolveAssetSource } from "react-native/Libraries/Image/resolveAssetSource";
 import Constants from "expo-constants";
 import { HStack, Spinner } from "native-base";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { showMessage } from "react-native-flash-message";
 import * as Location from "expo-location";
+import * as FileSystem from "expo-file-system";
+import valueImage from "../consts/valueImage";
 
 import ButtonCamera from "../components/ButtonCamera";
 import COLORS from "../consts/colors";
@@ -21,7 +24,12 @@ export default function TakephotoScreenRoom({ navigation }) {
   const [location, setLocation] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
-  console.log(image);
+  const [percentSafe, setPercentSafe] = useState(0);
+  const [percentSuggestive, setPercentSuggestive] = useState(0);
+  const [percentExplicit, setPercentExplicit] = useState(0);
+  const [percentDrug, setPercentDrug] = useState(0);
+  const [percentGore, setPercentGore] = useState(0);
+
   const cameraRef = useRef(null);
   const { informations } = useContext(InformationAddRoomContext);
   useEffect(() => {
@@ -46,13 +54,100 @@ export default function TakephotoScreenRoom({ navigation }) {
     })();
   }, []);
 
+  const calculatePercentage = (num, total) => {
+    return (num / total) * 100;
+  };
+
+  const checkImageContent = async (imageUri) => {
+    const base64Data = await FileSystem.readAsStringAsync(imageUri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    const IMAGE_BYTES_STRING = base64Data;
+
+    const raw = JSON.stringify({
+      user_app_id: {
+        user_id: "xr8wnea3q40f",
+        app_id: "0865562385",
+      },
+      inputs: [
+        {
+          data: {
+            image: {
+              base64: IMAGE_BYTES_STRING,
+            },
+          },
+        },
+      ],
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Key " + "85e7fda6604545d8929b8077a1803faf",
+      },
+      body: raw,
+    };
+
+    await fetch(
+      `https://api.clarifai.com/v2/workflows/workflow-ce9e39/results`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        const db = JSON.parse(result);
+        const list = db.results[0].outputs[0].data.concepts;
+        list.map((item) => {
+          if (item.name == "safe") {
+            setPercentSafe(calculatePercentage(item.value, valueImage.safe));
+          } else if (item.name == "suggestive") {
+            setPercentSuggestive(
+              calculatePercentage(item.value, valueImage.suggestive)
+            );
+          } else if (item.name == "drug") {
+            setPercentDrug(calculatePercentage(item.value, valueImage.drug));
+          } else if (item.name == "gore") {
+            setPercentGore(calculatePercentage(item.value, valueImage.gore));
+          } else {
+            setPercentExplicit(
+              calculatePercentage(item.value, valueImage.explicit)
+            );
+          }
+        });
+      })
+      .catch((error) => console.log("error", error));
+  };
+
   const takePicture = async () => {
     if (cameraRef) {
       try {
         setSpinner(true);
         const data = await cameraRef.current.takePictureAsync();
-        console.log(data);
-        setImage(data);
+
+        await checkImageContent(data.uri);
+
+        if (
+          percentSafe > valueImage.levelsafe &&
+          percentSuggestive < valueImage.levelsuggestive &&
+          percentDrug < valueImage.leveldrug &&
+          percentExplicit < valueImage.levelexplicit &&
+          percentGore < valueImage.levelgore
+        ) {
+          showMessage({
+            message: "Hình ảnh an toàn  ✔",
+            description: "",
+            type: "success",
+          });
+          setImage(data);
+        } else {
+          showMessage({
+            message: "Hình ảnh vi phạm tiêu chuẩn hệ thống  ✔",
+            type: "danger",
+          });
+          setSpinner(false);
+          setImage(null);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -78,17 +173,17 @@ export default function TakephotoScreenRoom({ navigation }) {
           creationTime: asset.creationTime,
           duration: asset.duration,
         };
-        console.log(asset);
+        // console.log(asset);
 
         if (informations.multiImage == undefined) {
           const arrimage = [imageUpload];
-          console.log(arrimage);
+
           Object.assign(informations, {
             multiImage: arrimage,
           });
         } else {
           const arrimage = [...informations.multiImage, imageUpload];
-          console.log(arrimage);
+
           Object.assign(informations, {
             multiImage: arrimage,
           });

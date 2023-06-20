@@ -25,6 +25,7 @@ import IpAddress from "../consts/variable";
 import ButtonTimeslot from "../components/ButtonTimeslot";
 import { ListTimeSlotContext } from "../context/ListTimeSlotContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import numeral from "numeral";
 
 const { width } = Dimensions.get("screen");
 
@@ -59,6 +60,9 @@ const DetailsScreen = ({ navigation, route }) => {
     loadlistrate();
   }, []);
 
+  const formatCurrency = (amount) => {
+    return numeral(amount).format("0,0 ");
+  };
   const [selected, setSelected] = useState({});
   const [selectedDay, setSelectedDay] = useState("");
   const [listrate, setListRate] = useState([]);
@@ -622,7 +626,7 @@ const DetailsScreen = ({ navigation, route }) => {
           <Text
             style={{ color: COLORS.blue, fontWeight: "bold", fontSize: 18 }}
           >
-            {house.price} VNĐ
+            {formatCurrency(house.price)} VNĐ
           </Text>
           <Text
             style={{
